@@ -1,0 +1,110 @@
+% VUT FIT MITAI
+% MSZ 2021/2022
+% Author: Vladimir Dusek
+% Login: xdusek27
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[english,czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[justification=centering]{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{csquotes}
+\usepackage[bottom]{footmisc}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{hhline}
+\usepackage{pdfpages}
+
+\newtheorem{theorem}{Theorem}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+    \hskip -\arraycolsep
+    \let\@ifnextchar\new@ifnextchar
+    \array{#1}}
+\makeatother
+
+\MakeOuterQuote{"}
+
+\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks,unicode]{hyperref}
+
+% Page dimensions
+\geometry
+{
+    top = 3cm,
+    bottom = 3cm,
+    left = 3cm,
+    right = 3cm
+    % text = {17cm, 24cm}
+}
+
+% Path for images
+\graphicspath{{images/}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+
+        % {\Huge\textsc{Vysoké učení technické v~Brně}} \\
+        % \bigskip
+        % {\huge\textsc{Fakulta informačních technologií}} \\
+
+        \begin{figure}[htb]
+            \centering
+            \includegraphics[width=0.85\hsize]{fitlogo.pdf}
+        \end{figure}
+
+        \vspace{\stretch{0.382}}
+
+        {\Huge Vypracované otázky k MSZ pro rok 2022} \\
+        \bigskip
+        \bigskip
+        {\LARGE Specializace NNET}
+
+        \vspace{\stretch{0.618}}
+    \end{center}
+
+    {\Large \today \hfill Vladimír Dušek, xdusek27}
+
+\end{titlepage}
+
+% \begin{center}
+%     {\Huge Game Theory (THE)} \\ [1.25em]
+%     {\huge Brno University of Technology} \\ [1.25em]
+%     {\huge Strategie sobeckého těžení v~Bitcoinu} \\ [1.6em]
+%     {\Large \textit{Dušek Vladimír - xdusek27@stud.fit.vutbr.cz}} \\ [0.7em]
+%     {\Large \textit{\today}}
+%  \end{center}
+
+\includepdf[pages=-]{statnicovy_otazky_2022_nnet.pdf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{msz-47}
+\newpage
+
+\input{msz-48}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
