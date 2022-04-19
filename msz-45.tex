@@ -7,6 +7,8 @@
 
 \chapter{Hledání minimální kostry obyčejného grafu (pojmy, stromy a kostry, Kruskalův algoritmus, Primův algoritmus).}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Metadata}
 
 \begin{itemize}
@@ -22,6 +24,8 @@
         \item 2020-10-29
     \end{itemize}
 \end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Úvod a kontext}
 
@@ -56,18 +60,163 @@
 
 \paragraph*{Strom} Graf, který je souvislý a neobsahuje žádnou kružnici, se nazývá strom.
 
-\paragraph*{Kostra} Strom, který je podgraf souvislého grafu na množině všech jeho vrcholů, se nazývá kostra.
+\paragraph*{Kostra} Strom, který tvoří podgraf souvislého grafu na množině všech jeho vrcholů, se nazývá kostra (\textit{spanning tree}).
 
-\paragraph*{Minimální kostra} Nechť $G = (V, E)$ je souvislý neorientovaný graf s váhovou funkcí $w : E \mapsto \mathbb{R}$. Minimální kostra je souvislý, acyklický graf $G' = (V, E')$, kde $E' \subseteq E$ a $$w(E') = \sum_{(u,v) \in T} w(u, v)$$ je minimální.
+\paragraph*{Minimální kostra} Nechť $G = (V, E)$ je souvislý neorientovaný graf s váhovou funkcí $w : E \mapsto \mathbb{R}$. Minimální kostra (\textit{MST, minimum spanning tree}) je strom $G' = (V, E')$, kde $E' \subseteq E$ a $$w(E') = \sum_{(u,v) \in T} w(u, v)$$ je minimální ze všech možných alternativních koster.
+
+% todo
+% reprezentace grafu
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Generický algoritmus}
 
-\todo{todo}
+Hledání minimální kostry je problém, který lze řešit algoritmy, které spadají do kategorie tzv. hladových (\textit{greedy}) deterministických algoritmů. Spočívají v tom, že průběžně odhadují kostru přidáváním dalších hran a nikdy se nemusejí vracet (neprovádí se \textit{backtracking}).
+
+\bigskip
+
+\noindent Generický algoritmus tvoří jakousi základní kostru pro další, už konkrétní, algoritmy.
+
+\paragraph*{Řez} Nechť $G = (V, E)$ je graf. Řez grafu $G$ je dvojice $(S, V - S)$, kde $\emptyset \subseteq S \subseteq V$.
+
+\paragraph*{Křížení} Hrana $(u, v) \in E$ kříží řez $(S, V - S)$, pokud jeden její konec je v $S$ a druhý v $V - S$.
+
+\paragraph*{Respektování} Nechť $A \subseteq E$ je množina hran. Řez $(S, V - S)$ respektuje množinu hran $A$, pokud žádná hrana v $A$ nekříží řez $(S, V - S)$.
+
+\paragraph*{Lehkost} Nechť $(S, V - S)$ je řez a $B$ je množina hran, která ho kříží. Hrana z množiny $B$ s nejmenší hodnotou se nazývá lehká.
+
+\paragraph*{Bezpečnost} Nechť $G = (V, E)$ je souvislý neorientovaný graf s reálnou váhovou funkcí $w$. Nechť $A \subseteq E$ je součástí nějaké minimální kostry $G$. Nechť $(S, V - S)$ je řez, který respektuje $A$. Nechť $(u, v)$ je lehká hrana křížící $(S, V - S)$. Pak hrana $(u, v)$ je bezpečná pro $A$.
+
+\bigskip\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, caption={Generický algoritmus. Před každou iterací algoritmu je množina $A$ podmnožinou nějaké minimální kostry. Hrana $(u,v) \in E$ je bezpečná pro $A$, pokud $A \cup \{(u, v)\}$ je podmnožinou nějaké minimální kostry.}]
+def generic_mst(G):
+    # A je mnozina hran rozpracovane minimalni kostry
+    A = {}
+    while netvori_kostru(A, G):
+        for edge in G.E:
+            if je_bezpecna(A, edge):
+                A += {edge}
+    return A
+\end{lstlisting}
+\end{minipage}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-6.pdf}
+    \caption{Příklad, část 1.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-7.pdf}
+    \caption{Příklad, část 2.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-8.pdf}
+    \caption{Příklad, část 3.}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Kruskalův algoritmus}
 
-\todo{todo}
+Kruskalův a Primův algoritmus se liší v tom, jakým způsobem vybírají bezpečnou hranu. Kruskalův algoritmus nahlíží na $A$ jako na les a hledá hranu s nejmenším ohodnocením, která spojuje stromy v lese. Na konci je $A$ jeden strom.
 
-\section{Primův-Janíkův algoritmus}
+\bigskip\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, caption={Kruskalův algoritmus. Funkce \texttt{make\_set(v)} vytvoří množinu obsahující $v$, \texttt{find\_set} vrátí reprezentanta množiny $v$, \texttt{union(u ,v)} sjednotí dvě množiny obsahující $u$ a $v$.}]
+def kruskal_mst(G):
+    # A je mnozina hran rozpracovane minimalni kostry
+    A = {}
 
-\todo{todo}
+    # inicializace, kazdy uzel je ve sve mnozine
+    for v in G.V:
+        make_set(v)
+
+    # seradit vzestupne podle w
+    E = sort(G.E, G.w)
+
+    for (u, v) in E:
+        if find_set(u) != find_set(v):
+            A += {(u, v)}
+            union(u, v)
+
+    return A
+\end{lstlisting}
+\end{minipage}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-11.pdf}
+    \caption{Příklad, část 1.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-12.pdf}
+    \caption{Příklad, část 2.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-13.pdf}
+    \caption{Příklad, část 3.}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Primův-Jarníkův algoritmus}
+
+Primův algoritmus buduje tzv. $A$ strom. Má zadaný určitý uzel, ze kterého hledá nejbližší další uzel, který by připojil. A pak další a další.
+
+\bigskip\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, caption={Primův algoritmus.}]
+def prim_mst(G, r):
+    # r je vychozi uzel
+
+    for u in G.V:
+        # v poli key je ulozeno, kolik stoji prechod do vrcholu na indexu
+        key[u] = INF
+        # pole predchudcu, reprezentace mnoziny A
+        pi[u] = NULL
+
+    key[r] = 0
+    # Q je prioritni fronta, prvek s mensi hodnotou v poli key ma prednost
+    Q = Queue(G.V)
+
+    for u in Q.priority_deque():
+        # pro vsechny jeho sousedy (Adj je seznam sousedu)
+        for v in Adj[u]:
+            # pokud je levnejsi cesta a jeste to neni prozkoumany uzel
+            if v in Q and w(u, v) < key(v):
+                pi[v] = u
+                key[v] = w(u, v)
+
+    return pi
+\end{lstlisting}
+\end{minipage}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-16.pdf}
+    \caption{Příklad, část 1.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-17.pdf}
+    \caption{Příklad, část 2.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-18.pdf}
+    \caption{Příklad, část 3.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-19.pdf}
+    \caption{Příklad, část 4.}
+\end{figure}

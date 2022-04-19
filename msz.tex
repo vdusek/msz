@@ -27,7 +27,6 @@
 \usepackage{pdfpages}
 \usepackage{mathtools}
 
-
 \newtheorem{theorem}{Theorem}
 
 \makeatletter
@@ -53,6 +52,135 @@
 
 % Path for figures
 \graphicspath{{figures/}}
+
+% Listing styles colors
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+% Listing style for JSON
+\lstdefinelanguage{json}{
+    basicstyle=\small\ttfamily,
+    numbers=none,
+    showstringspaces=false,
+    breaklines=true,
+    frame=none,
+    backgroundcolor=\color{background},
+    morecomment=[l]{//}, % l is for line comment
+    literate=%
+        % {0}{{{\color{numb}0}}}{1}
+        % {1}{{{\color{numb}1}}}{1}
+        % {2}{{{\color{numb}2}}}{1}
+        % {3}{{{\color{numb}3}}}{1}
+        % {4}{{{\color{numb}4}}}{1}
+        % {5}{{{\color{numb}5}}}{1}
+        % {6}{{{\color{numb}6}}}{1}
+        % {7}{{{\color{numb}7}}}{1}
+        % {8}{{{\color{numb}8}}}{1}
+        % {9}{{{\color{numb}9}}}{1}
+        {:}{{{\color{punct}{:}}}}{1}
+        {,}{{{\color{punct}{,}}}}{1}
+        {\{}{{{\color{delim}{\{}}}}{1}
+        {\}}{{{\color{delim}{\}}}}}{1}
+        {[}{{{\color{delim}{[}}}}{1}
+        {]}{{{\color{delim}{]}}}}{1}
+        {á}{{\'a}}1
+        {í}{{\'i}}1
+        {é}{{\'e}}1
+        {ý}{{\'y}}1
+        {ú}{{\'u}}1
+        {ó}{{\'o}}1
+        {ě}{{\v{e}}}1
+        {š}{{\v{s}}}1
+        {č}{{\v{c}}}1
+        {ř}{{\v{r}}}1
+        {ž}{{\v{z}}}1
+        {ď}{{\v{d}}}1
+        {ť}{{\v{t}}}1
+        {ň}{{\v{n}}}1
+        {ů}{{\r{u}}}1
+        {Á}{{\'A}}1
+        {Í}{{\'I}}1
+        {É}{{\'E}}1
+        {Ý}{{\'Y}}1
+        {Ú}{{\'U}}1
+        {Ó}{{\'O}}1
+        {Ě}{{\v{E}}}1
+        {Š}{{\v{S}}}1
+        {Č}{{\v{C}}}1
+        {Ř}{{\v{R}}}1
+        {Ž}{{\v{Z}}}1
+        {Ď}{{\v{D}}}1
+        {Ť}{{\v{T}}}1
+        {Ň}{{\v{N}}}1
+        {Ů}{{\r{U}}}1
+}
+
+% Listing style for Bash
+\lstdefinelanguage{bash}{
+    basicstyle=\small\ttfamily,
+    numbers=none,
+    showstringspaces=false,
+    breaklines=true,
+    frame=none,
+    backgroundcolor=\color{background},
+    showlines=true
+}
+
+% Listing style for Python
+\lstdefinelanguage{python}{
+    basicstyle=\small\ttfamily,
+    numbers=left,
+    showstringspaces=false,
+    keywordstyle=\color{numb},
+    % list of keywords
+    morekeywords={
+        import,
+        if,
+        while,
+        for,
+        then,
+        else,
+        def,
+        True,
+        self
+    },
+    sensitive=false, % keywords are not case-sensitive
+    morestring=[b]" % defines that strings are enclosed in double quotes
+    breaklines=true,
+    frame=none,
+    backgroundcolor=\color{background},
+    morecomment=[l]{\#}, % l is for line comment
+    literate=%
+        {:}{{{\color{delim}{:}}}}{1}
+        {,}{{{\color{delim}{,}}}}{1}
+        {(}{{{\color{delim}{(}}}}{1}
+        {)}{{{\color{delim}{)}}}}{1}
+        {\{}{{{\color{delim}{\{}}}}{1}
+        {\}}{{{\color{delim}{\}}}}}{1}
+}
+
+% Listing style for YAML
+\lstdefinelanguage{yaml}{
+    keywords={true,false,null,y,n},
+    keywordstyle=\color{darkgray}\bfseries,
+    basicstyle=\YAMLkeystyle,                                 % assuming a key comes first
+    sensitive=false,
+    comment=[l]{\#},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\YAMLvaluestyle\ttfamily,
+    moredelim=[l][\color{orange}]{\&},
+    moredelim=[l][\color{magenta}]{*},
+    moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
+    morestring=[b]',
+    morestring=[b]",
+    literate =    {---}{{\ProcessThreeDashes}}3
+                  {>}{{\textcolor{red}\textgreater}}1
+                  {|}{{\textcolor{red}\textbar}}1
+                  {\ -\ }{{\mdseries\ -\ }}3,
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
