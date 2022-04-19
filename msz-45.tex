@@ -1,0 +1,73 @@
+% VUT FIT MITAI
+% MSZ 2021/2022
+% Author: Vladimir Dusek
+% Login: xdusek27
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Hledání minimální kostry obyčejného grafu (pojmy, stromy a kostry, Kruskalův algoritmus, Primův algoritmus).}
+
+\section{Metadata}
+
+\begin{itemize}
+    \item Předmět: Grafové algoritmy (GAL)
+    \item Přednáška:
+    \begin{itemize}
+        \item 5) Stromy, minimální kostry, Jarníkův a Borůvkův algoritmus.
+        \item 6) Růst minimální kostry, algoritmy Kruskala a Prima.
+    \end{itemize}
+    \item Záznam:
+    \begin{itemize}
+        \item 2020-10-22
+        \item 2020-10-29
+    \end{itemize}
+\end{itemize}
+
+\section{Úvod a kontext}
+
+\paragraph*{Orientovaný graf} Orientovaný graf je dvojice $G = (V, E)$, kde $V$ je konečná množina uzlů a $E \subseteq V \times V$ je množina hran.
+
+\paragraph*{Neorientovaný graf} Neorientovaný graf je dvojice $G = (V, E)$, kde $V$ je konečná množina uzlů a $E \subseteq {V \choose 2}$ je množina hran. (Hrana je tedy dvouprvková množina, avšak běžně se držíme stejného značení jako u orientovaných grafů a používáme dvojici.)
+
+\paragraph*{Ohodnocený graf} Ohodnocený graf je takový graf, jehož každá hrana má přiřazenou nějakou hodnotu, typicky definovanou pomocí váhové funkce $w : E \mapsto \mathbb{R}$.
+
+\paragraph*{Podgraf} Graf $G' = (V', E')$ je podgraf grafu $G = (V, E)$ jestliže $V' \subseteq V$ a $E' \subseteq E$.
+
+\paragraph*{Sled} Posloupnost uzlů $\langle v_0, v_1, \dots, v_k \rangle$, kde $(v_{i-1}, v_i) \in E$ pro $i = 1, \dots, k$ se nazývá sled délky $k$ z $v_0$ do $v_k$.
+
+\paragraph*{Uzavřený sled} Sled $\langle v_0, v_1, \dots, v_k \rangle$ se nazývá uzavřený, pokud existuje hrana $(v_0, v_k)$.
+
+\paragraph*{Dosažitelnost} Pokud existuje sled $s$ z uzlu $u$ do uzlu $v$, říkáme, že $v$ je dosažitelný z $u$ sledem $s$, značeno $u \xRightarrow{\text{s}} v$.
+
+\paragraph*{Tah} Tah je sled ve kterém se neopakují hrany.
+
+\paragraph*{Cesta} Cesta je sled ve kterém se neopakují uzly.
+
+\paragraph*{Souvislý graf} Neorientovaný graf se nazývá souvislý, pokud mezi libovolnými dvěma uzly existuje cesta.
+
+\paragraph*{Kružnice} Uzavřená cesta se nazývá kružnice.
+
+\paragraph*{Cyklus} Orientovaná kružnice se nazývá cyklus (první a poslední uzel je shodný).
+
+% todo
+% \paragraph*{Prostý graf} Orientovaný graf se nazývá prostý, pokud...
+
+\paragraph*{Acyklický graf} Acyklický graf je graf bez cyklů.
+
+\paragraph*{Strom} Graf, který je souvislý a neobsahuje žádnou kružnici, se nazývá strom.
+
+\paragraph*{Kostra} Strom, který je podgraf souvislého grafu na množině všech jeho vrcholů, se nazývá kostra.
+
+\paragraph*{Minimální kostra} Nechť $G = (V, E)$ je souvislý neorientovaný graf s váhovou funkcí $w : E \mapsto \mathbb{R}$. Minimální kostra je souvislý, acyklický graf $G' = (V, E')$, kde $E' \subseteq E$ a $$w(E') = \sum_{(u,v) \in T} w(u, v)$$ je minimální.
+
+\section{Generický algoritmus}
+
+\todo{todo}
+
+\section{Kruskalův algoritmus}
+
+\todo{todo}
+
+\section{Primův-Janíkův algoritmus}
+
+\todo{todo}
