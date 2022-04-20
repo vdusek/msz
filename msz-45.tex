@@ -63,7 +63,7 @@
 
 \paragraph*{Minimální kostra} Nechť $G = (V, E)$ je souvislý neorientovaný graf s váhovou funkcí $w : E \mapsto \mathbb{R}$. Minimální kostra (\textit{MST, minimum spanning tree}) je strom $G' = (V, E')$, kde $E' \subseteq E$ a $$w(E') = \sum_{(u,v) \in T} w(u, v)$$ je minimální ze všech možných alternativních koster.
 
-\paragraph*{Seznam sousedů} Seznam sousedů (Adj, \textit{adjacency list}) je reprezentace grafu v paměti. Jde o preferovanou variantu pro řídké grafy~--~kde $m << n^2$. Pro každý uzel máme definovaný seznam jeho sousedů.
+\paragraph*{Seznam sousedů} Seznam sousedů (\textit{Adj}, \textit{adjacency list}) je reprezentace grafu v paměti. Jde o preferovanou variantu pro řídké grafy~--~kde $m << n^2$. Pro každý uzel máme definovaný seznam jeho sousedů.
 
 \paragraph*{Matice sousednosti} Matice sousednosti (\textit{adjacency matrix}) je reprezentace grafu v paměti. Jde o preferovanou variantu pro husté grafy~--~kde $m$ je skoro $n^2$.
 
@@ -77,11 +77,7 @@
 
 \section{Generický algoritmus}
 
-Hledání minimální kostry je problém, který lze řešit algoritmy, které spadají do kategorie tzv. hladových (\textit{greedy}) deterministických algoritmů. Spočívají v tom, že průběžně odhadují kostru přidáváním dalších hran a nikdy se nemusejí vracet (neprovádí se \textit{backtracking}).
-
-\bigskip
-
-\noindent Generický algoritmus tvoří jakousi základní kostru pro další, už konkrétní, algoritmy.
+Hledání minimální kostry je problém, který lze řešit algoritmy, které spadají do kategorie tzv. hladových (\textit{greedy}) deterministických algoritmů. Spočívají v tom, že průběžně odhadují kostru přidáváním dalších hran a nikdy se nemusejí vracet (neprovádí se \textit{backtracking}). Generický algoritmus tvoří jakousi základní kostru pro další, už konkrétní, algoritmy.
 
 \paragraph*{Řez} Nechť $G = (V, E)$ je graf. Řez grafu $G$ je dvojice $(S, V - S)$, kde $\emptyset \subseteq S \subseteq V$.
 
@@ -97,8 +93,7 @@ Hledání minimální kostry je problém, který lze řešit algoritmy, které s
 \begin{lstlisting}[language=Python, caption={Generický algoritmus. Před každou iterací algoritmu je množina $A$ podmnožinou nějaké minimální kostry. Hrana $(u,v) \in E$ je bezpečná pro $A$, pokud $A \cup \{(u, v)\}$ je podmnožinou nějaké minimální kostry.}]
 def generic_mst(G):
     # G je graf
-    # A je mnozina hran rozpracovane minimalni kostry
-    A = {}
+    A = {} # A je mnozina hran rozpracovane minimalni kostry
     while netvori_kostru(A, G):
         for hrana in G.E:
             if je_bezpecna(A, hrana):
@@ -132,13 +127,12 @@ def generic_mst(G):
 Kruskalův a Primův algoritmus se liší v tom, jakým způsobem vybírají bezpečnou hranu. Kruskalův algoritmus nahlíží na $A$ jako na les a hledá hranu s nejmenším ohodnocením, která spojuje stromy v lese. Na konci je $A$ jeden strom.
 
 \bigskip\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=Python, caption={Kruskalův algoritmus. Funkce \texttt{make\_set(v)} vytvoří množinu obsahující $v$, \texttt{find\_set} vrátí reprezentanta množiny $v$, \texttt{union(u ,v)} sjednotí dvě množiny obsahující $u$ a $v$.}]
+\begin{lstlisting}[language=Python, caption={Kruskalův algoritmus. Funkce \texttt{make\_set(v)} vytvoří množinu obsahující $v$, \texttt{find\_set(v)} vrátí reprezentanta množiny ve které se nachází $v$, \texttt{union(u, v)} sjednotí dvě množiny obsahující $u$ a $v$.}]
 def kruskal_mst(G):
     # G je graf
-    # A je mnozina hran rozpracovane minimalni kostry
 
     # inicializace, kazdy uzel je ve sve mnozine
-    A = {}
+    A = {} # A je mnozina hran rozpracovane minimalni kostry
     for v in G.V:
         make_set(v)
 
@@ -154,10 +148,10 @@ def kruskal_mst(G):
 \end{lstlisting}
 \end{minipage}
 
-\subsection{Složitost}
+\subsection*{Složitost}
 
 \begin{itemize}
-    \item Řádek 3 -- $O(1)$
+    \item Řádek 5 -- $O(1)$
     \item Řádek 6-7 -- $n$-krát složitost $make\_set$ ($n$ je počet uzlů).
     \item Řádek 10 -- $O(m \cdot \log(m))$ ($m$ je počet hran).
     \item Řádky 12-15 -- Závisí na implementaci $find\_set$ a $union$.
@@ -169,7 +163,7 @@ def kruskal_mst(G):
     \item Dále platí $m < n^2$, pak $\log(m) = O(\log(n))$, proto celkem: $O(m \cdot \log(n))$.
 \end{itemize}
 
-\subsection{Příklad}
+\subsection*{Příklad}
 
 \begin{figure}[H]
     \centering
@@ -223,18 +217,18 @@ def prim_mst(G, r):
 \end{lstlisting}
 \end{minipage}
 
-\subsection{Složitost}
+\subsection*{Složitost}
 
 \begin{itemize}
-    \item Řádky 4-12 -- $O(n)$ za použití binární haldy ($n$ je počet uzlů).
-    \item Řádky 14-15 -- While cyklus na řádku 14 se provede n-krát a protože \textit{extract\_min} stojí $O(\log(n))$, tak je celková složitost $O(n \cdot \log(n))$.
-    \item Řádek 17 -- For cyklus se provede $O(m)$ krát, protože dálka všech seznamů sousedů je dohromady $2m$ ($m$ je počet hran).
-    \item Řádek 19-21 -- $O(1)$.
-    \item Řádek 23 -- stojí $O(\log(n))$, kvůli provedení operace $decrease\_key$ ve frontě $Q$.
+    \item Řádky 5-10 -- $O(n)$ za použití binární haldy ($n$ je počet uzlů).
+    \item Řádky 12-13 -- While cyklus se provede n-krát a protože \textit{extract\_min} stojí $O(\log(n))$, tak je celková složitost $O(n \cdot \log(n))$.
+    \item Řádek 16 -- For cyklus se provede $O(m)$ krát, protože dálka všech seznamů sousedů je dohromady $2m$ ($m$ je počet hran).
+    \item Řádek 18-20 -- $O(1)$.
+    \item Řádek 21 -- $O(\log(n))$.
     \item Jelikož $m > n$, tak celkem $O(n \cdot \log(n) + m \cdot \log(n)) = O(m \cdot \log(n))$.
 \end{itemize}
 
-\subsection{Příklad}
+\subsection*{Příklad}
 
 \begin{figure}[H]
     \centering
