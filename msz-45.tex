@@ -5,9 +5,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% Todo:
-% - Slozitosti tech algoritmu
-
 \chapter{Hledání minimální kostry obyčejného grafu (pojmy, stromy a kostry, Kruskalův algoritmus, Primův algoritmus).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,10 +53,9 @@
 
 \paragraph*{Cyklus} Orientovaná kružnice se nazývá cyklus (první a poslední uzel je shodný).
 
-% todo
-% \paragraph*{Prostý graf} Orientovaný graf se nazývá prostý, pokud...
+\paragraph*{Prostý graf} Orientovaný graf bez cyklů se nazývá prostý.
 
-\paragraph*{Acyklický graf} Acyklický graf je graf bez cyklů, resp. kružnic.
+\paragraph*{Acyklický graf} Graf je bez cyklů, resp. kružnic, se nazývá acyklický.
 
 \paragraph*{Strom} Graf, který je souvislý a acyklický, se nazývá strom.
 
@@ -67,8 +63,15 @@
 
 \paragraph*{Minimální kostra} Nechť $G = (V, E)$ je souvislý neorientovaný graf s váhovou funkcí $w : E \mapsto \mathbb{R}$. Minimální kostra (\textit{MST, minimum spanning tree}) je strom $G' = (V, E')$, kde $E' \subseteq E$ a $$w(E') = \sum_{(u,v) \in T} w(u, v)$$ je minimální ze všech možných alternativních koster.
 
-% todo
-% reprezentace grafu
+\paragraph*{Seznam sousedů} Seznam sousedů (Adj, \textit{adjacency list}) je reprezentace grafu v paměti. Jde o preferovanou variantu pro řídké grafy~--~kde $m << n^2$. Pro každý uzel máme definovaný seznam jeho sousedů.
+
+\paragraph*{Matice sousednosti} Matice sousednosti (\textit{adjacency matrix}) je reprezentace grafu v paměti. Jde o preferovanou variantu pro husté grafy~--~kde $m$ je skoro $n^2$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{45/graph_representations_example.png}
+    \caption{Příklad reprezentace grafu pomocí seznamu sousedů a matice sousednosti.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
