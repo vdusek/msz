@@ -31,7 +31,7 @@
 
 \paragraph*{Orientovaný graf} Orientovaný graf je dvojice $G = (V, E)$, kde $V$ je konečná množina uzlů a $E \subseteq V \times V$ je množina hran.
 
-\paragraph*{Neorientovaný graf} Neorientovaný graf je dvojice $G = (V, E)$, kde $V$ je konečná množina uzlů a $E \subseteq {V \choose 2}$ je množina hran. (Hrana je tedy dvouprvková množina, avšak běžně se držíme stejného značení jako u orientovaných grafů a používáme dvojici.)
+\paragraph*{Neorientovaný graf} Neorientovaný graf je dvojice $G = (V, E)$, kde $V$ je konečná množina uzlů a $E \subseteq \binom{V}{2}$ je množina hran. (Hrana je tedy dvouprvková množina, avšak běžně se držíme stejného značení jako u orientovaných grafů a používáme dvojici.)
 
 \paragraph*{Ohodnocený graf} Ohodnocený graf je takový graf, jehož každá hrana má přiřazenou nějakou hodnotu, typicky definovanou pomocí váhové funkce $w : E \mapsto \mathbb{R}$.
 
@@ -96,6 +96,7 @@ Hledání minimální kostry je problém, který lze řešit algoritmy, které s
 \bigskip\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Python, caption={Generický algoritmus. Před každou iterací algoritmu je množina $A$ podmnožinou nějaké minimální kostry. Hrana $(u,v) \in E$ je bezpečná pro $A$, pokud $A \cup \{(u, v)\}$ je podmnožinou nějaké minimální kostry.}]
 def generic_mst(G):
+    # G je graf
     # A je mnozina hran rozpracovane minimalni kostry
     A = {}
     while netvori_kostru(A, G):
@@ -133,10 +134,11 @@ Kruskalův a Primův algoritmus se liší v tom, jakým způsobem vybírají bez
 \bigskip\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Python, caption={Kruskalův algoritmus. Funkce \texttt{make\_set(v)} vytvoří množinu obsahující $v$, \texttt{find\_set} vrátí reprezentanta množiny $v$, \texttt{union(u ,v)} sjednotí dvě množiny obsahující $u$ a $v$.}]
 def kruskal_mst(G):
+    # G je graf
     # A je mnozina hran rozpracovane minimalni kostry
-    A = {}
 
     # inicializace, kazdy uzel je ve sve mnozine
+    A = {}
     for v in G.V:
         make_set(v)
 
@@ -196,21 +198,20 @@ Primův algoritmus buduje tzv. $A$ strom. Má zadaný určitý uzel, ze kterého
 \bigskip\noindent\begin{minipage}{\linewidth}
 \begin{lstlisting}[language=Python, caption={Primův algoritmus.}]
 def prim_mst(G, r):
+    # G je graf
     # r je vychozi uzel
 
     for u in G.V:
-        # v poli key je ulozeno, kolik stoji prechod do vrcholu na indexu
-        key[u] = INF
-        # pole predchudcu, reprezentace mnoziny A
-        pi[u] = NULL
+        key[u] = INF # pole cen prechodu, kolik stoji prechod do vrcholu na indexu
+        pi[u] = NULL # pole predchudcu, kdo je predchudce vrcholu na indexu
 
     key[r] = 0
-    # Q je prioritni fronta, prvek s mensi hodnotou v poli key ma prednost
-    Q = Queue(G.V)
+    Q = Queue(G.V) # prioritni fronta uzlu
 
     while not Q.empty():
-        u = Q.extract_min()
-        # pro vsechny jeho sousedy (Adj je seznam sousedu)
+        u = Q.extract_min(key) # vrati prvek z Q s nejmensi hodnotou v key
+
+        # pro vsechny sousedy uzlu u (Adj je seznam sousedu)
         for v in Adj[u]:
             # pokud je levnejsi cesta a jeste to neni prozkoumany uzel
             if v in Q and w(u, v) < key(v):

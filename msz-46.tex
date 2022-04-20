@@ -55,7 +55,34 @@ $$.
 
 \section{Pomocné funkce}
 
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, caption={Pomocná inicializační funkce.}]
+def initialize_single_source(G, s):
+    # G je graf
+    # s je vychozi uzel
+    for v in G.V:
+        d[v] = INF  # d je pole vzdalenosti
+        pi[v] = NULL  # pi je pole predchudcu
+    d[s] = 0
+\end{lstlisting}
+\end{minipage}
 
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, caption={Pomocná funkce \textit{relax}.}]
+def relax(u, v, w):
+    # u a v jsou uzly grafu
+    # w je vahova funkce
+    if d[v] > d[u] + w(u, v):
+        d[v] = d[u] + w(u, v)
+        pi[v] = u
+\end{lstlisting}
+\end{minipage}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{46/relax.png}
+    \caption{Ukázka činnosti funkce \textit{relax}.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -63,8 +90,56 @@ $$.
 
 Slouží pro řešení v obecných grafech (mohou obsahovat cykly a záporné hrany).
 
+\bigskip\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, caption={Algoritmus Bellman-Ford.}]
+def bellman_ford(G, s, w):
+    # G je graf
+    # s je vychozi uzel
+    # w je vahova funkce
+
+    # faze inicializace
+    initialize_single_source(G, s)
+    n = len(G.V) # pocet uzlu
+
+    # faze relaxace: provedeni n * (n-1) relaxaci
+    for _ in range(0, n-1):
+        for u, v in G.E:
+            relax(u, v, w)
+
+    # faze detekce zaporneho cyklu
+    for u, v in G.E:
+        if d[u] > d[v] + w(u, v):
+            return NULL
+
+    return d, pi
+\end{lstlisting}
+\end{minipage}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Dijkstrův algoritmus}
 
-Slouží pro řešení v acyklických grafech bez záporných hran.
+Slouží pro řešení v acyklických grafech bez záporných hran. Pro takto omezený problém existují rychlejší algoritmy než pro problém v obecných grafech.
+
+\bigskip\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=Python, caption={Algoritmus Dijkstra.}]
+def dijkstra(G, s, w):
+    # G je graf
+    # s je vychozi uzel
+    # w je vahova funkce
+
+    # faze inicializace
+    initialize_single_source(G, s)
+    Q = Queue(G.V) # prioritni fronta uzlu
+
+    # faze relaxace
+    while not Q.empty():
+        u = Q.extract_min(d) # vrati prvek z Q s nejmensi hodnotou v d
+
+        # pro vsechny sousedy uzlu u (Adj je seznam sousedu)
+        for v in Adj[u]:
+            relax(u, v, w)
+
+    return d, pi
+\end{lstlisting}
+\end{minipage}
