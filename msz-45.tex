@@ -5,6 +5,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% Todo:
+% - Slozitosti tech algoritmu
+
 \chapter{Hledání minimální kostry obyčejného grafu (pojmy, stromy a kostry, Kruskalův algoritmus, Primův algoritmus).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,9 +59,9 @@
 % todo
 % \paragraph*{Prostý graf} Orientovaný graf se nazývá prostý, pokud...
 
-\paragraph*{Acyklický graf} Acyklický graf je graf bez cyklů.
+\paragraph*{Acyklický graf} Acyklický graf je graf bez cyklů, resp. kružnic.
 
-\paragraph*{Strom} Graf, který je souvislý a neobsahuje žádnou kružnici, se nazývá strom.
+\paragraph*{Strom} Graf, který je souvislý a acyklický, se nazývá strom.
 
 \paragraph*{Kostra} Strom, který tvoří podgraf souvislého grafu na množině všech jeho vrcholů, se nazývá kostra (\textit{spanning tree}).
 
@@ -93,28 +96,28 @@ def generic_mst(G):
     # A je mnozina hran rozpracovane minimalni kostry
     A = {}
     while netvori_kostru(A, G):
-        for edge in G.E:
-            if je_bezpecna(A, edge):
-                A += {edge}
+        for hrana in G.E:
+            if je_bezpecna(A, hrana):
+                A += {hrana}
     return A
 \end{lstlisting}
 \end{minipage}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-6.pdf}
+    \includegraphics[width=0.9\linewidth]{45/03-minimalni-kostry-6.pdf}
     \caption{Příklad, část 1.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-7.pdf}
+    \includegraphics[width=0.9\linewidth]{45/03-minimalni-kostry-7.pdf}
     \caption{Příklad, část 2.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-8.pdf}
+    \includegraphics[width=0.9\linewidth]{45/03-minimalni-kostry-8.pdf}
     \caption{Příklad, část 3.}
 \end{figure}
 
@@ -146,21 +149,38 @@ def kruskal_mst(G):
 \end{lstlisting}
 \end{minipage}
 
+\subsection{Složitost}
+
+\begin{itemize}
+    \item Řádek 3 -- $O(1)$
+    \item Řádek 6-7 -- $n$-krát složitost $make\_set$ ($n$ je počet uzlů).
+    \item Řádek 10 -- $O(m \cdot \log(m))$ ($m$ je počet hran).
+    \item Řádky 12-15 -- Závisí na implementaci $find\_set$ a $union$.
+    \begin{itemize}
+        \item Při implementaci seznamem s heuristickou celkem: $O(m + n \cdot \log(n))$.
+        \item Při stromové implementaci s váhami a zkratkami celkem: $O((m+n) \cdot \alpha(n))$. Kde $\alpha$ je velmi pomalu rostoucí funkce ($\alpha \leq 4$).
+    \end{itemize}
+    \item Pro souvislý graf platí $m > n$. Proto množinové operace stojí $O(m \cdot \alpha(n))$. Jelikož $\alpha(n) = O(\log(n)) = O(\log(m))$, tak celková složitost je $O(m \cdot \log(m))$.
+    \item Dále platí $m < n^2$, pak $\log(m) = O(\log(n))$, proto celkem: $O(m \cdot \log(n))$.
+\end{itemize}
+
+\subsection{Příklad}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-11.pdf}
+    \includegraphics[width=0.9\linewidth]{45/03-minimalni-kostry-11.pdf}
     \caption{Příklad, část 1.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-12.pdf}
+    \includegraphics[width=0.9\linewidth]{45/03-minimalni-kostry-12.pdf}
     \caption{Příklad, část 2.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-13.pdf}
+    \includegraphics[width=0.9\linewidth]{45/03-minimalni-kostry-13.pdf}
     \caption{Příklad, část 3.}
 \end{figure}
 
@@ -185,38 +205,54 @@ def prim_mst(G, r):
     # Q je prioritni fronta, prvek s mensi hodnotou v poli key ma prednost
     Q = Queue(G.V)
 
-    for u in Q.priority_deque():
+    while not Q.empty():
+        u = Q.extract_min()
         # pro vsechny jeho sousedy (Adj je seznam sousedu)
         for v in Adj[u]:
             # pokud je levnejsi cesta a jeste to neni prozkoumany uzel
             if v in Q and w(u, v) < key(v):
                 pi[v] = u
                 key[v] = w(u, v)
+                # aktualizace prioritni fronty
+                Q.decrease_key(key)
 
     return pi
 \end{lstlisting}
 \end{minipage}
 
+\subsection{Složitost}
+
+\begin{itemize}
+    \item Řádky 4-12 -- $O(n)$ za použití binární haldy ($n$ je počet uzlů).
+    \item Řádky 14-15 -- While cyklus na řádku 14 se provede n-krát a protože \textit{extract\_min} stojí $O(\log(n))$, tak je celková složitost $O(n \cdot \log(n))$.
+    \item Řádek 17 -- For cyklus se provede $O(m)$ krát, protože dálka všech seznamů sousedů je dohromady $2m$ ($m$ je počet hran).
+    \item Řádek 19-21 -- $O(1)$.
+    \item Řádek 23 -- stojí $O(\log(n))$, kvůli provedení operace $decrease\_key$ ve frontě $Q$.
+    \item Jelikož $m > n$, tak celkem $O(n \cdot \log(n) + m \cdot \log(n)) = O(m \cdot \log(n))$.
+\end{itemize}
+
+\subsection{Příklad}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-16.pdf}
+    \includegraphics[width=0.9\linewidth]{45/03-minimalni-kostry-16.pdf}
     \caption{Příklad, část 1.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-17.pdf}
+    \includegraphics[width=0.9\linewidth]{45/03-minimalni-kostry-17.pdf}
     \caption{Příklad, část 2.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-18.pdf}
+    \includegraphics[width=0.9\linewidth]{45/03-minimalni-kostry-18.pdf}
     \caption{Příklad, část 3.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.92\linewidth]{45/03-minimalni-kostry-19.pdf}
+    \includegraphics[width=0.9\linewidth]{45/03-minimalni-kostry-19.pdf}
     \caption{Příklad, část 4.}
 \end{figure}
