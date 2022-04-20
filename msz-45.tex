@@ -217,8 +217,7 @@ def prim_mst(G, r):
             if v in Q and w(u, v) < key(v):
                 pi[v] = u
                 key[v] = w(u, v)
-                # aktualizace prioritni fronty
-                Q.decrease_key(key)
+                Q.decrease_key(key) # aktualizace prioritni fronty
 
     return pi
 \end{lstlisting}
