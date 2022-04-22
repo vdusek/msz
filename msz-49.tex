@@ -91,9 +91,9 @@ def reduce(input_key: str, input_value: list[int]) -> tuple[str, int]:
 \begin{enumerate}
     \item Input -- Přípravený vstup pro distribuovaný výpočet (např. soubory ve virtuálním distribuovaném souborovém systému, viz dále HDFS).
     \item Splitting -- Rozdělení vstupu na části, které budou přiděleny jednotlivým uzlům. Může být výchozí (např. rozdělení textového souboru po řádcích) nebo definováno uživatelem.
-    \item Mapping -- Každý uzel aplikuje funkci textit{map} na svoji přidělenou část. Uživatel definuje jak má funkce textit{map} vypadat.
+    \item Mapping -- Každý uzel aplikuje funkci \textit{map} na svoji přidělenou část. Uživatel definuje jak má funkce \textit{map} vypadat.
     \item Shuffling (také Grouping, Partitioning, Comparing)-- Výpočetní uzly si mezi sebou vymění hodnoty, které spočítaly, na základě klíče. Tento krok zařižuje platforma pro distribuovaný výpočet sama o sobě, typicky na základě hashů klíčů. Tento krok je většinou \textit{bottleneck}.
-    \item Reducing -- Každý uzel zapojený do tohoto kroku (často je v tomto kroku potřeba méně uzlů, než v kroku mapping) aplikuje funkci textit{reduce} na svoji přidělenou část. Uživatel definuje jak má funkce textit{reduce} vypadat.
+    \item Reducing -- Každý uzel zapojený do tohoto kroku (často je v tomto kroku potřeba méně uzlů, než v kroku mapping) aplikuje funkci \textit{reduce} na svoji přidělenou část. Uživatel definuje jak má funkce \textit{reduce} vypadat.
     \item Final Result -- Finální výsledek (např. zapsán do do virtuálního distribuovaného souborového systému, viz dále HDFS).
 \end{enumerate}
 
@@ -105,18 +105,12 @@ def reduce(input_key: str, input_value: list[int]) -> tuple[str, int]:
 
 \paragraph*{Combiner} Optimalizační krok, jde o \uv{jakési} provedení operace \textit{reduce} už ve fázi \textit{map} (každým uzlem). Tím je snížen počet mezivýsledků ve fázi Shuffling. Typicky funkce \textit{combine} je stejná jako \textit{reduce}.
 
-\paragraph*{Virtuální distribuovaný souborový systém} Pro realizaci distribuovaného výpočtu je rovněž potřeba distribuovaný souborový systém (DFS). Ten je typicky realizován jako virtuální souborový systém nad jednotlivými souborovými systémy uzlů. Např.: GFS -- Google File System, HDFS -- Hadoop File System (viz dále). DFS obsahuje data samotná (data node) a metadata o tom, která data jsou na jakých uzlech (name node).
+\paragraph*{Virtuální distribuovaný souborový systém} Pro realizaci distribuovaného výpočtu je rovněž potřeba distribuovaný souborový systém (DFS). Ten je typicky realizován jako virtuální souborový systém nad jednotlivými souborovými systémy uzlů. Např.: GFS -- Google File System, HDFS -- Hadoop File System (viz dále). DFS obsahuje data samotná (\textit{data nodes}) a metadata o tom, která data jsou na jakých uzlech (\textit{name nodes}).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{49/map_reduce_general_p2.png}
     \caption{Výpočet MapReduce v obecném schématu a rozdělením práce na jednotlivé uzly (uzel je typicky víceprocesorový).}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{49/map_reduce_detail.png}
-    \caption{Výpočet MapReduce v detailním schématu.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -130,7 +124,7 @@ Apache Hadoop je \textit{open-source} implementace MapReduce paradigmatu vyvíje
 
 \paragraph*{Hadoop MapReduce} -- Implementace MapReduce paradigma. Data jsou čtena a ukládána na HDFS (včetně mezivýsledků). To znamená, můžeme pracovat v podstatě neomezenými daty, ale ukládání a načítání výpočet zpomalují.\footnote{\textit{Nebylo přednášeno podrobněji, pravděpodobně stačí princip obecného MapReduce, který byl vysvětlen v předchozí sekci.}}.
 
-\paragraph*{HDFS} HDFS (\textit{Hadoop Distribute File System}) je virtuální distribuovaný souborový systém. Standardní soubor je rozdělen na datové bloky které jsou distribuovány na různé datové uzly. Architektura HDFS se skládá ze dvou typů uzlů~--~Name Node a Data Node. Name Node obsahuje alokační tabulku pro souborový systém. Ví které datové bloky patří kterému souboru a kde jsou uloženy. Obsahuje další metadata jako názvy souborů, cesty, \dots \, Data Node obsahuje datové bloky. Typicky redundance a replikace, počítá se s možným selháním uzlů.
+\paragraph*{HDFS} HDFS (\textit{Hadoop Distribute File System}) je virtuální distribuovaný souborový systém. Standardní soubor je rozdělen na datové bloky které jsou distribuovány na různé datové uzly. Architektura HDFS se skládá ze dvou typů uzlů~--~Name Node a Data Node. Name Node obsahuje alokační tabulku pro souborový systém. Ví které datové bloky patří kterému souboru a kde jsou uloženy. Obsahuje další metadata jako názvy souborů, cesty, \dots \, Data Node obsahuje datové bloky. Typicky redundance a replikace, počítá se s možným selháním uzlů. Pro \textbf{čtení dat} se klient zeptá Name Nodu na konkrétní soubor v HDFS. Name Node vrátí metadata o souboru, na jakých Data Nodech se vyskytuje. Klient požádá příslušné Data Nody, ty mu pošlou data, která se na klientovi \uv{poskládají} do výsledného souboru. Pro \textbf{zápis dat} se klient zeptá Name Nodu, kam by měl zapisovat. Klient zapíše na příslušný Data Node. Data Node poté vyřeší replikace s dalšími uzly.
 
 \paragraph*{Hadoop YARN} Hadoop YARN je plánovač (\textit{scheduler}). Plánuje výpočet tak, aby proběhl co nejlepším způsobem na konkrétnbí distribuované architektuře. Plánovač má obecné obecné rozhraní a Hadoop YARN lze nahradit za jiný.
 
@@ -138,40 +132,33 @@ Apache Hadoop je \textit{open-source} implementace MapReduce paradigmatu vyvíje
 
 \paragraph*{Další nástroje} Nad Apache Hadoop existuje mnoho dalších nástrojů. Apache Pig pro \textit{high level} programování map-reduce úloh. Apache Hive pro pro dolování dat nad Apache Hadoop. Apache HBase jako distribuovaná databáze nad Apache Hadoop, \dots
 
-\paragraph*{Čtení dat} Pro čtení dat se klient zeptá Name Nodu na konkrétní soubor v HDFS. Name Node vrátí metadata o souboru, na jakých Data Nodech se vyskytuje. Klient požádá příslušné Data Nody, ty mu pošlou data, která se na klientovi \uv{poskládají} do výsledného souboru.
-
-\paragraph*{Zápis dat} Pro zápis dat se klient zeptá Name Nodu, kam by měl zapisovat. Klient zapíše na příslušný Data Node. Data Node poté vyřeší replikace s dalšími uzly.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Apache Spark}
 
-Apache Spark je open-source nástroj pro distribuované zpracování rozsáhlých dat vyvíjený Apache Software Foundation. Snaží se odstranit \textit{bottleneck} u Hadoopu v kroku shuffling. Hlavní cíl je přesunutí co nejvíce výpočtů do operační paměti jednotlivých uzlů a tím pádem zminimalizovat počet zápisů a čtení z DFS. Tím ale vzniká problém, a sice výpadek uzlu znamená, že data jsou ztraceny.
+Apache Spark je \textit{open-source} nástroj pro distribuované zpracování rozsáhlých dat vyvíjený Apache Software Foundation. Hlavní cíl je zvýšení rychlosti. Spark na to jde přesunutím co nejvíce výpočtů do operační paměti jednotlivých uzlů a tím pádem zminimalizovat počet zápisů a čtení z DFS (snaha odstranit \textit{bottleneck} v kroku shuffling u Hadoopu). Tím ale vzniká jiný problém, a sice výpadek uzlu znamená, že data jsou ztraceny.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{49/spark.png}
+    \includegraphics[width=0.75\linewidth]{49/spark.png}
     \caption{Architektura Apache Spark. Hlavní je Spark Core, zbytek funguje na systému pluginů a může používat HDFS, Hadoop YARN a Hadoop Common.}
 \end{figure}
 
-% todo: pokracovani
+% todo: pokracovani, 30 min prednaska
 
-otazka: jak resit distribuci dat? jak resit distribuci vypoctu?
+\paragraph*{Resilient Distributed Dataset} Resilient Distributed Dataset (RDD) je základní datová struktura Sparku. Jedná se o typované kolekce n-tic, které jsou neměnné (\textit{read only}). Vstup je transformován na RDD a každá operace je pak transformace jednoho RDD na jiné.
+$$
+RDD_1 \rightarrow map() \rightarrow RDD_2 \rightarrow reduce() \rightarrow RDD_3
+$$
 
-V cem je jiny nez Hadoop
+\paragraph*{Strategie vyhodnocování} Spark uplatňuje strategii vyhodnocování \textit{lazy evaluation}. Vyhodnocování výrazu je odkládáno až do doby, dokud není potřeba jeho hodnota. Zabraňuje opakovanému vyhodnocování. Je vyhodnocována pouze ta část, která je potřeba. RDD funguje jako abstraktní datová struktura, nemusí obsahovat data uvnitř, ale pouze předpis jak data získat a získá je, až když jsou potřeba.
 
-Resilient Distributed Dataset, RDD jsou typovane kolekce ntic.
+\paragraph*{Struktura výpočtu} Struktura výpočtu odpovídá orientovanému acyklickému grafu (DAG, \textit{Directed Acyclic Graph}). Uzly jsou RDD a hrany jsou transformace. DAG je znám i dalším uzlům, takže pokud nastane výpadek uzlu a výpočet je ztracen, může být uzel snadno zastoupen.
 
-resilient -- nemenne, read only, pouze vytvarime nove (transformujeme na nove)
+\paragraph*{Klíčové vlastnosti} Klíčové vlastnosti Sparku jsou \textit{lazy evaluation}, \textit{in-memmory} a \textit{parallel computing}.
 
-RDD1 -> map -> RDD2 -> reduce -> RDD3
-
-lazy evaluation -- vyhodnoceni az kdyz je vysledek potreba a pouze ta cast, ktera je potreba. RDD nemusi obsahovat data uvnitr, je to abstraktni datova struktura, muze obsahovat predpis, jak data ziskat, az kdyz jsou potreba. To co se nemusi pocitat, se nepocita.
-
-my zname posloupnost operaci, ktere byly provedeny, a tim padem, jsme shcopni pri vypadku dopocitat
-
-pokud se do pameti nevejde, moznost cachovani, ukladani na disk, mezivysledku
-
-klicove vlastnosti: parallel, lazy, in-memmory
-
-Directed Acyclic Graph (DAG) Execution
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\linewidth]{49/spark_example.png}
+    \caption{Příklad výpočtu v Apache Spark.}
+\end{figure}
