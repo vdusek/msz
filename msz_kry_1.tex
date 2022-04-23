@@ -32,6 +32,12 @@ příklady symetrických algoritmů, Feistelovy šifry, DES, režimy činnosti, 
 
 \section{Úvod a kontext}
 
+\paragraph*{Kryptografie} Kryptografie (šifrování) je věda o metodách utajování smyslu zpráv převodem do podoby, která je čitelná jen se speciální znalostí.
+
+\paragraph*{Kryptoanalýza} Kryptoanalýza je věda zabývající se metodami získávání obsahu šifrovaných informací bez přístupu k tajným informacím, které jsou za normálních okolností potřeba, tzn. především k tajnému klíči.
+
+\paragraph*{Kryptologie} Jeden výraz pro kryptografii a kryptoanalýzu.
+
 \paragraph*{Caesarova šifra} Princip Caesarovy šifry je založen na tom, že všechna písmena zprávy jsou během šifrování zaměněna za písmeno, které se abecedně nachází o pevně určený počet míst dále (tj. posun je pevně zvolen). Caesarova šifra spadá do kategorie substitučních šifer (stejný znak je při více vyskytech vždy zašifrován na stejný znak).
 
 \paragraph*{Vigenerova šifra} Rozšíření Caesarovy šifry, klíč je delší než 1 znak. Klíč je řetězec, který reprezentuje posuny. V případě že vstup je delší než klíč, je klíč perioricky opakován. Vigenerova šifra spadá do kategorie polyalfabetických substitučních šifer (stejný znak může být při více výskytech zašifrován na jiný znak).
@@ -56,8 +62,9 @@ příklady symetrických algoritmů, Feistelovy šifry, DES, režimy činnosti, 
     \item Ciphertext Only Attack (COA) -- Útočník zná pouze zašifrovaný text a snaží se zjistit klíč nebo otevřený text. Nejčastěší případ.
     \item Known Plaintext Attack (KPA) -- Útočník zná zašifrovaný text a otevřený text a snaží se zjistit klíč.
     \item Chosen Plaintext Attack (CPA) -- Útočník zná to co v KPA a navíc si text může zvolit.
-    \item Brute force -- Útok silou, zkouší se všechny možné klíče, dokud se nenajde ten správný.
 \end{itemize}
+
+\paragraph*{Útok silou} Pří útoku silou (\textit{brute force}) zkouší útočník všechny teoreticky možné klíče, dokud nenajde ten správný.
 
 \begin{figure}[H]
     \centering
@@ -67,11 +74,11 @@ příklady symetrických algoritmů, Feistelovy šifry, DES, režimy činnosti, 
 
 \paragraph*{Bezpečný algoritmus} V moderní kryptografii je nepřijatelné utajování algoritmů (\textit{security by obscurity})~--~předpokládáme, že útočník zná šifrovací algoritmus. Bezpečnost musí záviset pouze na utajení klíče (Kerckhoffuv princip, \textit{security by design}). Symetrický algoritmus je považován za bezpečný, pokud neexistuje rychlejší útok než útok silou.
 
-\paragraph*{Délka klíče} Dnes je považováno 80 bitů a více za dostatečné. Typicky se délka zaokrouhluje na mocninu 2. Klíče symetrických algoritmů jsou kratší než asymetrických. Konkrétně: DES -- 56b, 3DES -- 112, AES -- variabilní.
+\paragraph*{Délka klíče} Dnes je považováno 80 bitů a více za dostatečné. Typicky se délka zaokrouhluje na mocninu 2 (typicky 128b). Klíče symetrických algoritmů jsou kratší než asymetrických. Konkrétně: DES -- 56b, 3DES -- 112, AES -- variabilní.
 
 \paragraph*{Využití} Symetrická kryptografie je vhodná pro šifrování většího objemu dat. Narozdíl od asymetrické, která je pro tento účel příliš pomalá. Proto např. HTTPS využívá asymetrickou kryptografii pro výměnu symetrických klíčů a poté symetrickou kryptografii pro šifrování provozu.
 
-\paragraph*{Vlastnosti moderní kryptografie} \begin{itemize}
+\paragraph*{Vlastnosti moderní kryptografie} Symetrická kryptografie zaručuje všechny následující, kromě nepopiratelnosti~--~více entit má k dispozici klíč. \begin{itemize}
     \item Důvernost -- Utajení informace. Bez znalosti klíče, není možné data číst.
 
     \item Autentizace -- Prokázání, že zprávu skutečně poslal odesílatel a nikoliv útočník, který se za odesílatele vydává.
