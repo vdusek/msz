@@ -30,6 +30,24 @@ příklady symetrických algoritmů, Feistelovy šifry, DES, režimy činnosti, 
 
 \section{Úvod a kontext}
 
+\paragraph*{Caesarova šifra} Princip Caesarovy šifry je založen na tom, že všechna písmena zprávy jsou během šifrování zaměněna za písmeno, které se abecedně nachází o pevně určený počet míst dále (tj. posun je pevně zvolen). Caesarova šifra spadá do kategorie substitučních šifer (stejný znak je při více vyskytech vždy zašifrován na stejný znak).
+
+\paragraph*{Vigenerova šifra} Rozšíření Caesarovy šifry, klíč je delší než 1 znak. Klíč je řetězec, který reprezentuje posuny. V případě že vstup je delší než klíč, je klíč perioricky opakován. Vigenerova šifra spadá do kategorie polyalfabetických substitučních šifer (stejný znak může být při více výskytech zašifrován na jiný znak).
+
+\paragraph*{Vernamova šifra (\textit{One Time Pad})} Vernamova šifra spadá do kategorie polyalfabetických substitučních šifer a je i dnes nerozluštitelná pokud: \begin{itemize}
+    \item klíč je delší než vstupní text,
+    \item klíč se nepoužije opakovaně,
+    \item klíč je náhodný.
+\end{itemize}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{50/vernam.png}
+    \caption{Vernamova šifra.}
+\end{figure}
+
+\paragraph*{Autoklíč (\textit{autokey})} Šifrování klíčem a když vstupní text je delší než klíč, tak se pokračuje šifrováním otevřeným nebo šifrovaným textem. Lze použít u Vigenerovy nebo Vernamovy šifry.
+
 \paragraph*{Symetrická kryptografie} Algoritmy používají k šifrování i dešifrování stejný klíč. Výhodou symetrických šifer je jejich nízká výpočetní náročnost. Asymetrické šifry mohou být i stotisíckrát pomalejší. Nevýhodou je nutnost sdílení tajného klíče, takže jedna strana musí klíč vygenerovat a potom ho bezpečným způsobem předat druhé straně.
 
 \paragraph*{Typy útoků} \begin{itemize}
@@ -42,10 +60,10 @@ příklady symetrických algoritmů, Feistelovy šifry, DES, režimy činnosti, 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{50/kryptografie.png}
-    \caption{Princip kryptografie, podle klíčů dělíme na symetrickou (tajný klíč) a asymetrickou (veřejný klíč, soukromý klíč).}
+    \caption{Princip kryptografie, podle typu klíčů dělíme na symetrickou (tajný klíč) a asymetrickou (veřejný klíč, soukromý klíč).}
 \end{figure}
 
-\paragraph*{Bezpečný algoritmus} V moderní kryptografii je nepřijatelné utajování algoritmů (\textit{security by obscurity}). Jediné co je tajné je klíč (\textit{security by design}). Symetrický algoritmus je považován za bezpečný, pokud neexistuje rychlejší útok než útok silou.
+\paragraph*{Bezpečný algoritmus} V moderní kryptografii je nepřijatelné utajování algoritmů (\textit{security by obscurity})~--~předpokládáme, že útočník zná šifrovací algoritmus. Bezpečnost musí záviset pouze na utajení klíče (Kerckhoffuv princip, \textit{security by design}). Symetrický algoritmus je považován za bezpečný, pokud neexistuje rychlejší útok než útok silou.
 
 \paragraph*{Délka klíče} Dnes je považováno 80 bitů a více za dostatečné. Typicky se délka zaokrouhluje na mocninu 2. Klíče symetrických algoritmů jsou kratší než asymetrických. Konkrétně: DES -- 56b, 3DES -- 112, AES -- variabilní.
 
@@ -66,7 +84,7 @@ příklady symetrických algoritmů, Feistelovy šifry, DES, režimy činnosti, 
 \section{Blokové šifry}
 
 Blokové šifry šifrují data po blocích pevně stanovené délky (64b, 128b, 256b, \dots). Pokud je dat více, rozdělí se na více bloků, přičemž do zbylého místa v posledním je umístěno zarovnání \textit{padding} (informace o délce zarovnání může být obsažena v posledním bytu). Příklady blokových šifer: \begin{itemize}
-    \item Feistelova šifra
+    \item Feistelova šifra (spíše princip)
     \item Data Encryption Standard (DES)
     \item Triple Data Encryption Algorithm (3DES)
     \item International Data Encryption Algorithm (IDEA)
@@ -191,7 +209,7 @@ C_0 &= IV
 
 \subsection*{Cipher Feedback (CFB)}
 
-Režim CFB (\textit{šifrová zpětná vazba}) je velmi podobný režimu CBC. Rozdíl je v prohození pořadí operací xor a šifrování -- nejprve se zašifruje předchozí šifrový blok a výsledek se xoruje s otevřeným blokem. Toto prohození má významné implementační dopady: díky symetrii operace XOR vypadá dešifrovací funkce obdobně jako šifrovací. Platí stejné nevýhody jako pro CBC.
+Režim CFB (\textit{šifrová zpětná vazba}) je velmi podobný režimu CBC. Rozdíl je v prohození pořadí operací xor a šifrování -- nejprve se zašifruje předchozí šifrový blok a výsledek se xoruje s otevřeným blokem. Toto prohození má významné implementační dopady: díky symetrii operace XOR vypadá dešifrovací funkce obdobně jako šifrovací. Šifruje pomaleji než CBC. Vstup není nutné zarovnávat. Plynou stejné nevýhody jako pro CBC.
 
 \begin{equation}
 \begin{aligned}
@@ -211,6 +229,8 @@ C_0 &= IV
 
 Režim OFB (\textit{výstupní zpětná vazba}) se liší od CFB pouze v tom, kde bere zpětnou vazbu. Šifrování probíhá pouhým xorováním otevřeného bloku s heslem, které je v každém kroku zašifrováno použitou blokovou šifrou. První blok hesla je získán zašifrováním inicializačního vektoru. Režim převádí blokovou šifru na synchronní proudovou šifru.
 
+\paragraph*{Slabina} Celý blok encryption je pouze generátor pseudonáhdon posloupnosti (je nezávislá na otevřeném nebo šifrovaném textu). To umožňuje Known Plaintext Attack. Z toho plyne, že jedním klíčem není bezpečné šifrovat více než jednu zprávu.
+
 \begin{equation}
 \begin{aligned}
 C_i &= E_K (C_{i-1}) \\
@@ -227,7 +247,7 @@ C_0 &= IV
 
 \subsection*{Counter (CTR)}
 
-Režim CTR (\uv{čítačový režim}) převádí stejně jako OFB blokovou šifru na proudovou. Heslo, se kterým se blok otevřeného textu xoruje, je však získáno zašifrováním čítače, který se každou iteraci zvětšuje o pevně danou hodnotu, zpravidla o 1. Obsah čítače je opět před šifrováním nastaven inicializačním vektorem.
+Režim CTR (\uv{čítačový režim}) převádí stejně jako OFB blokovou šifru na synchronní proudovou. Heslo, se kterým se blok otevřeného textu xoruje, je však získáno zašifrováním čítače, který se každou iteraci zvětšuje o pevně danou hodnotu, zpravidla o 1. Obsah čítače je opět před šifrováním nastaven inicializačním vektorem. Každý blok je šifrován nezávisle na ostatních, díky tomu je možné paralelizovat.
 
 \begin{equation}
 \begin{aligned}
@@ -247,16 +267,70 @@ CTR_0 &= IV
 
 \section{Proudové šifry}
 
-\todo{todo}
+Proudové šifry šifrují data jako \textit{proud} (stream), nejčastěji po jednotlivých bytech. Dešifrování vždy probíhá stejným způsobem. Proudové šifry jsou rychlejší než blokové šifry a pro implementaci potřebují jednodušší hardware.
 
-\subsection*{Synchronní proudové šifry}
+\paragraph*{Problémy} \begin{itemize}
+    \item Nezajišťují samy o sobě integritu.
+    \item Na rozdíl od blokových šifer jsou náchylnější ke kryptoanalytickým útokům, pokud jsou nevhodně implementovány (počáteční stav nesmí být použit opakovaně)~--~\uv{problém s inicializačním vektorem}.
+\end{itemize}
 
-\todo{todo}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{50/proudove.png}
+    \caption{Princip proudových šifer.}
+\end{figure}
 
-\subsection*{Samosynchronizující proudové šifry}
+\subsection*{Rozdělení proudových šifer}
 
-\todo{todo}
+\paragraph*{Synchronní proudové šifry} Proud pseudonáhodných čísel \textit{key stream} je generován nezávisle na vstupním textu nebo zašifrované zprávě. Poté dochází ke kombinaci vygenerovaných čísel se vstupujícím textem (k zakódování) nebo se šifrovaným textem (k dekódování). Nejběžnější formou kombinace keystreamu a vstupního textu je použití operace XOR. Např.: Vernamova šifra, DES v režimu OFB. Pokud se průběhu dešifrování něco ztratí, je konec.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{50/proudova_synchronni.png}
+    \caption{Princip synchronní proudové šifry.}
+\end{figure}
+
+\paragraph*{Samosynchronizující proudové šifry} Proud pseudonáhodných čísel \textit{key stream} závisí na pevném počtu předcházejících bytů šifrovaného (nebo otevřeného) textu. To znamená, že se šifra dokáže po chybě sama \textit{zotavit} (resynchronizovat)\footnote{Dnes se nesnážíme dešifrovat poškozená data, pokud nastane chyba v přenosu, vyžádáme si data znovu.}. Např.: Vigenere Autokey, DES v řežimu CFB.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{50/proudova_samosynchronizujici.png}
+    \caption{Princip samosynchronizující proudové šifry.}
+\end{figure}
 
 \subsection*{Generátory PRNG}
 
-\todo{todo}
+Generátory PRNG (\textit{pseudo-random number generator}) generují pseudo-náhodnou pos\-loupnost (\textit{key stream}) z malého klíče (\textit{seed}).
+
+\paragraph*{Blokové šifry v režimu OFB} Blokové šifry v režimu OFB jsou pomalé.
+
+\paragraph*{Linear Feedback Shift Registers (LSFR)} LFSR (posuvný registr s lineární zpětnou vazbou) je posuvný registr, jehož výstup je lineárně závislý na jeho předchozích výstupech a stavu. Mějme \begin{itemize}
+    \item posuvný registr $R = (r_1, r_2, \dots, r_n)$,
+    \item sekvenci zpětných vazeb $T = (t_1, t_2, \dots, t_n)$.
+\end{itemize}
+
+\noindent Alternativně lze zapsat polynomem: $$
+T(x) = x^n + x^{n-1} + \ldots + x + 1
+$$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{50/lfsr.png}
+    \caption{Příklad LFSR.}
+\end{figure}
+
+\paragraph*{Geffe generátor} Geffe generátor (kombinovaný generátor) je využití 2 a více LFSR propojených multiplexorem.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{50/geffe.png}
+    \caption{Příklad Geffe generátoru.}
+\end{figure}
+
+\paragraph*{Stop and Go generátor} Stop and Go generátor je několik LSFR s různým zdrojem hodin.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{50/stop_and_go.png}
+    \caption{Příklad Stop and Go generátoru.}
+\end{figure}
