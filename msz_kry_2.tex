@@ -7,6 +7,9 @@
 
 \chapter{Asymetrická kryptografie, vlastnosti, způsoby použití, poskytované bezpečnostní funkce, elektronický podpis a jeho vlastnosti, hybridní kryptografie, algoritmus RSA, generování klíčů, šifrování, dešifrování.}
 
+% Todo:
+% - Matematicke problemy by sly formulovat lepe a formalneji. To co tu mam, by lehce nemuselo stacit. Kouknout k materialum od Mateje Kastaka.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Metadata}
@@ -70,7 +73,7 @@ msg = decrypt(msg, PK_A)
 \end{lstlisting}
 \end{minipage}
 
-\paragraph*{Digitální podpis} Vytvoření digitálního podpisu konkrétních dat pomocí soukromého klíče podepisatele. Každý kdo zná veřejný klíč podepisatele, může pravost podpisu ověřit. Digitální podpis je používán k dokazování itegrity, autentizace a nepopiratelnosti.
+\paragraph*{Digitální podpis} Vytvoření digitálního podpisu konkrétních dat pomocí soukromého klíče podepisatele. Každý kdo zná veřejný klíč podepisatele, může pravost podpisu ověřit. Digitální podpis zajišťuje autentizaci, itegritu a nepopiratelnost.
 
 \paragraph*{Algoritmy} Algoritmy asymetrické kryptografie se nedají \textit{vymyslet}, musí se objevit. Jsou založeny na těžkých matematických problémech. \begin{itemize}
     \item Problém batohu (\textit{knapsack problem}) -- MH (Merkle-Hellman)
@@ -114,7 +117,7 @@ Algoritmus RSA (Rivest-Shamir-Adleman) lze použít jak pro šifrování dat pro
 \paragraph*{Klíče} Klíče se skládají z: \begin{itemize}
     \item $p, q$ -- dvě náhodná soukromá prvočísla,
     \item $n$ -- veřejný modul ($n = p \cdot q$),
-    \item $e$ -- veřejný exponent ($e < \Phi(n) \; \land \; GCD(\Phi(n), e) = 1$)\footnote{$GCD$~--~největší společný dělitel},
+    \item $e$ -- veřejný exponent ($e < \Phi(n) \; \land \; GCD(\Phi(n), e) = 1$), typicky $3$ nebo $2^{16}+1$\footnote{$GCD$~--~největší společný dělitel},
     \item $d$ -- soukromý exponent,
     \item musí platit vztah: $e \cdot d \; \text{mod} \; \Phi(n) = 1$.
 \end{itemize}
@@ -129,7 +132,7 @@ Algoritmus RSA (Rivest-Shamir-Adleman) lze použít jak pro šifrování dat pro
     \item spočítat soukromý exponent $d$ tak, že platí $e \cdot d \; \text{mod} \; \Phi(n) = 1$.
 \end{enumerate}
 
-\paragraph*{Šifrování a dešifrování} Mějme zprávu $m$ reprezentovanou jako celé číslo a zašifrovanou zprávu $c$ reprezentovanou také jako celé číslo.
+\paragraph*{Šifrování a dešifrování} Mějme zprávu $m$ reprezentovanou jako celé číslo a zašifrovanou zprávu $c$ reprezentovanou také jako celé číslo. Digitální podpis se vytváří stejným způsobem, pouze se prohodí exponenty.
 
 \begin{equation}
     c = m^e \; \text{mod} \; n
@@ -139,7 +142,7 @@ Algoritmus RSA (Rivest-Shamir-Adleman) lze použít jak pro šifrování dat pro
     m = c^d \; \text{mod} \; n
 \end{equation}
 
-\paragraph*{Útoky a slabiny} Základní útok spočívá v rozložení čísla $n$ na činitele $p$ a $q$ a dopočítání soukromého klíče. Je třeba dbát důraz na generování čísel. Šifrování malých čísel je zranitelné, proto se používá \uv{předzpracování}~--~zarovnání na $X$ bitů (2048).
+\paragraph*{Útoky a slabiny} Pokud útočník rozloží číslo $n$ na činitele $p$ a $q$, tak může dopočítat soukromý klíč. Pokud útočník uhádně hodnotu $(p-1) \cdot (q-1)$, tak může dopočítat soukromý klíč. Šifrování malých čísel je zranitelné, proto se používá \uv{předzpracování}~--~zarovnání na $X$ bitů (2048).
 
 \begin{figure}[H]
     \centering
