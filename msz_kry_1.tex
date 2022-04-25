@@ -200,7 +200,7 @@ ECB (\uv{kódová kniha}) je výchozí \textit{naivní} režim. Bloková šifra 
 
 \subsection*{Cipher Block Chaining (CBC)}
 
-V režimu CBC (\uv{řetězení šifrových bloků}) je každý blok před šifrováním xorován zašifrovaným předchozím blokem a první blok je xorován inicializačním vektorem. Tento režim je široce používán. Nevýhody plynou ze zřetězené závislosti (šifrový blok závisí na všech předcházejících): Šifrování nelze paralelizovat a při poškození šifrového bloku nelze dešifrovat ani blok přímo následující. Dešifrování paralelizovat lze.
+V režimu CBC (\uv{řetězení šifrových bloků}) je každý blok před šifrováním xorován zašifrovaným předchozím blokem a první blok je xorován inicializačním vektorem. Tento režim je široce používán. Nevýhody plynou ze zřetězené závislosti (šifrovaný blok závisí na všech předcházejících): Šifrování nelze paralelizovat a při poškození šifrového bloku nelze dešifrovat ani blok přímo následující. Dešifrování paralelizovat lze.
 
 \begin{equation}
 \begin{aligned}
@@ -218,7 +218,7 @@ C_0 &= IV
 
 \subsection*{Cipher Feedback (CFB)}
 
-Režim CFB (\textit{šifrová zpětná vazba}) je velmi podobný režimu CBC. Rozdíl je v prohození pořadí operací xor a šifrování -- nejprve se zašifruje předchozí šifrový blok a výsledek se xoruje s otevřeným blokem. Toto prohození má významné implementační dopady: díky symetrii operace XOR vypadá dešifrovací funkce obdobně jako šifrovací. Šifruje pomaleji než CBC. Vstup není nutné zarovnávat. Plynou stejné nevýhody jako pro CBC.
+Režim CFB (\textit{šifrová zpětná vazba}) se liší oproti CBC v prohození pořadí operací xor a šifrování -- nejprve se zašifruje předchozí šifrovaný blok (resp. inicializační vektor) a výsledek se xoruje s otevřeným blokem. Toto prohození má významné implementační dopady: díky symetrii operace XOR vypadá dešifrovací funkce obdobně jako šifrovací. Šifruje pomaleji než CBC. Vstup není nutné zarovnávat. Plynou stejné nevýhody jako pro CBC.
 
 \begin{equation}
 \begin{aligned}

@@ -46,9 +46,9 @@
 \section{Kryptografická odolnost hashovacích funkcí}
 
 \paragraph*{Vlastnosti z hlediska odolnosti} Hashovací funkce by z hlediska kryptografické odolnosti měly splňovat: \begin{itemize}
-    \item \textit{First preimage resistance}~--~Pro konkrétní $y$ je výpočetně nezvládnutelné najít takové $x$, aby platilo $F(x) = y$. Útočník má k dispozici konkrétní hash, a snaží se pro něho nalézt zprávu.
-    \item \textit{Second preimage resistance}~--~Pro konkrétní $x$ je výpočetně nezvládnutelné najít takové $x'$, aby platilo $F(x) = F(x')$. Útočník má k dispozici konkrétní zprávu (nemůže si ji zvolit), ke které se snaží nalézt jinou zprávu, která bude mít stejný hash.
-    \item \textit{Collision resistance}~--~Je výpočetně nezvládnutelné najít libovolnou dvojici $x, x'$ takovou, aby platilo $x \neq x'$ a $F(x) = F(x')$. Útočník si může zvolit libovolnou zprávu, ke které se snaží nalézt jinou zprávu, která bude mít stejný hash. Pokud platí \textit{collision resistance}, tak platí i \textit{second preimage resistance}.
+    \item \textit{First preimage resistance}~--~Pro konkrétní $y$ je výpočetně nezvládnutelné najít takové $x$, aby platilo $h(x) = y$. Útočník má k dispozici konkrétní hash, a snaží se pro něho nalézt zprávu.
+    \item \textit{Second preimage resistance}~--~Pro konkrétní $x$ je výpočetně nezvládnutelné najít takové $x'$, aby platilo $h(x) = h(x')$. Útočník má k dispozici konkrétní zprávu (nemůže si ji zvolit), ke které se snaží nalézt jinou zprávu, která bude mít stejný hash.
+    \item \textit{Collision resistance}~--~Je výpočetně nezvládnutelné najít libovolnou dvojici $x, x'$ takovou, aby platilo $x \neq x'$ a $h(x) = h(x')$. Útočník si může zvolit libovolnou zprávu, ke které se snaží nalézt jinou zprávu, která bude mít stejný hash. Pokud platí \textit{collision resistance}, tak platí i \textit{second preimage resistance}.
 \end{itemize}
 
 \paragraph*{Narozeninový problém} V teorii pravděpodobnosti je narozeninový problém úloha vypočítat minimální početnost skupiny lidí, ve které je alespoň 50\% pravděpodobnost nalezení dvojice se stejným datem narození. Narozeninovým paradoxem je pak označována skutečnost, že tento počet (23) je mnohem menší než intuitivní odhad.
@@ -105,7 +105,7 @@ Nejčastější způsoby sestrojení hashovací funkce neklíčované jsou zalo�
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.6\linewidth]{kry_3/hash_function_iterative.pdf}
-    \caption{Schéma iterativní neklíčované hashovací funkce. Zpráva je rozdělena na $n$ částí. $f$ je tzv. kompresní funkce. $IV$ je inicializační vektor, resp. konstanta. $h_1$ až $h_{n-1}$ jsou mezivýsledky (\textit{mezihashe}) a $h$ je výsledný hash.}
+    \caption{Schéma iterativní neklíčované hashovací funkce. Zpráva je rozdělena na $n$ částí. $f$ je tzv. kompresní funkce. $IV$ je inicializační vektor, resp. konstanta. $h_1$ až $h_{n-1}$ jsou mezivýsledky (\uv{mezihashe}) a $h$ je výsledný hash.}
 \end{figure}
 
 \begin{figure}[H]
@@ -120,9 +120,9 @@ Jednotlivé kroky hashovací funkce: \begin{itemize}
     \item Postzpracování~--~Volitelný krok.
 \end{itemize}
 
-\paragraph*{Merkelova meta-metoda} -- Nechť $f$ je kompresní funkce odolná proti kolizím. Hashovací funkce $F$ na principu iterace využívající kompresní funkci $f$ je rovněž odolná proti kolizím.
+\paragraph*{Merkelova meta-metoda} Nechť $f$ je kompresní funkce odolná proti kolizím. Hashovací funkce $h$ na principu iterace využívající kompresní funkci $f$ je rovněž odolná proti kolizím.
 
-\paragraph*{Merkel-Damgardovo zesílení} -- Pokud je do vstupu hashovací funkce vložena délka zprá\-vy, tak je zajištěno, že žádná zpráva není prefixem jiné zprávy.
+\paragraph*{Merkel-Damgardovo zesílení} Pokud je do vstupu hashovací funkce vložena délka zprá\-vy, tak je zajištěno, že žádná zpráva není prefixem jiné zprávy.
 
 \paragraph*{Zarovnání} Nejednoznačné zarovnání (\textit{ambiguous padding}) -- připoj ke zprávě tolik bitů, aby délka zprávy byla násobkem délky bloku. Jednoznačné zarovnání (\textit{unambiguous padding}) -- připoj ke zprávě jeden bit a poté proveď nejednoznačné zarovnání.
 
@@ -155,9 +155,9 @@ Alternativně lze využít pro konstrukci hashovacích funkcí blokové šifry. 
     \caption{Schéma použití MAC. Pokud je stejný MAC výpočítán na straně příjemce, tak má jistotu, že zpráva nebyla po cestě změněna a že zprávu poslal skutečně odesílatel.}
 \end{figure}
 
-\subsection*{Sestrojení MAC pomocí CBC}
+\subsection*{Sestrojení MAC pomocí blokové šifry v CBC}
 
-Pro sestrojení MAC funkce je využita symetrická bloková šifra s režimu CBC (\textit{cipher feedback}, šifrová zpětná vazba). Rozdíl oproti symetrickému blokovému šifrování v režimu CBC spočívá v tom, že mezivýsledky se zahazují a pracuje se až s posledním blokem. Z něho se vezme určitý počet posledních bitů (podle požadované délky hashe -- 32, 48, 64) a ten tvoří výsledny hash (MAC).
+Pro sestrojení MAC hashovací funkce je využita symetrická bloková šifra v režimu CBC (\textit{cipher block chaining}, šifrová zpětná vazba). Rozdíl oproti CBC šifrování spočívá v tom, že mezivýsledky se zahazují a pracuje se až s posledním blokem. Z něho se vezme určitý počet posledních bitů (podle požadované délky hashe -- 32, 48, 64) a ten tvoří výsledný hash (MAC).
 
 \begin{figure}[H]
     \centering
@@ -165,20 +165,24 @@ Pro sestrojení MAC funkce je využita symetrická bloková šifra s režimu CBC
     \caption{Ukázka sestrojení MAC funkce pomocí symetrické blokové šifry v režimu CBC.}
 \end{figure}
 
-% todo
-% pokial funkcia $h_k$ je MAC, potom $h_k$ vzhladok k utoku so zvolenym textom (chosen-text attack) je: 2nd preimage a collision resistant, 1st preimage resistant.
+Proč stačí výrazně menší délka? Protože klíč. Útočník sice může vyzkoušet všechny možné hashe, ale bez znalostí klíče, nezjistí, který je ten správný.
 
-Proč stačí výrazně menší délka? Protože klíč.
-% pokracovat v zaznamu 1:38:30
+\subsection*{Sestrojení MAC pomocí neklíčované hashovací funkce}
 
-\todo{todo}
+Pro sestrojení MAC hashovací funkce je využita neklíčovaná hashovací funkce. Klíč je připojen ke zprávě a je použita standardní hashovací funkce.
 
-\subsection*{Nekličovaný hashovací algoritmus}
+\paragraph*{Secret prefix} Klíč je přidán na začátek zprávy. Formálně: $H = h(k || x)$, kde $H$ je výsledný hash (MAC), $h$ je hashovací funkce, $k$ je klíč a $x$ je zpráva. Útočník může libovolně \uv{přihashovávat} další bloky bez znalosti klíče a tím vytvářet nové validní hashe~--~$h(k || x || y)$, kde $y$ je útočníkova zpráva $\Rightarrow$ nepřijatelný způsob.
 
-\todo{todo}
+\paragraph*{Secret suffix} Klíč je přidán na konec zprávy. Formálně: $H = h(x || k)$. Útočník, který může zvolit $x$, může také vytvořit $x'$, pro které $h(x) = h(x')$ se složitostí $O(2^{n/2})$, kde $n$ je délka hashe, bez ohledu na délku klíče $k$ (narozeninový útok) $\Rightarrow$ nepřijatelný způsob (útok který je neovlivnitelný délkou klíče).
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\paragraph*{Enveloping} Klíč je přidán na začátek i na konec zprávy. Formálně: $H = h(k || p || x || k)$, kde $p$ je zarovnání. Přijatelný způsob. Základ pro algoritmus HMAC.
 
-\section{HMAC (\textit{hash function MAC})}
+\subsection{HMAC (\textit{hash function MAC})}
 
-\todo{todo}
+HMAC (\textit{hash function MAC}) je do dnes používaný algoritmus. Specifikuje použití metody \textit{enveloping}, ale ne, která hashovací funkce se použije.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{kry_3/hmac.png}
+    \caption{Schéma HMAC; \texttt{ipad} a \texttt{opad} jsou vstupní/výstupní konstanty, které slouží k zarovnání; $Y_i$ jsou bloky vstupní zprávy; $IV$ je inicializační vektor.}
+\end{figure}
