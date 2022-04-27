@@ -40,6 +40,28 @@
 
 \PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks,unicode]{hyperref}
 
+% Compact itemize - compactitem
+\newenvironment{compactitem} {
+    \begin{itemize}
+    \setlength{\itemsep}{2pt}
+    \setlength{\parskip}{2pt}
+    \setlength{\parsep}{2pt}
+}
+{
+    \end{itemize}
+}
+
+% Compact enumerate - compactenum
+\newenvironment{compactenum} {
+    \begin{enumerate}
+    \setlength{\itemsep}{2pt}
+    \setlength{\parskip}{2pt}
+    \setlength{\parsep}{2pt}
+}
+{
+    \end{enumerate}
+}
+
 % Page dimensions
 \geometry
 {

@@ -11,18 +11,18 @@
 
 \section{Metadata}
 
-\begin{itemize}
+\begin{compactitem}
     \item Předmět: Grafové algoritmy (GAL)
     \item Přednáška:
-    \begin{itemize}
+    \begin{compactitem}
         \item 7) Nejkratší cesty z jednoho vrcholu, Bellman-Fordův algoritmus, nejkratší cesta z jednoho vrcholu v orientovaných acyklických grafech.
         \item 8) Dijkstrův algoritmus. Nejkratší cesty ze všech vrcholů.
-    \end{itemize}
+    \end{compactitem}
     \item Záznam:
-    \begin{itemize}
+    \begin{compactitem}
         \item 2020-11-05
-    \end{itemize}
-\end{itemize}
+    \end{compactitem}
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -121,12 +121,12 @@ def bellman_ford(G, s, w):
 
 \subsection*{Složitost}
 
-\begin{itemize}
+\begin{compactitem}
     \item Řádek 7, 8 -- $\Theta(1)$.
     \item Řádky 11, 12, 13 -- $(n-1) \cdot \Theta(m) = \Theta(n \cdot m)$, kde $n$ je počet uzlů a $m$ je počet hran grafu.
     \item Řádek 16, 17, 18 -- $\Theta(m)$.
     \item Celkem $\Theta(n \cdot m)$.
-\end{itemize}
+\end{compactitem}
 
 \subsection*{Příklad}
 
@@ -194,7 +194,7 @@ def dijkstra(G, s, w):
 
 \subsection*{Složitost}
 
-\begin{itemize}
+\begin{compactitem}
     \item Předpokládejme implementaci prioritní fronty pomocí pole.
     \item Řádek 8, 18 -- $O(1)$.
     \item Řádek 11 -- While cyklus se provede $n$-krát, kde $n$ je počet uzlů.
@@ -203,7 +203,7 @@ def dijkstra(G, s, w):
     \item Celkem $O(n^2 + m) = O(n^2)$.
     \item Pro řídké grafy lze využít implementaci fronty pomocí binární haldy a získat tak $O(m \cdot \log(n))$.
     \item Při implementaci fronty pomocí Fibonacciho haldy dostaneme časovou složitost $O(n \cdot \log(n) + m)$.
-\end{itemize}
+\end{compactitem}
 
 \subsection*{Příklad}
 

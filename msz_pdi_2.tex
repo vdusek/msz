@@ -14,17 +14,17 @@
 
 \subsection*{Metadata}
 
-\begin{itemize}
+\begin{compactitem}
     \item Předmět: Prostředí distribuovaných aplikací (PDI)
     \item Přednáška:
-    \begin{itemize}
+    \begin{compactitem}
         \item 4) Globální stav a snapshots
-    \end{itemize}
+    \end{compactitem}
     \item Záznam:
-    \begin{itemize}
+    \begin{compactitem}
         \item 2020-10-12
-    \end{itemize}
-\end{itemize}
+    \end{compactitem}
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -46,13 +46,13 @@ $$.
 
 \section{Model komunikace}
 
-\begin{itemize}
+\begin{compactitem}
     \item FIFO -- Komukační kanál funguje jako fronta zpráv \textit{first in}, \textit{first out}. Kanál tedy zachovává pořadí zpráv sám o sobě.
 
     \item non-FIFO -- Komunikační kanál se chová jako datová struktura množina, do které odesílatel vkládá zprávy a příjemce je odebírá v náhodném pořadí.
 
     \item Causal ordering (kauzální uspořádání) -- Systém, který podporuje kauzální doručení zpráv splňuje následující vlastnost. Pro jakékoliv dvě zprávy $m_{ij}$ a $m_{kj}$ platí, pokud $send(m_{ij}) \rightarrow send(m_{kj})$, pak i $recv(m_{ij}) \rightarrow recv(m_{kj})$.
-\end{itemize}
+\end{compactitem}
 
 \section{Konzistentní globální stav}
 
@@ -77,15 +77,15 @@ $$.
 \paragraph*{Jak lze \textit{snapshot} vytvořit} Absence globální sdílené paměti, globálních hodin a nepředvídatelná délka zpoždění v odesílání zpráv v distribuovaném systému činí problém vytváření snapshotů netriviálním. Způsob vytváření lze rozdělit do dvou kategorií: na základě algoritmů a na základě checkpointů.
 
 \paragraph*{Problémy při zaznamenávání snapshotu} Jak rozlišit mezi zprávami, které mají být součástí snapshotu a které nikoliv?
-\begin{itemize}
+\begin{compactitem}
     \item Zprávy, které jsou odeslány procesem před zaznamenáním svého  snapshotu, jsou zaznamenány do stavu.
     \item Zprávy, které jsouodeslány procesem po zaznamenání svého  snapshotu, nejsou zaznamenány do stavu.
-\end{itemize}
+\end{compactitem}
 
 \noindent Jak rozpoznat okamžik, ve kterém má proces zaznamenat snapshot?
-\begin{itemize}
+\begin{compactitem}
     \item Proces $p_j$ musí zaznamenat svůj snapshot před zpracováním zprávy $m_{ij}$, která byla poslána procesem $p_i$ po zaznamenání jeho snapshotu.
-\end{itemize}
+\end{compactitem}
 
 \begin{figure}[H]
     \centering

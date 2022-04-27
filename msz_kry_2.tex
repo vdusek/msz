@@ -15,20 +15,20 @@
 
 \section{Metadata}
 
-\begin{itemize}
+\begin{compactitem}
     \item Předmět: Kryptografie (KRY)
     \item Přednáška:
-    \begin{itemize}
+    \begin{compactitem}
         \item 6) Asymetrická kryptografie, vlastnosti, způsoby použití, poskytované bezpečnostní funkce.
         \item 7) Elektronický podpis a jeho vlastnosti, hybridní kryptografie.
         \item 8) Příklady asymetrických algoritmů, RSA.
-    \end{itemize}
+    \end{compactitem}
     \item Záznam:
-    \begin{itemize}
+    \begin{compactitem}
         \item 2021-03-08
         \item 2021-03-22
-    \end{itemize}
-\end{itemize}
+    \end{compactitem}
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -36,18 +36,18 @@
 
 \textit{Viz. \uv{Úvod a kontext} v předchozích otázkách z tohoto předmětu.}
 
-\paragraph*{Asymetrická kryptografie} \begin{itemize}
+\paragraph*{Asymetrická kryptografie} \begin{compactitem}
     \item V asymetrické kryptografii se používají páry klíčů (soukromý a veřejný). Soukromý je používán k dešifrování, resp. vytvoření digitálního podpisu. Veřejný je používán k šifrování, resp. ověření digitálního podpisu.
     \item Každý uživatel generuje svůj pár klíčů. Veřejný klíč je zveřejněn (znají ho všichni), sourkomý je držen v tajnosti (zná ho pouze vlastník).
     \item Všechny asymetrické algoritmy jsou blokové.
     \item Asymetrické algoritmy jsou pomalejší než symetrické.
-\end{itemize}
+\end{compactitem}
 
-\paragraph*{Způsoby použití} Asymetrická kryptografie lze využít k: \begin{itemize}
+\paragraph*{Způsoby použití} Asymetrická kryptografie lze využít k: \begin{compactitem}
     \item šifrování,
     \item digitálnímu podepisování,
     \item pro výměnu symetrického klíče (\textit{key exchange}).
-\end{itemize}
+\end{compactitem}
 
 \paragraph*{Vlastnosti} Vlastnosti symetrické a asymetrické kryptografie\footnote{Otazníky -- částečně, za předpokladů, \dots}.
 \begin{table}[H]
@@ -76,12 +76,12 @@ msg = decrypt(msg, PK_A)
 
 \paragraph*{Digitální podpis} Vytvoření digitálního podpisu konkrétních dat pomocí soukromého klíče podepisatele. Každý kdo zná veřejný klíč podepisatele, může pravost podpisu ověřit. Digitální podpis zajišťuje autentizaci, itegritu a nepopiratelnost.
 
-\paragraph*{Algoritmy} Algoritmy asymetrické kryptografie se nedají \textit{vymyslet}, musí se objevit. Jsou založeny na těžkých matematických problémech. \begin{itemize}
+\paragraph*{Algoritmy} Algoritmy asymetrické kryptografie se nedají \textit{vymyslet}, musí se objevit. Jsou založeny na těžkých matematických problémech. \begin{compactitem}
     \item Problém batohu (\textit{knapsack problem}) -- MH (Merkle-Hellman)
     \item Faktorizace čísel -- RSA (Rivest-Shamir-Adleman)
     \item Diskrétní logaritmus -- DSA (Digital Signature Algorithm), DH (Diffie-Hellman)
     \item Eliptické křivky -- ECDSA, ECDH
-\end{itemize}
+\end{compactitem}
 
 \paragraph*{Problém batohu} Problém batohu je NP-úplný problém kombinatorické optimalizace. Nechť ${x_1, x_2, \dots, x_n}$ je množina objektů, každý objekt má svoji cenu $v_i$ a svoji hmotnost $w_i$, dále mějme batoh, který má kapacitu $W$. Cílem je vybrat takovou množinu objektů, jejichž hmotnost je menší nebo rovna $W$ a má nejvyšší možnou cenu\footnote{Problém má více obdobných variant.}. Formálně chceme maximalizovat sumu $$ \sum_{i=1}^n v_i \cdot x_i $$, při splnění $$ \sum_{i=1}^n w_i \cdot x_i \leq W $$, kde $x_i \in {x_1, x_2, \dots, x_n}$.
 
@@ -115,23 +115,23 @@ Hybridní kryptografie je kombinace symetrické a asymetrické kryptografie, ve 
 
 Algoritmus RSA (Rivest-Shamir-Adleman) lze použít jak pro šifrování dat pro digitální podepisování. Je založen na problému faktorizace velkých čísel.
 
-\paragraph*{Klíče} Klíče se skládají z: \begin{itemize}
+\paragraph*{Klíče} Klíče se skládají z: \begin{compactitem}
     \item $p, q$ -- dvě náhodná soukromá prvočísla,
     \item $n$ -- veřejný modul ($n = p \cdot q$),
     \item $e$ -- veřejný exponent ($e < \Phi(n) \; \land \; GCD(\Phi(n), e) = 1$), typicky $3$ nebo $2^{16}+1$\footnote{$GCD$~--~největší společný dělitel},
     \item $d$ -- soukromý exponent,
     \item musí platit vztah: $e \cdot d \; \text{mod} \; \Phi(n) = 1$.
-\end{itemize}
+\end{compactitem}
 
 \noindent Veřejný klíč $PK = (n, e)$, soukromý klíč $SK = (n, d)$.
 
-\paragraph*{Postup generování} Postup generování klíčů: \begin{enumerate}
+\paragraph*{Postup generování} Postup generování klíčů: \begin{compactenum}
     \item vygenerovat prvočísla $p$ a $q$,
     \item spočítat modul $n = p \cdot q$,
     \item spočítat $\Phi(n) = (p-1) \cdot (q-1)$,
     \item zvolit veřejný exponent $e < \Phi(n) \; \land \;GCD(\Phi(n), e) = 1$,
     \item spočítat soukromý exponent $d$ tak, že platí $e \cdot d \; \text{mod} \; \Phi(n) = 1$.
-\end{enumerate}
+\end{compactenum}
 
 \paragraph*{Šifrování a dešifrování} Mějme zprávu $m$ reprezentovanou jako celé číslo a zašifrovanou zprávu $c$ reprezentovanou také jako celé číslo. Digitální podpis se vytváří stejným způsobem, pouze se prohodí exponenty.
 

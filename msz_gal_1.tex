@@ -11,19 +11,19 @@
 
 \section{Metadata}
 
-\begin{itemize}
+\begin{compactitem}
     \item Předmět: Grafové algoritmy (GAL)
     \item Přednáška:
-    \begin{itemize}
+    \begin{compactitem}
         \item 5) Stromy, minimální kostry, Jarníkův a Borůvkův algoritmus.
         \item 6) Růst minimální kostry, algoritmy Kruskala a Prima.
-    \end{itemize}
+    \end{compactitem}
     \item Záznam:
-    \begin{itemize}
+    \begin{compactitem}
         \item 2020-10-22
         \item 2020-10-29
-    \end{itemize}
-\end{itemize}
+    \end{compactitem}
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -150,18 +150,18 @@ def kruskal_mst(G):
 
 \subsection*{Složitost}
 
-\begin{itemize}
+\begin{compactitem}
     \item Řádek 5 -- $O(1)$
     \item Řádek 6-7 -- $n$-krát složitost $make\_set$ ($n$ je počet uzlů).
     \item Řádek 10 -- $O(m \cdot \log(m))$ ($m$ je počet hran).
     \item Řádky 12-15 -- Závisí na implementaci $find\_set$ a $union$.
-    \begin{itemize}
+    \begin{compactitem}
         \item Při implementaci seznamem s heuristickou celkem: $O(m + n \cdot \log(n))$.
         \item Při stromové implementaci s váhami a zkratkami celkem: $O((m+n) \cdot \alpha(n))$. Kde $\alpha$ je velmi pomalu rostoucí funkce ($\alpha \leq 4$).
-    \end{itemize}
+    \end{compactitem}
     \item Pro souvislý graf platí $m > n$. Proto množinové operace stojí $O(m \cdot \alpha(n))$. Jelikož $\alpha(n) = O(\log(n)) = O(\log(m))$, tak celková složitost je $O(m \cdot \log(m))$.
     \item Dále platí $m < n^2$, pak $\log(m) = O(\log(n))$, proto celkem: $O(m \cdot \log(n))$.
-\end{itemize}
+\end{compactitem}
 
 \subsection*{Příklad}
 
@@ -219,14 +219,14 @@ def prim_mst(G, r):
 
 \subsection*{Složitost}
 
-\begin{itemize}
+\begin{compactitem}
     \item Řádky 5-10 -- $O(n)$ za použití binární haldy ($n$ je počet uzlů).
     \item Řádky 12-13 -- While cyklus se provede n-krát a protože \textit{extract\_min} stojí $O(\log(n))$, tak je celková složitost $O(n \cdot \log(n))$.
     \item Řádek 16 -- For cyklus se provede $O(m)$ krát, protože dálka všech seznamů sousedů je dohromady $2m$ ($m$ je počet hran).
     \item Řádek 18-20 -- $O(1)$.
     \item Řádek 21 -- $O(\log(n))$.
     \item Jelikož $m > n$, tak celkem $O(n \cdot \log(n) + m \cdot \log(n)) = O(m \cdot \log(n))$.
-\end{itemize}
+\end{compactitem}
 
 \subsection*{Příklad}
 

@@ -11,20 +11,20 @@
 
 \section{Metadata}
 
-\begin{itemize}
+\begin{compactitem}
     \item Předmět: Prostředí distribuovaných aplikací (PDI)
     \item Přednáška:
-    \begin{itemize}
+    \begin{compactitem}
         \item 9) Programovací model MapReduce a Apache Hadoop
         \item 10) Distribuované souborové systémy
         \item 11) Apache Spark
-    \end{itemize}
+    \end{compactitem}
     \item Záznam:
-    \begin{itemize}
+    \begin{compactitem}
         \item 2020-11-16
         \item 2020-11-23
-    \end{itemize}
-\end{itemize}
+    \end{compactitem}
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -88,14 +88,14 @@ def reduce(input_key: str, input_value: list[int]) -> tuple[str, int]:
 \end{figure}
 
 \paragraph*{Průběh MapReduce} Celý MapReduce probíhá v několika krocích, viz obrázek~\ref{49_map_reduce_example}.
-\begin{enumerate}
+\begin{compactenum}
     \item Input -- Přípravený vstup pro distribuovaný výpočet (např. soubory ve virtuálním distribuovaném souborovém systému, viz dále HDFS).
     \item Splitting -- Rozdělení vstupu na části, které budou přiděleny jednotlivým uzlům. Může být výchozí (např. rozdělení textového souboru po řádcích) nebo definováno uživatelem.
     \item Mapping -- Každý uzel aplikuje funkci \textit{map} na svoji přidělenou část. Uživatel definuje jak má funkce \textit{map} vypadat.
     \item Shuffling (také Grouping, Partitioning, Comparing)-- Výpočetní uzly si mezi sebou vymění hodnoty, které spočítaly, na základě klíče. Tento krok zařižuje platforma pro distribuovaný výpočet sama o sobě, typicky na základě hashů klíčů. Tento krok je většinou \textit{bottleneck}.
     \item Reducing -- Každý uzel zapojený do tohoto kroku (často je v tomto kroku potřeba méně uzlů, než v kroku mapping) aplikuje funkci \textit{reduce} na svoji přidělenou část. Uživatel definuje jak má funkce \textit{reduce} vypadat.
     \item Final Result -- Finální výsledek (např. zapsán do do virtuálního distribuovaného souborového systému, viz dále HDFS).
-\end{enumerate}
+\end{compactenum}
 
 \begin{figure}[H]
     \centering

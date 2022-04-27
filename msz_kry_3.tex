@@ -11,17 +11,17 @@
 
 \section{Metadata}
 
-\begin{itemize}
+\begin{compactitem}
     \item Předmět: Kryptografie (KRY)
     \item Přednáška:
-    \begin{itemize}
+    \begin{compactitem}
         \item \path{KRY04_Asym_MNG.pdf}
-    \end{itemize}
+    \end{compactitem}
     \item Záznam:
-    \begin{itemize}
+    \begin{compactitem}
         \item 2021-03-22
-    \end{itemize}
-\end{itemize}
+    \end{compactitem}
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -31,11 +31,11 @@
 
 \paragraph*{Hashovací funkce} Hashovací funkce je funkce (resp. algoritmus) pro převod vstupních dat do (relativně) malého čísla. Výstup hashovací funkce se označuje otisk, \textit{fingerprint}, \textit{digest} či \textit{hash}. Jsou jednosměrné a odolné proti kolizím (viz vlastnosti).
 
-\paragraph*{Obecné vlastnosti} Hashovací funkce by měla: \begin{itemize}
+\paragraph*{Obecné vlastnosti} Hashovací funkce by měla: \begin{compactitem}
     \item Být aplikovatelná na argument o libovolné velikosti.
     \item Mít výstyp konstantní délky.
     \item Dokázat spočítat výstup rychle.
-\end{itemize}
+\end{compactitem}
 
 \paragraph*{Neklíčované hashovací funkce} Hashovací funkce má pouze jeden argument~--~data. Např. MD2, MD4, MD5, SHS, SHA1, SHA2, SHA3. $$f(data) \rightarrow hash$$
 
@@ -45,11 +45,11 @@
 
 \section{Kryptografická odolnost hashovacích funkcí}
 
-\paragraph*{Vlastnosti z hlediska odolnosti} Hashovací funkce by z hlediska kryptografické odolnosti měly splňovat: \begin{itemize}
+\paragraph*{Vlastnosti z hlediska odolnosti} Hashovací funkce by z hlediska kryptografické odolnosti měly splňovat: \begin{compactitem}
     \item \textit{First preimage resistance}~--~Pro konkrétní $y$ je výpočetně nezvládnutelné najít takové $x$, aby platilo $h(x) = y$. Útočník má k dispozici konkrétní hash, a snaží se pro něho nalézt zprávu.
     \item \textit{Second preimage resistance}~--~Pro konkrétní $x$ je výpočetně nezvládnutelné najít takové $x'$, aby platilo $h(x) = h(x')$. Útočník má k dispozici konkrétní zprávu (nemůže si ji zvolit), ke které se snaží nalézt jinou zprávu, která bude mít stejný hash.
     \item \textit{Collision resistance}~--~Je výpočetně nezvládnutelné najít libovolnou dvojici $x, x'$ takovou, aby platilo $x \neq x'$ a $h(x) = h(x')$. Útočník si může zvolit libovolnou zprávu, ke které se snaží nalézt jinou zprávu, která bude mít stejný hash. Pokud platí \textit{collision resistance}, tak platí i \textit{second preimage resistance}.
-\end{itemize}
+\end{compactitem}
 
 \paragraph*{Narozeninový problém} V teorii pravděpodobnosti je narozeninový problém úloha vypočítat minimální početnost skupiny lidí, ve které je alespoň 50\% pravděpodobnost nalezení dvojice se stejným datem narození. Narozeninovým paradoxem je pak označována skutečnost, že tento počet (23) je mnohem menší než intuitivní odhad.
 Výsledek je intuitivnější, když uvážíme, že porovnání narozenin bude provedeno mezi všemi možnými dvojicemi jedinců. Při počtu 23 jedinců je třeba uvažovat $(23 \cdot 22) / 2 = 253$ dvojic, což je více než polovina počtu dnů v roce ($182,5$).
@@ -69,32 +69,32 @@ Jednodušší je nejprve spočítat jev opačný $\bar p(n)$, tedy pravděpodobn
 
 \paragraph*{Narozeninový útok} Mějme hashovací funkci, která má $n$ bitový výstup (celkový počet možných hashů je $2^{n}$). Útočník vytvoří dokument \uv{přátelská dohoda} a přibližně $2^{n/2}$ sémanticky ekvivalentních verzí (úprava bílých znaků, úprava pořadí celků, jiné formulace, \dots). Podobně vytvoří dokument \uv{nepřátelská dohoda} a přibližně $2^{n/2}$ sémanticky ekvivalentních verzí. S pravděpodobností $0,5$ existuje verze \uv{přátelské dohody} a \uv{nepřátelské dohody}, které mají stejný hash. Pokud takové verze existují, útočník dá oběti podepsat \uv{přátelskou dohodu} $\Rightarrow$ existuje validní podpis \uv{nepřátelské dohody}.
 
-\paragraph*{Bezpečnostní cíle OWHF} Bezpečnostní cíle OWHF (\textit{one way hash function}). Některé protokoly nevyžadují bezkoliznost, proto má smysl řešit i tento případ. \begin{itemize}
+\paragraph*{Bezpečnostní cíle OWHF} Bezpečnostní cíle OWHF (\textit{one way hash function}). Některé protokoly nevyžadují bezkoliznost, proto má smysl řešit i tento případ. \begin{compactitem}
     \item Vyžadované vlastnosti: \textit{first preimage resistance} a \textit{second preimage resistance}
     \item Cíl útočníka: vytvořit \textit{first preimage} nebo \textit{second preimage} (oba úkoly jsou stejně těžké)
     \item Složitost: $O(2^n)$ ($n$ je počet bitů hashe)
     \item Požadovaná délka: $n \geq 80$
-\end{itemize}
+\end{compactitem}
 
-\paragraph*{Bezpečnostní cíle CRHF} Bezpečnostní cíle CRHF (\textit{collision resistance hash function}). \begin{itemize}
+\paragraph*{Bezpečnostní cíle CRHF} Bezpečnostní cíle CRHF (\textit{collision resistance hash function}). \begin{compactitem}
     \item Vyžadované vlastnosti: \textit{collision resistance}
     \item Cíl útočníka: vytvořit kolizi
     \item Složitost: $O(2^{n / 2})$ ($n$ je počet bitů hashe) (kvůli narozeninovému útoku)
     \item Požadovaná délka: $n \geq 160$
-\end{itemize}
+\end{compactitem}
 
-\paragraph*{Bezpečnostní cíle MAC} Bezpečnostní cíle MAC (\textit{message authentication code}). \begin{itemize}
+\paragraph*{Bezpečnostní cíle MAC} Bezpečnostní cíle MAC (\textit{message authentication code}). \begin{compactitem}
     \item Vyžadované vlastnosti: \textit{computation resistance}, \textit{key non-recovery}
-    \item Cíl útočníka (útočník si může vybrat): \begin{itemize}
+    \item Cíl útočníka (útočník si může vybrat): \begin{compactitem}
         \item Vytvořit nový hash, který bude odpovídat nové zprávě
         \item Nalézt klíč
-    \end{itemize}
-    \item Složitost ($n$ je počet bitů hashe, $t$ je počet bitů klíče): \begin{itemize}
+    \end{compactitem}
+    \item Složitost ($n$ je počet bitů hashe, $t$ je počet bitů klíče): \begin{compactitem}
         \item Vytvořit nový hash: $O(max(2^{-n}, 2^{-t}))$
         \item Nalézt klíč: $O(2^n)$
-    \end{itemize}
+    \end{compactitem}
     \item Požadovaná délka: $n \geq 64 \; \land \; t \geq 64$
-\end{itemize}
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -114,11 +114,11 @@ Nejčastější způsoby sestrojení hashovací funkce neklíčované jsou zalo�
     \caption{Podrobnější schéma iterativní neklíčované hashovací funkce.}
 \end{figure}
 
-Jednotlivé kroky hashovací funkce: \begin{itemize}
+Jednotlivé kroky hashovací funkce: \begin{compactitem}
     \item Předzpracování~--~Vstupní data jsou rozdělena na bloky o stejné délce. Je provedeno zarovnání posledního bloku. Je připojena informace o délce zprávy.
     \item Iterativní zpracování~--~V iteracích se postupně \uv{přihashovávají} vstupní bloky. Zpět\-ná vazba pomocí stavové proměnné. Uvnitř kompresní funkce, která z delšího vstupu uděla kratší výstup.
     \item Postzpracování~--~Volitelný krok.
-\end{itemize}
+\end{compactitem}
 
 \paragraph*{Merkelova meta-metoda} Nechť $f$ je kompresní funkce odolná proti kolizím. Hashovací funkce $h$ na principu iterace využívající kompresní funkci $f$ je rovněž odolná proti kolizím.
 
@@ -140,14 +140,14 @@ Alternativně lze využít pro konstrukci hashovacích funkcí blokové šifry. 
 
 \section{MAC (\textit{message authentication code})}
 
-\begin{itemize}
+\begin{compactitem}
     \item Rodina hashovacích funkcí $h_k$, které jsou parametrizovatelné klíčem $k$.
-    \item Vlasnosti (stejné jako u obecných hashovacích funkcí, pouze rozšířené o klíč): \begin{itemize}
+    \item Vlasnosti (stejné jako u obecných hashovacích funkcí, pouze rozšířené o klíč): \begin{compactitem}
         \item Výstup $h_k(x)$ lze spočítat rychle, pokud je znám klíč $k$.
         \item Jsou výpočetně bezpečné -- při znalosti dvojice $(x, h_k(x))$ je výpočetně nemožné spočíst novou dvojici $(x', h_k(x'))$, pro $x \neq x'$, pokud není znám klíč.
-    \end{itemize}
+    \end{compactitem}
     \item Využití: zajištění autentizace a integrity (nepopiratelnost zajistit nedokáže).
-\end{itemize}
+\end{compactitem}
 
 \begin{figure}[H]
     \centering
