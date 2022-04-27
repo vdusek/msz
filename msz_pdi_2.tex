@@ -30,7 +30,7 @@
 
 \section{Úvod a kontext}
 
-\paragraph*{Distribuovaný systém} Distribovaný systém je množina procesů $p_1, p_2, \dots, p_n$, které jsou propojeny komunikačními kanály. V systému neexistuje žádná globální paměť ani globální hodiny. Procesy spolu komunikují pouze zasíláním zpráv skrze komunikačními kanály.
+\paragraph*{Distribuovaný systém} Distribovaný systém je množina procesů $p_1, p_2, \dots, p_n$, které jsou propojeny komunikačními kanály. V~systému neexistuje žádná globální paměť ani globální hodiny. Procesy spolu komunikují pouze zasíláním zpráv skrze komunikačními kanály.
 
 \paragraph*{Komunikační kanál} Komunikační kanál mezi procesy $p_i$ a $p_j$ značíme $C_{ij}$.
 
@@ -38,7 +38,7 @@
 
 \paragraph*{Zpráva} Zpráva $m_{ij}$ značí zprávu zaslanou procesem $p_i$ procesu $p_j$. $send(m_{ij})$ značí odeslání zprávy a $recv(m_{ij})$ přijetí.
 
-\paragraph*{Stav procesu} Lokální stav procesu $p_i$ značíme $LS_i$. Lokální stav je definován jako sekvence všech událostí, o kterých proces $p_i$ ví. Nechť $e$ je libovolná událost, $e \in LS_i$ značí, že událost $e$ patří do lokálního stavu procesu $p_i$, $e \not\in LS_i$ značí, že událost $e$ nepatří do lokálního stavu procesu $p_i$.
+\paragraph*{Stav procesu} Lokální stav procesu $p_i$ značíme $LS_i$. Lokální stav je definován jako sekvence všech událostí, o~kterých proces $p_i$ ví. Nechť $e$ je libovolná událost, $e \in LS_i$ značí, že událost $e$ patří do lokálního stavu procesu $p_i$, $e \not\in LS_i$ značí, že událost $e$ nepatří do lokálního stavu procesu $p_i$.
 
 \paragraph*{Stav komunikačního kanálu} Stav komunikačního kanálu $C_{ij}$ značíme $SC_{ij}$ a je definován množinou zpráv, které obsahuje. Pro kanál $C_{ij}$ můžeme definovat jeho stav na základě lokálních stavů procesů $LS_i$ a $LS_j$: $$
 transit(LS_i, LS_j) = \{ m_{ij} \,|\, send(m_{ij}) \in LS_i \land rec(m_{ij}) \not\in LS_j \}
@@ -47,9 +47,9 @@ $$.
 \section{Model komunikace}
 
 \begin{compactitem}
-    \item FIFO -- Komukační kanál funguje jako fronta zpráv \textit{first in}, \textit{first out}. Kanál tedy zachovává pořadí zpráv sám o sobě.
+    \item FIFO -- Komukační kanál funguje jako fronta zpráv \textit{first in}, \textit{first out}. Kanál tedy zachovává pořadí zpráv sám o~sobě.
 
-    \item non-FIFO -- Komunikační kanál se chová jako datová struktura množina, do které odesílatel vkládá zprávy a příjemce je odebírá v náhodném pořadí.
+    \item non-FIFO -- Komunikační kanál se chová jako datová struktura množina, do které odesílatel vkládá zprávy a příjemce je odebírá v~náhodném pořadí.
 
     \item Causal ordering (kauzální uspořádání) -- Systém, který podporuje kauzální doručení zpráv splňuje následující vlastnost. Pro jakékoliv dvě zprávy $m_{ij}$ a $m_{kj}$ platí, pokud $send(m_{ij}) \rightarrow send(m_{kj})$, pak i $recv(m_{ij}) \rightarrow recv(m_{kj})$.
 \end{compactitem}
@@ -60,9 +60,9 @@ $$.
 GS = \Big\{ \bigcup_{i} LS_i \,,\, \bigcup_{i, j} SC_{ij} \Big\}
 $$.
 
-\paragraph*{Časoprostorový diagram} Diagram pro vizualizaci komunikace procesů v distribuovaném systému. Viz obrázek~\ref{48_example_cut} a~\ref{48_example_consistent_state}.
+\paragraph*{Časoprostorový diagram} Diagram pro vizualizaci komunikace procesů v~distribuovaném systému. Viz obrázek~\ref{48_example_cut} a~\ref{48_example_consistent_state}.
 
-\paragraph*{Konzistentní globální stav} Konzistentní globální stav (\textit{snapshot}) je stav systému v určitém časovém okamžiku. Lze si jej představit jako řez v časoprostorovém diagramu, který rozděluje diagram na dvě části: minulost a budoucnost. Aby byl řez (globální stav) konzistentní, tak pokud je doručení nějaké zprávy v minulosti, musí být v minulosti i její odeslání. Formálně jde o globální stav, který splňuje nálsedující podmínky:
+\paragraph*{Konzistentní globální stav} Konzistentní globální stav (\textit{snapshot}) je stav systému v~určitém časovém okamžiku. Lze si jej představit jako řez v~časoprostorovém diagramu, který rozděluje diagram na dvě části: minulost a budoucnost. Aby byl řez (globální stav) konzistentní, tak pokud je doručení nějaké zprávy v~minulosti, musí být v~minulosti i její odeslání. Formálně jde o~globální stav, který splňuje nálsedující podmínky:
 
 $$
 send(m_{ij}) \in LS_i \Rightarrow m_{ij} \in SC_{ij} \oplus recv(m_{ij}) \in LS_j
@@ -74,7 +74,7 @@ $$.
 
 \paragraph*{K čemu je \textit{snapshot}} \textit{Snapshot} lze využít např. pro tvorbu záloh systému nebo při zotavování systému po chybách.
 
-\paragraph*{Jak lze \textit{snapshot} vytvořit} Absence globální sdílené paměti, globálních hodin a nepředvídatelná délka zpoždění v odesílání zpráv v distribuovaném systému činí problém vytváření snapshotů netriviálním. Způsob vytváření lze rozdělit do dvou kategorií: na základě algoritmů a na základě checkpointů.
+\paragraph*{Jak lze \textit{snapshot} vytvořit} Absence globální sdílené paměti, globálních hodin a nepředvídatelná délka zpoždění v~odesílání zpráv v~distribuovaném systému činí problém vytváření snapshotů netriviálním. Způsob vytváření lze rozdělit do dvou kategorií: na základě algoritmů a na základě checkpointů.
 
 \paragraph*{Problémy při zaznamenávání snapshotu} Jak rozlišit mezi zprávami, které mají být součástí snapshotu a které nikoliv?
 \begin{compactitem}
@@ -90,7 +90,7 @@ $$.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{pdi_2/example_cut.pdf}
-    \caption{Příklad řezu v časoprostorovém diagramu. Řez $C_1$ je nekonzistentní, kvůli zprávě $m_1$. Řez $C_2$ je konzistentní a zpráva $m_4$ je zachycena ve stavu kanálu $Ch_{21}$.}
+    \caption{Příklad řezu v~časoprostorovém diagramu. Řez $C_1$ je nekonzistentní, kvůli zprávě $m_1$. Řez $C_2$ je konzistentní a zpráva $m_4$ je zachycena ve stavu kanálu $Ch_{21}$.}
     \label{48_example_cut}
 \end{figure}
 

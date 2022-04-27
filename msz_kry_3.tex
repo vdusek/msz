@@ -27,12 +27,12 @@
 
 \section{Úvod a kontext}
 
-\textit{Viz. \uv{Úvod a kontext} v předchozích otázkách z tohoto předmětu.}
+\textit{Viz. \uv{Úvod a kontext} v~předchozích otázkách z~tohoto předmětu.}
 
 \paragraph*{Hashovací funkce} Hashovací funkce je funkce (resp. algoritmus) pro převod vstupních dat do (relativně) malého čísla. Výstup hashovací funkce se označuje otisk, \textit{fingerprint}, \textit{digest} či \textit{hash}. Jsou jednosměrné a odolné proti kolizím (viz vlastnosti).
 
 \paragraph*{Obecné vlastnosti} Hashovací funkce by měla: \begin{compactitem}
-    \item Být aplikovatelná na argument o libovolné velikosti.
+    \item Být aplikovatelná na argument o~libovolné velikosti.
     \item Mít výstyp konstantní délky.
     \item Dokázat spočítat výstup rychle.
 \end{compactitem}
@@ -45,14 +45,14 @@
 
 \section{Kryptografická odolnost hashovacích funkcí}
 
-\paragraph*{Vlastnosti z hlediska odolnosti} Hashovací funkce by z hlediska kryptografické odolnosti měly splňovat: \begin{compactitem}
-    \item \textit{First preimage resistance}~--~Pro konkrétní $y$ je výpočetně nezvládnutelné najít takové $x$, aby platilo $h(x) = y$. Útočník má k dispozici konkrétní hash, a snaží se pro něho nalézt zprávu.
-    \item \textit{Second preimage resistance}~--~Pro konkrétní $x$ je výpočetně nezvládnutelné najít takové $x'$, aby platilo $h(x) = h(x')$. Útočník má k dispozici konkrétní zprávu (nemůže si ji zvolit), ke které se snaží nalézt jinou zprávu, která bude mít stejný hash.
+\paragraph*{Vlastnosti z~hlediska odolnosti} Hashovací funkce by z~hlediska kryptografické odolnosti měly splňovat: \begin{compactitem}
+    \item \textit{First preimage resistance}~--~Pro konkrétní $y$ je výpočetně nezvládnutelné najít takové $x$, aby platilo $h(x) = y$. Útočník má k~dispozici konkrétní hash, a snaží se pro něho nalézt zprávu.
+    \item \textit{Second preimage resistance}~--~Pro konkrétní $x$ je výpočetně nezvládnutelné najít takové $x'$, aby platilo $h(x) = h(x')$. Útočník má k~dispozici konkrétní zprávu (nemůže si ji zvolit), ke které se snaží nalézt jinou zprávu, která bude mít stejný hash.
     \item \textit{Collision resistance}~--~Je výpočetně nezvládnutelné najít libovolnou dvojici $x, x'$ takovou, aby platilo $x \neq x'$ a $h(x) = h(x')$. Útočník si může zvolit libovolnou zprávu, ke které se snaží nalézt jinou zprávu, která bude mít stejný hash. Pokud platí \textit{collision resistance}, tak platí i \textit{second preimage resistance}.
 \end{compactitem}
 
-\paragraph*{Narozeninový problém} V teorii pravděpodobnosti je narozeninový problém úloha vypočítat minimální početnost skupiny lidí, ve které je alespoň 50\% pravděpodobnost nalezení dvojice se stejným datem narození. Narozeninovým paradoxem je pak označována skutečnost, že tento počet (23) je mnohem menší než intuitivní odhad.
-Výsledek je intuitivnější, když uvážíme, že porovnání narozenin bude provedeno mezi všemi možnými dvojicemi jedinců. Při počtu 23 jedinců je třeba uvažovat $(23 \cdot 22) / 2 = 253$ dvojic, což je více než polovina počtu dnů v roce ($182,5$).
+\paragraph*{Narozeninový problém} V~teorii pravděpodobnosti je narozeninový problém úloha vypočítat minimální početnost skupiny lidí, ve které je alespoň 50\% pravděpodobnost nalezení dvojice se stejným datem narození. Narozeninovým paradoxem je pak označována skutečnost, že tento počet (23) je mnohem menší než intuitivní odhad.
+Výsledek je intuitivnější, když uvážíme, že porovnání narozenin bude provedeno mezi všemi možnými dvojicemi jedinců. Při počtu 23 jedinců je třeba uvažovat $(23 \cdot 22) / 2 = 253$ dvojic, což je více než polovina počtu dnů v~roce ($182,5$).
 
 Jednodušší je nejprve spočítat jev opačný $\bar p(n)$, tedy pravděpodobnost, že všech $n$ narozenin je rozdílných. Pro $n > 365$ je $1$, jinak:
 \begin{equation}
@@ -67,7 +67,7 @@ Jednodušší je nejprve spočítat jev opačný $\bar p(n)$, tedy pravděpodobn
     p(n) = 1 - \bar p(n)
 \end{equation}
 
-\paragraph*{Narozeninový útok} Mějme hashovací funkci, která má $n$ bitový výstup (celkový počet možných hashů je $2^{n}$). Útočník vytvoří dokument \uv{přátelská dohoda} a přibližně $2^{n/2}$ sémanticky ekvivalentních verzí (úprava bílých znaků, úprava pořadí celků, jiné formulace, \dots). Podobně vytvoří dokument \uv{nepřátelská dohoda} a přibližně $2^{n/2}$ sémanticky ekvivalentních verzí. S pravděpodobností $0,5$ existuje verze \uv{přátelské dohody} a \uv{nepřátelské dohody}, které mají stejný hash. Pokud takové verze existují, útočník dá oběti podepsat \uv{přátelskou dohodu} $\Rightarrow$ existuje validní podpis \uv{nepřátelské dohody}.
+\paragraph*{Narozeninový útok} Mějme hashovací funkci, která má $n$ bitový výstup (celkový počet možných hashů je $2^{n}$). Útočník vytvoří dokument \uv{přátelská dohoda} a přibližně $2^{n/2}$ sémanticky ekvivalentních verzí (úprava bílých znaků, úprava pořadí celků, jiné formulace, \dots). Podobně vytvoří dokument \uv{nepřátelská dohoda} a přibližně $2^{n/2}$ sémanticky ekvivalentních verzí. S~pravděpodobností $0,5$ existuje verze \uv{přátelské dohody} a \uv{nepřátelské dohody}, které mají stejný hash. Pokud takové verze existují, útočník dá oběti podepsat \uv{přátelskou dohodu} $\Rightarrow$ existuje validní podpis \uv{nepřátelské dohody}.
 
 \paragraph*{Bezpečnostní cíle OWHF} Bezpečnostní cíle OWHF (\textit{one way hash function}). Některé protokoly nevyžadují bezkoliznost, proto má smysl řešit i tento případ. \begin{compactitem}
     \item Vyžadované vlastnosti: \textit{first preimage resistance} a \textit{second preimage resistance}
@@ -115,8 +115,8 @@ Nejčastější způsoby sestrojení hashovací funkce neklíčované jsou zalo�
 \end{figure}
 
 Jednotlivé kroky hashovací funkce: \begin{compactitem}
-    \item Předzpracování~--~Vstupní data jsou rozdělena na bloky o stejné délce. Je provedeno zarovnání posledního bloku. Je připojena informace o délce zprávy.
-    \item Iterativní zpracování~--~V iteracích se postupně \uv{přihashovávají} vstupní bloky. Zpět\-ná vazba pomocí stavové proměnné. Uvnitř kompresní funkce, která z delšího vstupu uděla kratší výstup.
+    \item Předzpracování~--~Vstupní data jsou rozdělena na bloky o~stejné délce. Je provedeno zarovnání posledního bloku. Je připojena informace o~délce zprávy.
+    \item Iterativní zpracování~--~V~iteracích se postupně \uv{přihashovávají} vstupní bloky. Zpět\-ná vazba pomocí stavové proměnné. Uvnitř kompresní funkce, která z~delšího vstupu uděla kratší výstup.
     \item Postzpracování~--~Volitelný krok.
 \end{compactitem}
 
@@ -126,14 +126,14 @@ Jednotlivé kroky hashovací funkce: \begin{compactitem}
 
 \paragraph*{Zarovnání} Nejednoznačné zarovnání (\textit{ambiguous padding}) -- připoj ke zprávě tolik bitů, aby délka zprávy byla násobkem délky bloku. Jednoznačné zarovnání (\textit{unambiguous padding}) -- připoj ke zprávě jeden bit a poté proveď nejednoznačné zarovnání.
 
-\subsection*{Hashovací funkce s využitím blokových šifer}
+\subsection*{Hashovací funkce s~využitím blokových šifer}
 
-Alternativně lze využít pro konstrukci hashovacích funkcí blokové šifry. Avšak blokové šifry byly navrhovány pro jiný režim činnosti, kterém útočník nezná klíč (a není schopen ho ovlivnit), zná pouze šifrovaný text (ten je schopen ovlivnit). V tomto případě útočník může přimo ovlivňovat hodnoty klíče.
+Alternativně lze využít pro konstrukci hashovacích funkcí blokové šifry. Avšak blokové šifry byly navrhovány pro jiný režim činnosti, kterém útočník nezná klíč (a není schopen ho ovlivnit), zná pouze šifrovaný text (ten je schopen ovlivnit). V~tomto případě útočník může přimo ovlivňovat hodnoty klíče.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{kry_3/hash_function_blocks.pdf}
-    \caption{Ukázka několika možných způsobů využití blokových šifer pro konstrukci kompresní funkce. S využitím iteračního způsobu lze zobecnit pro celou hashovací funkci.}
+    \caption{Ukázka několika možných způsobů využití blokových šifer pro konstrukci kompresní funkce. S~využitím iteračního způsobu lze zobecnit pro celou hashovací funkci.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -142,7 +142,7 @@ Alternativně lze využít pro konstrukci hashovacích funkcí blokové šifry. 
 
 \begin{compactitem}
     \item Rodina hashovacích funkcí $h_k$, které jsou parametrizovatelné klíčem $k$.
-    \item Vlasnosti (stejné jako u obecných hashovacích funkcí, pouze rozšířené o klíč): \begin{compactitem}
+    \item Vlasnosti (stejné jako u~obecných hashovacích funkcí, pouze rozšířené o~klíč): \begin{compactitem}
         \item Výstup $h_k(x)$ lze spočítat rychle, pokud je znám klíč $k$.
         \item Jsou výpočetně bezpečné -- při znalosti dvojice $(x, h_k(x))$ je výpočetně nemožné spočíst novou dvojici $(x', h_k(x'))$, pro $x \neq x'$, pokud není znám klíč.
     \end{compactitem}
@@ -155,14 +155,14 @@ Alternativně lze využít pro konstrukci hashovacích funkcí blokové šifry. 
     \caption{Schéma použití MAC. Pokud je stejný MAC výpočítán na straně příjemce, tak má jistotu, že zpráva nebyla po cestě změněna a že zprávu poslal skutečně odesílatel.}
 \end{figure}
 
-\subsection*{Sestrojení MAC pomocí blokové šifry v CBC}
+\subsection*{Sestrojení MAC pomocí blokové šifry v~CBC}
 
-Pro sestrojení MAC hashovací funkce je využita symetrická bloková šifra v režimu CBC (\textit{cipher block chaining}, šifrová zpětná vazba). Rozdíl oproti CBC šifrování spočívá v tom, že mezivýsledky se zahazují a pracuje se až s posledním blokem. Z něho se vezme určitý počet posledních bitů (podle požadované délky hashe -- 32, 48, 64) a ten tvoří výsledný hash (MAC).
+Pro sestrojení MAC hashovací funkce je využita symetrická bloková šifra v~režimu CBC (\textit{cipher block chaining}, šifrová zpětná vazba). Rozdíl oproti CBC šifrování spočívá v~tom, že mezivýsledky se zahazují a pracuje se až s~posledním blokem. Z~něho se vezme určitý počet posledních bitů (podle požadované délky hashe -- 32, 48, 64) a ten tvoří výsledný hash (MAC).
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{kry_3/mac_cbc.png}
-    \caption{Ukázka sestrojení MAC funkce pomocí symetrické blokové šifry v režimu CBC.}
+    \caption{Ukázka sestrojení MAC funkce pomocí symetrické blokové šifry v~režimu CBC.}
 \end{figure}
 
 Proč stačí výrazně menší délka? Protože klíč. Útočník sice může vyzkoušet všechny možné hashe, ale bez znalostí klíče, nezjistí, který je ten správný.
@@ -184,5 +184,5 @@ HMAC (\textit{hash function MAC}) je do dnes používaný algoritmus. Specifikuj
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\linewidth]{kry_3/hmac.png}
-    \caption{Schéma HMAC; \texttt{ipad} a \texttt{opad} jsou vstupní/výstupní konstanty, které slouží k zarovnání; $Y_i$ jsou bloky vstupní zprávy; $IV$ je inicializační vektor.}
+    \caption{Schéma HMAC; \texttt{ipad} a \texttt{opad} jsou vstupní/výstupní konstanty, které slouží k~zarovnání; $Y_i$ jsou bloky vstupní zprávy; $IV$ je inicializační vektor.}
 \end{figure}

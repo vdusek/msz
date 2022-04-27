@@ -34,11 +34,11 @@
 
 \section{Úvod a kontext}
 
-\textit{Viz. \uv{Úvod a kontext} v předchozích otázkách z tohoto předmětu.}
+\textit{Viz. \uv{Úvod a kontext} v~předchozích otázkách z~tohoto předmětu.}
 
 \paragraph*{Asymetrická kryptografie} \begin{compactitem}
-    \item V asymetrické kryptografii se používají páry klíčů (soukromý a veřejný). Soukromý je používán k dešifrování, resp. vytvoření digitálního podpisu. Veřejný je používán k šifrování, resp. ověření digitálního podpisu.
-    \item Každý uživatel generuje svůj pár klíčů. Veřejný klíč je zveřejněn (znají ho všichni), sourkomý je držen v tajnosti (zná ho pouze vlastník).
+    \item V~asymetrické kryptografii se používají páry klíčů (soukromý a veřejný). Soukromý je používán k~dešifrování, resp. vytvoření digitálního podpisu. Veřejný je používán k~šifrování, resp. ověření digitálního podpisu.
+    \item Každý uživatel generuje svůj pár klíčů. Veřejný klíč je zveřejněn (znají ho všichni), sourkomý je držen v~tajnosti (zná ho pouze vlastník).
     \item Všechny asymetrické algoritmy jsou blokové.
     \item Asymetrické algoritmy jsou pomalejší než symetrické.
 \end{compactitem}
@@ -61,9 +61,9 @@ Asymetrická - kombinace & ano & ano & ano & ano
 \end{table}
 
 \bigskip\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=Python, caption={Kombinace klíčů obou stran u asymetrický kryptografie. Pořadí operací může být i opačné.}]
+\begin{lstlisting}[language=Python, caption={Kombinace klíčů obou stran u~asymetrický kryptografie. Pořadí operací může být i opačné.}]
 # Odesilatel (A):
-msg = encrypt(msg, SK_A) # necht msg je zprava k odeslani
+msg = encrypt(msg, SK_A) # necht msg je zprava k~odeslani
 msg = encrypt(msg, PK_B)
 send(msg_2)
 
@@ -85,11 +85,11 @@ msg = decrypt(msg, PK_A)
 
 \paragraph*{Problém batohu} Problém batohu je NP-úplný problém kombinatorické optimalizace. Nechť ${x_1, x_2, \dots, x_n}$ je množina objektů, každý objekt má svoji cenu $v_i$ a svoji hmotnost $w_i$, dále mějme batoh, který má kapacitu $W$. Cílem je vybrat takovou množinu objektů, jejichž hmotnost je menší nebo rovna $W$ a má nejvyšší možnou cenu\footnote{Problém má více obdobných variant.}. Formálně chceme maximalizovat sumu $$ \sum_{i=1}^n v_i \cdot x_i $$, při splnění $$ \sum_{i=1}^n w_i \cdot x_i \leq W $$, kde $x_i \in {x_1, x_2, \dots, x_n}$.
 
-\paragraph*{Faktorizace čísel} Faktorizace čísel označuje problém rozložení čísla na součin menších čísel, v nejčastější podobě pak rozklad celého čísla na součin prvočísel.
+\paragraph*{Faktorizace čísel} Faktorizace čísel označuje problém rozložení čísla na součin menších čísel, v~nejčastější podobě pak rozklad celého čísla na součin prvočísel.
 
-\paragraph*{Diskrétní logaritmus} Nechť $p, g, k, Y$ jsou přirozená čísla, pro něž platí $Y \equiv g^{k} \; \text{mod} \; p$. Potom každé číslo $k$ odpovídající uvedené rovnici nazveme diskrétní logaritmus o základu $g$ z $Y$ vzhledem k modulu $p$. Tato definice nedefinuje číslo $k$ jednoznačně, proto se někdy upravuje tak, že ze všech možných diskrétních logaritmů ve smyslu předchozí definice se vybere ten nejmenší.
+\paragraph*{Diskrétní logaritmus} Nechť $p, g, k, Y$ jsou přirozená čísla, pro něž platí $Y \equiv g^{k} \; \text{mod} \; p$. Potom každé číslo $k$ odpovídající uvedené rovnici nazveme diskrétní logaritmus o~základu $g$ z~$Y$ vzhledem k~modulu $p$. Tato definice nedefinuje číslo $k$ jednoznačně, proto se někdy upravuje tak, že ze všech možných diskrétních logaritmů ve smyslu předchozí definice se vybere ten nejmenší.
 
-\paragraph*{Eliptické křivky} Jedná se o matematický aparát, na kterém aplikujeme různé algoritmy (DSA, DH).
+\paragraph*{Eliptické křivky} Jedná se o~matematický aparát, na kterém aplikujeme různé algoritmy (DSA, DH).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
