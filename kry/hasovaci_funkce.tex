@@ -175,7 +175,7 @@ Jednotlivé kroky hashovací funkce: \begin{compactitem}
 
 \paragraph*{Zarovnání} Nejednoznačné zarovnání (\textit{ambiguous padding}) -- připoj ke zprávě tolik bitů, aby délka zprávy byla násobkem délky bloku. Jednoznačné zarovnání (\textit{unambiguous padding}) -- připoj ke zprávě jeden bit a poté proveď nejednoznačné zarovnání.
 
-\subsection*{Hashovací funkce s~využitím blokových šifer}
+\subsection{Hashovací funkce s~využitím blokových šifer}
 
 Alternativně lze využít pro konstrukci hashovacích funkcí blokové šifry. Avšak blokové šifry byly navrhovány pro jiný režim činnosti, kterém útočník nezná klíč (a není schopen ho ovlivnit), zná pouze šifrovaný text (ten je schopen ovlivnit). V~tomto případě útočník může přimo ovlivňovat hodnoty klíče.
 
@@ -204,7 +204,7 @@ Alternativně lze využít pro konstrukci hashovacích funkcí blokové šifry. 
     \caption{Schéma použití MAC. Pokud je stejný MAC výpočítán na straně příjemce, tak má jistotu, že zpráva nebyla po cestě změněna a že zprávu poslal skutečně odesílatel.}
 \end{figure}
 
-\subsection*{Sestrojení MAC pomocí blokové šifry v~CBC}
+\subsection{Sestrojení MAC pomocí blokové šifry v~CBC}
 
 Pro sestrojení MAC hashovací funkce je využita symetrická bloková šifra v~režimu CBC (\textit{cipher block chaining}, šifrová zpětná vazba). Rozdíl oproti CBC šifrování spočívá v~tom, že mezivýsledky se zahazují a pracuje se až s~posledním blokem. Z~něho se vezme určitý počet posledních bitů (podle požadované délky hashe -- 32, 48, 64) a ten tvoří výsledný hash (MAC).
 
@@ -216,7 +216,7 @@ Pro sestrojení MAC hashovací funkce je využita symetrická bloková šifra v~
 
 Proč stačí výrazně menší délka? Protože klíč. Útočník sice může vyzkoušet všechny možné hashe, ale bez znalostí klíče, nezjistí, který je ten správný.
 
-\subsection*{Sestrojení MAC pomocí neklíčované hashovací funkce}
+\subsection{Sestrojení MAC pomocí neklíčované hashovací funkce}
 
 Pro sestrojení MAC hashovací funkce je využita neklíčovaná hashovací funkce. Klíč je připojen ke zprávě a je použita standardní hashovací funkce.
 

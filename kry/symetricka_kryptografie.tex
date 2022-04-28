@@ -112,7 +112,7 @@ Blokové šifry šifrují data po blocích pevně stanovené délky (64b, 128b, 
     \caption{Princip blokových šifer.}
 \end{figure}
 
-\subsection*{Feistelova šifra}
+\subsection{Feistelova šifra}
 
 Feistelova šifra (Feistelův princip) je koncept šifrování, který konkrétní algoritmy využívají. Jedná se o~substituční-permutační síť. Vstupní blok je rozdělen na dvě poloviny $L$ a $R$, výpočet výstupu pak vypadá následovně.
 
@@ -145,7 +145,7 @@ Feistelova šifra (Feistelův princip) je koncept šifrování, který konkrétn
     \caption{Feistelova šifra -- příklad a rekapitulace.}
 \end{figure}
 
-\subsection*{Data Encryption Standard (DES)}
+\subsection{Data Encryption Standard (DES)}
 
 DES byl první algoritmus s~veřejnou specifikací (\textit{security by design}). Využívá princip Feistelovy šifry -- 16 kol. Dodatečně přidává na začátek a konec permutaci navíc. Klíč je dlouhý 64b (resp. 56 významových bitů a 8 paritních).
 
@@ -192,7 +192,7 @@ DES byl první algoritmus s~veřejnou specifikací (\textit{security by design})
 
 Jak použít blokové šifry abychom byli schopni šifrovat data delší než jeden blok?
 
-\subsection*{Electronic Code Book (ECB)}
+\subsection{Electronic Code Book (ECB)}
 
 ECB (\uv{kódová kniha}) je výchozí \textit{naivní} režim. Bloková šifra se při něm přímo aplikuje nezávisle na jednotlivé bloky, tedy při daném klíči odpovídá stejnému bloku otevřeného textu stejný blok šifrového textu. To má nežádoucí důsledky z~hlediska bezpečnosti, v~datech zůstane původní struktura, např. šifrovaný obrázek je rozpoznatelný.
 
@@ -202,7 +202,7 @@ ECB (\uv{kódová kniha}) je výchozí \textit{naivní} režim. Bloková šifra 
     \caption{Ukázka režimu ECB.}
 \end{figure}
 
-\subsection*{Cipher Block Chaining (CBC)}
+\subsection{Cipher Block Chaining (CBC)}
 
 V~režimu CBC (\uv{řetězení šifrových bloků}) je každý blok před šifrováním xorován zašifrovaným předchozím blokem a první blok je xorován inicializačním vektorem. Tento režim je široce používán. Nevýhody plynou ze zřetězené závislosti (šifrovaný blok závisí na všech předcházejících): Šifrování nelze paralelizovat a při poškození šifrového bloku nelze dešifrovat ani blok přímo následující. Dešifrování paralelizovat lze.
 
@@ -220,7 +220,7 @@ C_0 &= IV
     \caption{Ukázka režimu CBC.}
 \end{figure}
 
-\subsection*{Cipher Feedback (CFB)}
+\subsection{Cipher Feedback (CFB)}
 
 Režim CFB (\textit{šifrová zpětná vazba}) se liší oproti CBC v~prohození pořadí operací xor a šifrování -- nejprve se zašifruje předchozí šifrovaný blok (resp. inicializační vektor) a výsledek se xoruje s~otevřeným blokem. Toto prohození má významné implementační dopady: díky symetrii operace XOR vypadá dešifrovací funkce obdobně jako šifrovací. Šifruje pomaleji než CBC. Vstup není nutné zarovnávat. Plynou stejné nevýhody jako pro CBC.
 
@@ -238,7 +238,7 @@ C_0 &= IV
     \caption{Ukázka režimu CFB.}
 \end{figure}
 
-\subsection*{Output Feedback (OFB)}
+\subsection{Output Feedback (OFB)}
 
 Režim OFB (\textit{výstupní zpětná vazba}) se liší od CFB pouze v~tom, kde bere zpětnou vazbu. Šifrování probíhá pouhým xorováním otevřeného bloku s~heslem, které je v~každém kroku zašifrováno použitou blokovou šifrou. První blok hesla je získán zašifrováním inicializačního vektoru. Režim převádí blokovou šifru na synchronní proudovou šifru.
 
@@ -258,7 +258,7 @@ C_0 &= IV
     \caption{Ukázka režimu OFB.}
 \end{figure}
 
-\subsection*{Counter (CTR)}
+\subsection{Counter (CTR)}
 
 Režim CTR (\uv{čítačový režim}) převádí stejně jako OFB blokovou šifru na synchronní proudovou. Heslo, se kterým se blok otevřeného textu xoruje, je však získáno zašifrováním čítače, který se každou iteraci zvětšuje o~pevně danou hodnotu, zpravidla o~1. Obsah čítače je opět před šifrováním nastaven inicializačním vektorem. Každý blok je šifrován nezávisle na ostatních, díky tomu je možné paralelizovat.
 
@@ -293,7 +293,7 @@ Proudové šifry šifrují data jako \textit{proud} (stream), nejčastěji po je
     \caption{Princip proudových šifer.}
 \end{figure}
 
-\subsection*{Rozdělení proudových šifer}
+\subsection{Rozdělení proudových šifer}
 
 \paragraph*{Synchronní proudové šifry} Proud pseudonáhodných čísel \textit{key stream} je generován nezávisle na vstupním textu nebo zašifrované zprávě. Poté dochází ke kombinaci vygenerovaných čísel se vstupujícím textem (k~zakódování) nebo se šifrovaným textem (k~dekódování). Nejběžnější formou kombinace keystreamu a vstupního textu je použití operace XOR. Např.: Vernamova šifra, DES v~režimu OFB. Pokud se průběhu dešifrování něco ztratí, je konec.
 
@@ -311,7 +311,7 @@ Proudové šifry šifrují data jako \textit{proud} (stream), nejčastěji po je
     \caption{Princip samosynchronizující proudové šifry.}
 \end{figure}
 
-\subsection*{Generátory PRNG}
+\subsection{Generátory PRNG}
 
 Generátory PRNG (\textit{pseudo-random number generator}) generují pseudo-náhodnou pos\-loupnost (\textit{key stream}) z~malého klíče (\textit{seed}).
 

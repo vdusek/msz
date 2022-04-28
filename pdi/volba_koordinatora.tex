@@ -65,7 +65,7 @@
 
 Pro topologii každý s~každým -- každý proces může komunikovat s~každým dalším procesem. Používá tři druhy zpráv: ELECTION, OK, COORDINATOR.
 
-\subsection*{Postup}
+\subsection{Postup}
 
 \begin{compactitem}
     \item Proces P, který má podezření, že chybí koordinátor, může zahájit volby.
@@ -79,7 +79,7 @@ Pro topologii každý s~každým -- každý proces může komunikovat s~každým
     \item Pokud se proces probudí nebo je restartován, první akcí je vyvolání voleb.
 \end{compactitem}
 
-\subsection*{Složitost}
+\subsection{Složitost}
 
 Složitost z~hlediska počtu zpráv.
 
@@ -99,7 +99,7 @@ Složitost z~hlediska počtu zpráv.
     \item Celkem: $(n-1)$
 \end{compactitem}
 
-\subsection*{Příklad}
+\subsection{Příklad}
 
 \begin{figure}[H]
     \centering
@@ -114,7 +114,7 @@ Složitost z~hlediska počtu zpráv.
 Pro kruhovou topologii -- procesy jsou uspořádané do kruhu podle svého proces ID.
 Každý proces musí vědět nejenom o~svém následovníkovi, ale také o~jeho následníkovi, který funguje jako \uv{záloha}, v~případě že by se přímý následník stal nedostupný. Používá dva druhy zpráv: ELECTION, COORDINATOR.
 
-\subsection*{Postup}
+\subsection{Postup}
 
 \begin{compactitem}
     \item Proces P, který má podezření, že chybí koordinátor, může zahájit volby.
@@ -130,13 +130,13 @@ Každý proces musí vědět nejenom o~svém následovníkovi, ale také o~jeho 
     \item Po síti může obíhat více zpráv zároveň.
 \end{compactitem}
 
-\subsection*{Složitost}
+\subsection{Složitost}
 
 Složitost z~hlediska počtu zpráv.
 
 \bigskip\noindent Vždy $2n \approx n$ zpráv. Jedno kolečko \uv{oběhne} zpráva ELECTION a druhé zpráva COORDINATOR.
 
-\subsection*{Příklad}
+\subsection{Příklad}
 
 \begin{figure}[H]
     \centering
@@ -150,7 +150,7 @@ Složitost z~hlediska počtu zpráv.
 
 Předpokládáme, že nemáme ani kruhovou topologii ani spojení každý s~každým. Např.: peer-to-peer sítě, sensorové sítě, \dots
 
-\subsection*{Postup}
+\subsection{Postup}
 
 \begin{compactitem}
     \item V~první iteraci se broadcastem posílá zpráva ELECTION.
@@ -158,7 +158,7 @@ Předpokládáme, že nemáme ani kruhovou topologii ani spojení každý s~kaž
     \item Uložený soused je poté využijí pro zpětnou komunikaci. To znamená, že další komunikace už probíhá přes strom, nikoliv přes broadcast. Tím je ušetřena některé komunikace.
 \end{compactitem}
 
-\subsection*{Složitost}
+\subsection{Složitost}
 
 Složitost z~hlediska počtu zpráv.
 
@@ -168,7 +168,7 @@ Složitost z~hlediska počtu zpráv.
     \item Result broadcast: počet hran kostry grafu.
 \end{compactitem}
 
-\subsection*{Příklad}
+\subsection{Příklad}
 
 \begin{figure}[H]
     \centering
