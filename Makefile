@@ -10,7 +10,7 @@
 #   $ make clean
 #   $ make clean-all
 
-NAME = msz
+NAME = nnet
 
 .PHONY: all pdf vlna clean clean-all
 

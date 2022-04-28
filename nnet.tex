@@ -1,0 +1,311 @@
+% VUT FIT MITAI
+% MSZ 2021/2022
+% Author: Vladimir Dusek
+% Login: xdusek27
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{fitthesis}
+
+\usepackage[english,czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[justification=centering]{caption}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage[ruled,vlined,linesnumbered]{algorithm2e}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{csquotes}
+\usepackage[bottom]{footmisc}
+\usepackage[nottoc,numbib]{tocbibind}
+\usepackage{hhline}
+\usepackage{pdfpages}
+\usepackage{mathtools}
+
+\newtheorem{theorem}{Theorem}
+
+\makeatletter
+\renewcommand*\env@matrix[1][*\c@MaxMatrixCols c]{%
+    \hskip -\arraycolsep
+    \let\@ifnextchar\new@ifnextchar
+    \array{#1}}
+\makeatother
+
+\MakeOuterQuote{"}
+
+\PassOptionsToPackage{hyphens}{url}\usepackage[hidelinks,unicode]{hyperref}
+
+% Compact itemize - compactitem
+\newenvironment{compactitem} {
+    \begin{itemize}
+    \setlength{\itemsep}{2pt}
+    \setlength{\parskip}{2pt}
+    \setlength{\parsep}{2pt}
+}
+{
+    \end{itemize}
+}
+
+% Compact enumerate - compactenum
+\newenvironment{compactenum} {
+    \begin{enumerate}
+    \setlength{\itemsep}{2pt}
+    \setlength{\parskip}{2pt}
+    \setlength{\parsep}{2pt}
+}
+{
+    \end{enumerate}
+}
+
+% Page dimensions
+\geometry
+{
+    top = 3cm,
+    bottom = 3cm,
+    left = 3cm,
+    right = 3cm
+    % text = {17cm, 24cm}
+}
+
+% Path to figures
+\graphicspath{{figures/}}
+
+% Listing styles colors
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+% Listing style for JSON
+\lstdefinelanguage{json}{
+    basicstyle=\small\ttfamily,
+    numbers=none,
+    showstringspaces=false,
+    breaklines=true,
+    frame=none,
+    backgroundcolor=\color{background},
+    morecomment=[l]{//}, % l is for line comment
+    literate=%
+        % {0}{{{\color{numb}0}}}{1}
+        % {1}{{{\color{numb}1}}}{1}
+        % {2}{{{\color{numb}2}}}{1}
+        % {3}{{{\color{numb}3}}}{1}
+        % {4}{{{\color{numb}4}}}{1}
+        % {5}{{{\color{numb}5}}}{1}
+        % {6}{{{\color{numb}6}}}{1}
+        % {7}{{{\color{numb}7}}}{1}
+        % {8}{{{\color{numb}8}}}{1}
+        % {9}{{{\color{numb}9}}}{1}
+        {:}{{{\color{punct}{:}}}}{1}
+        {,}{{{\color{punct}{,}}}}{1}
+        {\{}{{{\color{delim}{\{}}}}{1}
+        {\}}{{{\color{delim}{\}}}}}{1}
+        {[}{{{\color{delim}{[}}}}{1}
+        {]}{{{\color{delim}{]}}}}{1}
+        {á}{{\'a}}1
+        {í}{{\'i}}1
+        {é}{{\'e}}1
+        {ý}{{\'y}}1
+        {ú}{{\'u}}1
+        {ó}{{\'o}}1
+        {ě}{{\v{e}}}1
+        {š}{{\v{s}}}1
+        {č}{{\v{c}}}1
+        {ř}{{\v{r}}}1
+        {ž}{{\v{z}}}1
+        {ď}{{\v{d}}}1
+        {ť}{{\v{t}}}1
+        {ň}{{\v{n}}}1
+        {ů}{{\r{u}}}1
+        {Á}{{\'A}}1
+        {Í}{{\'I}}1
+        {É}{{\'E}}1
+        {Ý}{{\'Y}}1
+        {Ú}{{\'U}}1
+        {Ó}{{\'O}}1
+        {Ě}{{\v{E}}}1
+        {Š}{{\v{S}}}1
+        {Č}{{\v{C}}}1
+        {Ř}{{\v{R}}}1
+        {Ž}{{\v{Z}}}1
+        {Ď}{{\v{D}}}1
+        {Ť}{{\v{T}}}1
+        {Ň}{{\v{N}}}1
+        {Ů}{{\r{U}}}1
+}
+
+% Listing style for Bash
+\lstdefinelanguage{bash}{
+    basicstyle=\small\ttfamily,
+    numbers=none,
+    showstringspaces=false,
+    breaklines=true,
+    frame=none,
+    backgroundcolor=\color{background},
+    showlines=true
+}
+
+% Listing style for Python
+\lstdefinelanguage{python}{
+    basicstyle=\small\ttfamily,
+    numbers=left,
+    showstringspaces=false,
+    keywordstyle=\color{numb},
+    % list of keywords
+    morekeywords={
+        import,
+        if,
+        while,
+        for,
+        then,
+        else,
+        def,
+        True,
+        False,
+        self,
+        return,
+        in,
+        yield,
+        str,
+        int,
+        float,
+        list,
+        tuple,
+        dict,
+        set
+    },
+    sensitive=false, % keywords are not case-sensitive
+    morestring=[b]" % defines that strings are enclosed in double quotes
+    breaklines=true,
+    frame=none,
+    backgroundcolor=\color{background},
+    morecomment=[l]{\#}, % l is for line comment
+    literate=%
+        {:}{{{\color{delim}{:}}}}{1}
+        {,}{{{\color{delim}{,}}}}{1}
+        {(}{{{\color{delim}{(}}}}{1}
+        {)}{{{\color{delim}{)}}}}{1}
+        {\{}{{{\color{delim}{\{}}}}{1}
+        {\}}{{{\color{delim}{\}}}}}{1}
+}
+
+% Listing style for YAML
+\lstdefinelanguage{yaml}{
+    keywords={true,false,null,y,n},
+    keywordstyle=\color{darkgray}\bfseries,
+    basicstyle=\YAMLkeystyle,                                 % assuming a key comes first
+    sensitive=false,
+    comment=[l]{\#},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{purple}\ttfamily,
+    stringstyle=\YAMLvaluestyle\ttfamily,
+    moredelim=[l][\color{orange}]{\&},
+    moredelim=[l][\color{magenta}]{*},
+    moredelim=**[il][\YAMLcolonstyle{:}\YAMLvaluestyle]{:},   % switch to value style at :
+    morestring=[b]',
+    morestring=[b]",
+    literate =    {---}{{\ProcessThreeDashes}}3
+                  {>}{{\textcolor{red}\textgreater}}1
+                  {|}{{\textcolor{red}\textbar}}1
+                  {\ -\ }{{\mdseries\ -\ }}3,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center}
+
+        % {\Huge\textsc{Vysoké učení technické v~Brně}} \\
+        % \bigskip
+        % {\huge\textsc{Fakulta informačních technologií}} \\
+
+        \begin{figure}[htb]
+            \centering
+            \includegraphics[width=0.85\hsize]{fitlogo.pdf}
+        \end{figure}
+
+        \vspace{\stretch{0.382}}
+
+        {\Huge Vypracované otázky k~MSZ pro rok 2022} \\
+        \bigskip
+        \bigskip
+        {\LARGE Specializace NNET}
+
+        \vspace{\stretch{0.618}}
+    \end{center}
+
+    {\Large \today \hfill Vladimír Dušek, xdusek27}
+
+\end{titlepage}
+
+% \begin{center}
+%     {\Huge Game Theory (THE)} \\ [1.25em]
+%     {\huge Brno University of Technology} \\ [1.25em]
+%     {\huge Strategie sobeckého těžení v~Bitcoinu} \\ [1.6em]
+%     {\Large \textit{Dušek Vladimír - xdusek27@stud.fit.vutbr.cz}} \\ [0.7em]
+%     {\Large \textit{\today}}
+%  \end{center}
+
+\includepdf[pages=-]{statnicovy_otazky_2022_nnet.pdf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 44 - todo
+\input{bms/bezdratove_lokalni_site}
+\newpage
+
+% 45
+\input{gal/hledani_minimalni_kostry}
+\newpage
+
+% 46
+\input{gal/hledani_nejkratsich_cest}
+\newpage
+
+% 47
+\input{pdi/volba_koordinatora}
+\newpage
+
+% 48
+\input{pdi/konzistentni_globalni_stav}
+\newpage
+
+% 49
+\input{pdi/map_reduce}
+\newpage
+
+% 50
+\input{kry/symetricka_kryptografie}
+\newpage
+
+% 51
+\input{kry/asymetricka_kryptografie}
+\newpage
+
+% 52
+\input{kry/hasovaci_funkce}
+\newpage
+
+% 53
+\input{kry/sprava_klicu_v_asymetricke}
+\newpage
+
+% 57 - todo
+\input{pds/rizeni_toku_a_prevence_zahlceni}
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
