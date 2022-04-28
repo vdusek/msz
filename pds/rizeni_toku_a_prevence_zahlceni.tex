@@ -32,6 +32,23 @@
 
 \section{Úvod a kontext}
 
+\paragraph*{Transportní vrstva} Transportní vrstva je název čtvrté vrstvy modelu vrstvové síťové architektury (ISO/OSI model). Leží mezi vrstvou síťovou (L3) a aplikační (L7). \begin{compactitem}
+    \item Činnost na straně odesílatele: obdrží data z aplikační vrstvy, nasegmentuje je a ke každému segmentu/datagramu přidá L4 hlavičku.
+    \item Činnost na straně příjemce: obdrží segmenty/datagramy, které uspořádá do správného pořadí (\textit{out-of-order} doručení), předá je aplikační vrstvě.
+    \item Komunikace mezi vrstvami L4 a L7 probíhá pomocí socketů.
+    \item Zodpovědnost za \textit{end-to-end} spojení.
+    \item Adresuje aplikace (pomocí portových čísel).
+    \item \textit{Quality of Service} -- zotavení se z chyb, spolehlivost, řízení toku, řízení zahlcení.
+\end{compactitem}
+
+\paragraph*{Multi homing} -- Využítí více bodů připojení zároveň (pro jednu komunikaci). Pokud je podporováno a změní se IP adresa, nemusí se navázat nové spojení.
+
+\paragraph*{\textit{Connection-oriented}} -- Typ spojení, kdy je nejprve nutné, navázat komunikaci. Typicky tři fáze: navázání spojení, přenos dat, ukončení spojení.
+
+\paragraph*{\textit{Connection-less}} -- Typ spojení, které nerozlišuje jestli spojení existuje, nebo nikoliv. Pouze fáze přenosu dat.
+
+\paragraph*{MTU (\textit{Maximum Transmission Unit}} Největší velikost paketu (nebo rámce), kterou lze v síti odeslat.
+
 % src: https://linuxhint.com/network-osi-layers-explained
 \begin{figure}[H]
     \centering
@@ -46,34 +63,16 @@
     \caption{Příklad OSI modelu z Wiki.}
 \end{figure}
 
-% Které problémy řeší transportní vrstva? Ztráta packatu, zahlcení, multiplexing
-\paragraph*{Transportní vrstva} Transportní vrstva je název čtvrté vrstvy modelu vrstvové síťové architektury (ISO/OSI model). Leží mezi vrstvou síťovou (L3) a aplikační (L7). \begin{compactitem}
-    \item Činnost na straně odesílatele: obdrží data z aplikační vrstvy, nasegmentuje je a ke každému segmentu/datagramu přidá L4 hlavičku.
-    \item Činnost na straně příjemce: obdrží segmenty/datagramy, které uspořádá do správného pořadí (\textit{out-of-order} doručení), předá je aplikační vrstvě.
-    \item Rozhraní mezi L4 a L7: sockety.
-    \item Zodpovědnost za \textit{end-to-end} spojení.
-    \item Adresuje aplikace (pomocí portových čísel).
-    \item \textit{Quality of Service} -- zotavení se z chyb, spolehlivost, řízení toku, řízení zahlcení.
-\end{compactitem}
-
-\paragraph*{TCP (\textit{Transmission Control Protocol})} \begin{compactitem}
-    \item Spolehlivé doručení
-    \item Řízení toku a zahlcení
-    \item Doručování v pořadí
-    \item Duplexní
-    \item 3 fáze spojení -- navázení, přenos dat, ukončení
-\end{compactitem}
-
-\paragraph*{UDP (\textit{User Datagram Protocol})} \begin{compactitem}
-    \item Nespolehlivé doručení (\textit{best effort})
-    \item Má minimální režii
-    \item Duplexní
-\end{compactitem}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{osi_model_pds.png}
+    \caption{Příklad OSI modelu z PDS s příkladem protokolů.}
+\end{figure}
 
 \paragraph*{bandwith, throughput, goodput} \begin{compactitem}
-    \item Bandwith -- šířka pásma, maximální přenos dat danou cestou v jeden moment
-    \item Throughput -- propustnost komunikace na úrovni protokolu
-    \item Goodput -- propustnost komunikace na úrovni aplikace (throughput $-$ režie)
+    \item \textit{Bandwith} -- šířka pásma, maximální přenos dat danou cestou v jeden moment
+    \item \textit{Throughput} -- propustnost komunikace na úrovni protokolu
+    \item \textit{Goodput} -- propustnost komunikace na úrovni aplikace (throughput $-$ režie)
 \end{compactitem}
 
 \paragraph*{data, segment, datagram, paket, rámec, bit} \begin{compactitem}
@@ -111,7 +110,7 @@
     \end{compactitem}
 \end{compactitem}
 
-\subsection*{Druhy paketových chyb}
+\subsection{Druhy paketových chyb}
 
 \paragraph*{Ztráta (zpoždění) paketu} Jak může dojít ke ztrátě (zpoždění) paketu? \begin{compactitem}
     \item Neopravitelná bitová chyba (rámec je zahozen na L2)
@@ -119,7 +118,7 @@
     \item Špatné směrovací tabulky (paket jde špatnou cestou, nebo cyklí a vyprší mu TTL)
 \end{compactitem}
 
-\paragraph*{Ztráta fragmentovaných dat} Nějaký router po cestě směruje paket na rozhraní, které má menší MTU (\textit{Maximum Transmission Unit} -- označení pro maximální velikosti paketu), to znamená, že paket musí rozdělit na více menších paketů (fragmentů). Fragment se pak může ztratit ze stejného důvodu jako standardní nefragmentovaný paket.
+\paragraph*{Ztráta fragmentovaných dat} Nějaký router po cestě směruje paket na rozhraní, které má menší MTU, to znamená, že paket musí rozdělit na více menších paketů (fragmentů). Fragment se pak může ztratit ze stejného důvodu jako standardní nefragmentovaný paket.
 
 \paragraph*{Duplicita paketu} Příjemce obdržuje stále paket se stejným sekvenčním číslem. Odesílatel si myslí, že se paket k příjemci nikdy nedostal. Proč? \begin{compactitem}
     \item Ztratí se potvrzení o přijetí paketu.
@@ -133,7 +132,7 @@
 
 \paragraph*{Změna pořadí} Vychází z designu počítačových sítí, kdy paketu mohou proudit různými cestami a s různým zpožděním. Data jsou \textit{out-of-order} a příjemce je musí přeuspořádat.
 
-\subsection*{Detekce paketové chyby}
+\subsection{Detekce paketové chyby}
 
 Paketové chyby detekujeme pomocí sekvenčních čísel. Sekvenční číslo je jedinečné číslo paketu, které identifikuje jeho pořadí v rámci datového toku. Tímto poznáme ztrátu, duplicitu i změnu pořadí. Jak rozpoznat ztrátu od zpoždění?
 
@@ -141,7 +140,7 @@ Paketové chyby detekujeme pomocí sekvenčních čísel. Sekvenční číslo je
 
 \paragraph*{Negativní potvrzování} Paket jsem dostal (ACK) / paket jsem nedostal (NACK). Pokud je příčina zpoždění zahlcení, tak tento přístup linku ještě více zahltí.
 
-\subsection*{Korekce paketových chyb}
+\subsection{Korekce paketových chyb}
 
 Pokud paket nedorazil, odesílatel ho pošle znovu. Tzv. \textit{Automatic Repeat/Request} (ARQ) -- Čeká se na ACK, když nepřijde do timeoutu, dojde k znovuzaslání. Princip tzv. klouzavého okna (\textit{sliding windows}). Existují 3 strategie.
 
@@ -169,34 +168,200 @@ Pokud paket nedorazil, odesílatel ho pošle znovu. Tzv. \textit{Automatic Repea
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Řízení toku dat}
+\section{Řízení toku a zahlcení}
+
+Řízení toku (\textit{flow control}) je řízení na straně koncového systému. Řízení zahlcení (\textit{congestion control}) je řízení v rámci sítě. Alternativně, se za řízení toku považuje koncept klouzavého okna\footnote{Často tyto termíny bývají vykládány různě.}.
+
+Zahlcení je detekováno, co se s tím dá dělat? \begin{compactitem}
+    \item Zvýšit kapacitu sítě,
+    \item Snížit množství provozu.
+\end{compactitem}
+
+\noindent Jak se to dá dělat? \begin{compactitem}
+    \item Opravit zahlcený provoz (\textit{repair}) -- Je detekováno zahlcení a řešíme, co budeme dělat.
+    \item Předcházet problému zahlcení (\textit{avoidance}) -- Snažíme se zahlcení předcházet (prevence).
+\end{compactitem}
+
+\subsection{Zahazování paketů (opravování provozu)}
+
+Každý uzel (najčastěji směrovač) v síti kontroluje délku své fronty, pokud příliš narůstá, tak začne preventivně některé pakety zahazovat. To vede k jejich znovuzaslání.
+
+\paragraph*{RED (\textit{Random Early Detection}} Algoritmus RED sleduje velikost fronty a zahazuje pakety na základě pravděpodobnosti. Pokud je fronta téměř prázdná, pravděpodobnost zahození je 0. Jak fronta roste, roste i pravděpodobnost zahození příchozího paketu. Když je fronta plná, pravděpodobnost dosáhne hodnoty 1 a všechny příchozí pakety jsou zahazovány.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{red.png}
+    \caption{Vizualizace RED.}
+\end{figure}
+
+\paragraph*{WRED (\textit{Weighted Random Early Detection})} Algoritmus WRED je rozšířením RED o přidání váh pro jednotlivé třídy paketů. WRED nezahazuje všechny pakety se stejnou pravděpodobností, ale rozlišuje jejich důležitost (pomocí hodnot IP precedence nebo DSCP). Některé pakety chceme prioritizovat, např. VoIP (\textit{Voice over Internet Protocol}), RTP (\textit{Real-time Transport Protocol}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{wred.png}
+    \caption{Vizualizace WRED.}
+\end{figure}
+
+\subsection{Choke pakety (opravování provozu)}
+
+Příjemce v síti má problém zpracovávat provoz (nestíhá), tak dá vědět odesílateli (odešle choke paket), aby zpomalil.
+
+\paragraph*{Plain choke packets} Viz obrázek~\ref{pds_choke_packets}. Uzel D detekuje zahlcení způsobené provozem od A. Uzel D pošle choke paket A. Proti zahlcení \uv{zabojuje} pouze odesílatel (A).
+
+\paragraph*{Hop-by-hop choke packets} Viz obrázek~\ref{pds_choke_packets}. Uzel D detekuje zahlcení způsobené provozem od A. Uzel D pošle choke paket A. Každý uzel po cestě \uv{bojuje} proti zahlcení (F, E, A).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{choke_packets.png}
+    \caption{\textit{Plain choke packets} vs. \textit{hop-by-hop choke packets}.}
+    \label{pds_choke_packets}
+\end{figure}
+
+\subsection{Ořezání a rozložení provozu (předcházení zahlcení)}
+
+Jedná se o předcházení zahlcení ze strany odesílatele. Odesílatel je \uv{ohleduplný} a myslí na to, aby příjemce nebyl zahlcen. Odesílatel má pevně stanovenou hranici kolik můze maximálně posílat. Implementace pomocí tzv. \textit{token bucket}.
+
+\paragraph*{Ořezání provozu (\textit{policing})} Cokoliv nad hranici je \uv{oříznuto} a zahozeno.
+
+\paragraph*{Rozložení provozu (\textit{shaping})} Cokoliv nad hranici je uloženo do bufferu a odesláno později, až je menší provoz.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{traffic_policing_and_shaping.png}
+    \caption{Ořezání provozu vs rozložení provozu.}
+\end{figure}
+
+\subsection{Rezervace (předcházení zahlcení)}
+
+Zařízení v síti (směrovače) jsou schopni se domluvit a vytvořit si tzv. \uv{virtuální okruh} pro konkrétní komunikaci. Každé zařízení na okruhu ví o provozu a rezervuje potřebné pásmo (předem se deklarují kapacity). Je nutné více signaliace (režie).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{rezervace.png}
+    \caption{Příklad rezervace.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Prevence zahlcení}
+\section{TCP (\textit{Transmission Control Protocol})}
+
+\begin{compactitem}
+    \item Garantuje spolehlivé doručení.
+    \item Garantuje doručení v pořadí.
+    \item Řízení toku a zahlcení.
+    \item \textit{Connection-oriented} -- Navázání spojení pomocí \textit{three-way handshake}.
+    \item Pracuje s \textit{byte stream} -- nezohledňuje hranice aplikačních dat.
+    \item Sekvenční číslo závisí na tom, kolik bajtů se posílá. Např. $seq=92, data=8\,B$, $seq=100, data=20\,B$, $seq=120, data=13\,B$, \dots
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{tcp_header.png}
+    \caption{Hlavička TCP.}
+\end{figure}
+
+\paragraph*{Řízení toku a zahlcení} V TCP jsou rozlišovány 3 fáze přenosu dat. \begin{compactitem}
+    \item \textit{Slow start} -- Exponenciální zvyšování rychlosti odesílání až po dosažení nějaké hranice.
+    \item \textit{Congestion avoidance (additive increase)} -- Lineární zvyšování počtu odeslaných paketů.
+    \item \textit{Congestion avoidance (multiplicative decrease)} -- Skokové snížení rychlosti odesílání. Nastane, pokud je detekována ztráta paketu.
+\end{compactitem}
+
+\noindent V TCP existuje spoustu algoritmů pro řízení toku a zahlcení, které implementují tento princip (Tahoe, Reno, New Reno, Vegas, CUBIC, \dots).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{ss_ca_ai_md.png}
+    \caption{Jednotlivé fáze řízení zahlcení v TCP.}
+\end{figure}
+
+\paragraph*{Nevýhody a problémy} \begin{compactitem}
+    \item Nepodporuje aplikační \textit{multi homing}.
+    \item \textit{Head of line blocking} -- Pokud dojde ke ztrátě paketu, tak vše za ním je pozdrženo
+    \item Velká režie potvrzování (až 35\,\% veškerého provozu je režie)
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{tcp_zahajeni_spojeni.png}
+    \caption{Zahájení spojení pomocí tzv. \textit{Three-Way Handshake}.}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{UDP (\textit{User Datagram Protocol})}
+
+\begin{compactitem}
+    \item Negarantuje spolehlivé doručení (\textit{best effort}).
+    \item Negarantuje doručení v pořadí.
+    \item \textit{Connection-less}.
+    \item Pracuje s \textit{byte stream} -- nezohledňuje hranice aplikačních dat.
+    \item Má minimální režii.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{udp_header.png}
+    \caption{Hlavička UDP.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{udp_problem.png}
+    \caption{Problém UDP, kdy si pro sebe zabere celé pásmo, protože TCP se chová \uv{zodpovědně} a snižuje svůj provoz.}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{DCCP (Datagram Congestion Control Protocol)}
+
+\begin{compactitem}
+    \item Cílem je zajistit podporu řízení zahlcení pro UDP.
+    \item Negarantuje spolehlivé doručení (\textit{best effort}).
+    \item Negarantuje doručení v pořadí.
+    \item \textit{Connection-oriented} -- Navázání spojení pomocí \textit{three-way handshake}.
+    \item Využití pro audio/video konference.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{dccp_header.png}
+    \caption{Hlavička DCCP. Sekvenční a potvrzovací čísla souvisí pouze s účtováním provozu kvůli řízení zahlcení, nikoliv pro zajištění spolehlivého přenosu.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{dccp_spojeni.png}
+    \caption{Komunikace pomocí DCCP. Obsahuje několik typů zpráv: Request, Response, ACK, Data, Data ACK, CloseReq, Close, Reset.}
+\end{figure}
+
+\paragraph*{Jak je zahlcení realizováno} V potvrzeních se nastavují tzv. ECN (\textit{Explicit Congestion Notification}) bity. Pomocí nich dává příjemce odesílateli vědět, jak moc je zahlcen. V průběhu navazování spojení se pomocí CCID (\textit{Congestion Control ID}) dohodne, jaký typ řízení zahlcení se bude používat (algoritmy jako pro TCP, nebo vlastní).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{SCTP (\textit{Stream Control Transmission Protocol})}
+
+\begin{compactitem}
+    \item Garantuje spolehlivé doručení.
+    \item Garantuje doručení v pořadí.
+    \item \textit{Connection-oriented} -- Navázání spojení pomocí \textit{four-way handshake}.
+    \item Pracuje s \textit{message stream} -- zohledňuje hranice aplikačních dat.
+    \item \textit{Path MTU discovery} -- obrana proti fragmentaci
+    \item Netrpí problémem \textit{head of line blocking}.
+    \item Podporuje aplikační \textit{multi homing}.
+\end{compactitem}
 
 \todo{todo}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{MP-TCP}
+\section{MP-TCP (\textit{Multipath TCP})}
 
 \todo{todo}
+
+mutace TCP
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{QUIC}
-
-\todo{todo}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{SCTP}
-
-\todo{todo}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{DCCP}
 
 \todo{todo}
