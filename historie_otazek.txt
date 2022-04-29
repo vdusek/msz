@@ -1,62 +1,3 @@
-\section{Historie položení otázky}
-
-\begin{compactitem}
-    \item Rok: 2013
-    \item Jméno otázky: Haš, klíčovaný haš, HMAC
-    \item Zkoušel: Hanáček Petr, doc. Dr. Ing.
-    \item Známka: E
-    \item Zacal jsem definici hasovaci funkce, ten slajd, pak padla otázka klíčovaný has, tak zas definice co to je a tak. Potom chtěl vědět útoky a složitost útoku a jeho pravděpodobnost. K tomu jsme se s jeho značnou pomocí úspěšně dobrali. Dost pomáhal.
-\end{compactitem}
-
-\begin{compactitem}
-    \item Rok: 2014
-    \item Jméno otázky: Hašovací funkce, klíčovaný haš a MAC a jejich použití a vlastnosti
-    \item Zkoušel: Hanáček Petr, doc. Dr. Ing.
-    \item Známka: E
-    \item Co jsem k tomu rekl(a)/na co se ptali/co mne vytkli: Ptal se na MAC, říkal jsem že slouží pro podpis a začal jmenovat ty 3 potřebné podmínky pro hash.funkce. Tím sem si sám naběhl, protože jsem zapomněl 2nd preimage. Na to, co jsem místo toho "vyvařil", řekl, že to je ale 1st preimage, a chtěl to vědět správně, nakonec to musel říct za mě. Dál se ptal na sílu hashe, takové to, co bylo i letos na zkoušce, že pro útok vůči collision resistance je složitost $2^{80}$ i když hash má délku $2^{160}$. Patlal jsem se v tom, tak nakonec chtěl přesně vědět jak se na každou věc útočí a jakou složitost to bude mít.
-\end{compactitem}
-
-\begin{compactitem}
-    \item Rok: 2015
-    \item Jméno otázky: Hašovací funkce, klíčovaný haš, MAC
-    \item Zkoušel: Hanáček Petr, doc. Dr. Ing.
-    \item Známka: E
-    \item Začal jsem tím, co je to hašovací funkce, jaké jsou na ní kladené podmínky (preimage resistance, ...). Tam mě Hanáček přerušil a začal se ptát, kolik pokusů musí útočník vyzkoušet při útoku hrubou silou, aby pokořil každou z těch podmínek. Úplně jsem se do toho zamotal, rozklepal jsem se a nebyl schopen kloudného slova. Hanáčkův poker face v tom taky nijak nepomáhal, ale asi se snažil nějak pomoct (To n značí prostor vstupních dat? Jak chcete, jen se ptám.), a ačkoli jsem to věděl, nebyl jsem v tu chvíli schopen formulovat odpověď. Nechal mě v tom ještě hodnou chvíli koupat a pak to ukončil.
-\end{compactitem}
-
-\begin{compactitem}
-    \item Rok: 2018
-    \item Jméno otázky: Hašovací funkce, klíčovaný haš a MAC a jejich použití a vlastnosti
-    \item Zkoušel: Hanáček Petr, doc. Dr. Ing.
-    \item Známka: B
-    \item Prvně jsem uvedl co je hašovací funkce (základní definice, first preimage resistance, second preimage resistance, collision resistance). P. Hanáček se následně začal doptávat na vztah mezi second preimage resistance a collision resistance včetně potřebné síly útoku. Kolem tohoto tématu jsme se točili asi další 2 minuty. Následně se P. Hanáček dotázal na klíčovaný haš a MAC, což jsem obecně popsal. Zmínil jsem také jakým způsobem se klíč přidává ke zprávě a částečně jsem popsal HMAC. Následně se P. Hanáček zeptal, k čemu je klíčovaný haš dobrý - uvedl jsem, že zajišťuje integritu dat a autentizaci, což se při neklíčovaných hašovacích funkcí musí zajistit například podpisem pomocí asymetrické šifry. Tím také zkoušení skončilo. Trvalo 5-6 minut. Přestože, jsem byl na tuto otázku připraven, nebylo zkoušení moc příjemné a P. Hanáček mě občas dokázal docela znejistit.
-\end{compactitem}
-
-\begin{compactitem}
-    \item Rok: 2018
-    \item Jméno otázky: Hašovací funkce, klíčovaný haš a MAC a jejich použití a vlastnosti
-    \item Zkoušel: Hanáček Petr, doc. Dr. Ing.
-    \item Známka: A
-    \item Začal jsem takové obecné kecy a rychle se přesunul na požadavky/vlastnosti, které chceme aby hashovací funkce měla. Popsal jsem First Preimage, Second Preimage a Collision Resistance. Pak jsme docela dlouho zůstali viset na rozdílu mezi second preimage a collision resistance. Celkově se mi pan docent snažil naznačit, jak mám mezi nimi tedy určit ten rozdíl. Ptal se mne pak jak je to s útoky, tak jsem zmínil, že je zde Birthday paradox, a uvedl jsem, že na 160 bitech stačí typicky projít $2^{80}$ možností než dojdu ke kolizi. Na to myslím, námitky nebyly a přesunuli jsme se ke klíčovanému haši. Někde na začátku zazvonil budík, ale jeli jsme dál. Řekl jsem, že tam je ten klíč, a řekl jsem, že jsme si uvedli některé typy použití, ale nejvýznamnější je HMAC. Zeptal jsem se, zda jej chce popsat, což nechtěl. Načež byl dotaz -- K čemu ten klíčovaný hash slouží, tak jsem řekl že autentizaci. S tím pan docent souhlasil. Zeptal se mne, že co to znamená pro útočníka z hlediska bezpečnosti, tak jsem řekl, že je to pro něj horší, protože nezná klíč, což sice částečně potvrdil, ale chtěl pak ještě něco, ale to už si napamatuji a nevěděl jsem to.
-\end{compactitem}
-
-\begin{compactitem}
-    \item Rok: 2016
-    \item Jméno otázky: Správa klíčů v asymetrické kryptografii
-    \item Zkoušel: Staudek Jan, Doc. Ing. CSc.
-    \item Známka: E
-    \item Předpokládal jsem že se mě ptá Hanáček, začal jsem mluvit směrem k němu, začal jsem o principech asymetrické kryptografie, asi po půl minutě mě přerušil Staudek (který do té doby spal), že tohle vědět nechce, tak jsem začal o certifikátech, zase mě přerušil, že to taky nechce, takhle se to opakovalo ještě jednou, tak jsem se ho přímo zeptal, že co jako chce slyšet, vytřeštil oči a koukal na mě tak se do toho vložil Hanáček, asi se mi snažil nějak pomoct, ale v jeho případě to nepadalo moc na úrodnou půdu, moc jsme si nerozuměli co se týkalo záměn slov certifikát a klíč, motali jsme se v tom, základní myšlenku jsem sice řekl, ale Staudek do toho pořád rýpal, že to slyšet nechce, ale prostě nebylo vůbec jasné, co chce. Byl dost nepřijemný, strašně mumlal, nebylo mu rozumět a když jsem mu nerozuměl a chtěl ať zopakuje otázku, tak odpovídal dost nasraně, jako by to bral jako útok na sebe. Čas jsem překročil asi dvojnásobně, a byť jsem většinu času mluvil, a myslím si že k věci a korektně, tak při odchodu jsem si nebyl úplně jistý, že mi to dá, ale prošlo to.
-\end{compactitem}
-
-\begin{compactitem}
-    \item Rok: 2018
-    \item Jméno otázky: Správa klíčů v asymetrické kryptografii
-    \item Zkoušel: doc. Ing. Václav Zeman Ph.D.
-    \item Známka: C
-    \item Nechal mě chvíli mluvit, řekl jsem že v asym. Jsou 2 klíče - SK, VK, které generuje uživatel, je tam CA, které spravuje a podepisuje VK uživatelů, jaké tam jsou položky. A pak se začal ptát, protože viděl, že vzpomínám tak nějak marně :D. Ptal se na něco ve stylu, jak bych ověřil platnost certifikátu nějakého uživatele, tak jsem začal plácat o tom, že normálně dotaz a pak nad CA je strom CA a ty potvrzují CA… ale chtěl slyšet něco jiného…a poslední otázka byla jak bych to implementoval, že je tam nějaké políčko, na kterém to CA podepisuje tak chtěl vědět jak se jmenuje, to jsem si nevzpomněl, tak řekl, že mu to stačí. Venku mi kamarád řekl, že by se na to dalo použít LDAP... kdo ví.
-\end{compactitem}
-
-
 "Identifikácia sieťového provozu  (Matoušek) - Začal som mu hovorit presne to čo k danému okruhu patrí,
 teda tri typy sledovania provozu, najskôr o nazeraní do hlavičiek paketu, to sme prešli rýchlo a potom o signature,
  u ktorej sme sa zdžali dlhšie. Nevedel som niektoré presné pojmy a postupy na ktoré sa pýtal, ale nebral to veľmi kriticky.
@@ -78,8 +19,6 @@ TIN - 27[Rogalewicz] - Zasobnikove automaty - definicia prechodovej funkcie pre 
 
 Funkce směrovače, zpracování paketů (Grégr) - tohoto jsem se bál, protože jsem si moc nepamatoval, jak to tam vlastně funguje, ale bylo to spíš ve stylu otázka-odpověď. Začali jsem tím, co za zařízení je směrovač, co se tam děje s paketem (zpracování L2 a L3 hlaviček, z vstupu na výstup...) a pak jsme se motali kolem toho, podle čeho ví, kam dál poslat paket, co se děje s L2 hlavičkou (MAC adresa zkontrlována a zahozena) a pak jsme se motali kolem L3 hlavičky, co všechno se v ní dá zpracovat a jak to je s kontrlním součtem u ipv6. Fajn zkoušení, místama jsem si nebyl jistý se svojima odpověďma, ale Grégr vypadal spokojeně s touto diskuzí ve stylu otázka/odpověď - B
 
-[Matousek] Vicestupnove prepinaci site, v podstate ho zajimal jen Closuv obvod. Chtel ho zadefinovat, pak zadal Clos(4,4,2), chtel ho nakreslit, vysvetlit, jestli je blokujici nebo neblokujici a proc + jake by musel mit parametry, aby byl neblokujici. Pak se ptal i na rozdil mezi Closovym obvodem, crossbarem a sdilenou sbernici.
-
 2)matousek: architektura smerovačů, co se deje v rychle ceste a co v pomale, ptal se co ktera cesta provadi s paketem, trochu sem vahal a pak sem rikal ze pomala děla trochufragmentaci pri ruznem MTU, zabaluje provoz do VPN, pak sem rekl ze rychla dela sifrovani a pry ne (v hlavě sem si rikal hmm napad pro vylepšení :D ), na to jeste dodal ze to dela nat atd.
 
 3)rychly: map reduce zakladni operace, nepodival sem se na tu otazku takze sem vymyslel jakoze map neco namapuje a reduce z redukuje do jednoho vysledku. ptal se co do jake data a jaky typ dat do toho vstupuje a vystupuje. to sem vubec nevedel rekl sem ze nejaka ruzna data.
@@ -87,10 +26,6 @@ pak poradil ze je to dvojice klic hodnota, tak se ptal jak bych to naprogramoval
 pak se zeptal na ten priklad s pocitanim slov. na ten sem rekl ze se to rozdeli na casti ty se zpracuji a pak se to tim reducem secte na jedno cislo (redukce co sem si vzpomel tak to byla jenom ta z ARC/PRL)
 nakonec se jeste zeptal jestli znam nejaky software ktery to dela. rekl sem apache kafka (to ho asi uplne odrovnalo)
 
-[Veselý] - Řízení zahlcení - co, jak, kdy, proč
-
 [Matoušek] Asymetrická kryptografie, digitální podpis - Nejprve se ptal obecně na asymetrická vs. symetrická kryptografie - základní rysy, principy a vlastnosti. Pak konkrétně digitální podpis - co to je, k čemu to je, jak jej lze zprostředkovat asymetrickou kryptografii.
-
-[Grégr] Řízení toku a zahlcení v TCP - Jaké vznikají chyby přenosu, krátký popis k nim, jak je řeší TCP (sekvenční čísla, sliding window, fast retransmit). Jak se chovají toky se smíšenou TCP/UDP komunikací, jak jde zahlcení řešit v UDP (DCCP, QUIC).
 
 [Matoušek] Na lístečku stálo "peer-to-peer sítě, směrování, Matoušek." Zase jsem začal od prostředka a řekl jsem, že P2P sítě jsou sítě vybudované nad nějakou fungující fyzickou infrastrukturou. Na tom mi hned odpověděl, že to jsou všechny sítě. Opravil jsem se a řekl jsem IP infrastrukturou, na to kývl a pokračovalo se dál. Začal jsem popisovat nějaké vlastnosti P2P sítí - tam mě ale zastavil, že ať nejdříve řeknu, z čeho se ty sítě skládají a jak fungují. Řekl jsem, že se skládají z nějakých uzlů, které se podílejí na vytváření té sítě. Dále jsem řekl, že ta síť je nějakým způsobem samoorganizovatelná. Pak začala probíhat víceméně diskuse, kde se ze mě snažil dostat jakým způsobem se ty uzly podílí na vytváření sítě a směroval mě k strukturovaným a nestrukturovaným P2P sítím. Zasekli jsme se na značnou dobu u toho, když jsem řekl, že obsah (data) je v nestrukturované síti uložený na náhodném uzlu. Když jsem to řekl, tak se mě zeptal jak teda najdu ty data, když jsou uložená na náhodném uzlu. Začal jsem už docela panikařit, protože jsem si myslel, že mi naznačuje, že to co říkám je nesmysl. Chtěl mě ale dovést k formám směrování v nestrukturovaných P2P sítích. Když už jsem se k tomu po velké snaze dokopal, začal jsem popisovat záplavu. Tam se zeptal jaká je nevýhoda této metody - odpověděl jsem, že postupné zahlcení celé sítě. S tím byl víceméně spokojený a ptal se, jakým způsoběm to lze zlepšit. Odpovídám, že buď TTLkem a nebo výběrem podmnožiny sousedů, kterých se zeptat. S tím byl celkem spokojený. Nakonec se zeptal, jestli vím, jak funguje metoda hledání lokálního minima. Když jsem chvíli mlčel, tak zažertoval, že jestli nevím, tak můžu říct, že nevím :D Tak jsem řekl že už fakt nevím :D Celé mi to vysvětlil a ukončil to s tím, že mu to stačí. Až později jsem si uvědomil že budík zvonil už v průběhu toho zkoušení.

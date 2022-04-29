@@ -10,7 +10,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{Řízení toku dat (flow-control) a prevence zahlcení (congestion-control) na transportní vrstvě (MP-TCP, QUIC, SCTP, DCCP).}
+\chapter{PDS -- Řízení toku dat (flow-control) a prevence zahlcení (congestion-control) na transportní vrstvě (MP-TCP, QUIC, SCTP, DCCP).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -32,6 +32,8 @@
 
 \section{Úvod a kontext}
 
+\textit{Viz. \uv{Úvod a kontext} v~předchozích otázkách z~tohoto předmětu.}
+
 \paragraph*{Transportní vrstva} Transportní vrstva je název čtvrté vrstvy modelu vrstvové síťové architektury (ISO/OSI model). Leží mezi vrstvou síťovou (L3) a aplikační (L7). \begin{compactitem}
     \item Činnost na straně odesílatele: obdrží data z aplikační vrstvy, nasegmentuje je a ke každému segmentu/datagramu přidá L4 hlavičku.
     \item Činnost na straně příjemce: obdrží segmenty/datagramy, které uspořádá do správného pořadí (\textit{out-of-order} doručení), předá je aplikační vrstvě.
@@ -52,26 +54,6 @@
 \paragraph*{Fragmentace paketů} Uzel v síti (směrovač) dostane paket o velikosti $n$. Paket má přeposlat do sítě, ve které je $MTU < n$. Aby paket mohl být odeslán, musí být rozdělen (fragmentován) na více menších paketů (fragmenty) a odeslán po částech. Na straně příjemce pak musí nastat opačný proces~--~defragmentace.
 
 \paragraph*{Round trip time (RTT)} RTT je doba, která uplyne od vyslání paketu z jednoho komunikujícího uzlu k druhému po návrat potvrzení zpátky na první uzel.
-
-% src: https://cs.wikipedia.org/wiki/Soubor:OSI_Model_v1.svg
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.65\linewidth]{osi_model_wiki.png}
-    \caption{Příklad OSI modelu z Wiki.}
-\end{figure}
-
-% src: https://linuxhint.com/network-osi-layers-explained
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{osi_model_linuxhint.png}
-    \caption{Příklad OSI modelu z Linuxhint.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{osi_model_pds.png}
-    \caption{Příklad OSI modelu z PDS s příkladem protokolů.}
-\end{figure}
 
 \paragraph*{bandwith, throughput, goodput} \begin{compactitem}
     \item \textit{Bandwith}~--~šířka pásma (maximální přenos dat danou cestou v jeden moment)
