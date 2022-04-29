@@ -10,8 +10,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{PDS -- Základní architektury přepínačů, algoritmy pro plánování, řešení blokování, vícestupňové
-přepínací sítě.}
+\chapter{PDS -- Základní architektury přepínačů, algoritmy pro plánování, řešení blokování, vícestupňové přepínací sítě.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -107,7 +106,7 @@ přepínací sítě.}
 
 \paragraph*{CAM tabulka} Datová struktura v přepínači, ve které se mapují MAC adresy na výstupní porty.
 
-\paragraph*{Problém párování} \todo{todo}
+\paragraph*{Propustnost} Kolik je možné přenést dat za časovou jednotku.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -163,17 +162,18 @@ přepínací sítě.}
     \item Může komunikovat pouze jeden port v daný čas, ostatní čekají (řízeno protokolem).
     \item Lze jednoduše realizovat broadcast a multicast.
     \item Mějme $N$ portů (karet), rychlost každé karty $R$ bps, taktovací frekvenci $r$. Pak rychlost sběrnice musí být $N \times R$ a šířka sběrnice $$W = \frac{R \times N}{r}$$
+    \item Pokud se přidají nové porty nebo se na nich zvýší rychlost je potřeba zvýšit propustnost sběrnice (\uv{něco za něco}).
 \end{compactitem}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\linewidth]{sdilena_sbernice.pdf}
+    \includegraphics[width=0.5\linewidth]{sdilena_deska_sdilena_sbernice.pdf}
     \caption{Přepínač se sdílenou sběrnicí.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{sdilena_sbernice_priklad.pdf}
+    \includegraphics[width=1\linewidth]{sdilena_deska_sdilena_sbernice_priklad.pdf}
     \caption{Přepínač se sdílenou sběrnicí -- příklad.}
 \end{figure}
 
@@ -195,34 +195,227 @@ přepínací sítě.}
 
 \subsection{Přepínače se sdílenou pamětí}
 
-Sdílená paměť s fronty pro výstupní buffery
+\begin{compactitem}
+    \item Centrální sdílená paměť, která obsahuje frontu pro každý výstupní buffer (každý port).
+    \item Pro jeden přenos se musí 2x přistoupit do paměti (zápis a čtení).
+    \item Zde narážíme na současné technologické limity pamětí (rychlost přístupu).
+\end{compactitem}
 
-2 kroky
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{prepinana_deska_sdilena_pamet.pdf}
+    \caption{Činnost přepínače s přepínanou propojovací deskou a se sdílenou pamětí. Obsahuje: vstupní karty, řadič, sdílená paměť s frontami, výstupní karty.}
+\end{figure}
 
-\todo{todo}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{prepinana_deska_sdilena_pamet_priklad.pdf}
+    \caption{Přepínač s přepínanou sběrnicí a se sdílenou pamětí -- příklad.}
+\end{figure}
 
-\subsection{Křížové přepínače}
+\subsection{Křížové přepínače (\textit{crossbar})}
 
-Vnitřní blokování
+\begin{compactitem}
+    \item Založený na jednom velkém propojovacím poli.
+    \item Interně neblokující
+    \item Nativní podpora multicastu
+    \item Je potřeba $N^2$ propojení.
+    \item Chybí redundance: pouze jedna cesta mezi vstupem a výstupem.
+\end{compactitem}
 
-\todo{todo}
-
-\paragraph*{Algoritmus přidělování lístků} \todo{todo}
-
-\paragraph*{Algoritmus PIM (\textit{Parallel Iterative Matching})} \todo{todo}
-
-\paragraph*{Algoritmus iSLIP} \todo{todo}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{prepinana_deska_krizovy.pdf}
+    \caption{Přepínač s přepínanou sběrnicí a křížovými propoji.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Přepínače s přepínanou propojovací (vícestupňové přepínání)}
+\section{Problém hledání spojů v křížovém přepínači}
 
-\todo{todo}
+\subsection{Problém párování}
+
+V kontextu přepínání v křížovém přepínači se jedná o problém párování v bipartitním grafu, kde množina vstupních portů je $V_1$, množina výstupních portů je $V_2$ a hrany $E$ jsou propoje vstupů a výstupů. Množina $M$ se nazývá párování, pokud $M \subseteq E$, kde žádné dvě hrany z M, nemají společný vrchol.
+
+\paragraph*{Bipartitní graf} Nechť $G = (V, E)$ je graf. Graf G je bipartitní, pokud platí $V = V_1 \cup V_2 \, \land \, V_1 \cap V_2 = \emptyset \, \land \, \forall e = \{u, v\}, e \in E : u \in V_1 \, \land \, v \in V_2$. Platí li navíc $E = V_1 \times V_2$, pak je graf úplný bipartitní.
+
+\paragraph*{Největší párování} Největší párování (\textit{maximum matching}) je párování, které má největší počet hran (globální maximum). Složitost: $O(N^{5/2})$.
+
+\paragraph*{Maximální párování} Maximální párování (\textit{maximal matching}) je párování, kdy nelze přidat žádnou další hranu (lokální maximum). Složitost: $O(N+E)$.
+
+\bigskip\noindent Jelikož algoritmy pro hledání maximálního párování mají výrazně menší časovou složitost, volíme pro hledání spojů v křížovém přepínači ty.
+
+\subsection{Algoritmus přidělování lístků}
+
+\begin{compactitem}
+    \item Princip: \begin{compactitem}
+        \item Výstupní port $Q$ obsluhuje frontu požadavků na propojení.
+        \item Požadavek na vstupu $P$ dostane od $Q$ číslo $T_{QX}$ pro obsloužení portu $Q$ s pořadím $X$.
+    \end{compactitem}
+    \item Fáze: \begin{compactenum}
+        \item Žádost o lístek
+        \item Přidělení lístku
+        \item Propojení vstupů s výstupy a přenos
+    \end{compactenum}
+    \item Hodnocení: \begin{compactitem}
+        \item Umožňuje přenos rámců s proměnlivou délkou
+        \item \textbf{Blokování na začátku fronty} (\textit{head of line blocking}) -- Situace, kdy více vstupů chce stejný výstup. Musí se zpracovat ve více kolech. Řešení: Virtuální výstupní fronty (každý vstupní port má frontu pro každý výstupní port). Viz další algoritmy.
+    \end{compactitem}
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{algoritmus_pridelovani_listku_priklad.pdf}
+    \caption{Příklad činnosti algoritmu přidělování lístků.}
+\end{figure}
+
+\subsection{Algoritmus PIM (\textit{Parallel Iterative Matching})}
+
+\begin{compactitem}
+    \item Algoritmus přidělování lístků + virtuální výstupní fronty + náhodnost. \begin{compactitem}
+        \item Posílají se požadavky pro všechny pakety ve frontě, nikoliv pouze pro první.
+    \end{compactitem}
+    \item Hledá maximální párování (pomocí náhodné volby, která zabrání vyhladovění).
+    \item Soutěžení o porty \begin{compactitem}
+        \item Výstupní port -- více žádostí naráz, jednu vyberu náhodně.
+        \item Vstupní port -- povolení na více výstupů naráz, jeden vyberu náhodně.
+    \end{compactitem}
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{algoritmus_pim_priklad_1.pdf}
+    \caption{Příklad činnosti algoritmu PIM, kolo 1.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{algoritmus_pim_priklad_2.pdf}
+    \caption{Příklad činnosti algoritmu PIM, kolo 2.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{algoritmus_pim_priklad_3.pdf}
+    \caption{Příklad činnosti algoritmu PIM, kolo 3.}
+\end{figure}
+
+\subsection{Algoritmus iSLIP}
+
+\begin{compactitem}
+    \item Algoritmus přidělování lístků + virtuální výstupní fronty + iterace + ukazatele.
+    \item Algoritmus \uv{rotujících ukazatelů} (vyhneme se náhodnému výběru). \begin{compactitem}
+        \item Každý vstupní port má ukazatel (počítadlo), podle kterého se určuje priorita výstupu.
+        \item Každý výstupní port má ukazatel, podle kterého se určuje priorita vstupu.
+        \item Nová hodnota ukazatele je port na který se posílá / port od kterého se přijímá $+ 1$.
+    \end{compactitem}
+    \item Každé kolo má dvě iterace, resp. 6 fází -- request, grant, accept, request, grant, accept and transfer \begin{compactitem}
+        \item Proč? Protože fáze transfer trvá nejdéle (optimalizace).
+    \end{compactitem}
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{algoritmus_islip_priklad_1.pdf}
+    \caption{Příklad činnosti algoritmu iSLIP, kolo 1.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{algoritmus_islip_priklad_2.pdf}
+    \caption{Příklad činnosti algoritmu iSLIP, kolo 2.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{algoritmus_islip_priklad_3.pdf}
+    \caption{Příklad činnosti algoritmu iSLIP, kolo 3.}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Přepínače s přepínanou propojovací deskou (vícestupňové přepínání)}
+
+Vlastnosti jednostupňového křížového přepínače:
+\begin{compactitem}
+    \item S počtem portů roste kvadraticky velikost přepínacího pole.
+    \item Vnitřní blokování (soupeření o porty).
+    \item Blokování na začátku fronty (\textit{head of line blocking}).
+    \item Součástí přepínání je hledání maximálního párování.
+\end{compactitem}
+
+\noindent Je možné zvětšit počet portů, aniž by se dramaticky rozšířila velikost přepínacího pole? Ano, pomocí vícestupňového přepínání (vstup $\rightarrow$ vnitřní přepínací obvody $\rightarrow$ výstup).
+\begin{compactitem}
+    \item Nemají vnitřní blokování -- Nejsou potřeba plánovací algoritmy pro hledání maximálního párování.
+\end{compactitem}
 
 \subsection{Přepínací síť Clos}
 
-\todo{todo}
+$Clos(m, n, r)$
+\begin{compactitem}
+    \item $r$ vstupních bloků s $n$ vstupy (bloků = křížový přepínač)
+    \item $r$ výstupních bloků s $n$ vstupy
+    \item $m$ vnitřních bloků s $r$ vstupy
+\end{compactitem}
+
+\noindent Closův teorém: \begin{compactitem}
+    \item Pokud $m \geq 2n - 1$, pak lze přidat nové propojení vstupu a výstupu bez přeskládání (síť je neblokující). \begin{compactitem}
+        \item Pokud všechny požadavky na vstupu jdou na jiné výstupy, pak pro jakoukoliv konfiguraci vstupů a výstupů je síť neblokující (pokud nejdou dva vstupy na jeden stejný výstup).
+    \end{compactitem}
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{clos.pdf}
+    \caption{Obecné schéma Closovy sítě.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{clos_priklad.pdf}
+    \caption{Příklad Closovy sítě.}
+\end{figure}
+
+\subsection{Modifikovaná přepínací síť Clos}
+
+\begin{compactitem}
+    \item Pokud $m \geq n$, pak je síť neblokující po přeskládání.
+    \item Výpočetní složitost přeskládání je $O(N \log{D})$, kde $D$ je počet barev.
+    \item Proč? Při plnění closova teorému je potřeba hodně bloků. Při této podmínce stačí výrazně méně a složitost výpočtu přeskládání je přijatelná.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{clos_modifikovany_priklad.pdf}
+    \caption{Příklad modifikované Closovy sítě.}
+\end{figure}
 
 \subsection{Přepínací síť Beneš}
 
-\todo{todo}
+$Benes(n)$ také $BN(n)$
+\begin{compactitem}
+    \item Základem je modifikovaná síť $Clos(m=2, n=2, r=1)$.
+    \item Rekurzivní konstrukce sítě $Benes(n)$, kde $n$ je stupeň rekurze.
+    \item Vstupní a výstupní přepínače velikosti $2 \times 2$.
+    \item Celkový počet vstupních/výstupních portů $N = 2^n$.
+    \item Prostřední část rekurzivních bloků $BN(n-1)$.
+    \item Neblokující po přeskládání -- algoritmus hledání propojení (žádné soupeření o vnitřní uzly nebo výstupní porty).
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{benes.pdf}
+    \caption{Obecné schéma Benešovy sítě.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{benes_priklad_1.pdf}
+    \caption{Příklad Benešovy sítě.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{benes_priklad_2.pdf}
+    \caption{Příklad Benešovy sítě s přeskládáním.}
+\end{figure}
