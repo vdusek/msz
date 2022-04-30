@@ -32,13 +32,19 @@
 
 \section{Úvod a kontext}
 
+% smerovaci tabulka
+% prepinaci tabulka
+% arp cache
+% CAM tabulka
+% route cache
+
 \textit{Viz. \uv{Úvod a kontext} v~předchozích otázkách z~tohoto předmětu.}
 
 \paragraph*{NAT} NAT (\textit{Network Address Translation}) je metoda mapování IP adresního prostoru do jiného prostoru (typicky privátní adresy na veřejné adresy). Děje se tak úpravou hlaviček IP paketů během jejich přenosu přes směrovače.
 
 \paragraph*{ACL} ACL (\textit{Access Control List}) je volitelná vrstva zabezpečení, která funguje jako brána firewall pro řízení provozu do jedné nebo více podsítí a z nich.
 
-\paragraph*{ARP} ARP (\textit{Address Resolution Protocol}) a RARP (\textit{Reverse ARP}) je protokol, který komunikuje na síťové vrstvě (L3) a zajišťuje \uv{překlad} IP adres na MAC adresy a obráceně. Pouze pro IPv4, pro IPv6 je pro stejný účel využíván protokol ICMPv6 a zpráva \textit{Neighbor Discovery}.
+\paragraph*{ARP} ARP (\textit{Address Resolution Protocol}) a RARP (\textit{Reverse ARP}) je protokol, který komunikuje na síťové vrstvě (L3) a zajišťuje \uv{překlad} IP adres na MAC adresy a obráceně. Pouze pro IPv4, pro IPv6 je pro stejný účel využíván protokol ICMPv6 a zpráva \textit{Neighbor Discovery}. Příklad využití: směrovač potřebuje získat MAC adresu next hopu (zná jeho IP adresu).
 
 \paragraph*{ICMP} ICMP (\textit{Internet Control Message Protocol}) je protokol, který komunikuje na síťové vrstvě (L3) a slouží pro řízení toku a detekce nedosažitelných uzlů.
 
@@ -108,7 +114,7 @@ Pakety mohou být určeny buď přímo pro směrovač (aktualizace směrovací c
     \caption{Příklad směrovací tabulky (bez metriky).}
 \end{figure}
 
-\paragraph*{Přepínací tabulka} Přepínací tabulka (\textit{forwarding table}) doplňuje směrovací tabulku o další informace, které jsou nutné pro sestavení cílového paketu (výstupní rozhraní, zdrojová MAC adresa, cílová MAC adresa). Informace do ní se získavají pomocí ARP protokolu a doplnění vlastních informací (\texttt{dst MAC address}).
+\paragraph*{Přepínací tabulka} Přepínací tabulka (FIB, \textit{forwarding information base}, \textit{forwarding table}, CAM tabulka) doplňuje směrovací tabulku o další informace, které jsou nutné pro sestavení cílového paketu (výstupní rozhraní, zdrojová MAC adresa, cílová MAC adresa). Informace do ní se získavají pomocí ARP protokolu a doplnění vlastních informací (\texttt{dst MAC address}).
 
 \begin{figure}[H]
     \centering
@@ -203,39 +209,244 @@ Rozdělíme na fyzické části (z hlediska hardware) a funkční části (z hle
 
 \section{Zpracování paketu ve směrovači}
 
-Data Plane -- specifický hardware pro zpracování
+Směrovač můžeme rozdělit na dvě části: \begin{compactitem}
+    \item \textit{Data Plane} -- Specifický hardware pro zpracování paketu (rychlé zpracování) -- ASIC.
+    \item \textit{Control Plane} -- Obecný procesor pro realizaci složitějších operací (pomalé zpracování).
+    % todo (NAT, filtrovani pomoci ACL/firewall, fragmenta, defragmentace se obvykle musí zpracovávat tady)
+\end{compactitem}
 
-Control Plane -- obecný procesor se softwarem, který běží (NAT, filtrovani pomoci ACL/firewall, fragmenta, defragmentace se obvykle musí zpracovávat tady)
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{control_plane_and_data_plane.pdf}
+    \caption{Rozdělení přepínače na části \textit{Data Plane} a \textit{Control Plane} a zpracování rozděleno do 6. fází.}
+\end{figure}
 
-kontext paketu -- vybrané věci z hlaviček, který se předává, datová struktura, nepracuju s celým paketem
-na začátku mám pouze částečný kontext (síťová karta), na výstupní kartě mám už kompletní
+\paragraph*{Kontext paketu} Pomocná datová struktura, která reprezentuje paket uvnitř směrovače. Obsahuje vybrané informace z hlaviček. V rámci jednotlivých komponent směrovače se předává (pokud možno) tato struktura, pro větší efektivitu.Na počátku máme pouze částečný kontext, který se průběžně doplňuje. Na základě něho je pak sestaven výstupní paket.
 
-pricina zahozeni na vystupni karte -- TTL, plne fronty (politiky RED, WRED), filtrovani na vstupu/vystupu
+\paragraph*{Fáze zpracování} Pokud některá z fází skončí neúspěšně, paket je zahozen. \begin{compactenum}
+    \item Paket přijde na síťové rozhraní \begin{compactitem}
+        \item Síťová karta zpracuje L2 rámec, zkontroluje FCS
+        \item Vytvoří kontext paketu: vloží L2 zdrojovou a cílovou adresu
+        \item Zpracování hlavičky L3: typ protokolu, kontrolní součet, TTL
+        \item Doplnění kontextu o informace L3: IP adresy, typ protokolu, DSCP $+$ porty
+    \end{compactitem}
+    \item Zpracování v přepínacím modulu \begin{compactitem}
+        \item Vyhledání cesty v přepínací tabulce: next hop $+$ výstupní rozhraní
+        \item Doplnění dalších informací do kontextu paketu
+        \item Paket uložen do vyrovnávací paměti $\rightarrow$ adresa vložena do kontextu
+    \end{compactitem}
+    \item Přeposlání kontextu propojovací deskou \begin{compactitem}
+        \item Paket i kontext jsou přeneseny na výstupní rozhraní
+    \end{compactitem}
+    \item Zpracování správcem front \begin{compactitem}
+        \item Podle priority v kontextu paketu je paket vložen do příslušné výstupní fronty
+        \item Obsluha fronty probíhá podle daného plánovacího algoritmu
+    \end{compactitem}
+    \item Předání kontextu správci provozu \begin{compactitem}
+        \item Kontrola omezení rychlosti (shaping) dle kontextu
+        \item Překročení rychlost: zahození či zpomalení
+    \end{compactitem}
+    \item Výstupní síťové rozhraní \begin{compactitem}
+        \item L3: aktualizace TTL, přepočítání kontrolního součtu
+        \item L2: přidání hlavičky, výpočet CRC
+        \item Odeslání paketu (zapsání na výstupní médium)
+    \end{compactitem}
+\end{compactenum}
 
-Rychlá cesta (pouze hw)
-casove kriticke operace
-zpracování hlavičky IP
-klasifikace
+\paragraph*{Plný kontext paketu} \begin{compactitem}
+    \item Kontext doplněn o výstupní informace
+    \item Základní deska přenese paket i kontext na
+    \item výstupní rozhraní
+    \item Kontext obsahuje adresu uložení paketu v paměti
+    \item Zpracování paketu předáno správci front
+\end{compactitem}
 
-Pomalá cesta (vlastní řízení, přes obecný software)
-částěčně zpracována v HW, částečně v softwaru (control plane)
-časově nekritické operace
-zpracování ARP
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=.5\linewidth]{kontext_castecny.pdf}
+        \caption{Kontext paketu -- částečný.}
+    \end{subfigure}%
+    \begin{subfigure}{.5\textwidth}
+        \centering
+        \includegraphics[width=.5\linewidth]{kontext_uplny.pdf}
+        \caption{Kontext paketu -- úplný.}
+    \end{subfigure}
+    \caption{Kontext paketu (\textit{ingress} -- vstup, \textit{engress} -- výstup.)}
+\end{figure}
+
+\noindent Paket může být zahozen i na výstupní kartě. Proč? \begin{compactitem}
+    \item Vypršelo TTL
+    \item Jsou plné fronty (politika RED, WRED)
+    \item Filtrování na výstupu
+\end{compactitem}
+
+\noindent Paket může být zpracován dvěma způsoby: rychlou cestou (přes \textit{data plane}) a pomalou cestou (přes \textit{control plane}).
+
+\paragraph*{Rychlá cesta} Paket je možné zpracovat pouze v hardwaru (\textit{data plane}). \begin{compactitem}
+    \item Zpracování hlavičky IP (kontrola verze, délky paketu, snížení TTL, přepočítání kotrolního součtu)
+    \item Přeposlání paketu ze vstupní na výstupní (lokální uložení, přeposlání na jeden port (unicast) či více portů (multicast))
+    \item Klasifikace paketu na základě informací z hlavičky (optimalizované datové struktury pro rychlé uložení a vyhledání)
+    \item Uložení do front, plánování (různé typy front, různé typy obsluhy)
+\end{compactitem}
+
+\paragraph*{Pomalá cesta} Paket je částečně zpracován v hardwaru, ale většina zpracování musí proběhnout softwarově (\textit{control plane}). Síťová karta nedokáže zpracovat paket sama a musí se využít centrální procesor. \begin{compactitem}
+    \item Zpracování ARP (zjištění výstupní adresy L2: první paket, ostatní pakety)
+    \item Fragmentace a defragmentace
+    \item Generování zpráv ICMP
+    \item Zpracování směrovacích informací
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{rychla_a_pomala_cesta.pdf}
+    \caption{Dva způsoby zpracování paketu ve směrovačí -- pomalou cestou a rychlou cestou.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Typy přepínání}
+\section{Typy přepínání paketů}
 
-Softwarové přepínání (\textit{Process Switching})
+Přepínání paketů z jednoho rozhraní na druhé na základě směrovacích informací je jedna z nejdůležitějších funkcí směrovače. Proces přepínání paketů zahrnuje: \begin{compactitem}
+    \item Zjištění, zda cíl cesty paketu je dosažitelný.
+    \item Vyhledání nejbližšího uzlu na cestě (next-hop) a určení výstupního rozhraní.
+    \item Vyhledání informací pro vytvoření L2 hlavičky paketu na výstupu.
+\end{compactitem}
 
-Rychlé přepínání (\textit{Fast Switching})
+\subsection{Softwarové přepínání (\textit{Process Switching})}
+
+\begin{compactitem}
+    \item Přepínání pomocí centrálního procesoru s centrální pamětí. \begin{compactitem}
+        \item Pomalé -- přístup do paměti, obecný procesor (softwarové zpracování).
+    \end{compactitem}
+    \item Pro každý paket se hledá cesta ve směrovací tabulce a určuje se MAC adresa cíle.
+    \item Směrovač využívá standardní mechanismus přepíná procesů v OS (přeřušení).
+\end{compactitem}
+
+\paragraph*{Fáze softwarového přepínání} \begin{compactenum}
+    \item I/O procesor detekuje paket na vstupním médiu. Přenese ho do vstupního bufferu.
+    \item I/O procesor vygeneruje přerušení. Během přerušení určí centrální procesor typ paketu a zkopíruje ho do centrální paměti.
+    \item Centrální plánovač zjistí, že ve vstupní frontě je paket. Naplánuje jeho další zpracování procesem.
+    \item Proces pro zpracování vyhledá ve směrovací tabulce další uzel (next hop) a výstupní rozhraní. V paměti ARP cache vyhledá MAC adresu dalšího uzlu.
+    \item Přepíše L2 hlavičku paketu a umístí paket do výstupní fronty na výstupním portu.
+    \item Paket vložen do fronty na výstupním portu.
+    \item I/O procesor detekuje paket ve vysílací frontě. Zapíše ho na síťové médium.
+\end{compactenum}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{softwarove_prepinani.png}
+    \caption{Softwarové přepínání.}
+\end{figure}
+
+\paragraph*{Optimalizace} \begin{compactitem}
+    \item Nejdéle trvá: na základě cíle vyhledávání informací ve směrovací tabulce, najdu next hop, najdu příslušný záznam v ARP tabulce
+    \item Můžeme využít cache (která si bude pamatovat poslední záznamy.
+\end{compactitem}
+
+\subsection{Rychlé přepínání (\textit{Fast Switching})}
+
+\begin{compactitem}
+    \item Využívá vyrovnávací paměť \textit{route cache} s předpočítanou L2 hlavičkou.
+    \item První paket toku se přepíná softwarově, další pakety toku jdou rychlou cestou.
+    \item Při přepínání paketu je vložen do paměti \textit{route cache} nový záznam.
+    \item Neexistuje synchronizace mezi směrovací tabulkou, ARP cache a \textit{route cache}.
+    \item Záznam v \textit{route cache} se zneplatní při změně ARP cache či směrovací tabulky.
+    \item Při zaplnění paměti nad určitou mez se začnou záznamy náhodně zahazovat.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{rychle_prepinani.png}
+    \caption{Rychlé přepínání.}
+\end{figure}
+
+\subsection{Expresní přepínání CEF (Cisco Express Forwarding)}
+
+\todo{todo}
+
+\begin{compactitem}
+    \item Tabulka CEF se předpočítá na základě směrovací tabulky a tabulky sousedů ještě před příchodem paketu $\rightarrow$ nedochází k softwarovému přepínání.
+    \item Oddělení směrovacích informací od L2 dat $\rightarrow$ nedochází ke stárnutí záznamů při expiraci záznamu v tabulce ARP.
+    \item Změny ve směrovací tabulce či tabulce ARP se okamžitě propagují do tabulky CEF.
+    \item ARP tabulka se synchronizuje se záznamy v tabulce sousedů.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{expresni_prepinani.png}
+    \caption{Expresní přepínání CEF.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Přehled architektur}
 
-Architektura se sdíleným procesorem
+Architektury směrovačů rozdělmě podle způsobu přepínání paketů.
 
-Architektura s nezávislými moduly FE
+\subsection{Architektura se sdíleným procesorem}
 
-Distribuovaná architektura (Shared Nothing)
+\begin{compactitem}
+    \item Využívá softwarové přepínání $\rightarrow$ každý paket zpracován na CPU.
+    \item Cykly CPU rozděleny mezi přeposílání, směrování a další operace.
+    \item Sdílená sběrnice i procesor $\Rightarrow$ levné, ale pomalé.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{architektura_se_sdilenym_procesorem.pdf}
+    \caption{Architektura se sdíleným procesorem.}
+\end{figure}
+
+\subsection{Architektura se sdíleným procesorem a pamětí cache na kartě}
+
+\begin{compactitem}
+    \item Varianta s pamětí cache na kartě $\rightarrow$ synchronizace přepínacích tabulek.
+    \item Síťová karta obsahuje FE pro zpracování hlaviček, paměť a přepínací tabulku.
+    \item Rychlé přepínání (Fast Switching): první paket vs. další pakety.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{architektura_se_sdilenym_procesorem_a_pameti_cache_na_karte.pdf}
+    \caption{Architektura se sdíleným procesorem a pamětí cache na kartě.}
+\end{figure}
+
+\subsection{Architektura s nezávislými moduly FE}
+
+\begin{compactitem}
+    \item Přepínací moduly FE implementovány na speciálních kartách.
+    \item Paralelní zpracování paketů, dvě sběrnice (sdílená a přepínaná).
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{architektura_s_nezavislymi_moduly_fe.pdf}
+    \caption{Architektura s nezávislými moduly FE.}
+\end{figure}
+
+\subsection{Architektura s nezávislými moduly FE a přepínanou sběrnicí}
+
+\begin{compactitem}
+    \item Varianta s jednou přepínanou sběrnicí $\Rightarrow$ vyšší propustnost.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{architektura_s_nezavislymi_moduly_fe_a_prepinanou_sbernici.pdf}
+    \caption{Architektura s nezávislými moduly FE a přepínanou sběrnicí.}
+\end{figure}
+
+\subsection{Distribuovaná architektura (Shared Nothing)}
+
+\begin{compactitem}
+    \item Veškeré zpracování paketu přeneseno do síťového modulu.
+    \item Oddělení procesu směrování a přepínání $\rightarrow$ využití technologie CEF.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{architektura_distribuovana.pdf}
+    \caption{Distribuovaná architektura (Shared Nothing).}
+\end{figure}
