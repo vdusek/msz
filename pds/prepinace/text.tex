@@ -75,6 +75,19 @@
     \end{compactitem}
 \end{compactitem}
 
+\paragraph*{data, segment, datagram, paket, rámec, bit} \begin{compactitem}
+    \item Data~--~aplikační vrstva (L7)
+    \item Segment~--~transportní vrstva (L4), TCP
+    \item Datagram~--~transportní vrstva (L4), UDP
+    \item Paket~--~síťová vrstva (L3)
+    \item Rámec~--~linková vrstva (L2)
+    \item Bit~--~fyzická vrstva (L1)
+\end{compactitem}
+
+\paragraph*{CAM tabulka} CAM (\textit{Content Addressable Memory}) tabulka je datová struktura v přepínači, která uchovává informace, jako jsou MAC adresy dostupné na fyzických portech s přidruženými parametry VLAN.
+
+\paragraph*{Propustnost} Kolik je možné přenést dat za časovou jednotku.
+
 % src: https://linuxhint.com/network-osi-layers-explained
 \begin{figure}[H]
     \centering
@@ -89,7 +102,11 @@
     \caption{Příklad OSI modelu z Wiki.}
 \end{figure}
 
-\paragraph*{Přepínač} Síťový přepínač (\textit{switch}) je aktivní prvek v počítačové síti, který propojuje jednotlivé prvky do hvězdicové topologie. Přepínač obsahuje síťové porty (až stovky), na něž se připojují síťová zařízení. \begin{compactitem}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Obecná architektura přepínače}
+
+Síťový přepínač (\textit{switch}) je aktivní prvek v počítačové síti, který propojuje jednotlivé prvky do hvězdicové topologie. Přepínač obsahuje síťové porty (až stovky), na něž se připojují síťová zařízení. \begin{compactitem}
     \item Na jaké vrstvě OSI modelu pracuje? Pracuje s rámci (linková vrstva, L2).
     \item Na základě čeho provádí přepínání? Na základě cílové MAC adresy.
     \item Jaké typy přenosů přepíná? Na základě cílové MAC adresy rozslišuje typ přenosu: \begin{compactitem}
@@ -103,16 +120,6 @@
         \item Šířka pásma cílového rozhraní
     \end{compactitem}
 \end{compactitem}
-
-\paragraph*{CAM tabulka} CAM (\textit{Content Addressable Memory}) tabulka je datová struktura v přepínači, která uchovává informace, jako jsou MAC adresy dostupné na fyzických portech s přidruženými parametry VLAN.
-
-\paragraph*{Propustnost} Kolik je možné přenést dat za časovou jednotku.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Obecná architektura přepínače}
-
-Viz obrázek~\ref{pds_obecna_architektura_prepinace}.
 
 \paragraph*{Požadavky na přenos} \begin{compactitem}
     \item Maximální využití sběrnice (požadavek na plánovač). \begin{compactitem}

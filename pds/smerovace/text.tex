@@ -32,4 +32,42 @@
 
 \section{Úvod a kontext}
 
-\todo{todo}
+\paragraph*{NAT} Network Address Translation \todo{todo}
+
+\paragraph*{ACL} Access Control List \todo{todo}
+
+\paragraph*{Maximum Transmission Unit (MTU)} Největší velikost paketu, kterou lze v síti odeslat (přes výstupní rozhraní síťového prvku).
+
+\paragraph*{Fragmentace paketů} Uzel v síti (směrovač) dostane paket o velikosti $n$. Paket má přeposlat přes výstupní rozhraní do sítě, ve které je $MTU < n$. Aby paket mohl být odeslán, musí být rozdělen (fragmentován) na více menších paketů (fragmenty) a odeslán po částech. Na straně příjemce pak musí nastat opačný proces~--~defragmentace.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Obecná architektura směrovače}
+
+Směrovač je síťové zařízení, které předává datové pakety mezi počítačovými sítěmi. \begin{compactitem}
+    \item Směrovač pracuje s pakety (síťová vrstva, L3).
+\end{compactitem}
+
+\paragraph*{Funkce směrovače} \begin{compactitem}
+    \item Tvoří komunikace mezi lokálními sítěmi.
+    \item Provádí překlad NAT.
+    \item Klasifikuje a filtruje pakety (firewall).
+    \item Fragmentace a defragmentace.
+\end{compactitem}
+
+\paragraph*{Činnost směrovače} \begin{compactitem}
+    \item Vypouzdření paketu z L2 (odebrání L2 hravičky) a kontrola jestli je v pořádku (pomocí kontrolního součtu).
+    \item Vyhledání cesty kam se má paket směrovat a překlad adresy NAT (pomocí směrovací tabulky).
+    \item Určení cílové MAC adresy na základě cílové IP adresy (pošle ARP dotaz).
+    \item Určení výstupního rozhraní.
+    \item Sestavení výsledného paketu podle výstupního rozhraní (zapouzdření do příslušné L2 technologie -- přidání L2 hlavičky).
+    \item \todo{todo} ACL
+\end{compactitem}
+
+\paragraph*{Co ovlivňuje propustnost směrovače} \begin{compactitem}
+    \item Rozbalení paketu.
+    \item Vyhledání směrovací cesty.
+    \item Překlad NAT.
+    \item Vyhledání cílové MAC adresy.
+    \item Zabalení paketu do správné technologie.
+\end{compactitem}

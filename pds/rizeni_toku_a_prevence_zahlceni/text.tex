@@ -49,25 +49,12 @@
 
 \paragraph*{\textit{Connection-less}}~--~Typ spojení, které nerozlišuje jestli spojení existuje, nebo nikoliv. Pouze fáze přenosu dat.
 
-\paragraph*{Maximum transmission unit (MTU)} Největší velikost paketu, kterou lze v síti odeslat.
-
-\paragraph*{Fragmentace paketů} Uzel v síti (směrovač) dostane paket o velikosti $n$. Paket má přeposlat do sítě, ve které je $MTU < n$. Aby paket mohl být odeslán, musí být rozdělen (fragmentován) na více menších paketů (fragmenty) a odeslán po částech. Na straně příjemce pak musí nastat opačný proces~--~defragmentace.
-
 \paragraph*{Round trip time (RTT)} RTT je doba, která uplyne od vyslání paketu z jednoho komunikujícího uzlu k druhému po návrat potvrzení zpátky na první uzel.
 
 \paragraph*{bandwith, throughput, goodput} \begin{compactitem}
     \item \textit{Bandwith}~--~šířka pásma (maximální přenos dat danou cestou v jeden moment)
     \item \textit{Throughput}~--~propustnost komunikace na úrovni protokolu
     \item \textit{Goodput}~--~propustnost komunikace na úrovni aplikace (throughput $-$ režie)
-\end{compactitem}
-
-\paragraph*{data, segment, datagram, paket, rámec, bit} \begin{compactitem}
-    \item Data~--~aplikační vrstva (L7)
-    \item Segment~--~transportní vrstva (L4), TCP
-    \item Datagram~--~transportní vrstva (L4), UDP
-    \item Paket~--~síťová vrstva (L3)
-    \item Rámec~--~linková vrstva (L2)
-    \item Bit~--~fyzická vrstva (L1)
 \end{compactitem}
 
 \paragraph*{Bitové chyby} \begin{compactitem}
