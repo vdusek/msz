@@ -98,13 +98,13 @@ Hledání minimální kostry je problém, který lze řešit algoritmy, které s
 \begin{lstlisting}[language=Python, caption={Generický algoritmus. Před každou iterací algoritmu je množina $A$ podmnožinou nějaké minimální kostry. Hrana $(u,v) \in E$ je bezpečná pro $A$, pokud $A \cup \{(u, v)\}$ je podmnožinou nějaké minimální kostry.}]
 def generic_mst(G):
     # G je graf
-    A~= {} # A~je mnozina hran rozpracovane minimalni kostry
+    A = {} # A je mnozina hran rozpracovane minimalni kostry
     while netvori_kostru(A, G):
         for hrana in G.E:
             if je_bezpecna(A, hrana):
-                A~+= {hrana}
-    return
-A~\end{lstlisting}
+                A += {hrana}
+    return A
+\end{lstlisting}
 \end{minipage}
 
 \begin{figure}[H]
@@ -137,8 +137,8 @@ def kruskal_mst(G):
     # G je graf
 
     # inicializace, kazdy uzel je ve sve mnozine
-    A~= {} # A~je mnozina hran rozpracovane minimalni kostry
-    for v~in G.V:
+    A = {} # A je mnozina hran rozpracovane minimalni kostry
+    for v in G.V:
         make_set(v)
 
     # seradit vzestupne podle w
@@ -146,11 +146,11 @@ def kruskal_mst(G):
 
     for (u, v) in E:
         if find_set(u) != find_set(v):
-            A~+= {(u, v)}
+            A += {(u, v)}
             union(u, v)
 
-    return
-A~\end{lstlisting}
+    return A
+\end{lstlisting}
 \end{minipage}
 
 \subsection{Složitost}
@@ -200,7 +200,7 @@ def prim_mst(G, r):
     # G je graf
     # r je vychozi uzel
 
-    for u~in G.V:
+    for u in G.V:
         key[u] = INF # pole cen prechodu, kolik stoji prechod do vrcholu na indexu
         pi[u] = NULL # pole predchudcu, kdo je predchudce vrcholu na indexu
 
@@ -208,14 +208,13 @@ def prim_mst(G, r):
     Q = Queue(G.V) # prioritni fronta uzlu
 
     while not Q.empty():
-        u~= Q.extract_min(key) # vrati prvek z~Q s~nejmensi hodnotou v~key
+        u = Q.extract_min(key) # vrati prvek z Q s nejmensi hodnotou v key
 
-        # pro vsechny sousedy uzlu u~(Adj je seznam sousedu)
-        for v~in Adj[u]:
+        # pro vsechny sousedy uzlu u (Adj je seznam sousedu)
+        for v in Adj[u]:
             # pokud je levnejsi cesta a jeste to neni prozkoumany uzel
-            if v~in Q and w(u, v) < key(v):
-                pi[v] =
-u~key[v] = w(u, v)
+            if v in Q and w(u, v) < key(v):
+                pi[v] = u key[v] = w(u, v)
                 Q.decrease_key(key) # aktualizace prioritni fronty
 
     return pi

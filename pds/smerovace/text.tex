@@ -108,7 +108,7 @@ Pakety mohou být určeny buď přímo pro směrovač (aktualizace směrovací c
     \caption{Základní činnost směrovače.}
 \end{figure}
 
-\paragraph*{Směrovací tabulka} Směrovací tabulka (\textit{routing table}) obsahuje informace nutné a dostačující pro směrování (\path{ip prefix}~--~prefix cílové sítě, \path{next hop}~--~adresa dalšího uzlu, \path{metrika}~--~cena cesty). Informace do ní se získavají pomocí směrovacích protokolů a nebo staticky (administrátor provede manuálně).
+\paragraph*{Směrovací tabulka} Směrovací tabulka (\textit{routing table}) obsahuje informace nutné a dostačující pro směrování (\path{ip prefix}~--~IP prefix cílové sítě, \path{next hop}~--~IP adresa dalšího uzlu, \path{metrika}~--~cena cesty, počet hopů). Informace do ní se získavají pomocí směrovacích protokolů a nebo staticky (administrátor provede manuálně). Směrovací tabulku mají i koncové stanice (počítače), aby mohli posílat pakety do internetu.
 
 \begin{figure}[H]
     \centering
@@ -116,7 +116,7 @@ Pakety mohou být určeny buď přímo pro směrovač (aktualizace směrovací c
     \caption{Příklad směrovací tabulky (bez metriky).}
 \end{figure}
 
-\paragraph*{Přepínací tabulka} Přepínací tabulka (FIB, \textit{forwarding information base}, \textit{forwarding table}, CAM tabulka) doplňuje směrovací tabulku o další informace, které jsou nutné pro sestavení cílového paketu (výstupní rozhraní, zdrojová MAC adresa, cílová MAC adresa). Informace do ní se získavají pomocí ARP protokolu a doplnění vlastních informací (\texttt{dst MAC address}).
+\paragraph*{Přepínací tabulka} Přepínací tabulka (FIB, \textit{forwarding information base}, \textit{forwarding table}) doplňuje směrovací tabulku o další informace, které jsou nutné pro sestavení cílového paketu (výstupní rozhraní, zdrojová MAC adresa, cílová MAC adresa). Informace do ní se získavají pomocí ARP protokolu a doplnění vlastních informací (\texttt{dst MAC address}).
 
 \begin{figure}[H]
     \centering

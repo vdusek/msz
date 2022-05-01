@@ -32,6 +32,11 @@
 
 \section{Úvod a kontext}
 
+% Todo:
+% - prepinace nemodifikuji paket
+% - prepinace samy o sobe nepotrebuji MAC adresu a vetsinou nemaji zadnou
+% - "The basic function of a switch is transparent bridging" - preposle paket a nikdo to ani nepozna
+
 \paragraph*{ISO/OSI model} Referenční model ISO/OSI se používá jako názorný příklad řešení komunikace v počítačových sítích pomocí vrstevnatého modelu, kde jsou jednotlivé vrstvy nezávislé a snadno nahraditelné. \begin{compactitem}
 
     \item \textbf{Aplikační vrstva} (L7, \textit{application layer}) \begin{compactitem}
@@ -80,7 +85,7 @@
     \item Bit~--~fyzická vrstva (L1)
 \end{compactitem}
 
-\paragraph*{CAM tabulka} CAM (\textit{Content Addressable Memory}) tabulka je datová struktura v přepínači, která uchovává informace, jako jsou MAC adresy dostupné na fyzických portech s přidruženými parametry VLAN.
+\paragraph*{CAM tabulka} CAM tabulka je datová struktura v přepínači, která uchovává informace o tom, za jakým fyzickým portem je zařízení s jakou MAC adresou. Jak se plní? Přepínač si ji plní automaticky. V momentě kdy k němu přijde paket, doplní si MAC adresu a port přes který paket přišel. Pokud přepínač neví za jakým portem je cílová MAC adresa, pošle to všem (\textit{flooding}).
 
 \paragraph*{Propustnost} Kolik je možné přenést dat za časovou jednotku.
 
