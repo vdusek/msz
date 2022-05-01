@@ -10,7 +10,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{PDS -- Základní funkce směrovače, zpracování paketů ve směrovači, typy přepínání a architektur.}
+\chapter{PDS~--~Základní funkce směrovače, zpracování paketů ve směrovači, typy přepínání a architektur.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -52,25 +52,27 @@
 
 \paragraph*{Fragmentace paketů} Uzel v síti (směrovač) dostane paket o velikosti $n$. Paket má přeposlat přes výstupní rozhraní do sítě, ve které je $MTU < n$. Aby paket mohl být odeslán, musí být rozdělen (fragmentován) na více menších paketů (fragmenty) a odeslán po částech. Na straně příjemce pak musí nastat opačný proces~--~defragmentace.
 
+\paragraph*{MAC adresa} MAC adresa je fyzická adresa zařízení, resp. síťové karty (identifikátor na L2). Na každý síťový port v přepínači/směrovači je jedna síťová karta (a teda i MAC adresa).
+
+\paragraph*{IP adresa} IP adresa je logická adresa zařízení (identifikátor na L3). Pokud má zařízení více síťových karet, má typicky stále pouze jednu IP adresu. Přepínač nemá IP adresu vůbec, pracuje pouze na L2 vrstvě. Směrovač je výjimka a má 2 IP adresy, jednu pro komunikaci v lokální síti (LAN) a druhou pro internet (WAN).
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Základní popis směrovače}
 
 Směrovač je síťové zařízení, které předává datové pakety mezi počítačovými sítěmi. Základní charakteristika: \begin{compactitem}
-    \item Směrovač pracuje s pakety (síťová vrstva, L3).
+    \item Pracuje s pakety (síťová vrstva, L3).
     \item Tvoří rozhraní mezi počítačovými sítěmi (provádí překlad NAT).
-    \item Klasifikuje a filtruje pakety (firewall).
+    \item Klasifikuje a filtruje pakety (firewall, ACL).
     \item Provádí fragmentaci a defragmentaci.
 \end{compactitem}
 
-% \todo{todo} ACL
-
 \paragraph*{Činnost} \begin{compactenum}
-    \item Vypouzdření paketu z L2 (odebrání L2 hravičky) a kontrola jestli je v pořádku (pomocí kontrolního součtu).
+    \item Vypouzdření paketu z L2 (odebrání L2 hlavičky) a kontrola jestli je v pořádku (pomocí kontrolního součtu).
     \item Vyhledání cesty kam se má paket směrovat a překlad adresy NAT (pomocí směrovací tabulky).
     \item Určení cílové MAC adresy na základě cílové IP adresy (pošle ARP dotaz).
     \item Určení výstupního rozhraní.
-    \item Sestavení výsledného paketu podle výstupního rozhraní (zapouzdření do příslušné L2 technologie -- přidání L2 hlavičky).
+    \item Sestavení výsledného paketu podle výstupního rozhraní (zapouzdření do příslušné L2 technologie~--~přidání L2 hlavičky).
 \end{compactenum}
 
 \paragraph*{Co ovlivňuje propustnost} \begin{compactitem}
@@ -82,9 +84,9 @@ Směrovač je síťové zařízení, které předává datové pakety mezi poč�
 \end{compactitem}
 
 \paragraph*{Typy} \begin{compactitem}
-    \item Páteřní směrovače -- součástí pátečních sítí mezi ISP.
-    \item Hraniční směrovače -- mezi zákaznickými sítěmi a ISP.
-    \item Podnikové směrovače -- propojení koncových systému v podnikových (\textit{enterprise}) sítích.
+    \item Páteřní směrovače~--~součástí pátečních sítí mezi ISP.
+    \item Hraniční směrovače~--~mezi zákaznickými sítěmi a ISP.
+    \item Podnikové směrovače~--~propojení koncových systému v podnikových (\textit{enterprise}) sítích.
     \item Domácí směrovače.
 \end{compactitem}
 
@@ -92,12 +94,12 @@ Směrovač je síťové zařízení, které předává datové pakety mezi poč�
 
 \section{Operace co směrovač vykonává}
 
-Pakety mohou být určeny buď přímo pro směrovač (aktualizace směrovací cesty přes směrovací protokoly -- aktualizace směrovací tabulky) a nebo jinému uzlu v síti. V takovém případě směrovač paket přeposílá dalším uzlům v síti.
+Pakety mohou být určeny buď přímo pro směrovač (aktualizace směrovací cesty přes směrovací protokoly~--~aktualizace směrovací tabulky) a nebo jinému uzlu v síti. V takovém případě směrovač paket přeposílá dalším uzlům v síti.
 
 \begin{compactitem}
     % \item Základní operace směrovače jsou definovány v RFC a musí je implementovat každý směrovač.
-    \item \textbf{Směrování} (\textit{routing}) -- Určování cest paketů v prostředí počítačových sítí. Směrování zajišťují nejen routery, ale i koncové stanice (při vysílání) a jeho úkolem je doručit paket adresátovi, pokud možno co nejefektivnější cestou.
-    \item \textbf{Přepínání} (\textit{forwarding, switching}) -- Přepnutí paketu ze vstupního rozhraní na výstupní (viz architektura přepínačů).
+    \item \textbf{Směrování} (\textit{routing})~--~Určování cest paketů v prostředí počítačových sítí. Cílem je doručit paket adresátovi, pokud možno co nejefektivnější cestou. Směrování zajišťují nejen směrovače, ale i koncové stanice (při vysílání).
+    \item \textbf{Přepínání} (\textit{forwarding, switching})~--~Přepnutí paketu ze vstupního rozhraní na výstupní (viz architektura přepínačů).
 \end{compactitem}
 
 \begin{figure}[H]
@@ -106,7 +108,7 @@ Pakety mohou být určeny buď přímo pro směrovač (aktualizace směrovací c
     \caption{Základní činnost směrovače.}
 \end{figure}
 
-\paragraph*{Směrovací tabulka} Směrovací tabulka (\textit{routing table}) obsahuje informace nutné a dostačující pro směrování (\path{ip prefix} -- prefix cílové sítě, \path{next hop} -- adresa dalšího uzlu, \path{metrika} -- cena cesty). Informace do ní se získavají pomocí směrovacích protokolů a nebo staticky (administrátor provede manuálně).
+\paragraph*{Směrovací tabulka} Směrovací tabulka (\textit{routing table}) obsahuje informace nutné a dostačující pro směrování (\path{ip prefix}~--~prefix cílové sítě, \path{next hop}~--~adresa dalšího uzlu, \path{metrika}~--~cena cesty). Informace do ní se získavají pomocí směrovacích protokolů a nebo staticky (administrátor provede manuálně).
 
 \begin{figure}[H]
     \centering
@@ -122,13 +124,7 @@ Pakety mohou být určeny buď přímo pro směrovač (aktualizace směrovací c
     \caption{Příklad přepínací tabulky.}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{cinnost_smerovace.png}
-    \caption{Diagram zpracování paketu ve směrovači.}
-\end{figure}
-
-\paragraph*{Základní operace podrobněji} \begin{compactenum}
+\paragraph*{Zpracování IP paketu (již vypouzdřeno z L2)} \begin{compactenum}
     \item Validace hlavičky L3 (formát, verze, délka).
     \item Kontrola hodnoty TTL a její dekrementace. Pokud je TLL 0, tak se paket zahodí a pošle ICMP zpráva.
     \item Přepočítání kontrolního součtu.
@@ -137,6 +133,12 @@ Pakety mohou být určeny buď přímo pro směrovač (aktualizace směrovací c
     \item Fragmentace a defragmentace IP paketů (pokud $MTU_{in} < MTU_{out}$).
     \item Zpracování zpráv ICMP a IGMP.
 \end{compactenum}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{cinnost_smerovace.png}
+    \caption{Diagram zpracování paketu ve směrovači.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -149,7 +151,7 @@ Rozdělíme na fyzické části (z hlediska hardware) a funkční části (z hle
 \begin{compactitem}
     \item Procesorová část (\textit{Router Processor Card})
     \item Přepínací logika (\textit{Switch Fabric Card})
-    \item Síťové karty (\textit{Line Card}) -- každá má vstupní a výstupní rozhraní (\textit{Port Card})
+    \item Síťové karty (\textit{Line Card})~--~každá má vstupní a výstupní rozhraní (\textit{Port Card})
 \end{compactitem}
 
 \begin{figure}[H]
@@ -210,8 +212,8 @@ Rozdělíme na fyzické části (z hlediska hardware) a funkční části (z hle
 \section{Zpracování paketu ve směrovači}
 
 Směrovač můžeme rozdělit na dvě části: \begin{compactitem}
-    \item \textit{Data Plane} -- Specifický hardware pro zpracování paketu (rychlé zpracování) -- ASIC.
-    \item \textit{Control Plane} -- Obecný procesor pro realizaci složitějších operací (pomalé zpracování).
+    \item \textit{Data Plane}~--~Specifický hardware pro zpracování paketu (rychlé zpracování)~--~ASIC.
+    \item \textit{Control Plane}~--~Obecný procesor pro realizaci složitějších operací (pomalé zpracování).
     % todo (NAT, filtrovani pomoci ACL/firewall, fragmenta, defragmentace se obvykle musí zpracovávat tady)
 \end{compactitem}
 
@@ -221,7 +223,7 @@ Směrovač můžeme rozdělit na dvě části: \begin{compactitem}
     \caption{Rozdělení přepínače na části \textit{Data Plane} a \textit{Control Plane} a zpracování rozděleno do 6. fází.}
 \end{figure}
 
-\paragraph*{Kontext paketu} Pomocná datová struktura, která reprezentuje paket uvnitř směrovače. Obsahuje vybrané informace z hlaviček. V rámci jednotlivých komponent směrovače se předává (pokud možno) tato struktura, pro větší efektivitu.Na počátku máme pouze částečný kontext, který se průběžně doplňuje. Na základě něho je pak sestaven výstupní paket.
+\paragraph*{Kontext paketu} Pomocná datová struktura, která reprezentuje paket uvnitř směrovače. Obsahuje vybrané informace z hlaviček. V rámci jednotlivých komponent směrovače se předává (pokud možno) tato struktura, pro větší efektivitu. Na počátku máme pouze částečný kontext, který se průběžně doplňuje. Na základě něho je pak sestaven výstupní paket.
 
 \paragraph*{Fáze zpracování} Pokud některá z fází skončí neúspěšně, paket je zahozen. \begin{compactenum}
     \item Paket přijde na síťové rozhraní \begin{compactitem}
@@ -266,14 +268,14 @@ Směrovač můžeme rozdělit na dvě části: \begin{compactitem}
     \begin{subfigure}{.5\textwidth}
         \centering
         \includegraphics[width=.5\linewidth]{kontext_castecny.pdf}
-        \caption{Kontext paketu -- částečný.}
+        \caption{Kontext paketu~--~částečný.}
     \end{subfigure}%
     \begin{subfigure}{.5\textwidth}
         \centering
         \includegraphics[width=.5\linewidth]{kontext_uplny.pdf}
-        \caption{Kontext paketu -- úplný.}
+        \caption{Kontext paketu~--~úplný.}
     \end{subfigure}
-    \caption{Kontext paketu (\textit{ingress} -- vstup, \textit{engress} -- výstup.)}
+    \caption{Kontext paketu (\textit{ingress}~--~vstup, \textit{engress}~--~výstup.)}
 \end{figure}
 
 \noindent Paket může být zahozen i na výstupní kartě. Proč? \begin{compactitem}
@@ -301,7 +303,7 @@ Směrovač můžeme rozdělit na dvě části: \begin{compactitem}
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{rychla_a_pomala_cesta.pdf}
-    \caption{Dva způsoby zpracování paketu ve směrovačí -- pomalou cestou a rychlou cestou.}
+    \caption{Dva způsoby zpracování paketu ve směrovačí~--~pomalou cestou a rychlou cestou.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -318,7 +320,7 @@ Přepínání paketů z jednoho rozhraní na druhé na základě směrovacích i
 
 \begin{compactitem}
     \item Přepínání pomocí centrálního procesoru s centrální pamětí. \begin{compactitem}
-        \item Pomalé -- přístup do paměti, obecný procesor (softwarové zpracování).
+        \item Pomalé~--~přístup do paměti, obecný procesor (softwarové zpracování).
     \end{compactitem}
     \item Pro každý paket se hledá cesta ve směrovací tabulce a určuje se MAC adresa cíle.
     \item Směrovač využívá standardní mechanismus přepíná procesů v OS (přeřušení).
@@ -395,7 +397,7 @@ Architektury směrovačů rozdělmě podle způsobu přepínání paketů.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{architektura_se_sdilenym_procesorem.pdf}
+    \includegraphics[width=0.95\linewidth]{architektura_se_sdilenym_procesorem.pdf}
     \caption{Architektura se sdíleným procesorem.}
 \end{figure}
 
@@ -409,7 +411,7 @@ Architektury směrovačů rozdělmě podle způsobu přepínání paketů.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{architektura_se_sdilenym_procesorem_a_pameti_cache_na_karte.pdf}
+    \includegraphics[width=0.95\linewidth]{architektura_se_sdilenym_procesorem_a_pameti_cache_na_karte.pdf}
     \caption{Architektura se sdíleným procesorem a pamětí cache na kartě.}
 \end{figure}
 
@@ -422,7 +424,7 @@ Architektury směrovačů rozdělmě podle způsobu přepínání paketů.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{architektura_s_nezavislymi_moduly_fe.pdf}
+    \includegraphics[width=0.95\linewidth]{architektura_s_nezavislymi_moduly_fe.pdf}
     \caption{Architektura s nezávislými moduly FE.}
 \end{figure}
 
@@ -434,7 +436,7 @@ Architektury směrovačů rozdělmě podle způsobu přepínání paketů.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{architektura_s_nezavislymi_moduly_fe_a_prepinanou_sbernici.pdf}
+    \includegraphics[width=0.95\linewidth]{architektura_s_nezavislymi_moduly_fe_a_prepinanou_sbernici.pdf}
     \caption{Architektura s nezávislými moduly FE a přepínanou sběrnicí.}
 \end{figure}
 
@@ -447,6 +449,6 @@ Architektury směrovačů rozdělmě podle způsobu přepínání paketů.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\linewidth]{architektura_distribuovana.pdf}
+    \includegraphics[width=0.95\linewidth]{architektura_distribuovana.pdf}
     \caption{Distribuovaná architektura (Shared Nothing).}
 \end{figure}
