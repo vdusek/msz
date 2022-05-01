@@ -1,0 +1,119 @@
+% VUT FIT MITAI
+% MSZ 2021/2022
+% Author: Vladimir Dusek
+% Login: xdusek27
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Path to figures
+\graphicspath{{pds/teorie_smerovani/figures}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{PDS -- Metody pro výpočet směrování v sítích (Bellman-Ford, Dijkstra, Path vector, DUAL).}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Metadata}
+
+\begin{compactitem}
+    \item Předmět: Přenos dat, počítačové sítě a protokoly (PDS)
+    \item Přednáška:
+    \begin{compactitem}
+        \item \path{09-teorie-smerovani.pdf}
+    \end{compactitem}
+    \item Záznam:
+    \begin{compactitem}
+        \item 2021-04-16
+    \end{compactitem}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Úvod a kontext}
+
+\textit{Viz. \uv{Úvod a kontext} v~předchozích otázkách z~tohoto předmětu.}
+
+\paragraph*{Adresace} \begin{compactitem}
+    \item Port \begin{compactitem}
+        \item Identifikuje: aplikaci v rámci zařízení na transportní vrstvě (L4).
+        \item Jak se mění při směrování paketu internetem: \todo{todo}
+        \item Velikost: 16 bit
+        \item Prostor: plochý
+    \end{compactitem}
+    \item IPv4, IPv6 \begin{compactitem}
+        \item Identifikuje: uzel v rámci sítě na síťové vrstvě (L3).
+        \item Jak se mění při směrování paketu internetem: měly zůstávat stejné, ale NAT toto porušuje
+        \item Velikost: 32 bit, 128 bit
+        \item Prostor: pseudohierarchie (A, B, C, D, E), pseudohierarchie (prefix + interface ID)
+    \end{compactitem}
+    \item MAC (\textit{Media Access Control}) \begin{compactitem}
+        \item Identifikuje: síťové rozhraní (síťovou kartu) na linkové vrstvě (L2).
+        \item Jak se mění při směrování paketu internetem: mění se \textit{hop-by-hop}
+        \item Velikost: 32 bit, 128 bit
+        \item Prostor: pseudohierarchie (A, B, C, D, E), pseudohierarchie (prefix + interface ID)
+    \end{compactitem}
+\end{compactitem}
+
+\paragraph*{Datový tok} Identifikován $(src IP, src port, dst IP, dst port)$.
+
+\paragraph*{Hierarchické směrování} Není možné směrovat přes celý internet. Vytváříme tzv. hierarchické autnomní systémy.
+
+typy komunikace: broadcast, multicast, unicast
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Distance Vector přístup}
+
+\begin{compactitem}
+    \item Decentralizované směrovací informace -- Každý uzel, zná pouze omezenou část topologie sítě. Konkrétně má informace pouze co sám zná a informace od svých sousedů.
+    \item Používá se pro směrování uvnitř autonomních systémů.
+    \item \textit{Single-metric}.
+\end{compactitem}
+
+\subsection*{Algoritmus Bellman-Ford}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\linewidth]{}
+%     \caption{Základní činnost směrovače.}
+% \end{figure}
+
+\todo{todo}
+
+\subsection*{Algoritmus EIGRP}
+
+Enhanced Interior Gateway Routing Protocol
+
+Algoritmus DUAL (diffusing update algorithm) je algoritmus používaný směrovacím protokolem EIGRP společnosti Cisco, který zajišťuje, že daná trasa je přepočítána globálně, kdykoli by mohla způsobit směrovací smyčku.
+
+\todo{todo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Link State přístup}
+
+\begin{compactitem}
+    \item Globální směrovací informace -- Každý uzel zná celou topologii sítě. Na začátku si uzly vymění informace o topologii sítě.
+    \item Používá se pro směrování uvnitř autonomních systémů.
+    \item \textit{Single-metric}.
+\end{compactitem}
+
+\subsection*{Dijkstrův algoritmus}
+
+\todo{todo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Path Vector přístup}
+
+\begin{compactitem}
+    \item Globální směrovací informace.
+    \item Na síť je pohlíženo jako na množinu autonomních systémů.
+    \item Používá se pro směrování mezi autonomními systémy.
+    \item \textit{Multi-metric}.
+\end{compactitem}
+
+\subsection*{Path Vector algoritmus}
+
+\todo{todo}
