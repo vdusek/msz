@@ -73,7 +73,7 @@
 
 Z pohledu směrování můžeme počítačovou síť zjednodušit na neorientovaný, ohodnocený graf, kde uzly jsou směrovače a hrany jsou propojení mezi něma. Směrování je pak hledání nejkratší cesty mezi dvěma uzly, resp. ze zdrojového do všech.
 
-\paragraph*{Autonomní systém} Není možné směrovat přes celý internet (příliš velký, příliš mnoho uzlů). Využíváme abstrakce, kdy se na podsíť díváme jako na uzel~--~tzv. autonomní systém. Tímto agregujeme více informací do jedné (přesné adresy uzlů, na vyšší úrovni reprezentujeme pouze adresou sítě). Internet je pak síť sítí.
+\paragraph*{Autonomní systém} Není možné směrovat přes celý internet (příliš velký, příliš mnoho uzlů). Využíváme abstrakce, kdy se na podsíť díváme jako na uzel~--~tzv. autonomní systém. Tímto agregujeme více informací do jedné (přesné adresy uzlů, na vyšší úrovni reprezentujeme pouze adresou sítě). Internet je pak síť sítí. Může být více úrovní (autonomní systém autonomních systémů).
 
 \paragraph*{Hierarchické směrování} Hierarchické směrování znamená, že nesměrujeme mezi každým směrovačem na světě, ale využíváme autonomní systémy. Směrujeme tedy globálně mezi autonomníma systémama a pak uvnitř mezi směrovačema.
 
@@ -212,3 +212,9 @@ Potom z pohledu A: \begin{compactitem}
     \item Známe celou cestu směrování, víme přes co pakety půjdou, můžeme některý uzel vyřadit.
     \item Směrovací protokol Border Gateway Protocol (BGP).
 \end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{path_vector.pdf}
+    \caption{Path vector příklad.}
+\end{figure}

@@ -12,6 +12,9 @@
 
 \chapter{PDS~--~Základní architektury přepínačů, algoritmy pro plánování, řešení blokování, vícestupňové přepínací sítě.}
 
+% Ohledne CAM tabulky:
+% Útoky v počítačových sítích, zaměřit se na L2 vrstvu (CAM, ARP, ...): chtěl nejdříve popsat co je to switch, k čemu je (přepínání packetů na L2), pak popsat CAM tabulku, co v ní najdeme (MAC, Port, VLAN), jak se CAM tabulka tvoří (tady jsem to trochu domotal ale nakonec jsme se nějak shodli - switch prohlíží L2 hlavičky příchozích packetů, které přes něj prochází, a podle toho si tvoří záznamy v tabulce) - na example topologii ukázat co je to CAM overflow a jak jej útočník způsobí (generuje packety s různými MAC adresami a posílá je do sítě, aby naplnil CAM tabulku nepoužitelnými záznamy), k čemu to vede (switch začne broadcastovat packety, které pak útočník může odposlouchávat). Vzhledem k tomu, jak jsem zmatkoval při popisu CAM tabulky a její tvorby se asi rozhodl, že dál se ptát raději nebude + už odzvonil budík.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Metadata}
