@@ -1,0 +1,207 @@
+% VUT FIT MITAI
+% MSZ 2021/2022
+% Author: Vladimir Dusek
+% Login: xdusek27
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Path to figures
+\graphicspath{{pds/detekce_sitovych_incidentu/figures}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{PDS~--~Metody detekce síťových incidentů (signatury, statistické metody) a nástroje (IDS/IPS).}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Metadata}
+
+\begin{compactitem}
+    \item Předmět: Přenos dat, počítačové sítě a protokoly (PDS)
+    \item Přednáška:
+    \begin{compactitem}
+        \item \path{07-ids.pdf}
+    \end{compactitem}
+    \item Záznam:
+    \begin{compactitem}
+        \item 2021-03-26
+    \end{compactitem}
+\end{compactitem}
+
+\begin{compactitem}
+    \item Předmět: Návrh, správa a bezpečnost (NSB)
+    \item Přednáška:
+    \begin{compactitem}
+        \item \path{03-IDS.pdf}
+    \end{compactitem}
+    \item Záznam:
+    \begin{compactitem}
+        \item 2021-02-23
+    \end{compactitem}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Úvod a kontext}
+
+\paragraph*{Identifikace a monitorování síťového provozu} \begin{compactitem}
+    \item Co je cílem? \begin{compactitem}
+        \item Identifikace protokolu (na různých vrstvách).
+        \item Identifikace aplikace.
+        \item Pokud je identifikován nedovolený provoz, tak kontaktovat správce.
+    \end{compactitem}
+    \item Proč to dělat? \begin{compactitem}
+        \item Bezpečnost -- Detekce útoků a nedovoleného chování (systémy IDS).
+        \item Diagnostika -- Správné chování systémových i uživatelských aplikací.
+        \item Rozlišení služeb -- Nastavení kvality služeb, prioritizace kritických přenosů.
+        \item Vytížení sítě -- Sledování rozložení sítě, vytížení síťových prvků a služeb.
+        \item Účtování služeb -- Identifikace provozu VoIP, IPTV, apod.
+    \end{compactitem}
+\end{compactitem}
+
+\paragraph*{Síťový incident} \todo{todo}
+
+\paragraph*{Síťové tunelování} Technika, která pro přenos síťového spojení používá jiné síťové spojení (Zapouzdření komunikace do jiného protokolu.). Umožňuje: přenášet data přes nekompatibilní sítě; obcházet administrativní omezení určité sítě; poskytovat zabezpečenou komunikaci přes nezabezpečenou, resp. nedůvěryhodnou síť.
+
+\paragraph*{Intrusion Detection System} \todo{todo}
+
+\paragraph*{Intrusion Prevention System} \todo{todo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Identifikace provozu pomocí hodnot z hlaviček paketů}
+
+\begin{compactitem}
+    \item Využití informací z hlaviček jednotlivých protokolů TCP/IP. Jaké informace lze využít? \begin{compactitem}
+        \item Na linkové vrstvě (L2): \begin{compactitem}
+            \item Field \path{EtherType} -- IPv4, IPv6, ARP, RARP, autentizace 802.1x, \dots
+        \end{compactitem}
+        \item Na síťové vrstvě (L3): \begin{compactitem}
+            \item Field \path{protocol} -- IPv6 nad IPv4, ICMP, IGMP, transportní protokoly (UDP, TCP, SCTP, \dots), směrovací protokoly (EIGRP, ESPF, \dots), multicast (PIM), \dots
+        \end{compactitem}
+        \item  Na transportní vrstvě (L4): \begin{compactitem}
+            \item Field \path{Source Port}, \path{Destination Port}, rozpoznání služby na základě portu -- FTP, SSH, Telnet, SMTP, DNS, DHCP, HTTP, POP3, NTP, IMAP, SNMP, LDAP, HTTPS, \dots
+        \end{compactitem}
+        \item  Na aplikační vrstvě vrstvě (L7): \begin{compactitem}
+            \item Specifické pro aplikace (např: pro HTTP rozpoznávání jednotlivých metod).
+        \end{compactitem}
+    \end{compactitem}
+    \item Rychlé, dobře implementovatelné a univerzální řešení. Má své limity: \begin{compactitem}
+        \item Aplikace nemusí být pevně svázána s portem (dynamické porty).
+        \item Tunelování, šifrování (spoustu věcí je zapouzdřováno do SSL/TLS), VPN.
+        \item IPv6 nad IPv4.
+        \item Skryté kanály -- Tunelování skrze protokoly, kde se neočekává nic nelegitimního, běžně se nefiltrují (ICMP, DNS).
+    \end{compactitem}
+    \item Na tomto konceptu fungují firewally.
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Identifikace provozu dle signatury}
+
+% Clanek: http://dpnm.postech.ac.kr/papers/NOMS/08/LASER.pdf
+
+\begin{compactitem}
+    \item Signatura (pattern, signature) je statický řetězec tvořený posloupností znaků z hlavičky či těla protokolu, který slouží k rozpoznání daného protokolu. \begin{compactitem}
+        \item Je to \uv{reprezentující} podřetězec paketu komunikace (paket jako řetězec bytů -- ASCII).
+        \item Určujeme až v aplikačních datech (TCP/UDP payload).
+    \end{compactitem}
+    \item Signatura ale může mít různou podobu: \begin{compactitem}
+        \item Řetězec, který se vyskytuje na začátku, resp. na nějakém fixním offsetu payloadu.
+        \item Řetězec, který se vyskytuje na různém místě v payloadu.
+        \item Posloupnost podřetězců, která se vyskytuje v payloadu.
+    \end{compactitem}
+    \item Pokud se snažíme identifikovat provoz na základě signatury, tak typicky signaturu nehledáme v celém paketu (příliš náročné), ale pouze v prvních X bytech payloadu.
+    \item Signatura v paketu vs. toku \begin{compactitem}
+        \item Jednoduchá možnost -- Signatura pouze na základě informací v paketu.
+        \item Složitější možnost -- Signatury napříč pakety (v datovém toku). \begin{compactitem}
+            \item Příklad: signaturu pro identifikaci TLS provozu, by mohla mít podobu dvou řetězců, které se vyskytují každý v jiném paketu (1 -- \uv{client hello}, 2 -- \uv{server hello}).
+        \end{compactitem}
+    \end{compactitem}
+    \item S novou verzí protokolu, je většinou třeba aktualizovat signaturu, protože se změnila struktura komunikace.
+    \item Lze vytvořit manuálně na základě specifikace protokolu a nebo automatizovat (\textit{Longest common subsequence problem}).
+    \item Použití: Někde poslouchám síťový provoz a mám databázi signatur. Snažím se najít v toku signaturu z databáze a tím identifikovat aplikaci.
+\end{compactitem}
+
+% http://l7-filter.sourceforge.net/protocols
+
+\noindent\begin{minipage}{\linewidth}
+    \begin{lstlisting}[language=Python, caption={Příklad signatury pro detekci IRC. Pomocí regulárního výrazu je specifikována kostra řetězce.}]
+# First thing that happens is that the client sends NICK and USER, in
+# either order.  This allows MIRC color codes (\x02-\x0d instead of
+# \x09-\x0d).
+^(nick[\x09-\x0d -~]*user[\x09-\x0d -~]*:|user[\x09-\x0d -~]*:[\x02-\x0d -~]
+*nick[\x09-\x0d -~]*\x0d\x0a)
+\end{lstlisting}
+\end{minipage}
+
+\noindent\begin{minipage}{\linewidth}
+    \begin{lstlisting}[language=Python, caption={Příklad signatury pro detekci BitTorrentu. Signatura je založená na klíčových slovech.}]
+^(\x13bittorrent protocol|azver\x01$|get /scrape\?info_hash=get
+/announce\?info_hash=|get /client/bitcomet/|GET /data\?fid=)
+|d1:ad2:id20:|\x08'7P\)[RP]
+\end{lstlisting}
+\end{minipage}
+
+\noindent\begin{minipage}{\linewidth}
+    \begin{lstlisting}[language=Python, caption={Příklad signatury pro detekci SSL provozu. Detekce Client Hello paketu, kdy se vyměňují informace o šifrování.}]
+// SSL Hello with certificate, Client Hello
+^(.?.?\x16\x03.*\x16\x03|.?.?\x01\x03\x01?.*\x0b)
+\end{lstlisting}
+\end{minipage}
+
+\subsection*{Automatizace vytváření signatur}
+
+\begin{compactitem}
+    \item Algoritmus LCS (Longest Common Subsequence).
+    \item Algoritmus hledá \uv{nejbližší} společný řětězec v toku (algoritmus definuje metriku blízkosti).
+    \item Proces vytvoření signatury: \begin{compactitem}
+        \item Odchytím si typickou komunikaci aplikace, kterou chci identifikovat v provozu -- Několik toků, které jsou dostatečně reprezentativní.
+        \item Z každého toku vezmeme X prvotních paketů (např. 10 stačí).
+        \item Poté iterativně hledám \uv{nejbližší} společný podřetězec vždy pro dvojici toků (kandidát).
+        \item Cyklus končí, až se kandidát přestane měnit. Výsledek je signatura (minimální možná délka, 2 znaky jsou málo).
+    \end{compactitem}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Identifikace provozu dle statistického chování}
+
+\begin{compactitem}
+    \item Vytvoření statistického modelu protokolu na základě trénovacích dat. \begin{compactitem}
+        \item Popis chování na základě metadat o provozu (odezva, velikost paketu, počet paketů v daném směru, \dots).
+        \item Využití začátku provozu (navazování spojení).
+    \end{compactitem}
+    \item Klasifikace neznámého protokolu: Vybereme model s nejlepší vzdáleností od neznámého protokolu.
+    \item Vytváření otisků protokolu (fingerprint).
+\end{compactitem}
+
+\subsection*{Metoda jednoduchých statistických otisků}
+
+\begin{compactitem}
+    \item Z toku (posloupnost paketů) se extrahuje: \begin{compactitem}
+        \item velikost paketu;
+        \item časový odstup paketů;
+        \item pořadí paketů v toku.
+    \end{compactitem}
+    \item Z těchto informací se modeluje statistické chování -- Posloupnost normálních rozdělení velikosti paketů a normálních rozdělení časového odstupu.
+    \item Identifikace: Je spočítána anomálie pro každý paket v toku v neznámé komunikaci od normálních rozdělení. Poté aplikace prahu (kdy už není pravděpodobné) a klasifikace.
+\end{compactitem}
+
+\subsection*{Statistical Protocol IDentification (SPID)}
+
+\begin{compactitem}
+    \item Z toku (posloupnost paketů) se extrahuje: \begin{compactitem}
+        \item velikost paketu;
+        \item časový odstup paketů;
+        \item pořadí paketů v toku.
+    \end{compactitem}
+    \item Z těchto informací se modeluje statistické chování -- Posloupnost normálních rozdělení velikosti paketů a normálních rozdělení časového odstupu.
+    \item Identifikace: Je spočítána anomálie pro každý paket v toku v neznámé komunikaci od normálních rozdělení. Poté aplikace prahu (kdy už není pravděpodobné) a klasifikace.
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Nástroje IDS/IPS}
+
+\todo{todo}
