@@ -59,6 +59,8 @@
     \end{compactitem}
 \end{compactitem}
 
+\paragraph*{Síťový tok} Jednosměrná posloupnost paketů, identifikovaná zdrojovou IP adresou, zdrojovým portem, cílovou IP adresou a cílovým protem.
+
 \paragraph*{Síťový incident} \todo{todo}
 
 \paragraph*{Síťové tunelování} Technika, která pro přenos síťového spojení používá jiné síťové spojení (Zapouzdření komunikace do jiného protokolu.). Umožňuje: přenášet data přes nekompatibilní sítě; obcházet administrativní omezení určité sítě; poskytovat zabezpečenou komunikaci přes nezabezpečenou, resp. nedůvěryhodnou síť.
@@ -170,34 +172,55 @@
 \begin{compactitem}
     \item Vytvoření statistického modelu protokolu na základě trénovacích dat. \begin{compactitem}
         \item Popis chování na základě metadat o provozu (odezva, velikost paketu, počet paketů v daném směru, \dots).
-        \item Využití začátku provozu (navazování spojení).
+        \item Zkoumáme prvních $n$ bytů toku, které jsou spíše specifické pro protokol (navazování spojení).
+        \item Na rozdíl od signatur se nezkoumá obsah hlaviček a těla protokolu, ale pouze statistické vlastnosti jeho chování.
     \end{compactitem}
+    \item
     \item Klasifikace neznámého protokolu: Vybereme model s nejlepší vzdáleností od neznámého protokolu.
-    \item Vytváření otisků protokolu (fingerprint).
+    \item Vytváření se tzv. otisk protokolu (\textit{fingerprint}) -- soubor vlastností (chování) protokolu, které lze
+    využít k jednoznačné identifikaci protokolu.
 \end{compactitem}
 
 \subsection*{Metoda jednoduchých statistických otisků}
 
 \begin{compactitem}
-    \item Z toku (posloupnost paketů) se extrahuje: \begin{compactitem}
+    \item Trénovací data: mějme $n$ síťových toků. Z prvních $m$ paketů každého toku se extrahuje: \begin{compactitem}
         \item velikost paketu;
-        \item časový odstup paketů;
+        \item časový odstup paketů (závisí na tom co dělá klient a co dělá server);
         \item pořadí paketů v toku.
     \end{compactitem}
-    \item Z těchto informací se modeluje statistické chování -- Posloupnost normálních rozdělení velikosti paketů a normálních rozdělení časového odstupu.
-    \item Identifikace: Je spočítána anomálie pro každý paket v toku v neznámé komunikaci od normálních rozdělení. Poté aplikace prahu (kdy už není pravděpodobné) a klasifikace.
+    \item Učení: \begin{compactitem}
+        \item Z trénovacích dat se modeluje statistické chování každého paketu v toku. Např. velikost prvního paketu odpovídá tomuhle pravděpodobnostnímu rozdělení, časový odstup druhého paketu od prvnímu odpovídá jinému pravděpodobnostnímu rozdělení. (Typicky normální rozdělení).
+        \item Poté se aplikují gaussovské filtry pro odstranění šumu.
+        \item Vzniká tzv. \uv{maska} a je určena nějaká prahová hodnota (na základě \textit{anomaly score}, která se spočítá z vektoru anomálií).
+    \end{compactitem}
+    \item Model: protokol je reprezentován otiskem (\textit{fingerprint}) -- \uv{maska}, prahová hodnota
+    \item Klasifikace: \begin{compactitem}
+        \item Máme neznámý tok, který chceme klasifikovat.
+        \item Sleduju velikosti paketů, odstupy paketů a na základě toho spočítám \textit{anomaly score} pro tok.
+        \item Získané \textit{anomaly score} porovnám s prahovou hodnotou.
+    \end{compactitem}
 \end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{metoda_jednoduchych_statistickych_otisku_priklad.pdf}
+    \caption{Princip metody jednoduchých statistických otisků -- fáze učení.}
+\end{figure}
 
 \subsection*{Statistical Protocol IDentification (SPID)}
 
 \begin{compactitem}
-    \item Z toku (posloupnost paketů) se extrahuje: \begin{compactitem}
-        \item velikost paketu;
-        \item časový odstup paketů;
-        \item pořadí paketů v toku.
+    \item Kombinuje statistické chování s atributy.
+    \item Statistické atributy: směr paketů, pořadí paketů, velikost paketů.
+    \item Aplikační atributy: četnost konkrétních bytů, hodnota off-setu.
+    \item Model protokolu používá pro klasifikaci pravděpodobnostní vektory atributů.
+    \item Pro porovnání měří odlišnost dvou pravděpodobnostních rozložení.
+    \item Příklad jaké atributy přenosu lze použít pro rozlišení aplikačního protokolu. \begin{compactitem}
+        \item Bytová frekvence prvního paketu TCP v každém směru (myšlenka: obsah je typický, pouze pro začátek toho toku -- navázání spojení).
+        \item Počet změn komunikace (klient $\rightarrow$ server, server $\rightarrow$ klient).
+        \item Počet přenesených bytů v daném směru (RTP -- balanced, HTTP -- download, SMTP -- upload).
     \end{compactitem}
-    \item Z těchto informací se modeluje statistické chování -- Posloupnost normálních rozdělení velikosti paketů a normálních rozdělení časového odstupu.
-    \item Identifikace: Je spočítána anomálie pro každý paket v toku v neznámé komunikaci od normálních rozdělení. Poté aplikace prahu (kdy už není pravděpodobné) a klasifikace.
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

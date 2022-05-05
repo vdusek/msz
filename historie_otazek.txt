@@ -1,8 +1,3 @@
-"Identifikácia sieťového provozu  (Matoušek) - Začal som mu hovorit presne to čo k danému okruhu patrí,
-teda tri typy sledovania provozu, najskôr o nazeraní do hlavičiek paketu, to sme prešli rýchlo a potom o signature,
- u ktorej sme sa zdžali dlhšie. Nevedel som niektoré presné pojmy a postupy na ktoré sa pýtal, ale nebral to veľmi kriticky.
-Potom zazvonil budkík a po ňom ešte v krátkosti o staticom sledovaní toku. Bezpečnosť nechcel vôbec.  Bol milý, fajn pokec "
-
 MapReduce, formální definice funkcí Map a Reduce (Ryšavý)
 
 P2P sítě, chování, vlastnosti (Hladká).
@@ -20,11 +15,6 @@ TIN - 27[Rogalewicz] - Zasobnikove automaty - definicia prechodovej funkcie pre 
 Funkce směrovače, zpracování paketů (Grégr) - tohoto jsem se bál, protože jsem si moc nepamatoval, jak to tam vlastně funguje, ale bylo to spíš ve stylu otázka-odpověď. Začali jsem tím, co za zařízení je směrovač, co se tam děje s paketem (zpracování L2 a L3 hlaviček, z vstupu na výstup...) a pak jsme se motali kolem toho, podle čeho ví, kam dál poslat paket, co se děje s L2 hlavičkou (MAC adresa zkontrlována a zahozena) a pak jsme se motali kolem L3 hlavičky, co všechno se v ní dá zpracovat a jak to je s kontrlním součtem u ipv6. Fajn zkoušení, místama jsem si nebyl jistý se svojima odpověďma, ale Grégr vypadal spokojeně s touto diskuzí ve stylu otázka/odpověď - B
 
 2)matousek: architektura smerovačů, co se deje v rychle ceste a co v pomale, ptal se co ktera cesta provadi s paketem, trochu sem vahal a pak sem rikal ze pomala děla trochufragmentaci pri ruznem MTU, zabaluje provoz do VPN, pak sem rekl ze rychla dela sifrovani a pry ne (v hlavě sem si rikal hmm napad pro vylepšení :D ), na to jeste dodal ze to dela nat atd.
-
-3)rychly: map reduce zakladni operace, nepodival sem se na tu otazku takze sem vymyslel jakoze map neco namapuje a reduce z redukuje do jednoho vysledku. ptal se co do jake data a jaky typ dat do toho vstupuje a vystupuje. to sem vubec nevedel rekl sem ze nejaka ruzna data.
-pak poradil ze je to dvojice klic hodnota, tak se ptal jak bych to naprogramoval, to sem nevedel. pak se zeptal jestli je to davkove nebo streamovane, to sem rekl ze davkove protoze to musi cekat na predchozi operace.
-pak se zeptal na ten priklad s pocitanim slov. na ten sem rekl ze se to rozdeli na casti ty se zpracuji a pak se to tim reducem secte na jedno cislo (redukce co sem si vzpomel tak to byla jenom ta z ARC/PRL)
-nakonec se jeste zeptal jestli znam nejaky software ktery to dela. rekl sem apache kafka (to ho asi uplne odrovnalo)
 
 [Matoušek] Asymetrická kryptografie, digitální podpis - Nejprve se ptal obecně na asymetrická vs. symetrická kryptografie - základní rysy, principy a vlastnosti. Pak konkrétně digitální podpis - co to je, k čemu to je, jak jej lze zprostředkovat asymetrickou kryptografii.
 
