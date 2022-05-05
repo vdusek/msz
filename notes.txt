@@ -1,0 +1,28 @@
+Ke kazde otazce:
+
+K čemu to je, Co to je, Jak to funguje, Proč to tak funguje.
+
+
+Historie:
+
+MapReduce, formální definice funkcí Map a Reduce (Ryšavý)
+
+P2P sítě, chování, vlastnosti (Hladká).
+
+Skupinová komunikace v distribuovaném systému (algoritmy, modely skupinové komunikace) (Hladka) Myslela si, ze sa ta tema tyka komunikacie v IPv4 a IPv6. Ja som zacala popisovat typy komunikacie, Multicast, Broadcast, Unicast. TO, FIFO, CO. Potom ma zastavila, ze to nechce. Pytala sa na siete a rozdiel medzi IPv4 a IPv6 Multicastom. Algoritmy v sietach pre multicast, tak som povedala, ze bohuzial neviem ale poznam algoritmy pre multicast v ditribuovanych systemoch - 3 fazovy a RST. Popisala som 3 fazovy. K tomu mal p.Rysavy nejake dotazy.  Po tom ako mi oznamili znamku a uz som bola vonku prisiel za mnou p.Matousek a vysvetlil mi situaciu, ze p. Hladka nevedela, co ta otazka zahrnuje.
+
+Podmínky konzistentního globálního stavu distribuovaného systému.
+
+Přepínače - řešení blokování
+
+1) Základní funkce směrovače - Grégr, 2) Metodika návrhu HW/SW codesign, platformy, programovatelné obvody. - Sekanina
+
+TIN - 27[Rogalewicz] - Zasobnikove automaty - definicia prechodovej funkcie pre ZA a DZA, rozdiely. PDS - 43[Rysavy] - Identifikace sitoveho provozu - metody a popis, hlbsie ako by som robil statisticku metodu.
+
+Funkce směrovače, zpracování paketů (Grégr) - tohoto jsem se bál, protože jsem si moc nepamatoval, jak to tam vlastně funguje, ale bylo to spíš ve stylu otázka-odpověď. Začali jsem tím, co za zařízení je směrovač, co se tam děje s paketem (zpracování L2 a L3 hlaviček, z vstupu na výstup...) a pak jsme se motali kolem toho, podle čeho ví, kam dál poslat paket, co se děje s L2 hlavičkou (MAC adresa zkontrlována a zahozena) a pak jsme se motali kolem L3 hlavičky, co všechno se v ní dá zpracovat a jak to je s kontrlním součtem u ipv6. Fajn zkoušení, místama jsem si nebyl jistý se svojima odpověďma, ale Grégr vypadal spokojeně s touto diskuzí ve stylu otázka/odpověď - B
+
+2)matousek: architektura smerovačů, co se deje v rychle ceste a co v pomale, ptal se co ktera cesta provadi s paketem, trochu sem vahal a pak sem rikal ze pomala děla trochufragmentaci pri ruznem MTU, zabaluje provoz do VPN, pak sem rekl ze rychla dela sifrovani a pry ne (v hlavě sem si rikal hmm napad pro vylepšení :D ), na to jeste dodal ze to dela nat atd.
+
+[Matoušek] Asymetrická kryptografie, digitální podpis - Nejprve se ptal obecně na asymetrická vs. symetrická kryptografie - základní rysy, principy a vlastnosti. Pak konkrétně digitální podpis - co to je, k čemu to je, jak jej lze zprostředkovat asymetrickou kryptografii.
+
+[Matoušek] Na lístečku stálo "peer-to-peer sítě, směrování, Matoušek." Zase jsem začal od prostředka a řekl jsem, že P2P sítě jsou sítě vybudované nad nějakou fungující fyzickou infrastrukturou. Na tom mi hned odpověděl, že to jsou všechny sítě. Opravil jsem se a řekl jsem IP infrastrukturou, na to kývl a pokračovalo se dál. Začal jsem popisovat nějaké vlastnosti P2P sítí - tam mě ale zastavil, že ať nejdříve řeknu, z čeho se ty sítě skládají a jak fungují. Řekl jsem, že se skládají z nějakých uzlů, které se podílejí na vytváření té sítě. Dále jsem řekl, že ta síť je nějakým způsobem samoorganizovatelná. Pak začala probíhat víceméně diskuse, kde se ze mě snažil dostat jakým způsobem se ty uzly podílí na vytváření sítě a směroval mě k strukturovaným a nestrukturovaným P2P sítím. Zasekli jsme se na značnou dobu u toho, když jsem řekl, že obsah (data) je v nestrukturované síti uložený na náhodném uzlu. Když jsem to řekl, tak se mě zeptal jak teda najdu ty data, když jsou uložená na náhodném uzlu. Začal jsem už docela panikařit, protože jsem si myslel, že mi naznačuje, že to co říkám je nesmysl. Chtěl mě ale dovést k formám směrování v nestrukturovaných P2P sítích. Když už jsem se k tomu po velké snaze dokopal, začal jsem popisovat záplavu. Tam se zeptal jaká je nevýhoda této metody - odpověděl jsem, že postupné zahlcení celé sítě. S tím byl víceméně spokojený a ptal se, jakým způsoběm to lze zlepšit. Odpovídám, že buď TTLkem a nebo výběrem podmnožiny sousedů, kterých se zeptat. S tím byl celkem spokojený. Nakonec se zeptal, jestli vím, jak funguje metoda hledání lokálního minima. Když jsem chvíli mlčel, tak zažertoval, že jestli nevím, tak můžu říct, že nevím :D Tak jsem řekl že už fakt nevím :D Celé mi to vysvětlil a ukončil to s tím, že mu to stačí. Až později jsem si uvědomil že budík zvonil už v průběhu toho zkoušení.

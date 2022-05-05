@@ -51,23 +51,27 @@
         \item Pokud je identifikován nedovolený provoz, tak kontaktovat správce.
     \end{compactitem}
     \item Proč to dělat? \begin{compactitem}
-        \item Bezpečnost -- Detekce útoků a nedovoleného chování (systémy IDS).
-        \item Diagnostika -- Správné chování systémových i uživatelských aplikací.
-        \item Rozlišení služeb -- Nastavení kvality služeb, prioritizace kritických přenosů.
-        \item Vytížení sítě -- Sledování rozložení sítě, vytížení síťových prvků a služeb.
-        \item Účtování služeb -- Identifikace provozu VoIP, IPTV, apod.
+        \item Bezpečnost~--~Detekce útoků a nedovoleného chování.
+        \item Diagnostika~--~Správné chování systémových i uživatelských aplikací.
+        \item Rozlišení služeb~--~Nastavení kvality služeb, prioritizace kritických přenosů.
+        \item Vytížení sítě~--~Sledování rozložení sítě, vytížení síťových prvků a služeb.
+        \item Účtování služeb~--~Identifikace provozu VoIP, IPTV, apod.
     \end{compactitem}
 \end{compactitem}
 
 \paragraph*{Síťový tok} Jednosměrná posloupnost paketů, identifikovaná zdrojovou IP adresou, zdrojovým portem, cílovou IP adresou a cílovým protem.
 
-\paragraph*{Síťový incident} \todo{todo}
-
 \paragraph*{Síťové tunelování} Technika, která pro přenos síťového spojení používá jiné síťové spojení (Zapouzdření komunikace do jiného protokolu.). Umožňuje: přenášet data přes nekompatibilní sítě; obcházet administrativní omezení určité sítě; poskytovat zabezpečenou komunikaci přes nezabezpečenou, resp. nedůvěryhodnou síť.
 
-\paragraph*{Intrusion Detection System} \todo{todo}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\paragraph*{Intrusion Prevention System} \todo{todo}
+\section{Nástroje IDS/IPS}
+
+\paragraph*{Intrusion Detection System (IDS)} Identifikovat provoz a v případě, že se jedná nedovolený provoz, tak informovat správce. Ten rozhodne, jaké budou kroky (zda se zablokuje, nebo zda se jedná o falešnou pozitivitu).
+
+\paragraph*{Intrusion Prevention System (IPS)} Detekovat provoz a v případě, že se jedná nedovolený provoz, tak ho zablokovat. Nebezpečné v případě falešné pozitivity. Můžeme odřiznout provoz, který považujeme za nedovolený, ale ve skutečnosti se jedná o provoz, který jsme nečekali. Většinou se v praxi volí IDS.
+
+\paragraph*{Síťový incident} Identifikace nedovoleného provozu.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -76,13 +80,13 @@
 \begin{compactitem}
     \item Využití informací z hlaviček jednotlivých protokolů TCP/IP. Jaké informace lze využít? \begin{compactitem}
         \item Na linkové vrstvě (L2): \begin{compactitem}
-            \item Field \path{EtherType} -- IPv4, IPv6, ARP, RARP, autentizace 802.1x, \dots
+            \item Field \path{EtherType}~--~IPv4, IPv6, ARP, RARP, autentizace 802.1x, \dots
         \end{compactitem}
         \item Na síťové vrstvě (L3): \begin{compactitem}
-            \item Field \path{protocol} -- IPv6 nad IPv4, ICMP, IGMP, transportní protokoly (UDP, TCP, SCTP, \dots), směrovací protokoly (EIGRP, ESPF, \dots), multicast (PIM), \dots
+            \item Field \path{protocol}~--~IPv6 nad IPv4, ICMP, IGMP, transportní protokoly (UDP, TCP, SCTP, \dots), směrovací protokoly (EIGRP, ESPF, \dots), multicast (PIM), \dots
         \end{compactitem}
         \item  Na transportní vrstvě (L4): \begin{compactitem}
-            \item Field \path{Source Port}, \path{Destination Port}, rozpoznání služby na základě portu -- FTP, SSH, Telnet, SMTP, DNS, DHCP, HTTP, POP3, NTP, IMAP, SNMP, LDAP, HTTPS, \dots
+            \item Field \path{Source Port}, \path{Destination Port}, rozpoznání služby na základě portu~--~FTP, SSH, Telnet, SMTP, DNS, DHCP, HTTP, POP3, NTP, IMAP, SNMP, LDAP, HTTPS, \dots
         \end{compactitem}
         \item  Na aplikační vrstvě vrstvě (L7): \begin{compactitem}
             \item Specifické pro aplikace (např: pro HTTP rozpoznávání jednotlivých metod).
@@ -92,7 +96,7 @@
         \item Aplikace nemusí být pevně svázána s portem (dynamické porty).
         \item Tunelování, šifrování (spoustu věcí je zapouzdřováno do SSL/TLS), VPN.
         \item IPv6 nad IPv4.
-        \item Skryté kanály -- Tunelování skrze protokoly, kde se neočekává nic nelegitimního, běžně se nefiltrují (ICMP, DNS).
+        \item Skryté kanály~--~Tunelování skrze protokoly, kde se neočekává nic nelegitimního, běžně se nefiltrují (ICMP, DNS).
     \end{compactitem}
     \item Na tomto konceptu fungují firewally.
 \end{compactitem}
@@ -105,7 +109,7 @@
 
 \begin{compactitem}
     \item Signatura (pattern, signature) je statický řetězec tvořený posloupností znaků z hlavičky či těla protokolu, který slouží k rozpoznání daného protokolu. \begin{compactitem}
-        \item Je to \uv{reprezentující} podřetězec paketu komunikace (paket jako řetězec bytů -- ASCII).
+        \item Je to \uv{reprezentující} podřetězec paketu komunikace (paket jako řetězec bytů~--~ASCII).
         \item Určujeme až v aplikačních datech (TCP/UDP payload).
     \end{compactitem}
     \item Signatura ale může mít různou podobu: \begin{compactitem}
@@ -115,9 +119,9 @@
     \end{compactitem}
     \item Pokud se snažíme identifikovat provoz na základě signatury, tak typicky signaturu nehledáme v celém paketu (příliš náročné), ale pouze v prvních X bytech payloadu.
     \item Signatura v paketu vs. toku \begin{compactitem}
-        \item Jednoduchá možnost -- Signatura pouze na základě informací v paketu.
-        \item Složitější možnost -- Signatury napříč pakety (v datovém toku). \begin{compactitem}
-            \item Příklad: signaturu pro identifikaci TLS provozu, by mohla mít podobu dvou řetězců, které se vyskytují každý v jiném paketu (1 -- \uv{client hello}, 2 -- \uv{server hello}).
+        \item Jednoduchá možnost~--~Signatura pouze na základě informací v paketu.
+        \item Složitější možnost~--~Signatury napříč pakety (v datovém toku). \begin{compactitem}
+            \item Příklad: signaturu pro identifikaci TLS provozu, by mohla mít podobu dvou řetězců, které se vyskytují každý v jiném paketu (1~--~\uv{client hello}, 2~--~\uv{server hello}).
         \end{compactitem}
     \end{compactitem}
     \item S novou verzí protokolu, je většinou třeba aktualizovat signaturu, protože se změnila struktura komunikace.
@@ -158,7 +162,7 @@
     \item Algoritmus LCS (Longest Common Subsequence).
     \item Algoritmus hledá \uv{nejbližší} společný řětězec v toku (algoritmus definuje metriku blízkosti).
     \item Proces vytvoření signatury: \begin{compactitem}
-        \item Odchytím si typickou komunikaci aplikace, kterou chci identifikovat v provozu -- Několik toků, které jsou dostatečně reprezentativní.
+        \item Odchytím si typickou komunikaci aplikace, kterou chci identifikovat v provozu~--~Několik toků, které jsou dostatečně reprezentativní.
         \item Z každého toku vezmeme X prvotních paketů (např. 10 stačí).
         \item Poté iterativně hledám \uv{nejbližší} společný podřetězec vždy pro dvojici toků (kandidát).
         \item Cyklus končí, až se kandidát přestane měnit. Výsledek je signatura (minimální možná délka, 2 znaky jsou málo).
@@ -177,8 +181,7 @@
     \end{compactitem}
     \item
     \item Klasifikace neznámého protokolu: Vybereme model s nejlepší vzdáleností od neznámého protokolu.
-    \item Vytváření se tzv. otisk protokolu (\textit{fingerprint}) -- soubor vlastností (chování) protokolu, které lze
-    využít k jednoznačné identifikaci protokolu.
+    \item Vytváření se tzv. \textbf{otisk protokolu} (\textit{fingerprint})~--~soubor vlastností (chování) protokolu, které lze využít k jednoznačné identifikaci protokolu.
 \end{compactitem}
 
 \subsection*{Metoda jednoduchých statistických otisků}
@@ -194,7 +197,7 @@
         \item Poté se aplikují gaussovské filtry pro odstranění šumu.
         \item Vzniká tzv. \uv{maska} a je určena nějaká prahová hodnota (na základě \textit{anomaly score}, která se spočítá z vektoru anomálií).
     \end{compactitem}
-    \item Model: protokol je reprezentován otiskem (\textit{fingerprint}) -- \uv{maska}, prahová hodnota
+    \item Model: protokol je reprezentován otiskem (\textit{fingerprint})~--~\uv{maska}, prahová hodnota
     \item Klasifikace: \begin{compactitem}
         \item Máme neznámý tok, který chceme klasifikovat.
         \item Sleduju velikosti paketů, odstupy paketů a na základě toho spočítám \textit{anomaly score} pro tok.
@@ -205,7 +208,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{metoda_jednoduchych_statistickych_otisku_priklad.pdf}
-    \caption{Princip metody jednoduchých statistických otisků -- fáze učení.}
+    \caption{Princip metody jednoduchých statistických otisků~--~fáze učení.}
 \end{figure}
 
 \subsection*{Statistical Protocol IDentification (SPID)}
@@ -217,14 +220,39 @@
     \item Model protokolu používá pro klasifikaci pravděpodobnostní vektory atributů.
     \item Pro porovnání měří odlišnost dvou pravděpodobnostních rozložení.
     \item Příklad jaké atributy přenosu lze použít pro rozlišení aplikačního protokolu. \begin{compactitem}
-        \item Bytová frekvence prvního paketu TCP v každém směru (myšlenka: obsah je typický, pouze pro začátek toho toku -- navázání spojení).
+        \item Bytová frekvence prvního paketu TCP v každém směru (myšlenka: obsah je typický, pouze pro začátek toho toku~--~navázání spojení).
         \item Počet změn komunikace (klient $\rightarrow$ server, server $\rightarrow$ klient).
-        \item Počet přenesených bytů v daném směru (RTP -- balanced, HTTP -- download, SMTP -- upload).
+        \item Počet přenesených bytů v daném směru (RTP~--~balanced, HTTP~--~download, SMTP~--~upload).
     \end{compactitem}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Nástroje IDS/IPS}
+\section{Detekce anomálie}
 
-\todo{todo}
+\begin{compactitem}
+    \item Protokol jsme již identifikovali a nyní sledujeme jeho chování.
+    \item Anomálie v provozu~--~odchylka komunikace od standardního (typického) provozu.
+    \item Jaké anomálie mohou nastat: \begin{compactitem}
+        \item Neočekávaný nárůst provozu.
+        \item Snížení provozu, chybějící linky~--~Výpadek linky.
+        \item Změna struktury provozu~--~Jeden uzel se snaží komunikovat se všemi v síti (sledování, detekce malwaru).
+    \end{compactitem}
+    \item Vytvoření modelu: \begin{compactitem}
+        \item Trénovací data: typická komunikace.
+        \item Natrénování modelu.
+        \item Metrika pro určení odchylky od natrénovaného modelu (např. když se přesáhne práhová hodnota, vyvolá se upozornění).
+    \end{compactitem}
+    \item Jaké modely lze využít: \begin{compactitem}
+        \item statistické modely,
+        \item shlukování (k-means, k-medoids, k-nn clusters, \dots),
+        \item klasifickační modely (bayesovské modely, SVM, neuronové sítě, \dots)
+        \item pravděpodobnostní automaty, markovovy řetězce.
+    \end{compactitem}
+    \item Sbět trénovacích dat: \begin{compactitem}
+        \item Netflow~--~informace o tocích (jaké IP adresy, jaké porty, jak dlouho tok trval, kolik dat se přeneslo, \dots).
+        \item SNMP~--~informace o provozu (počet přenesených paketů, bytů, \dots).
+        \item Úplné zachytávání paketů.
+    \end{compactitem}
+    \item Systém může fungovat pouze tehdy, pokud jsme schopni sestavit model běžného chování.
+\end{compactitem}
