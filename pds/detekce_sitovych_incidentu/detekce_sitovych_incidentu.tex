@@ -14,30 +14,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Metadata}
+\section{Zdroje}
 
 \begin{compactitem}
-    \item Předmět: Přenos dat, počítačové sítě a protokoly (PDS)
-    \item Přednáška:
-    \begin{compactitem}
-        \item \path{07-ids.pdf}
-    \end{compactitem}
-    \item Záznam:
-    \begin{compactitem}
-        \item 2021-03-26
-    \end{compactitem}
-\end{compactitem}
-
-\begin{compactitem}
-    \item Předmět: Návrh, správa a bezpečnost (NSB)
-    \item Přednáška:
-    \begin{compactitem}
-        \item \path{03-IDS.pdf}
-    \end{compactitem}
-    \item Záznam:
-    \begin{compactitem}
-        \item 2021-02-23
-    \end{compactitem}
+    \item \path{07-ids.pdf}
+    \item \path{PDS_2021-03-26.mp4}
+    \item \path{03-IDS.pdf}
+    \item \path{NSB_2021-02-23.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -67,11 +50,31 @@
 
 \section{Nástroje IDS/IPS}
 
-\paragraph*{Intrusion Detection System (IDS)} Identifikovat provoz a v případě, že se jedná nedovolený provoz, tak informovat správce. Ten rozhodne, jaké budou kroky (zda se zablokuje, nebo zda se jedná o falešnou pozitivitu).
+Umístěno někde v síti, aby se zabezpečili všechny zařízení najednou. Specializované zařízení, např. IDS/IPS sonda nebo jako součást hraničního prvku.
 
-\paragraph*{Intrusion Prevention System (IPS)} Detekovat provoz a v případě, že se jedná nedovolený provoz, tak ho zablokovat. Nebezpečné v případě falešné pozitivity. Můžeme odřiznout provoz, který považujeme za nedovolený, ale ve skutečnosti se jedná o provoz, který jsme nečekali. Většinou se v praxi volí IDS.
+\paragraph*{Intrusion Detection System (IDS)} \uv{Pasivní obraný mechanismus}. Cílem je identifikovat provoz a v případě, že se jedná nedovolený provoz, tak informovat správce. Ten rozhodne, jaké budou kroky (zda se zablokuje, nebo zda se jedná o falešnou pozitivitu).
+
+\paragraph*{Intrusion Prevention System (IPS)} \uv{Aktivní obraný mechanismus}. Cílem je detekovat provoz a v případě, že se jedná nedovolený provoz, tak ho odfiltrovat/zablokovat/zahodit. Nebezpečné v případě falešné pozitivity. Můžeme odřiznout provoz, který považujeme za nedovolený, ale ve skutečnosti se jedná o provoz, který jsme nečekali. Většinou se v praxi volí IDS.
 
 \paragraph*{Síťový incident} Identifikace nedovoleného provozu.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{zpusob_zapojeni_0.png}
+    \caption{Způsob zapojení 0. Host based IDS/IPS. Systém nainstalovaný na koncové stanice a reportující informace. \uv{Lepší firewall, lepší antivirus}.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{zpusob_zapojeni_1.png}
+    \caption{Způsob zapojení do vniřní sítě. Network based IDS/IPS. }
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{zpusob_zapojeni_2.png}
+    \caption{Způsob zapojení před vnitřní síť. Network based IDS/IPS. Problém s NATem -- nerozlišíme jestli komunikace jde na jeden uzel v síti nebo na více. Problém šifrování.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
