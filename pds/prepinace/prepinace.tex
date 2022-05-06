@@ -33,71 +33,9 @@
 % - prepinace samy o sobe nepotrebuji MAC adresu a vetsinou nemaji zadnou
 % - "The basic function of a switch is transparent bridging" - preposle paket a nikdo to ani nepozna
 
-\paragraph*{ISO/OSI model} Referenční model ISO/OSI se používá jako názorný příklad řešení komunikace v počítačových sítích pomocí vrstevnatého modelu, kde jsou jednotlivé vrstvy nezávislé a snadno nahraditelné. \begin{compactitem}
-
-    \item \textbf{Aplikační vrstva} (L7, \textit{application layer}) \begin{compactitem}
-        \item Zajišťuje zpracování dat na nejvyšší úrovni (reprezentace dat, kódování, řízení dialogu, \dots).
-        \item Tvořena procesy a aplikacemi, které komunikují po síti.
-        \item Bývá slučována s prezentační vrstvou (L6, prezentace dat a šifrování) a relační vrstvou (L5, koordinace a komunikace).
-        \item Příklad protokolů: \begin{compactitem}
-            \item Uživatelské~--~vykonávají služby přímo uživateli (Telnet, SSH, FTP, SMTP, HTTP, \dots)
-            \item Systémové~--~zajišťují síťové funkce (DNS, DHCP, SNMP, BOOTP, \dots)
-        \end{compactitem}
-    \end{compactitem}
-
-    \item \textbf{Transportní vrstva} (L4, \textit{transport layer}) \begin{compactitem}
-        \item Rozděluje aplikační data (segmentace) na menší jednotky a zapouzdřuje je do segmentů (TCP) / datagramů (UDP).
-        \item Vytváří logické spojení mezi procesy (přenáší data konkrétní aplikace ze zdrojového zařízení do aplikace na cílovém zařízení).
-        \item Adresace: porty.
-        \item Příklad protokolů: TCP, UDP, DCCP, SCTP, MP-TCP, QUIC
-    \end{compactitem}
-
-    \item \textbf{Síťová vrstva} (L3, \textit{network layer}) \begin{compactitem}
-        \item Zapouzdřuje segmenty/datagramy do paketů.
-        \item Řeší směrování.
-        \item Adresace: IP adresa (logická adresa).
-        \item Příklad protokolů: IPv4, IPv6, ARP, RARP, ICMP, IGMP
-    \end{compactitem}
-
-    \item \textbf{Linková vrstva} (L2, \textit{data link layer}, vrstva síťového rozhraní, \textit{network interface layer}) \begin{compactitem}
-        \item Zapouzdřuje pakety do rámců.
-        \item Zajišťuje \textit{hop-by-hop} doručení.
-        \item Adresace: MAC adresa (fyzická adresace).
-        \item Příklad protokolů: Ethernet, Token Ring, FDDI, X.25, Frame Relay
-    \end{compactitem}
-
-    \item \textbf{Fyzická vrstva} (L1, \textit{physical layer}) \begin{compactitem}
-        \item Zajišťuje přenos bitů přes fyzické médium.
-    \end{compactitem}
-
-\end{compactitem}
-
-\paragraph*{data, segment, datagram, paket, rámec, bit} \begin{compactitem}
-    \item Data~--~aplikační vrstva (L7)
-    \item Segment~--~transportní vrstva (L4), TCP
-    \item Datagram~--~transportní vrstva (L4), UDP
-    \item Paket~--~síťová vrstva (L3)
-    \item Rámec~--~linková vrstva (L2)
-    \item Bit~--~fyzická vrstva (L1)
-\end{compactitem}
-
 \paragraph*{CAM tabulka} CAM tabulka je datová struktura v přepínači, která uchovává informace o tom, za jakým fyzickým portem je zařízení s jakou MAC adresou. Jak se plní? Přepínač si ji plní automaticky. V momentě kdy k němu přijde paket, doplní si MAC adresu a port přes který paket přišel. Pokud přepínač neví za jakým portem je cílová MAC adresa, pošle to všem (\textit{flooding}).
 
 \paragraph*{Propustnost} Kolik je možné přenést dat za časovou jednotku.
-
-% src: https://linuxhint.com/network-osi-layers-explained
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{osi_model_linuxhint.pdf}
-    \caption{Příklad OSI modelu z Linuxhint.}
-\end{figure}
-
-% src: https://cs.wikipedia.org/wiki/Soubor:OSI_Model_v1.svg
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.65\linewidth]{osi_model_wiki.pdf}
-    \caption{Příklad OSI modelu z Wiki.}
-\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

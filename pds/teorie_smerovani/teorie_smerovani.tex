@@ -27,41 +27,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
-
-\textit{Viz. \uv{Úvod a kontext} v~předchozích otázkách z~tohoto předmětu.}
-
-\paragraph*{Adresace} \begin{compactitem}
-    \item Port (transportní vrstva, L4) \begin{compactitem}
-        \item Identifikuje aplikaci v rámci zařízení.
-        \item Jak se mění při směrování paketu internetem: zůstává stejný s výjimkou zdrojového portu při překladu NAT.
-        \item Velikost: 16 bit
-        \item Prostor: plochý
-    \end{compactitem}
-    \item IPv4, IPv6 (síťová vrstva, L3) \begin{compactitem}
-        \item Identifikuje uzel v rámci sítě (tzv. logická adresace).
-        \item Jak se mění při směrování paketu internetem: zůstává stejná s výjimkou zdrojové IP adresy při překladu NAT.
-        \item Velikost: 32 bit, 128 bit
-        \item Prostor: pseudohierarchie (A, B, C, D, E), pseudohierarchie (prefix + interface ID)
-    \end{compactitem}
-    \item MAC (linková vrstva, L2) \begin{compactitem}
-        \item Identifikuje síťové rozhraní (síťovou kartu).
-        \item Jak se mění při směrování paketu internetem: mění se \textit{hop-by-hop}.
-        \item Velikost: 32 bit, 128 bit
-        \item Prostor: pseudohierarchie (A, B, C, D, E), pseudohierarchie (prefix + interface ID)
-    \end{compactitem}
-\end{compactitem}
-
-\paragraph*{Datový tok} Identifikován čtveřicí (zdrojová IP, zdrojový port, cílová IP, cílový port).
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{operation_process_by_each_layer.png}
-    \caption{Operace na jednotlivých vrstvách ISO modelu.}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Směrování}
 
 Z pohledu směrování můžeme počítačovou síť zjednodušit na neorientovaný, ohodnocený graf, kde uzly jsou směrovače a hrany jsou propojení mezi něma. Směrování je pak hledání nejkratší cesty mezi dvěma uzly, resp. ze zdrojového do všech.

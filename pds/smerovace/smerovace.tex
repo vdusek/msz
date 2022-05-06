@@ -31,23 +31,9 @@
 % CAM tabulka
 % route cache
 
-\textit{Viz. \uv{Úvod a kontext} v~předchozích otázkách z~tohoto předmětu.}
-
-\paragraph*{NAT} NAT (\textit{Network Address Translation}) je metoda mapování IP adresního prostoru do jiného prostoru (typicky privátní adresy na veřejné adresy). Děje se tak úpravou hlaviček IP paketů během jejich přenosu přes směrovače (úprava zdrojové IP adresy a čísla portu). Směrovač si ukládá čtveřice $(\text{WAN\_IP}:\text{WAN\_port}, \text{LAN\_IP}:\text{LAN\_port})$ aby mohl prováděť i překlad zpět.
-
-\paragraph*{ACL} ACL (\textit{Access Control List}) je volitelná vrstva zabezpečení, která funguje jako brána firewall pro řízení provozu do jedné nebo více podsítí a z nich.
-
-\paragraph*{ARP} ARP (\textit{Address Resolution Protocol}) a RARP (\textit{Reverse ARP}) je protokol, který komunikuje na síťové vrstvě (L3) a zajišťuje \uv{překlad} IP adres na MAC adresy a obráceně. Pouze pro IPv4, pro IPv6 je pro stejný účel využíván protokol ICMPv6 a zpráva \textit{Neighbor Discovery}. Příklad využití: směrovač potřebuje získat MAC adresu next hopu (zná jeho IP adresu).
-
-\paragraph*{ICMP} ICMP (\textit{Internet Control Message Protocol}) je protokol, který komunikuje na síťové vrstvě (L3) a slouží pro řízení toku a detekce nedosažitelných uzlů.
-
-\paragraph*{MTU} MTU (\textit{Maximum Transmission Unit}) je největší velikost paketu, kterou lze v síti odeslat (přes výstupní rozhraní síťového prvku). Závisí na síťové kartě příslušného rozhraní.
-
 \paragraph*{Fragmentace paketů} Uzel v síti (směrovač) dostane paket o velikosti $n$. Paket má přeposlat přes výstupní rozhraní do sítě, ve které je $MTU < n$. Aby paket mohl být odeslán, musí být rozdělen (fragmentován) na více menších paketů (fragmenty) a odeslán po částech. Na straně příjemce pak musí nastat opačný proces~--~defragmentace.
 
-\paragraph*{MAC adresa} MAC adresa je fyzická adresa zařízení, resp. síťové karty (identifikátor na L2). Na každý síťový port v přepínači/směrovači je jedna síťová karta (a teda i MAC adresa).
-
-\paragraph*{IP adresa} IP adresa je logická adresa zařízení (identifikátor na L3). Pokud má zařízení více síťových karet, má typicky stále pouze jednu IP adresu. Přepínač nemá IP adresu vůbec, pracuje pouze na L2 vrstvě. Směrovač je výjimka a má 2 IP adresy, jednu pro komunikaci v lokální síti (LAN) a druhou pro internet (WAN).
+\paragraph*{MTU} MTU (\textit{Maximum Transmission Unit}) je největší velikost paketu, kterou lze v síti odeslat (přes výstupní rozhraní síťového prvku). Závisí na síťové kartě příslušného rozhraní.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
