@@ -25,19 +25,13 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
-
-\todo{todo}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \section{Architektura peer-to-peer sítí}
 
 \begin{compactitem}
     \item Peer-to-Peer (P2P) je alternativní architektura vůči client-server.
     \item Uzly (uživatelé) spolu komunikují napřímo. Každý uzel v síti má stejnou roli. Není zde žádný centrální bod, žádný uzel není nadřazený ostatním\footnote{Jsou výjimky.}.
-    \item Jiný způsob adresování -- adresování obsahem.
-    \item Jiný způsob směrování -- lokální rozhodování, specifická struktura sítí.
+    \item Jiný způsob adresování~--~adresování obsahem.
+    \item Jiný způsob směrování~--~lokální rozhodování, specifická struktura sítí.
     \item Příklad: BitTorrent, Napster, Gnutella, Skype (dříve), Bitcoin, Bluetooth, instant messaging služby, \dots
 \end{compactitem}
 
@@ -46,8 +40,8 @@
 \paragraph*{Definice P2P sítě} Dynamický soubor nezávislých uzlů (peers), které jsou propojeny a jejichž zdroje (objekty) jsou k dispozici ostatním uzlům v této síti. Zdroje: výpočetní výkon, disková kapacita (soubory), zařízení (tiskárny). Sdílené zdroje jsou přímo přístupné všem uzlům, ty je nabízejí a zároveň využívají. Síť obsahuje prostředky pro připojení uzlu k síti, hledávání a využití zdrojů, \dots.
 
 \paragraph*{Typy P2P sítí} \begin{compactitem}
-    \item Pravé (pure) -- Odebrání libovolného uzlu ze sítě nemá vliv na ztrátu schopnosti sítě poskytovat služby (např. Bitcoin).
-    \item Hybridní -- Pro svou činnost využívají centrální uzel pro poskytování části nabízených síťových služeb. Centrální bod slouží k autentizaci, indexování, inicializaci uzlu, apod.
+    \item Pravé (pure)~--~Odebrání libovolného uzlu ze sítě nemá vliv na ztrátu schopnosti sítě poskytovat služby (např. Bitcoin).
+    \item Hybridní~--~Pro svou činnost využívají centrální uzel pro poskytování části nabízených síťových služeb. Centrální bod slouží k autentizaci, indexování, inicializaci uzlu, apod.
 \end{compactitem}
 
 \paragraph*{Vlastnosti P2P sítí} \begin{compactitem}
@@ -173,14 +167,14 @@
 \subsection{Hledání lokálního minima (\textit{local minimum search})} \begin{compactitem}
     \item Není pro čistě nestrukturované sítě (přidává lokální vzdálenost).
     \item Máme množinu uzlů identifikovaných hodnotou $x$ a množinu objektů s identifikátorem $w$. Úkolem je umístit objekty do sítě uzlů tak, abychom je mohli najít rychle a spolehlivě, tj. jméno uzlu $x$ by mělo být co nejblíže jménu ukládaného objektu $w$.
-    \item Při hledání používáme metriku vzdálenosti uzlu $x$ od objektu $w$ -- $d(x, w)$.
+    \item Při hledání používáme metriku vzdálenosti uzlu $x$ od objektu $w$~--~$d(x, w)$.
     \item Uzel $u$ je lokálním minimem pro objekt, pokud je jeho ID nejbližší k ID objektu mezi jeho sousedy do vzdálenosti $h$ kroků.
 \end{compactitem}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{lms.pdf}
-    \caption{Příklad hledání lokálního minima. Uzly jsou značeny vzdáleností od objektu. $2-hop$ -- uzel zná sousedy sousedů a zapojuje je do hledání.}
+    \caption{Příklad hledání lokálního minima. Uzly jsou značeny vzdáleností od objektu. $2-hop$~--~uzel zná sousedy sousedů a zapojuje je do hledání.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -194,26 +188,46 @@
     \item Jak směrovat?
 \end{compactitem}
 
-\subsection{Kademlia -- Distribuovaná hašovací tabulka (DHT)}
+\subsection{Kademlia~--~Distribuovaná hašovací tabulka (DHT)}
 
 \begin{compactitem}
-    \item Využívá P2P síť BitTorrent.
-    \item Každý uzel obsahuje informaci o dalších uzlech a souborech.
     \item Identifikátory uzlů i souborů jsou hash.
-    \item Metrika blízkosti: bitový XOR -- $d(a, b) = a \oplus b$.
-    \item Pro směrování používá distribuovanou hašovací tabulku.
+    \item Metrika blízkosti: bitový XOR ($d(a, b) = a \oplus b$).
+    \item Pro směrování používá distribuovanou hašovací tabulku (DHT), která obsahuje informace o dalších uzlech a souborech. \begin{compactitem}
+        \item Myšlenka: znám dobře svoje okolí, čím dále jsem, tím méně znám. Ale mám tam kontakty, kterých se můžu ptát a které mají lepší lokální informace.
+        \item Každý uzel má uloženou DHT ze své perspektivy.
+    \end{compactitem}
 \end{compactitem}
 
-\todo{todo}
-
-\begin{figure}[H]
+\begin{figure}[htb!]
     \centering
-    \includegraphics[width=0.6\linewidth]{dht_1.pdf}
-    \caption{Todo.}
+    \includegraphics[width=1\linewidth]{dht_1.pdf}
+    \caption{DHT se 160 bitovým jmenným prostorem. Uzly jsou umístěny ve stromu podle prefixů.}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[htb!]
     \centering
-    \includegraphics[width=0.6\linewidth]{dht_2.pdf}
-    \caption{Todo.}
+    \includegraphics[width=1\linewidth]{dht_2.pdf}
+    \caption{Konkrétní příklad DHT pro 5 bitový jmenný prostor. Napravo je směrovací tabulka uzlu 2. \textit{Interval} je interval vzdáleností a \textit{Peers} uzly co se v této vzdálenosti vyskytují.}
 \end{figure}
+
+\begin{compactitem}
+    \item \textbf{Směrovací tabulka} vzniká dynamicky, tím že přijde zpráva od jiného uzlu (spočítá se vzdálenost a uzel se přidá do tabulky). \begin{compactitem}
+        \item Pokud daný řádek obsahuje méně než k položek (počet replikací), tak se uzel přidá.
+        \item Pokud je plný, tak zkontroluji, jestli jsou uzly dostupné, případně aktualizuju.
+    \end{compactitem}
+\end{compactitem}
+
+\begin{figure}[htb!]
+    \centering
+    \includegraphics[width=1\linewidth]{dht_3.pdf}
+    \caption{Příklad vyhledávání v DHT. Uzel $2$ hledá zdroj $26$. XOR vzdálenost $2$ a $26$ je $24$. Proto se ptá uzlů, které má ve vzdálenosti $\langle 16,32 )$. Jeden uzlů, podá přesnější informaci (uzel s ID 26). Uzel 2 se následně zeptá uzlu 26.}
+\end{figure}
+
+\begin{compactitem}
+    \item Tento princip využívá P2P síť \textbf{BitTorrent} (buď využívá DHT a nebo koncept \textit{trackers}). \begin{compactitem}
+        \item \textit{tracker}~--~Uzel, který má informace o tom, který uzel obsahuje jaké zdroje.
+        \item \textit{torrent}~--~Soubor s informaci o sdílených souborech a s odkazem na tracker.
+        \item BitTorrent je pak aplikační protokol pro distribuci souborů nad TCP.
+    \end{compactitem}
+\end{compactitem}
