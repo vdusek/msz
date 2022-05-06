@@ -17,17 +17,9 @@
 \section{Zdroje}
 
 \begin{compactitem}
-    \item Předmět: Grafové algoritmy (GAL)
-    \item Přednáška:
-    \begin{compactitem}
-        \item 5) Stromy, minimální kostry, Jarníkův a Borůvkův algoritmus.
-        \item 6) Růst minimální kostry, algoritmy Kruskala a Prima.
-    \end{compactitem}
-    \item Záznam:
-    \begin{compactitem}
-        \item 2020-10-22
-        \item 2020-10-29
-    \end{compactitem}
+    \item \path{gal-handouts.pdf}
+    \item \path{GAL_2020-10-22.mp4}
+    \item \path{GAL_2020-10-29.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -95,7 +87,7 @@ Hledání minimální kostry je problém, který lze řešit algoritmy, které s
 \paragraph*{Bezpečnost} Nechť $G = (V, E)$ je souvislý neorientovaný graf s~reálnou váhovou funkcí $w$. Nechť $A \subseteq E$ je součástí nějaké minimální kostry $G$. Nechť $(S, V - S)$ je řez, který respektuje $A$. Nechť $(u, v)$ je lehká hrana křížící $(S, V - S)$. Pak hrana $(u, v)$ je bezpečná pro $A$.
 
 \bigskip\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=Python, caption={Generický algoritmus. Před každou iterací algoritmu je množina $A$ podmnožinou nějaké minimální kostry. Hrana $(u,v) \in E$ je bezpečná pro $A$, pokud $A \cup \{(u, v)\}$ je podmnožinou nějaké minimální kostry.}]
+    \begin{lstlisting}[language=Python, caption={Generický algoritmus. Před každou iterací algoritmu je množina $A$ podmnožinou nějaké minimální kostry. Hrana $(u,v) \in E$ je bezpečná pro $A$, pokud $A \cup \{(u, v)\}$ je podmnožinou nějaké minimální kostry.}]
 def generic_mst(G):
     # G je graf
     A = {} # A je mnozina hran rozpracovane minimalni kostry
@@ -132,7 +124,7 @@ def generic_mst(G):
 Kruskalův a Primův algoritmus se liší v~tom, jakým způsobem vybírají bezpečnou hranu. Kruskalův algoritmus nahlíží na $A$ jako na les a hledá hranu s~nejmenším ohodnocením, která spojuje stromy v~lese. Na konci je $A$ jeden strom.
 
 \bigskip\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=Python, caption={Kruskalův algoritmus. Funkce \texttt{make\_set(v)} vytvoří množinu obsahující $v$, \texttt{find\_set(v)} vrátí reprezentanta množiny ve které se nachází $v$, \texttt{union(u, v)} sjednotí dvě množiny obsahující $u$ a $v$.}]
+    \begin{lstlisting}[language=Python, caption={Kruskalův algoritmus. Funkce \texttt{make\_set(v)} vytvoří množinu obsahující $v$, \texttt{find\_set(v)} vrátí reprezentanta množiny ve které se nachází $v$, \texttt{union(u, v)} sjednotí dvě množiny obsahující $u$ a $v$.}]
 def kruskal_mst(G):
     # G je graf
 
@@ -195,7 +187,7 @@ def kruskal_mst(G):
 Primův algoritmus buduje tzv. $A$ strom. Má zadaný určitý uzel, ze kterého hledá nejbližší další uzel, který by připojil. A~pak další a další.
 
 \bigskip\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=Python, caption={Primův algoritmus.}]
+    \begin{lstlisting}[language=Python, caption={Primův algoritmus.}]
 def prim_mst(G, r):
     # G je graf
     # r je vychozi uzel
