@@ -20,6 +20,9 @@ all:
 
 pdf: all clean
 
+full: pdf
+	@mv $(NAME).pdf $(NAME)-full.pdf
+
 vlna:
 	@vlna -l $(NAME)*.tex
 
@@ -27,4 +30,4 @@ clean:
 	@rm -f *.dvi *.log *.aux *~ *.blg *.bbl *.toc *.out *.lof *.ptc *.fdb_latexmk *.fls *.synctex.gz
 
 clean-all: clean
-	rm -f $(NAME).pdf
+	@rm -f $(NAME).pdf
