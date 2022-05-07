@@ -24,6 +24,79 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
+\section{Konečný automat}
+
+\paragraph*{Konečný automat} Konečný automat (KA) je pětice $M = (Q, \Sigma, \delta, s, F)$, kde \begin{compactitem}
+    \item $Q$ je konečná množina stavů;
+    \item $\Sigma$ je vstupní abeceda;
+    \item $\delta$ je přechodová funkce (parciální funkce), \begin{compactitem}
+        \item $\delta : Q \times \Sigma \rightarrow 2^{Q}$;
+    \end{compactitem}
+    \item $s$ je výchozí stav, \begin{compactitem}
+        \item $s \in Q$;
+    \end{compactitem}
+    \item $F$ je množina koncových stavů, \begin{compactitem}
+        \item $F \subseteq Q$;
+    \end{compactitem}
+\end{compactitem}
+
+\paragraph*{Konfigurace} \todo{todo}
+
+\paragraph*{Počáteční konfigurace} \todo{todo}
+
+\paragraph*{Finální konfigurace} \todo{todo}
+
+\paragraph*{Přechod} \todo{todo}
+
+\paragraph*{Jazyk přijímaný KA} \todo{todo}
+
+\paragraph*{Dosažitelné a nedosažitelné stavy} \todo{todo}
+
+\paragraph*{Relace nerozlišitelnosti} \todo{todo}
+
+\paragraph*{k-nerozlišitelnost} \todo{todo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Varianty konečného automatu}
+
+\paragraph*{Nedeterministický konečný automat} Nedeterministický konečný automat (NKA) je výchozí konečný automat (NKA = KA).
+
+\paragraph*{Deterministický konečný automat} Deterministický konečný automat (DKA) se od NKA liší pouze tvarem přechodové funkce. Formálně: \begin{compactitem}
+    \item $\delta$ je přechodová funkce (parciální funkce), \begin{compactitem}
+        \item $\delta : Q \times \Sigma \rightarrow Q$
+    \end{compactitem}
+\end{compactitem}
+
+\paragraph*{Rozšířený konečný automat} Rozšířený konečný automat (RKA) se od NKA liší pouze tvarem přechodové funkce. Rozšiřuje ji o tzv. epsilon přechody. Formálně: \begin{compactitem}
+    \item $\delta$ je přechodová funkce (parciální funkce), \begin{compactitem}
+        \item $\delta : Q \times \Sigma \cup \{ \epsilon \} \rightarrow 2^Q$
+    \end{compactitem}
+\end{compactitem}
+
+\paragraph*{Úplný konečný automat} Úplný konečný automat se od NKA liší pouze tvarem přechodové funkce. Formálně: \begin{compactitem}
+    \item $\delta$ je přechodová funkce (totální funkce), \begin{compactitem}
+        \item $\delta : Q \times \Sigma \rightarrow 2^Q$
+        \item $\forall q \in Q ~ \forall a \in \Sigma : \delta(q, a) \in Q$
+    \end{compactitem}
+\end{compactitem}
+
+\paragraph*{Redukovaný úplný deterministický konečný automat} Úplný DKA nazýváme redukovaný, jestliže žádný $q \in Q$ není nedosažitelný a žádná dvojice $p, q \in Q$ není nerozlišitelná.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Minimalizace konečného automatu}
+
+\paragraph*{Eliminace nedosažitelných stavů} \todo{todo}
+
+\paragraph*{Převod na úplný DKA} \todo{todo}
+
+\paragraph*{Převod na redukovaný úplný DKA} \todo{todo}
+
+\paragraph*{Odstranění \textit{sink} stavu} \todo{todo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Mihill-Nerodova věta}
 
 \todo{todo}
