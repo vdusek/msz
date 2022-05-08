@@ -93,28 +93,8 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.2]
-        \tikzstyle{every node}+=[inner sep=0pt]
-        \draw [black] (18.2,-24.6) circle (3);
-        \draw (18.2,-24.6) node {$0$};
-        \draw [black] (36.9,-24.6) circle (3);
-        \draw (36.9,-24.6) node {$1$};
-        \draw [black] (54.6,-24.6) circle (3);
-        \draw (54.6,-24.6) node {$2$};
-        \draw [black] (54.6,-24.6) circle (2.4);
-        \draw [black] (16.328,-22.271) arc (246.52881:-41.47119:2.25);
-        \draw (15.66,-17.37) node [above] {$a,b$};
-        \fill [black] (18.91,-21.7) -- (19.69,-21.16) -- (18.77,-20.76);
-        \draw [black] (7.7,-24.6) -- (15.2,-24.6);
-        \fill [black] (15.2,-24.6) -- (14.4,-24.1) -- (14.4,-25.1);
-        \draw [black] (21.2,-24.6) -- (33.9,-24.6);
-        \fill [black] (33.9,-24.6) -- (33.1,-24.1) -- (33.1,-25.1);
-        \draw (27.55,-25.1) node [below] {$a$};
-        \draw [black] (39.9,-24.6) -- (51.6,-24.6);
-        \fill [black] (51.6,-24.6) -- (50.8,-24.1) -- (50.8,-25.1);
-        \draw (45.75,-25.1) node [below] {$b$};
-    \end{tikzpicture}
-    \caption{Příklad NKA M.}
+    \includegraphics[width=0.75\linewidth]{nka.pdf}
+    \caption{Nedeterministický konečný automat.}
 \end{figure}
 
 \begin{figure}[H]
@@ -125,46 +105,8 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.2]
-        \tikzstyle{every node}+=[inner sep=0pt]
-        \draw [black] (17.5,-24.6) circle (3);
-        \draw (17.5,-24.6) node {$\{0\}$};
-        \draw [black] (38.3,-24.6) circle (3);
-        \draw (38.3,-24.6) node {$\{0,1\}$};
-        \draw [black] (55.5,-24.6) circle (3);
-        \draw (55.5,-24.6) node {$\{0,2\}$};
-        \draw [black] (55.5,-24.6) circle (2.4);
-        \draw [black] (17.5,-35.6) circle (3);
-        \draw (17.5,-35.6) node {$\{\}$};
-        \draw [black] (25,-35.6) circle (3);
-        \draw (25,-35.6) node {$\{1\}$};
-        \draw [black] (39.7,-35.6) circle (3);
-        \draw (39.7,-35.6) node {$\{1,2\}$};
-        \draw [black] (39.7,-35.6) circle (2.4);
-        \draw [black] (32.1,-35.6) circle (3);
-        \draw (32.1,-35.6) node {$\{2\}$};
-        \draw [black] (32.1,-35.6) circle (2.4);
-        \draw [black] (55.5,-35.6) circle (3);
-        \draw (55.5,-35.6) node {$\{0,1,2\}$};
-        \draw [black] (55.5,-35.6) circle (2.4);
-        \draw [black] (47.5,-35.6) circle (3);
-        \draw (47.5,-35.6) node {$\{0,3\}$};
-        \draw [black] (15.628,-22.271) arc (246.52881:-41.47119:2.25);
-        \draw (15.4,-17.43) node [above] {$b$};
-        \fill [black] (18.21,-21.7) -- (18.99,-21.16) -- (18.07,-20.76);
-        \draw [black] (7,-24.6) -- (14.5,-24.6);
-        \fill [black] (14.5,-24.6) -- (13.7,-24.1) -- (13.7,-25.1);
-        \draw [black] (35.459,-25.558) arc (-74.4189:-105.5811:28.141);
-        \fill [black] (35.46,-25.56) -- (34.55,-25.29) -- (34.82,-26.25);
-        \draw (27.9,-27.09) node [below] {$a$};
-        \draw [black] (41.3,-24.6) -- (52.5,-24.6);
-        \fill [black] (52.5,-24.6) -- (51.7,-24.1) -- (51.7,-25.1);
-        \draw (46.9,-25.1) node [below] {$b$};
-        \draw [black] (20.235,-23.373) arc (110.28279:69.71721:22.112);
-        \fill [black] (20.23,-23.37) -- (21.16,-23.56) -- (20.81,-22.63);
-        \draw (27.9,-21.5) node [above] {$a$};
-    \end{tikzpicture}
-    \caption{DKA M.}
+    \includegraphics[width=0.75\linewidth]{dka_uplny.pdf}
+    \caption{Deterministický konečný automat.}
 \end{figure}
 
 \subsection{Převod RKA na DKA}
@@ -175,48 +117,15 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
 
 \section{Minimalizace konečného automatu}
 
+\begin{compactitem}
+    \item Proč? Zrychlení vykonávání konečného automatu.
+    \item Jak? Odstraněním nepotřebných přechodů a zmenšením počtu stavů.
+\end{compactitem}
+
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.2]
-        \tikzstyle{every node}+=[inner sep=0pt]
-        \draw [black] (17.5,-24.6) circle (3);
-        \draw (17.5,-24.6) node {$\{0\}$};
-        \draw [black] (38.3,-24.6) circle (3);
-        \draw (38.3,-24.6) node {$\{0,1\}$};
-        \draw [black] (55.5,-24.6) circle (3);
-        \draw (55.5,-24.6) node {$\{0,2\}$};
-        \draw [black] (55.5,-24.6) circle (2.4);
-        \draw [black] (17.5,-35.6) circle (3);
-        \draw (17.5,-35.6) node {$\{\}$};
-        \draw [black] (25,-35.6) circle (3);
-        \draw (25,-35.6) node {$\{1\}$};
-        \draw [black] (39.7,-35.6) circle (3);
-        \draw (39.7,-35.6) node {$\{1,2\}$};
-        \draw [black] (39.7,-35.6) circle (2.4);
-        \draw [black] (32.1,-35.6) circle (3);
-        \draw (32.1,-35.6) node {$\{2\}$};
-        \draw [black] (32.1,-35.6) circle (2.4);
-        \draw [black] (55.5,-35.6) circle (3);
-        \draw (55.5,-35.6) node {$\{0,1,2\}$};
-        \draw [black] (55.5,-35.6) circle (2.4);
-        \draw [black] (47.5,-35.6) circle (3);
-        \draw (47.5,-35.6) node {$\{0,3\}$};
-        \draw [black] (15.628,-22.271) arc (246.52881:-41.47119:2.25);
-        \draw (15.4,-17.43) node [above] {$b$};
-        \fill [black] (18.21,-21.7) -- (18.99,-21.16) -- (18.07,-20.76);
-        \draw [black] (7,-24.6) -- (14.5,-24.6);
-        \fill [black] (14.5,-24.6) -- (13.7,-24.1) -- (13.7,-25.1);
-        \draw [black] (35.459,-25.558) arc (-74.4189:-105.5811:28.141);
-        \fill [black] (35.46,-25.56) -- (34.55,-25.29) -- (34.82,-26.25);
-        \draw (27.9,-27.09) node [below] {$a$};
-        \draw [black] (41.3,-24.6) -- (52.5,-24.6);
-        \fill [black] (52.5,-24.6) -- (51.7,-24.1) -- (51.7,-25.1);
-        \draw (46.9,-25.1) node [below] {$b$};
-        \draw [black] (20.235,-23.373) arc (110.28279:69.71721:22.112);
-        \fill [black] (20.23,-23.37) -- (21.16,-23.56) -- (20.81,-22.63);
-        \draw (27.9,-21.5) node [above] {$a$};
-    \end{tikzpicture}
-    \caption{DKA M.}
+    \includegraphics[width=0.75\linewidth]{dka_uplny.pdf}
+    \caption{Deterministický konečný automat.}
 \end{figure}
 
 \subsection{Eliminace nedosažitelných stavů}
@@ -229,31 +138,8 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.2]
-        \tikzstyle{every node}+=[inner sep=0pt]
-        \draw [black] (18.5,-24.6) circle (3);
-        \draw (18.5,-24.6) node {$\{0\}$};
-        \draw [black] (39.3,-24.6) circle (3);
-        \draw (39.3,-24.6) node {$\{0,1\}$};
-        \draw [black] (56.5,-24.6) circle (3);
-        \draw (56.5,-24.6) node {$\{0,2\}$};
-        \draw [black] (56.5,-24.6) circle (2.4);
-        \draw [black] (16.628,-22.271) arc (246.52881:-41.47119:2.25);
-        \draw (16.4,-17.43) node [above] {$b$};
-        \fill [black] (19.21,-21.7) -- (19.99,-21.16) -- (19.07,-20.76);
-        \draw [black] (8,-24.6) -- (15.5,-24.6);
-        \fill [black] (15.5,-24.6) -- (14.7,-24.1) -- (14.7,-25.1);
-        \draw [black] (36.459,-25.558) arc (-74.4189:-105.5811:28.141);
-        \fill [black] (36.46,-25.56) -- (35.55,-25.29) -- (35.82,-26.25);
-        \draw (28.9,-27.09) node [below] {$a$};
-        \draw [black] (42.3,-24.6) -- (53.5,-24.6);
-        \fill [black] (53.5,-24.6) -- (52.7,-24.1) -- (52.7,-25.1);
-        \draw (47.9,-25.1) node [below] {$b$};
-        \draw [black] (21.235,-23.373) arc (110.28279:69.71721:22.112);
-        \fill [black] (21.23,-23.37) -- (22.16,-23.56) -- (21.81,-22.63);
-        \draw (28.9,-21.5) node [above] {$a$};
-    \end{tikzpicture}
-    \caption{DKA M bez nedosažitelných stavů.}
+    \includegraphics[width=0.75\linewidth]{dka.pdf}
+    \caption{Deterministický konečný automat bez nedosažitelných stavů.}
 \end{figure}
 
 \subsection{Převod DKA na úplně definovaný}
@@ -271,39 +157,8 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.2]
-        \tikzstyle{every node}+=[inner sep=0pt]
-        \draw [black] (18.4,-24.6) circle (3);
-        \draw (18.4,-24.6) node {$\{0\}$};
-        \draw [black] (39.2,-24.6) circle (3);
-        \draw (39.2,-24.6) node {$\{0,1\}$};
-        \draw [black] (56.4,-24.6) circle (3);
-        \draw (56.4,-24.6) node {$\{0,2\}$};
-        \draw [black] (56.4,-24.6) circle (2.4);
-        \draw [black] (39.2,-37.2) circle (3);
-        \draw (39.2,-37.2) node {$sink$};
-        \draw [black] (16.528,-22.271) arc (246.52881:-41.47119:2.25);
-        \draw (16.3,-17.43) node [above] {$b$};
-        \fill [black] (19.11,-21.7) -- (19.89,-21.16) -- (18.97,-20.76);
-        \draw [black] (7.9,-24.6) -- (15.4,-24.6);
-        \fill [black] (15.4,-24.6) -- (14.6,-24.1) -- (14.6,-25.1);
-        \draw [black] (36.359,-25.558) arc (-74.4189:-105.5811:28.141);
-        \fill [black] (36.36,-25.56) -- (35.45,-25.29) -- (35.72,-26.25);
-        \draw (28.8,-27.09) node [below] {$a$};
-        \draw [black] (42.2,-24.6) -- (53.4,-24.6);
-        \fill [black] (53.4,-24.6) -- (52.6,-24.1) -- (52.6,-25.1);
-        \draw (47.8,-25.1) node [below] {$b$};
-        \draw [black] (21.135,-23.373) arc (110.28279:69.71721:22.112);
-        \fill [black] (21.13,-23.37) -- (22.06,-23.56) -- (21.71,-22.63);
-        \draw (28.8,-21.5) node [above] {$a$};
-        \draw [black] (53.98,-26.37) -- (41.62,-35.43);
-        \fill [black] (41.62,-35.43) -- (42.56,-35.36) -- (41.97,-34.55);
-        \draw (49.5,-31.4) node [below] {$a,b$};
-        \draw [black] (36.52,-38.523) arc (-36:-324:2.25);
-        \draw (31.95,-37.2) node [left] {$a,b$};
-        \fill [black] (36.52,-35.88) -- (36.17,-35) -- (35.58,-35.81);
-    \end{tikzpicture}
-    \caption{Úplně definovaný DKA M.}
+    \includegraphics[width=0.75\linewidth]{dka_uplny_sink.pdf}
+    \caption{Úplně definovaný deterministický konečný automat.}
 \end{figure}
 
 \subsection{Převod úplně definovaného DKA na redukovaný}
@@ -328,31 +183,8 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
 
 \begin{figure}[H]
     \centering
-    \begin{tikzpicture}[scale=0.2]
-        \tikzstyle{every node}+=[inner sep=0pt]
-        \draw [black] (18.5,-24.6) circle (3);
-        \draw (18.5,-24.6) node {$\{0\}$};
-        \draw [black] (39.3,-24.6) circle (3);
-        \draw (39.3,-24.6) node {$\{0,1\}$};
-        \draw [black] (56.5,-24.6) circle (3);
-        \draw (56.5,-24.6) node {$\{0,2\}$};
-        \draw [black] (56.5,-24.6) circle (2.4);
-        \draw [black] (16.628,-22.271) arc (246.52881:-41.47119:2.25);
-        \draw (16.4,-17.43) node [above] {$b$};
-        \fill [black] (19.21,-21.7) -- (19.99,-21.16) -- (19.07,-20.76);
-        \draw [black] (8,-24.6) -- (15.5,-24.6);
-        \fill [black] (15.5,-24.6) -- (14.7,-24.1) -- (14.7,-25.1);
-        \draw [black] (36.459,-25.558) arc (-74.4189:-105.5811:28.141);
-        \fill [black] (36.46,-25.56) -- (35.55,-25.29) -- (35.82,-26.25);
-        \draw (28.9,-27.09) node [below] {$a$};
-        \draw [black] (42.3,-24.6) -- (53.5,-24.6);
-        \fill [black] (53.5,-24.6) -- (52.7,-24.1) -- (52.7,-25.1);
-        \draw (47.9,-25.1) node [below] {$b$};
-        \draw [black] (21.235,-23.373) arc (110.28279:69.71721:22.112);
-        \fill [black] (21.23,-23.37) -- (22.16,-23.56) -- (21.81,-22.63);
-        \draw (28.9,-21.5) node [above] {$a$};
-    \end{tikzpicture}
-    \caption{DKA M bez \textit{sink} stavu.}
+    \includegraphics[width=0.75\linewidth]{dka.pdf}
+    \caption{Úplně definovaný deterministický konečný automat bez \textit{sink} stavu.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
