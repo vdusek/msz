@@ -18,11 +18,65 @@
 
 \begin{compactitem}
     \item \path{tin_2021_merged.pdf}
-    \item \path{TIN_todo.mp4}
+    \item \path{TIN_2020-09-29.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
+\section{Regulární množiny}
+
+Regulární jazyky lze definovat pomocí regulárních gramatik, konečných automatů a regulárních množin.
+
+\paragraph*{Definice} Nechť $\Sigma$ je konečná abeceda. Regulární množiny nad $\Sigma$ definujeme rekurzivně takto: \begin{compactitem}
+    \item $\emptyset$ je regulární množina nad $\Sigma$;
+    \item $\{ \epsilon \}$ je regulární množina nad $\Sigma$;
+    \item $\{ a \}$ je regulární množina nad $\Sigma$ pro $\forall a \in \Sigma$;
+    \item jsou-li $P$ a $Q$ regulární množiny nad $\Sigma$, pak také \begin{compactitem}
+        \item $P \cup Q$,
+        \item $P ~.~ Q$,
+        \item $P^*$
+    \end{compactitem}
+    jsou regulární množiny nad $\Sigma$.
+    \item Žádné jiné množiny, než ty, které lze získat pomocí výše uvedených pravidel, nejsou regulárními množinami.
+\end{compactitem}
+
+\paragraph*{Příklad (a)} Jazyk definovaný regulární množinou.
+
+$$L_{RM} = ( \{ a \} \cup \{ d \} ) ~.~ ( \{ b \}^* ) ~.~ \{ c \}$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Regulární výrazy}
+
+Regulární výrazy jsou pouze zkrácený zápis regulárních množin.
+
+\paragraph*{Definice} Regulární výrazy nad $\Sigma$ a regulární množiny, které označují, jsou rekurzivně definovány takto: \begin{compactitem}
+    \item $\emptyset$ je regulární výraz označují regulární množinu $\emptyset$;
+    \item $\epsilon$ je regulární výraz označují regulární množinu $\{ \epsilon \}$;
+    \item $a$ je regulární výraz označují regulární množinu $\{ a \}$ pro $\forall a \in \Sigma$;
+    \item jsou-li $p$ a $q$ regulární výrazy označují regulární množiny $P$ a $Q$, pak \begin{compactitem}
+        \item $(p + q)$ je regulární výraz označující regulární množinu $P \cup Q$,
+        \item $(pq)$ je regulární výraz označující regulární množinu $P ~.~ Q$,
+        \item $(p^*)$ je regulární výraz označující regulární množinu $P^*$.
+    \end{compactitem}
+\end{compactitem}
+
+\paragraph*{Příklad (b)} Jazyk definovaný regulárním výrazem, platí $L_{RM} = L_{RV}$. $$L_{RV} = (a + d) b^* c$$
+
+\paragraph*{Příklad (c)} Jazyk definovaný regulární gramatikou $G$, platí $L_{RM} = L_{RV} = L(G)$.
+
+$$ G = ( \{ S, A \}, \{ a, b, c, d \}, P, S ) $$
+
+$$ P = \{ S \rightarrow aA ~|~ dA, A \rightarrow  bA ~|~ c \} $$
+
+\paragraph*{Příklad (d)} Jazyk definovaný konečným automatem $M$, platí $L_{RM} = L_{RV} = L(G) = L(M)$.
+
+$$ M = ( \{ q_0, q_1, q_2 \}, \{ a, b, c, d \}, \delta, q_0, \{ q_2 \} ) $$
+
+$$ \delta(q_0, a) = q_1 ~,~ \delta(q_0, d) = q_1 ~,~ \delta(q_1, b) = q_1 ~,~ \delta(q_1, c) = q_2 $$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Rovnice nad regulárními výrazy}
 
 \todo{todo}
