@@ -52,7 +52,9 @@ Konečné automaty dokáží přijímat regulární jazyky.
 
 \paragraph*{Finální konfigurace KA} Finální konfigurace je taková konfigurace $(q, w)$, kde $w = \epsilon$ je $q \in F$.
 
-\paragraph*{Přechod KA} Přechod KA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^*)^2$, taková, že $$ \forall q, q' \in Q ~ \forall w, w' \in \Sigma^* : (q, w) \vdash (q', w') \Rightarrow  \exists a \in \Sigma \land aw = w' \land w' \in \delta(w, a)$$
+\paragraph*{Přechod KA} Přechod KA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^*)^2$, taková, že $$(q, w) \vdash (q', w') \Leftrightarrow \exists a \in \Sigma ~:~ w = aw' \land q' \in \delta(q, a) $$
+
+% q,q' \in Q ~ w,w' \in \Sigma^* ~:~
 
 \paragraph*{Jazyk přijímaný KA} Mějme KA $M = (Q, \Sigma, \delta, q_0, F)$ a jazyk $L(M)$, který je přijímaný KA $M$. $$ L(M) = \{ w ~|~ w \in \Sigma^* \land (q_0, w) \vdash^* (q_f, \epsilon) \land q_f \in F \}$$
 

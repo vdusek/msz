@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Path to figures
-\graphicspath{{tin/chomskeho_hierarchie/figures}}
+\graphicspath{{tin/zasobnikove_automaty/figures}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -56,15 +56,29 @@ Zásobníkové automaty dokáží přijímat bezkontextové jazyky.
 
 \paragraph{Koncová konfigurace ZA} Koncová konfigurace ZA je taková konfigurace $(q, w, \alpha)$, kde $q \in F$, $w = \epsilon$ a $\alpha \in \Gamma^*$.
 
-\paragraph{Přechod ZA} Přechod ZA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^* \times \Gamma^*)^2$, taková, že $$ (q, w, \alpha) \vdash (q', w', \alpha') \Leftrightarrow \forall q, q' \in Q ~ \forall w, w' \in \Sigma^* : \Rightarrow  \exists a \in \Sigma \land aw = w' \land w' \in \delta(w, a)$$
+\paragraph{Přechod ZA} Přechod ZA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^* \times \Gamma^*)^2$, taková, že $$ (q, w, \alpha) \vdash (q', w', \alpha') \Leftrightarrow \exists a \in (\Sigma \cup \epsilon), ~ \exists Z \in \Gamma, ~ \exists \beta, \gamma \in \Gamma^* ~:~ $$
 
-\paragraph{Jazyk přijímaný ZA} \todo{todo}
+$$ ~:~ w = aw' \land \alpha = Z \beta \land \alpha' = \gamma \beta \land (q', \gamma) \in \delta(q, a, Z) $$
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\linewidth]{za_prechod_zasobnik.pdf}
+    \caption{Stav zásobníku během přechodu ZA. Platí $Z \in \Gamma,~ \alpha, \alpha', \beta, \gamma \in \Gamma^*$.}
+\end{figure}
+
+\paragraph{Jazyk přijímaný ZA} Mějme ZA $M = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$ a jazyk $L(M)$, který je přijímaný ZA $M$. $$ L(M) = \{ w ~|~ w \in \Sigma^* \land (q_0, w, Z_0) \vdash^* (q_f, \epsilon, \epsilon) \land q_f \in F \}$$ Avšak existují různé varianty. ZA může přijímat i v $q_f \in F$: pouze při vyprázdnění vstupu, nebo pouze při vyprázdnění zásobníku a nebo při vyprázdnění vstupu a vyprázdnění zásobníku.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Varianty zásobníkového automatu}
 
 \paragraph{Rozšířený zásobníkový automat} \todo{todo}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\linewidth]{rza_prechod_zasobnik.pdf}
+    \caption{Stav zásobníku během přechodu RZA. Platí $\alpha, \alpha', \beta, \gamma, \gamma' \in \Gamma^*$.}
+\end{figure}
 
 \paragraph{Deterministický zásobníkový automat} \todo{todo}
 
