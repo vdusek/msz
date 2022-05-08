@@ -12,6 +12,9 @@
 
 \chapter{TIN~--~Konečné automaty (jazyky přijímané KA, varianty KA, minimalizace KA, Mihill-Nerodova věta).}
 
+% Todo:
+% - Prevod RKA na DKA
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Zdroje}
@@ -60,9 +63,9 @@ Konečné automaty dokáží přijímat regulární jazyky.
 
 \paragraph*{Dosažitelné a nedosažitelné stavy} Mějme KA $M = (Q, \Sigma, \delta, q_0, F)$. Stav $q \in Q$ je dosažitelný, pokud platí $\exists w \in \Sigma^* : (q_0, w) \vdash^* (q, \epsilon)$. Stav je nedosažitelný, pokud není dosažitelný.
 
-\paragraph*{Relace nerozlišitelnosti} Relace nerozlišitelnosti je binární relace nad množinou stavů. Stavy $p, q \in Q$ jsou rozlišitelné, jestliže existuje řetězec $w \in \Sigma^*$, pro který KA ze stavu $q$ skončí v nějakém $q_f \in F$, ale ze stavu $p$ nikoliv. Dva stavy jsou nerozlišitelné, pokud nejsou rozlišitelné. Formálně: nechť $p, q \in Q$ jsou rozlišitelné, pak platí $$ \forall w \in \Sigma^* : (p, w) \vdash^* (p', \epsilon) \land (q, w) \vdash^* (q', \epsilon) \land ( (p' \in F \land q' \not\in F) \lor (p' \not\in F \land q' \in F) ) $$
+\paragraph*{Relace nerozlišitelnosti} Relace nerozlišitelnosti je binární relace nad množinou stavů. Neformálně říká, že z jednoho ze stavů, automat dokáže akceptovat rozlišovací řetězec, z druhého nikoliv. Formálně: nechť $p, q \in Q$ jsou rozlišitelné, pak platí $$ \forall w \in \Sigma^* : (p, w) \vdash^* (p', \epsilon) \land (q, w) \vdash^* (q', \epsilon) \land ( (p' \in F \land q' \not\in F) \lor (p' \not\in F \land q' \in F) ) $$ Dva stavy jsou nerozlišitelné, pokud nejsou rozlišitelné.
 
-\paragraph*{k-nerozlišitelnost} \todo{todo}
+\paragraph*{k-nerozlišitelnost} Říkáme, že stavy $q_1, q_2 \in Q$ jsou k-nerozlišitelné a píšeme $q_1 \equiv^k q_2$, právě když neexistuje $w \in \Sigma^*, |w| \leq k$, který rozlišuje $q_1$ a $q_2$. Lze dokázat, že $\equiv$ je relací akvivalence na $Q$ (reflexivní, symetrická, tranzitivní). Neformálně relace říká, jak dlouhé slovo dané stavy rozlišuje.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -91,9 +94,11 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
     \end{compactitem}
 \end{compactitem}
 
-\paragraph*{Redukovaný úplně definovaný deterministický konečný automat} Úplně definovaný DKA nazýváme redukovaný, jestliže žádný $q \in Q$ není nedosažitelný a žádná dvojice $p, q \in Q$ není nerozlišitelná.
+\paragraph*{Redukovaný úplně definovaný deterministický konečný automat} Úplně definovaný DKA nazýváme redukovaný (také minimální), jestliže žádný $q \in Q$ není nedosažitelný a žádná dvojice $p, q \in Q$ není nerozlišitelná.
 
-\subsection{Převod NKA na DKA}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Determinizace NKA}
 
 \begin{figure}[H]
     \centering
@@ -113,10 +118,6 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
     \caption{Deterministický konečný automat.}
 \end{figure}
 
-\subsection{Převod RKA na DKA}
-
-\todo{todo}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Minimalizace konečného automatu}
@@ -124,6 +125,12 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
 \begin{compactitem}
     \item Proč? Zrychlení vykonávání konečného automatu.
     \item Jak? Odstraněním nepotřebných přechodů a zmenšením počtu stavů.
+    \item Postup (předpokládá DKA): \begin{compactenum}
+        \item Odstranění nedosažitelných stavů.
+        \item Převod DKA na úplně definovaný DKA.
+        \item Převod úplně definovaný DKA na redukovaný DKA (odstranění nerozlišitelných stavů).
+        \item Odstranění \textit{sink} stavu.
+    \end{compactenum}
 \end{compactitem}
 
 \begin{figure}[H]
