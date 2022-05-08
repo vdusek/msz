@@ -18,11 +18,54 @@
 
 \begin{compactitem}
     \item \path{tin_2021_merged.pdf}
-    \item \path{TIN_todo.mp4}
+    \item \path{TIN_2020-10-06.mp4}
+    \item \path{TIN_2020-10-13.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
+\section{Zásobníkový automat}
 
-\todo{todo}
+Zásobníkové automaty dokáží přijímat bezkontextové jazyky.
+
+\paragraph{Zásobníkový automat} Zásobníkový automat (ZA) je sedmice $M = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$, kde \begin{compactitem}
+    \item $Q$ je konečná množina stavů;
+    \item $\Sigma$ je vstupní abeceda;
+    \item $\Gamma$ je zásobníková abeceda;
+    \item $\delta$ je přechodová funkce (parciální funkce), \begin{compactitem}
+        \item $\delta : Q \times \Sigma \times \Gamma \rightarrow 2^{Q \times \Gamma^*}$;
+    \end{compactitem}
+    \item $q_0$ je výchozí stav, \begin{compactitem}
+        \item $q_0 \in Q$;
+    \end{compactitem}
+    \item $Z_0$ je výchozí symbol na zásobníku, \begin{compactitem}
+        \item $Z_0 \in \Gamma$;
+    \end{compactitem}
+    \item $F$ je množina koncových stavů, \begin{compactitem}
+        \item $F \subseteq Q$;
+    \end{compactitem}
+\end{compactitem}
+
+\paragraph{Konfigurace ZA} Konfigurace ZA je trojice $(q, w, \alpha) \in Q \times \Sigma^* \times \Gamma^*$, kde \begin{compactitem}
+    \item $q$ je aktuální stav;
+    \item $w$ je nezpracovaná část vstupního řetězce;
+    \item $\alpha$ je obsah zásobníku.
+\end{compactitem}
+
+\paragraph{Počáteční konfigurace ZA} Počáteční konfigurace ZA je taková konfigurace $(q, w, \alpha)$, kde $w \in \Sigma^*$ je vstupní řetězec, $q \in Q$ je výchozí stav a $\alpha = Z \in \Gamma$ je výchozí symbol na zásobníku.
+
+\paragraph{Koncová konfigurace ZA} Koncová konfigurace ZA je taková konfigurace $(q, w, \alpha)$, kde $q \in F$, $w = \epsilon$ a $\alpha \in \Gamma^*$.
+
+\paragraph{Přechod ZA} Přechod ZA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^* \times \Gamma^*)^2$, taková, že $$ (q, w, \alpha) \vdash (q', w', \alpha') \Leftrightarrow \forall q, q' \in Q ~ \forall w, w' \in \Sigma^* : \Rightarrow  \exists a \in \Sigma \land aw = w' \land w' \in \delta(w, a)$$
+
+\paragraph{Jazyk přijímaný ZA} \todo{todo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Varianty zásobníkového automatu}
+
+\paragraph{Rozšířený zásobníkový automat} \todo{todo}
+
+\paragraph{Deterministický zásobníkový automat} \todo{todo}
+
+\paragraph{Deterministický rozšířený zásobníkový automat} \todo{todo}
