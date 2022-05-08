@@ -79,4 +79,20 @@ $$ \delta(q_0, a) = q_1 ~,~ \delta(q_0, d) = q_1 ~,~ \delta(q_1, b) = q_1 ~,~ \d
 
 \section{Rovnice nad regulárními výrazy}
 
-\todo{todo}
+\paragraph*{Definice} Rovnice, jejímiž složkami jsou koeficienty a neznámé, které reprezentují (dané a hledané) regulární výrazy, nazýváme rovnicemi nad regulárními výrazy.
+
+\paragraph*{Příklad} Uvažujme rovnici nad regulárními výrazy nad abecedou $\Sigma = \{ a, b \}$
+$$ X = aX + b $$
+
+\begin{compactitem}
+    \item Řešením je regulární výraz $X = a^* b$
+    \item Důkaz: \begin{compactitem}
+        \item LS = $ a^* b $
+        \item PS = $ a (a^* b) + b = a^+ b + b = (a^+ + \epsilon) b = a^* b $
+    \end{compactitem}
+\end{compactitem}
+
+\paragraph*{Shrnutí} \begin{compactitem}
+    \item Ne vždy existuje jediné řešení rovnice nad regulárními výrazy.
+    \item Regulární gramatiky, nedeterministické/deterministické/rozšířené konečné automaty a regulární výrazy mají ekvivalentní vyjadřovací sílu.
+\end{compactitem}
