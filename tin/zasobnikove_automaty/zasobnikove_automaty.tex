@@ -102,7 +102,7 @@ $$ ~:~ w = aw' \land \alpha = \gamma \beta \land \alpha' = \gamma' \beta \land (
 
 \subsection{Deterministický zásobníkový automat}
 
-Deterministický zásobníkový automat (DZA) disponuje menší vyjadřovací sílou než NZA (resp. RNZA). Jazyky přijímané DZA označujeme jako deterministické bezkontextové jazyky ($\mathbb{L}_{DCF}$). Formálně: $\mathbb{L}_{DCF} \subset \mathbb{L}_2$ a tedy $\exists L \in \mathbb{L}_2 : L \not\in \mathbb{L}_{DCF}$.
+Deterministický zásobníkový automat (DZA) disponuje menší vyjadřovací sílou než NZA (resp. RNZA). Jazyky přijímané DZA označujeme jako deterministické bezkontextové jazyky ($\mathcal{L}_{DCF}$). Formálně: $\mathcal{L}_{DCF} \subset \mathcal{L}_2$ a tedy $\exists L \in \mathcal{L}_2 : L \not\in \mathcal{L}_{DCF}$.
 
 \paragraph*{Definice} Zdroj nedeterminismu v NZA je volba znaku $a \in ( \Sigma \cup \{ \epsilon \} )$ při přechodu do další konfigurace. DZA se od NZA liší tvarem přechodové funkce, formálně:
 
@@ -112,7 +112,7 @@ $$ ~:~ ( ~ |\delta(q, a, Z)| \leq 1 ~\land~ | \delta(q, \epsilon, Z)| = 0 ) ~ \l
 
 $$ \lor ~ ( ~ |\delta(q, a, Z)| = 0 ~\land~ | \delta(q, \epsilon, Z)| \leq 1 ) $$
 
-\paragraph*{Příklad} Příklad jazyka, který patří do $\mathbb{L}_{DCF}$, ale nepatří do $\mathbb{L}_{3}$.
+\paragraph*{Příklad} Příklad jazyka, který patří do $\mathcal{L}_{DCF}$, ale nepatří do $\mathcal{L}_{3}$.
 
 $$L = a^n b^n ~;~ n \geq 0$$
 
