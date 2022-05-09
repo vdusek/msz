@@ -23,6 +23,20 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
+\section{Rozhodovací problém}
 
-\todo{todo}
+Jakýkoliv rozhodovací problém, dokážeme kódovat na jazyk. Více TS 2, slajd 3/19. \todo{todo}
+
+Nechť $P$ je problém specifikovaný jazykem $L_P$ nad abecedou $\Sigma$. Problém P nazveme: \begin{compactitem}
+
+    \item \textbf{Rozhodnutelný}, pokud $L_P$ je rekurzívní jazyk, tj. existuje TS, který $L_P$ rozhoduje (přijme každý řetězec $w \in L_P$, a zamítne každý řetězec $w \in \Sigma^* - L_P $).
+
+    \item \textbf{Nerozhodnutelný}, když není rozhodnutelný.
+
+    \item \textbf{Částečně rozhodnutelný}, jestliže LP je rekurzívně vyčíslitelný jazyk.
+
+\end{compactitem}
+
+Každý rozhodnutelný problém je současně částečně rozhodnutelný, ale některé nerozhodnutelné problémy nejsou ani částečně rozhodnutelné.
+
+\paragraph*{Halting Problem} todo

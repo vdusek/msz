@@ -89,13 +89,16 @@ Chomského hierarchie je dělení gramatik na 4 typy dle tvaru jejich přepisova
 
     \item Jazyky $L_0$ jsou příjímány nedeterministickým turingovým strojem (NTS) s nekonečnou páskou.
 
-    \item Dále existuje třída tzv. rekurzivních jazyků (RL -- \textit{Recursive Languages}). \begin{compactitem}
+    \item Ve třídě rekurzivně vyčíslitelných jazyků (REL -- \textit{Recursively Enumerable Languages}) existuje podtřída tzv. rekurzivních jazyků (RL -- \textit{Recursive Languages}). \begin{compactitem}
         \item Platí $L_0 \supset RL \supset L_1$.
 
-        \item Jazyky $L_0$ / REL (rekurzivně vyčíslitelné jazyky) -- Turingův stroj pro ně zastaví a přijme. Jinak zastaví a nepřijme a nebo cyklí.
+        \item Rekurzivně vyčíslitelné jazyky: \begin{compactitem}
+            \item Nechť $M$ je turingův stroj. Pokud $M$ dostane na vstup $w \in L(M)$, tak pro něj zastaví a přijme ho. Avšak, pokud $M$ dostane na vstup $w \not\in L(M)$, tak buď zastaví a odmítne ho a nebo cyklí (nezastaví).
+        \end{compactitem}
 
-        \item Jazyky RL (rekurzivní jazyky) --
-        Jsou přijímány úplným turingovým strojem. Ten vždy zastaví a buď přijme nebo ne, ale nemůže se zacyklit.
+        \item Rekurzivní jazyky: \begin{compactitem}
+            \item Jazyk $L$ je rekurzivní, pokud existuje nějaký úplný turingův stroj $M$, pro který platí $L = L(M)$. Úplný turingův stroj zastaví pro jakýkoliv vstup.
+        \end{compactitem}
     \end{compactitem}
 \end{compactitem}
 
