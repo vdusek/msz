@@ -100,22 +100,94 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
 
 \section{Determinizace NKA}
 
+\subsection*{Algoritmus}
+
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{nka.pdf}
-    \caption{Nedeterministický konečný automat.}
+    \includegraphics[width=0.7\linewidth]{nka_to_dka.pdf}
+    \caption{Algoritmus determinizace NKA.}
+\end{figure}
+
+\subsection*{Příklad}
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.2]
+        \tikzstyle{every node}+=[inner sep=0pt]
+        \draw [black] (20.6,-24.9) circle (3.5);
+        \draw (20.6,-24.9) node {$1$};
+        \draw [black] (36.8,-24.9) circle (3.5);
+        \draw (36.8,-24.9) node {$2$};
+        \draw [black] (54.8,-24.9) circle (3.5);
+        \draw (54.8,-24.9) node {$3$};
+        \draw [black] (54.8,-24.9) circle (2.9);
+        \draw [black] (11.3,-24.9) -- (17.1,-24.9);
+        \fill [black] (17.1,-24.9) -- (16.3,-24.4) -- (16.3,-25.4);
+        \draw [black] (19.057,-21.774) arc (234:-54:2.625);
+        \draw (20.6,-16.53) node [above] {$a,b$};
+        \fill [black] (22.14,-21.77) -- (23.02,-21.42) -- (22.21,-20.83);
+        \draw [black] (24.1,-24.9) -- (33.3,-24.9);
+        \fill [black] (33.3,-24.9) -- (32.5,-24.4) -- (32.5,-25.4);
+        \draw (28.7,-25.4) node [below] {$a$};
+        \draw [black] (40.3,-24.9) -- (51.3,-24.9);
+        \fill [black] (51.3,-24.9) -- (50.5,-24.4) -- (50.5,-25.4);
+        \draw (45.8,-25.4) node [below] {$a,b$};
+    \end{tikzpicture}
+    \caption{Nedeterministický konečný automat $M$.}
 \end{figure}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.75\linewidth]{nka_to_dka.pdf}
-    \caption{Algoritmus převodu NKA na DKA.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{dka_uplny.pdf}
-    \caption{Deterministický konečný automat.}
+    \begin{tikzpicture}[scale=0.2]
+        \tikzstyle{every node}+=[inner sep=0pt]
+        \draw [black] (20.7,-24.9) circle (3.7);
+        \draw (20.7,-24.9) node {$\{1\}$};
+        \draw [black] (36.9,-24.9) circle (3.7);
+        \draw (36.9,-24.9) node {$\{1,2\}$};
+        \draw [black] (54.9,-24.9) circle (3.7);
+        \draw (54.9,-24.9) node {$\{1,2,3\}$};
+        \draw [black] (54.9,-24.9) circle (3.1);
+        \draw [black] (36.9,-41.6) circle (3.7);
+        \draw (36.9,-41.6) node {$\{1,3\}$};
+        \draw [black] (36.9,-41.6) circle (3.1);
+        \draw [black] (20.7,-51) circle (3.7);
+        \draw (20.7,-51) node {$\emptyset$};
+        \draw [black] (32.5,-51) circle (3.7);
+        \draw (32.5,-51) node {$\{2\}$};
+        \draw [black] (44.3,-51) circle (3.7);
+        \draw (44.3,-51) node {$\{3\}$};
+        \draw [black] (44.3,-51) circle (3.1);
+        \draw [black] (54.9,-51) circle (3.7);
+        \draw (54.9,-51) node {$\{2,3\}$};
+        \draw [black] (54.9,-51) circle (3.1);
+        \draw [black] (11.4,-24.9) -- (17,-24.9);
+        \fill [black] (17,-24.9) -- (16.2,-24.4) -- (16.2,-25.4);
+        \draw [black] (19.069,-21.595) arc (234:-54:2.775);
+        \draw (20.7,-16.07) node [above] {$b$};
+        \fill [black] (22.33,-21.6) -- (23.21,-21.24) -- (22.4,-20.65);
+        \draw [black] (24.4,-24.9) -- (33.2,-24.9);
+        \fill [black] (33.2,-24.9) -- (32.4,-24.4) -- (32.4,-25.4);
+        \draw (28.8,-25.4) node [below] {$a$};
+        \draw [black] (40.6,-24.9) -- (51.2,-24.9);
+        \fill [black] (51.2,-24.9) -- (50.4,-24.4) -- (50.4,-25.4);
+        \draw (45.9,-25.4) node [below] {$a$};
+        \draw [black] (33.254,-42.153) arc (-89.46343:-182.27795:13.105);
+        \fill [black] (20.04,-28.53) -- (19.51,-29.31) -- (20.5,-29.35);
+        \draw (23.2,-39.65) node [left] {$b$};
+        \draw [black] (35.025,-38.424) arc (-157.34238:-202.65762:13.43);
+        \fill [black] (35.03,-38.42) -- (35.18,-37.49) -- (34.26,-37.88);
+        \draw (33.49,-33.25) node [left] {$b$};
+        \draw [black] (38.843,-28.034) arc (23.64529:-23.64529:13.005);
+        \fill [black] (38.84,-28.03) -- (38.71,-28.97) -- (39.62,-28.57);
+        \draw (40.43,-33.25) node [right] {$a$};
+        \draw [black] (54.951,-28.59) arc (-6.27863:-88.01242:14.985);
+        \fill [black] (40.58,-41.93) -- (41.39,-42.4) -- (41.36,-41.4);
+        \draw (51.26,-38.42) node [below] {$b$};
+        \draw [black] (53.269,-21.595) arc (234:-54:2.775);
+        \draw (54.9,-16.07) node [above] {$a$};
+        \fill [black] (56.53,-21.6) -- (57.41,-21.24) -- (56.6,-20.65);
+    \end{tikzpicture}
+    \caption{Deterministický konečný automat $M'$, $L(M) = L(M')$.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
