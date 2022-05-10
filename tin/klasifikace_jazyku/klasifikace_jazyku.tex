@@ -203,6 +203,8 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
 
 \paragraph*{Doplněk ($co$)} Nechť $L \subseteq \Sigma^*$ je regulární jazyk. Nechť $M = (Q, \Sigma, \delta, q_0, F)$ je úplně definovaný KA, pro který platí $L = M(L)$. Pak KA $M' = (Q, \Sigma, \delta, q_0, Q - F)$ zřejmě přijímá jazyk $L_{co} = \Sigma^* - L$, tj. doplněk jazyka $L$.
 
+\paragraph*{Průnik} Uzavřenost vzhledem k průniku plyne z de Morganových zákonů: $$L_1 \cap L_2 = \overline{\overline{L_1 \cap L_2}} = \overline{\overline{L_1} \cup \overline{L_2}}$$ a tedy $L_1, L_2 \in \mathcal{L}_3 \Leftrightarrow L_1 \cap L_2 \in \mathcal{L}_3$
+
 \subsection{Uzávěrové vlastnosti bezkontextových jazyků}
 
 \todo{todo}
@@ -283,6 +285,24 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
 
 \subsection{Rozhodnutelnost problémů regulárních jazyků}
 
+\paragraph*{Regulárnost} \begin{compactitem}
+    \item Nechť $L \subseteq \Sigma^*$, jak řešit problém: $L \in \mathcal{L}_3$? \begin{compactitem}
+
+        \item Dokážeme existenci takového KA $M$, pro který platí $L(M) = L$.
+
+        \item S využitím Myhill-Nerodovi věty. Najdeme relaci pravé kongruence s konečným indexem na $\Sigma^*$ takovou, že jazyk $L$ je sloučením některých tříd rozkladu.
+    \end{compactitem}
+\end{compactitem}
+
+\paragraph*{Neregulárnost} \begin{compactitem}
+    \item Nechť $L \subseteq \Sigma^*$, jak řešit problém: $L \not\in \mathcal{L}_3$? \begin{compactitem}
+
+        \item S využitím Pumping Lemma pro regulární jazyky.
+
+        \item S využitím Myhill-Nerodovi ukážeme, že neexistuje taková relace pravé kongruence s konečným indexem na $\Sigma^*$ taková, že jazyk $L$ je sloučením některých tříd rozkladu.
+    \end{compactitem}
+\end{compactitem}
+
 \paragraph*{Prázdnost/neprázdnost} Problém je rozhodnutelný. Můžu sestrojit algoritmus, který pro $\forall w \in \Sigma^*$ zkusí, zda řetězec je přijímaný konečným automatem nebo není (problém dosažitelnosti konečného stavu z vychozího v grafu). Formálně: K jazyku $L \in \mathcal{L}_3$ sestrojíme úplně definovaný DKA $M$, takový, že $L = L(M)$, pak $$ L(M) \not= \emptyset \Leftrightarrow \exists q \in Q ~:~ (q \in F \land \text{q je dosažitelný z } q_0)$$
 
 \paragraph*{Univerzalita} Problém je rozhodnutelný. K jazyku $L \in \mathcal{L}_3$ sestrojíme úplně definovaný DKA $M$, takový, že $L = L(M)$, pak $$ L(M) = \Sigma^* \Leftrightarrow \forall q \in Q ~:~ (q \in F ~\lor~ q \text{ je nedosažitelný z } q_0 )$$
@@ -302,3 +322,12 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
 \subsection{Rozhodnutelnost problémů obecných jazyků}
 
 \todo{todo}
+
+
+
+% - Jak ukazu, ze jazyk je bezkontextovy? Dokazu existenci takovyho ZA, ktery ho prijima.
+% - Jak ukazu, ze jazyk neni bezkontextovy? PL
+
+% - Jak ukazu, ze jazyk je rekurzivni? Dokazu existenci takovyho TS.
+% - Jak ukazu, ze jazyk neni rekurzivni? Redukci z problemy, o kterym vim, ze neni rekurzivni (HP).
+% - Redukce lze pouzit pro oba smery.

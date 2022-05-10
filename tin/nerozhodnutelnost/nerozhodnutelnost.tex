@@ -39,13 +39,23 @@ Nechť $P$ je problém specifikovaný jazykem $L_P$ nad abecedou $\Sigma$. Probl
 
 Každý rozhodnutelný problém je současně částečně rozhodnutelný, ale některé nerozhodnutelné problémy nejsou ani částečně rozhodnutelné.
 
-\paragraph*{Halting Problem} todo
-
-\paragraph*{co-Halting Problem} todo
-
 Problém je nerozhodnutelný, pokud pro něj neexistuje úplný turingův stroj.
 
 Zjistit jestli turingův stroj je úplný, je taky problém.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{fj_hierarchy.pdf}
+    \caption{Hierarchie.}
+\end{figure}
+
+\paragraph*{Halting Problem} Problém zastavení turingova stroje.
+
+$$ HP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{TS M na vstupu w zastaví} \} $$
+
+\paragraph*{co-Halting Problem} Problém nezastavení turingova stroje.
+
+$$ coHP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{TS M na vstupu w nezastaví} \} $$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -61,8 +71,31 @@ Ale všech možný programů (TS) je spočetně mnoho, proč? Protože kódován
 
 todo dukaz Existence jazyků mimo třídu 0
 
+K porovnávání mohutnosti dvou množin
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Redukce}
+
+\begin{compactitem}
+
+    \item Problém je aspoň tak těžkej jako problém
+
+    \item Vytváří uspořádání na problémech, nějaký problém je aspoň tak těžký jak jiný problém
+
+    \item Redukce jazyka A na jazyk B je totální, rekurzivně vyčíslitelná funkce... (To znamená, že je implementovatelné pomocí úplného TS)
+
+    \item Zachovává členství.
+
+    \item Existuje-li redukce jazyka $A$ na $B$, říkáme, že $A$ je redukovatelný na $B$, což značíme $A \leq B$.
+
+\end{compactitem}
+
+
+\todo{todo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Postův korespondenční problém}
 
 \todo{todo}
