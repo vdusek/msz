@@ -144,17 +144,46 @@ stroje je následující: \begin{compactitem}
 
 \subsection{Úplný turingův stroj}
 
-Úplný turingův stroj je takový TS, který pro libovolný vstup zastaví, a buď přijme nebo odmítne (nemůže se zacyklit). Úplné turingovy stroje mají menší (rozhodovací) vyjadřovací sílu než obecný turingův stroj.
+Úplný turingův stroj je takový TS, který pro libovolný vstup zastaví, a buď přijme nebo odmítne (nemůže se zacyklit). Úplné turingovy stroje mají menší (rozhodovací) vyjadřovací sílu než obecný turingův stroj. Nedeterministický Turingův stroj je úplný, právě když pro každý vstup je každá výpočetní větev konečná (tj. pro každý vstup vždy zastaví).
 
-\paragraph*{Rekurzivně vyčíslitelné jazyky} Jazyky přijímané turingovými stroji se nazývájí rekurzivně vyčíslitelné ($\mathcal{L}_1, REL, \mathcal{L}_{RE}$).
+\begin{compactitem}
+    \item Jazyk $L \subseteq \Sigma^*$ se nazývá: \begin{compactitem}
+        \item Rekurzivně vyčíslitelný ($REL, \mathcal{L}_0, \mathcal{L}_{RE}$), jestliže $L = L(M)$ pro nějaký TS $M$.
 
-\paragraph*{Rekurzivní jazyky} Jazyky přijímané úplnými turingovými se nazývají rekurzivní ($RL, \mathcal{L}_{Rec}$). Platí $2^{\Sigma^*} \subset \mathcal{L}_{RE} \subset \mathcal{L}_{Rec} \subset \mathcal{L}_1$.
+        \item Rekurzivní ($RL, \mathcal{L}_{Rec}$), jestliže $L = L(M)$ pro nějaký úplný TS $M$.
+    \end{compactitem}
+
+    \item Je-li $M$ úplný TS, pak říkáme, že $M$ rozhoduje jazyk $L(M)$.
+
+    \item Ke každému rekurzívnímu jazyku existuje TS, který ho rozhoduje, tj. zastaví pro každé vstupní slovo (např. na pásku zapíše $YES$ nebo $NO$).
+
+    \item TS přijímající rekurzívně vyčíslitelný jazyk $L$ zastaví pro každé $w \in L$, ovšem pro $w \not\in L$ může zastavit, ale také může donekonečna cyklit.
+
+    \item Platí $2^{\Sigma^*} \subset \mathcal{L}_{RE} \subset \mathcal{L}_{Rec} \subset \mathcal{L}_1$.
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Lineárně omezený automat}
 
-\todo{todo}
+\begin{compactitem}
+    \item Lineárně omezený automat (LOA) je nedeterministický TS, který nikdy neopustí tu část pásky, na níž je zapsán jeho vstup. \begin{compactitem}
+        \item Takový turingův stroj, který má lineárně omezenou velikost pásky vůči délce vstupu (\textit{Linear Bounded Automata}). Avšak, díky možnosti zápisu n-tic na pásku (viz důkaz u vícepaskových TS), je možné pásku zkomprimovat tak, že stačí pouze tolik místa, kolik je délka vstupního slova.
+    \end{compactitem}
+
+    \item Deterministický LOA můžeme definovat jako DTS, který nikdy neopustí část pásky se zapsaným vstupem. \begin{compactitem}
+        \item Není známo, zda deterministický LOA je či není striktně slabší než LOA.
+    \end{compactitem}
+
+    \item Třída jazyků, kterou lze generovat kontextovými gramatikami, odpovídá třídě jazyků, které lze přijímat LOA.
+
+    \item Z konečné délky pásky vyplývá, že pro každý LOA existuje pouze konečné množství konfigurací. To znamená, že pokud LOA cyklí, jsme to schopni detekovat. A tedy, problémy pro LOA jsou rozhodnutelné.
+\end{compactitem}
+
+% \item Jazyky $L_1$ jsou příjímány lineárně omezeným automatem -- nedeterministický turingův stroj (NTS) s lineárně omezenou páskou. \begin{compactitem}
+%     \item Omezení lineární funkcí v závislosti na délce vstupního řetězce.
+%     \item Z toho vyplývá, že řetězec se nemůže zkracovat, ledaže se derivuje $S \Rightarrow \epsilon$, ale v takovém případě se S nemůže vyskytovat na pravé straně žádného pravidla.
+%     \item Formálně: pokud $\alpha \Rightarrow \beta$, pak $|\alpha| \leq |\beta|$ (s vyjímkou $S \Rightarrow \epsilon$).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
