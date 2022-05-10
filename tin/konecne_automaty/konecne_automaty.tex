@@ -32,7 +32,7 @@
 
 Konečné automaty dokáží přijímat regulární jazyky.
 
-\paragraph*{Konečný automat} Konečný automat (KA) je pětice $M = (Q, \Sigma, \delta, q_0, F)$, kde \begin{compactitem}
+\paragraph*{Definice} Konečný automat (KA) je pětice $M = (Q, \Sigma, \delta, q_0, F)$, kde \begin{compactitem}
     \item $Q$ je konečná množina stavů;
     \item $\Sigma$ je vstupní abeceda;
     \item $\delta$ je přechodová funkce (parciální funkce), \begin{compactitem}
@@ -46,20 +46,20 @@ Konečné automaty dokáží přijímat regulární jazyky.
     \end{compactitem}
 \end{compactitem}
 
-\paragraph*{Konfigurace KA} Konfigurace KA je dvojice $(q, w) \in Q \times \Sigma^*$, kde \begin{compactitem}
+\paragraph*{Konfigurace} Konfigurace KA je dvojice $(q, w) \in Q \times \Sigma^*$, kde \begin{compactitem}
     \item $q$ je aktuální stav;
     \item $w$ je nezpracovaná část vstupního řetězce.
 \end{compactitem}
 
-\paragraph*{Počáteční konfigurace KA} Počáteční konfigurace je taková konfigurace $(q, w)$, kde $w \in \Sigma^*$ je vstupní řetězec a $q \in Q$ je výchozí stav.
+\paragraph*{Počáteční konfigurace} Počáteční konfigurace je taková konfigurace $(q, w)$, kde $w \in \Sigma^*$ je vstupní řetězec a $q \in Q$ je výchozí stav.
 
-\paragraph*{Finální konfigurace KA} Finální konfigurace je taková konfigurace $(q, w)$, kde $w = \epsilon$ je $q \in F$.
+\paragraph*{Finální konfigurace} Finální konfigurace je taková konfigurace $(q, w)$, kde $w = \epsilon$ je $q \in F$.
 
-\paragraph*{Přechod KA} Přechod KA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^*)^2$, taková, že $$(q, w) \vdash (q', w') \Leftrightarrow \exists a \in \Sigma ~:~ w = aw' \land q' \in \delta(q, a) $$
+\paragraph*{Přechod} Přechod (krok výpočtu) KA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^*)^2$, taková, že $$(q, w) \vdash (q', w') \Leftrightarrow \exists a \in \Sigma ~:~ w = aw' \land q' \in \delta(q, a) $$
 
 % q,q' \in Q ~ w,w' \in \Sigma^* ~:~
 
-\paragraph*{Jazyk přijímaný KA} Mějme KA $M = (Q, \Sigma, \delta, q_0, F)$ a jazyk $L(M)$, který je přijímaný KA $M$. $$ L(M) = \{ w ~|~ w \in \Sigma^* \land (q_0, w) \vdash^* (q_f, \epsilon) \land q_f \in F \}$$
+\paragraph*{Jazyk přijímaný} Mějme KA $M = (Q, \Sigma, \delta, q_0, F)$ a jazyk $L(M)$, který je přijímaný KA $M$. $$ L(M) = \{ w ~|~ w \in \Sigma^* \land (q_0, w) \vdash^* (q_f, \epsilon) \land q_f \in F \}$$
 
 \paragraph*{Dosažitelné a nedosažitelné stavy} Mějme KA $M = (Q, \Sigma, \delta, q_0, F)$. Stav $q \in Q$ je dosažitelný, pokud platí $\exists w \in \Sigma^* : (q_0, w) \vdash^* (q, \epsilon)$. Stav je nedosažitelný, pokud není dosažitelný.
 

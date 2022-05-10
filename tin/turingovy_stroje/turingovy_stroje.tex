@@ -35,7 +35,7 @@
     \item Na TS lze nahlížet také jako na funkci, která má vstup počáteční pásku, pak nějaký výpočet (činnost TS) a jako výstup vrací stav pásky.
 \end{compactitem}
 
-\paragraph*{Definice TS} Turingův stroj (TS) je šestice $M = (Q, \Sigma, \Gamma, \delta, q_0, g_f)$, kde \begin{compactitem}
+\paragraph*{Definice} Turingův stroj (TS) je šestice $M = (Q, \Sigma, \Gamma, \delta, q_0, g_f)$, kde \begin{compactitem}
     \item $Q$ je konečná množina stavů;
 
     \item $\Sigma$ je vstupní abeceda (symboly, které se mohou vyskytovat na výchozím stavu pásky), \begin{compactitem}
@@ -61,17 +61,17 @@
     \end{compactitem}
 \end{compactitem}
 
-\paragraph*{Konfigurace TS} Konfigurace TS je trojice $(q, \alpha, n) \in Q \times \{ \gamma \Delta^{\omega} ~|~ \gamma \in \Gamma \} \times \mathbb{N}$, kde \begin{compactitem}
+\paragraph*{Konfigurace} Konfigurace TS je trojice $(q, \alpha, n) \in Q \times \{ \gamma \Delta^{\omega} ~|~ \gamma \in \Gamma \} \times \mathbb{N}$, kde \begin{compactitem}
     \item $q$ je aktuální stav;
     \item $\alpha$ značí stav pásky;
     \item $n$ značí pozici hlavy.
 \end{compactitem}
 
-\paragraph*{Počáteční konfigurace TS} Počáteční konfigurace je taková konfigurace $(q_0, \gamma \Delta^{\omega}, 0)$, kde $\gamma \Delta^{\omega}$ je výchozí stav pásky a $q_0$ je výchozí stav.
+\paragraph*{Počáteční konfigurace} Počáteční konfigurace je taková konfigurace $(q_0, \gamma \Delta^{\omega}, 0)$, kde $\gamma \Delta^{\omega}$ je výchozí stav pásky a $q_0$ je výchozí stav.
 
-\paragraph*{Koncová konfigurace TS} Koncová konfigurace je taková konfigurace $(q_f, \gamma \Delta^{\omega}, n)$, kde $\gamma \Delta^{\omega}$ je stav pásky a $q_f$ je koncový stav.
+\paragraph*{Koncová konfigurace} Koncová konfigurace je taková konfigurace $(q_f, \gamma \Delta^{\omega}, n)$, kde $\gamma \Delta^{\omega}$ je stav pásky a $q_f$ je koncový stav.
 
-\paragraph*{Přechod TS} Přechod TS $M$ (krok výpočtu) definujeme jako nejmenší binární relaci $\vdash$ takovou, že $\forall q_1, q_2 \in Q ~ \forall \gamma \in \Gamma^{\omega} ~ \forall n \in \mathbb{N} ~ \forall b \in \Gamma$: \begin{compactitem}
+\paragraph*{Přechod} Přechod (krok výpočtu) TS $M$ definujeme jako nejmenší binární relaci $\vdash$ takovou, že $\forall q_1, q_2 \in Q ~ \forall \gamma \in \Gamma^{\omega} ~ \forall n \in \mathbb{N} ~ \forall b \in \Gamma$: \begin{compactitem}
     \item $(q_1, \gamma, n) \vdash (q_2, \gamma, n + 1)$ pro $\delta(q_1, \gamma_n) = (q_2, R)$ -- operace posunu hlavy doprava při $\gamma_n$ po hlavou;
 
     \item $(q_1, \gamma, n) \vdash (q_2, \gamma, n - 1)$ pro $\delta(q_1, \gamma_n) = (q_2, L)$ -- operace posunu hlavy doleva při $\gamma_n$ po hlavou;
@@ -81,8 +81,8 @@
 
 Pro libovolný řetězec $\gamma \in \Gamma^{\omega}$ a číslo $n \in \mathbb{N}$ označme $\gamma_n$ n-tý symbol daného řetězce a označme $s_n^b(\gamma)$ řetězec, který vznikne z $\gamma$ záměnou $\gamma_n$ za $b$.
 
-\paragraph*{Jazyk přijímaný TS} \begin{compactitem}
-    \item Řetězec $w \in \Sigma^*$ je přijat TS $M = (Q, \Sigma, \Gamma, \delta, q_0, g_f)$, jesliže pro $M$ platí: $(q_0, \Delta \gamma \Delta^{\omega}, 0) \vdash^* (q_f, \gamma', n)$ pro nějaké $\gamma, \gamma' \in \Gamma^*$ a $n \in \mathbb{N}$.
+\paragraph*{Jazyk přijímaný} \begin{compactitem}
+    \item Řetězec $w \in \Sigma^*$ je přijat TS $M = (Q, \Sigma, \Gamma, \delta, q_0, g_f)$, jesliže pro $M$ platí:\break $(q_0, \Delta \gamma \Delta^{\omega}, 0) \vdash^* (q_f, \gamma', n)$ pro nějaké $\gamma, \gamma' \in \Gamma^*$ a $n \in \mathbb{N}$.
 
     \item Množinu $L(M) = \{ w ~|~ w \text{ je přijat TS } M \} \subseteq \Sigma^*$ nazýváme jazyk přijímaný TS $M$.
 \end{compactitem}
@@ -111,7 +111,11 @@ Vícepáskový TS má stejnou (rozhodovací) vyjadřovací sílu jako jednopásk
     \caption{Myšlenka převodu vícepáskového TS na jednopáskový.}
 \end{figure}
 
-\paragraph*{Definice} \todo{todo}
+\paragraph*{Definice} Vícepáskový TS se od TS liší tvarem přechodové funkce, disponuje více páskami a s každou může pracovat zároveň. Formálně:
+
+\begin{compactitem}
+    \item $\delta$ je přechodová funkce (parciální funkce). $$\delta : (Q - \{ q_f \} ) \times \Gamma_1 \times \ldots \times \Gamma_n \rightarrow Q \times ( \Gamma_1 \cup \{ L, R \} ) \times \ldots \times ( \Gamma_n \cup \{ L, R \} )$$
+\end{compactitem}
 
 \paragraph*{Příklad} Příklad vícepáskového TS.
 
@@ -130,7 +134,11 @@ stroje je následující: \begin{compactitem}
     \item Páska 3 obsahuje kódovanou volbu posloupností přechodů; při neúspěchu bude její obsah nahrazen jinou posloupností.
 \end{compactitem}
 
-\paragraph*{Definice} \todo{todo}
+\paragraph*{Definice} NTS se od TS liší tvarem přechodové funkce. Formálně:
+
+\begin{compactitem}
+    \item $\delta$ je přechodová funkce (parciální funkce). $$\delta : (Q - \{ q_f \}) \times \Gamma \rightarrow 2^{Q \times (\Gamma \cup \{ L, R \})}$$
+\end{compactitem}
 
 \paragraph*{Příklad} Příklad nedeterministického TS, kde nedeterminismus může přinést značné zjednodušení, je TS, který přijímá jazyk $L = \{ ww ~|~ w \in \Sigma^* \}$.
 

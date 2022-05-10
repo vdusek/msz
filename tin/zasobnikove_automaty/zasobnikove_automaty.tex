@@ -28,7 +28,7 @@
 
 Zásobníkové automaty dokáží přijímat bezkontextové jazyky.
 
-\paragraph{Zásobníkový automat} Zásobníkový automat (ZA) je sedmice $M = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$, kde \begin{compactitem}
+\paragraph{Definice} Zásobníkový automat (ZA) je sedmice $M = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$, kde \begin{compactitem}
     \item $Q$ je konečná množina stavů;
     \item $\Sigma$ je vstupní abeceda;
     \item $\Gamma$ je zásobníková abeceda;
@@ -46,17 +46,17 @@ Zásobníkové automaty dokáží přijímat bezkontextové jazyky.
     \end{compactitem}
 \end{compactitem}
 
-\paragraph{Konfigurace ZA} Konfigurace ZA je trojice $(q, w, \alpha) \in Q \times \Sigma^* \times \Gamma^*$, kde \begin{compactitem}
+\paragraph{Konfigurace} Konfigurace ZA je trojice $(q, w, \alpha) \in Q \times \Sigma^* \times \Gamma^*$, kde \begin{compactitem}
     \item $q$ je aktuální stav;
     \item $w$ je nezpracovaná část vstupního řetězce;
     \item $\alpha$ je obsah zásobníku.
 \end{compactitem}
 
-\paragraph{Počáteční konfigurace ZA} Počáteční konfigurace ZA je taková konfigurace $(q, w, \alpha)$, kde $w \in \Sigma^*$ je vstupní řetězec, $q \in Q$ je výchozí stav a $\alpha = Z \in \Gamma$ je výchozí symbol na zásobníku.
+\paragraph{Počáteční konfigurace} Počáteční konfigurace ZA je taková konfigurace $(q, w, \alpha)$, kde $w \in \Sigma^*$ je vstupní řetězec, $q \in Q$ je výchozí stav a $\alpha = Z \in \Gamma$ je výchozí symbol na zásobníku.
 
-\paragraph{Koncová konfigurace ZA} Koncová konfigurace ZA je taková konfigurace $(q, w, \alpha)$, kde $q \in F$, $w = \epsilon$ a $\alpha \in \Gamma^*$.
+\paragraph{Koncová konfigurace} Koncová konfigurace ZA je taková konfigurace $(q, w, \alpha)$, kde $q \in F$, $w = \epsilon$ a $\alpha \in \Gamma^*$.
 
-\paragraph{Přechod ZA} Přechod ZA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^* \times \Gamma^*)^2$, taková, že $$ (q, w, \alpha) \vdash (q', w', \alpha') \Leftrightarrow \exists a \in (\Sigma \cup \epsilon), ~ \exists Z \in \Gamma, ~ \exists \beta, \gamma \in \Gamma^* ~:~ $$
+\paragraph{Přechod} Přechod (krok výpočtu) ZA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^* \times \Gamma^*)^2$, taková, že $$ (q, w, \alpha) \vdash (q', w', \alpha') \Leftrightarrow \exists a \in (\Sigma \cup \epsilon), ~ \exists Z \in \Gamma, ~ \exists \beta, \gamma \in \Gamma^* ~:~ $$
 
 $$ ~:~ w = aw' \land \alpha = Z \beta \land \alpha' = \gamma \beta \land (q', \gamma) \in \delta(q, a, Z) $$
 
@@ -66,7 +66,7 @@ $$ ~:~ w = aw' \land \alpha = Z \beta \land \alpha' = \gamma \beta \land (q', \g
     \caption{Stav zásobníku během přechodu ZA. Platí $Z \in \Gamma,~ \alpha, \alpha', \beta, \gamma \in \Gamma^*$.}
 \end{figure}
 
-\paragraph{Jazyk přijímaný ZA} Mějme ZA $M = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$ a jazyk $L(M)$, který je přijímaný ZA $M$. $$ L(M) = \{ w ~|~ w \in \Sigma^* \land (q_0, w, Z_0) \vdash^* (q_f, \epsilon, \epsilon) \land q_f \in F \}$$ Avšak existují různé varianty. ZA může přijímat i v $q_f \in F$: pouze při vyprázdnění vstupu, nebo pouze při vyprázdnění zásobníku a nebo při vyprázdnění vstupu a vyprázdnění zásobníku.
+\paragraph{Jazyk přijímaný} Mějme ZA $M = (Q, \Sigma, \Gamma, \delta, q_0, Z_0, F)$ a jazyk $L(M)$, který je přijímaný ZA $M$. $$ L(M) = \{ w ~|~ w \in \Sigma^* \land (q_0, w, Z_0) \vdash^* (q_f, \epsilon, \epsilon) \land q_f \in F \}$$ Avšak existují různé varianty. ZA může přijímat i v $q_f \in F$: pouze při vyprázdnění vstupu, nebo pouze při vyprázdnění zásobníku a nebo při vyprázdnění vstupu a vyprázdnění zásobníku.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
