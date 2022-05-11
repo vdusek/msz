@@ -25,6 +25,7 @@
     \item \path{TIN_2020-09-29.mp4}
     \item \path{TIN_2020-10-06.mp4}
     \item \path{TIN_2020-10-13.mp4}
+    \item \url{https://petrzemek.net/publications}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -147,8 +148,14 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
     \end{compactitem}
 
     \item Příklad jazyků: \begin{compactitem}
-        \item $\{ ww^R ~|~ w \in \{a,b\}^+ \} \in \mathcal{L}_{2} \setminus \mathcal{L}_{DCF}$
         \item $\{ a^n b^n ~|~ n \geq 1 \} \in \mathcal{L}_{DCF} \setminus \mathcal{L}_3$
+
+        \item $\{ w ~|~ w \in \{a, b\}^* \land \#_a(w) = \#_b(w) \} \in \mathcal{L}_{DCF} \setminus \mathcal{L}_3$
+
+        \item $\{ ww^R ~|~ w \in \{a,b\}^+ \} \in \mathcal{L}_{2} \setminus \mathcal{L}_{DCF}$
+
+        \item $\{ a^i b^j c^k ~|~ i = j \lor j = k \} \in \mathcal{L}_{2} \setminus \mathcal{L}_{DCF}$
+
     \end{compactitem}
 
 \end{compactitem}
@@ -180,7 +187,7 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Uzavřenost operací formálních jazyků}
+\section{Vlastnosti formálních jazyků a jejich rozhodnutelnost}
 
 \begin{compactitem}
     \item Které vlastnosti jazyků, resp. tříd jazyků, zkoumáme? \begin{compactitem}
@@ -190,16 +197,40 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
     \end{compactitem}
 \end{compactitem}
 
-\paragraph*{Operace nad jazyky} \begin{compactitem}
+\subsection*{Operace nad jazyky}
+
+\begin{compactitem}
     \item Základní množinové operace~--~sjednocení, průnik, doplněk.
 
     \item Základní jazykové operace~--~konkatenace, iterace, reverzace.
 
-    \item Substituce~--~\todo{todo}.
+    \item Substituce \begin{compactitem}
+        \item Nechť $\Sigma$ a $\Gamma$ jsou abecedy. Funce $\sigma : \Sigma^* \rightarrow 2^{\Gamma^*}$ se nazývá substituce právě tehdy, když \begin{compactitem}
+            \item $\sigma(\epsilon) = \epsilon$
+            \item $\forall x, y \in \Sigma^* ~:~ \sigma(xy) = \sigma(x) \sigma(y)$
+        \end{compactitem}
+        \item Neformálně řečeno, každý symbol vstupního řetězce je nahrazen množinou řetězců.
+        \item Příklad: \begin{compactitem}
+            \item Substituce: $\sigma(a) = \{0, 00\}$, $\sigma(b) = \{1, 111, 1110\}$
+            \item Aplikace: $\sigma(ab) = \{0, 00\}\{1, 111, 1110\} = \{ 01, 0111, 01110, 001, 00111, 001110 \}$
+        \end{compactitem}
+    \end{compactitem}
 
-    \item Morfismus~--~\todo{todo}.
+    \item Morfismus \begin{compactitem}
+        \item Nechť $\Sigma$ a $\Gamma$ jsou abecedy. Funce $\phi : \Sigma^* \rightarrow \Gamma^*$ se nazývá morfismus právě tehdy, když \begin{compactitem}
+            \item $\phi(\epsilon) = \epsilon$
+            \item $\forall x, y \in \Sigma^* ~:~ \phi(xy) = \phi(x) \phi(y)$
+        \end{compactitem}
+        \item Neformálně řečeno, morfismus je zvláštní případ substitutce, kde každý substituovaný jazyk má právě jedno slovo.
+        \item Příklad: \begin{compactitem}
+            \item Morfismus: $\phi(a) = 00$, $\phi(b) = 01$, $\phi(c) = 10$
+            \item Aplikace: $\phi(abac) = \phi(a) $
+        \end{compactitem}
+    \end{compactitem}
 
-    \item Inverzní morfismus~--~\todo{todo}
+    \item Inverzní morfismus \begin{compactitem}
+        \item todo.
+    \end{compactitem}
 \end{compactitem}
 
 \begin{figure}[H]
@@ -208,75 +239,18 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
     \caption{Uzavřenost jednotlivých tříd jazyků vůči operacím.}
 \end{figure}
 
-\subsection{Uzávěrové vlastnosti regulárních jazyků}
-
-\paragraph*{Sjednocení, průnik, doplněk, iterace, konkatenace} \begin{compactitem}
-    \item Uzavřenost regulárních jazyků vůči operacím sjednocení, průnik, doplněk, iterace a konkatenace vyplývá z definice regulárních výrazů, resp. regulárních množin a ekvivalence regulárních množin a regulárních jazyků (\textit{viz otázka regulární výrazy}). \begin{compactitem}
-        \item Alternativně např. pro sjednocení (pro ostatní operace je to analogické). Mějme regulární jazyky $L_1$ a $L_2$. Pak musí existovat KA $M_1$ a $M_2$, které je přijímají. Pokud jazyk $L_3 = L_1 \cup L_2$ je regulární, pak musí existovat KA $M_3 = M_1 \cup M_2$, který ho přijímá. % todo, toto neni presny
+\begin{compactitem}
+    \item Vzhledem k de Morganovým zákonům: $$L_1 \cap L_2 = \overline{\overline{L_1 \cap L_2}} = \overline{\overline{L_1} \cup \overline{L_2}}$$ pro operace průnik, sjednoceni a doplněk platí, že libovolná jazyková třída je uzavřena buď na \begin{compactitem}
+        \item doplněk
+        \item a nebo na všechny tři.
     \end{compactitem}
+
+    \item Proč? Neformálně: ze dvou těch operací jsem schopen udělat tu třetí.
 \end{compactitem}
 
-\paragraph*{Doplněk ($co$)} Nechť $L \subseteq \Sigma^*$ je regulární jazyk. Nechť $M = (Q, \Sigma, \delta, q_0, F)$ je úplně definovaný KA, pro který platí $L = M(L)$. Pak KA $M' = (Q, \Sigma, \delta, q_0, Q - F)$ zřejmě přijímá jazyk $L_{co} = \Sigma^* - L$, tj. doplněk jazyka $L$.
-
-\paragraph*{Průnik} Uzavřenost vzhledem k průniku plyne z de Morganových zákonů: $$L_1 \cap L_2 = \overline{\overline{L_1 \cap L_2}} = \overline{\overline{L_1} \cup \overline{L_2}}$$ a tedy $L_1, L_2 \in \mathcal{L}_3 \Leftrightarrow L_1 \cap L_2 \in \mathcal{L}_3$
-
-\subsection{Uzávěrové vlastnosti bezkontextových jazyků}
-
-\todo{todo}
-
-\subsection{Uzávěrové vlastnosti kontextových jazyků}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{uzaverove_vlastnosti_L1.pdf}
-    \caption{Uzávěrové vlastnosti $\mathcal{L}_1$.}
-\end{figure}
-
-\subsection{Uzávěrové vlastnosti obecných jazyků}
+\subsection*{Problémy nad jazyky}
 
 \begin{compactitem}
-    \item Zkoumáme pro rekurzivně vyčíslitelné $\mathcal{L}_{RE}$ a rekurzivní $\mathcal{L}_{Rec}$ zároveň.
-\end{compactitem}
-
-% \paragraph*{Sjednocení} Sjednocení dvou obecných jazyků je uzavřená operace. Oba obecné jazyky jsou přijímány nějakým TS $M_1$ a $M_2$. Sestrojíme nový NTS $M_{L_1 \cup L_2}$ tak, že sjednotíme po složkách stroje $M_1$ a $M_2$, zavedeme nový počáteční stav, z něj nedeterministické přechody přes $\Delta / \Delta$ do obou původních počátečních stavů a sloučíme původní koncové stavy do jediného nového koncového stavu.
-
-% \paragraph*{Průnik} Průnik dvou obecných jazyků je uzavřená operace. Oba obecné jazyky jsou přijímány nějakým TS $M_1$ a $M_2$. Sestrojíme nový třípáskový NTS $M_{L_1 \cap L_2}$, okopíruje vstup z první pásky na druhou, na ní simuluje stroj $M_1$, pokud ten přijme, okopíruje vstup z první pásky na třetí, na ní simuluje stroj $M_2$, pokud i ten přijme, přijme i stroj $M_{L_1 \cap L_2}$.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{uzaverove_vlasnosti_L0_01.pdf}
-    \caption{Uzávěrové vlastnosti $\mathcal{L}_0$.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{uzaverove_vlasnosti_L0_02.pdf}
-    \caption{Uzávěrové vlastnosti $\mathcal{L}_0$.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{uzaverove_vlasnosti_L0_03.pdf}
-    \caption{Uzávěrové vlastnosti $\mathcal{L}_0$.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{uzaverove_vlasnosti_L0_04.pdf}
-    \caption{Uzávěrové vlastnosti $\mathcal{L}_0$.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{uzaverove_vlasnosti_L0_05.pdf}
-    \caption{Uzávěrové vlastnosti $\mathcal{L}_0$.}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Rozhodnutelnost problémů formálních jazyků}
-
-\paragraph*{Problémy nad jazyky} \begin{compactitem}
     \item Náležitost / nenáležitost jazyka do třídy jazyků.
 
     \item Neprázdnost jazyka~--~Jazyk je neprázdný, pokud obsahuje aspoň 1 řetězec.
@@ -291,7 +265,7 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
 
     \item Inkluze jazyků~--~Jazyk $L_1$ je inkluzí jazyka $L_2$, pokud je jazyk $L_1$ podmnožinou jazyka $L_2$.
 
-    \item Ekvivalence gramatik~--~Gramatiky $G_1$ a $G_2$ jsou ekvivalentní, pokud platí, že\break $L(G_1) = L(G_2)$. $G_1$ a $G_2$ mohou být různé.
+    \item Ekvivalence gramatik~--~Gramatiky $G_1$ a $G_2$ jsou ekvivalentní, pokud platí, že\break $L(G_1) = L(G_2)$ ($G_1$ a $G_2$ mohou být různé).
 \end{compactitem}
 
 \begin{figure}[H]
@@ -300,9 +274,31 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
     \caption{Rozhodnutelnost problémů v jednotlivých třídách jazyků.}
 \end{figure}
 
-\subsection{Rozhodnutelnost problémů regulárních jazyků}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\paragraph*{Regulárnost} \begin{compactitem}
+\section{Vlastnosti regulárních jazyků}
+
+Uzávěrové vlastnosti a rozhodnutelnost problémů regulárních jazyků.
+
+\subsection{Sjednocení, průnik, doplněk, iterace, konkatenace}
+
+\begin{compactitem}
+    \item Uzavřenost regulárních jazyků vůči operacím sjednocení, průnik, doplněk, iterace a konkatenace vyplývá z definice regulárních výrazů, resp. regulárních množin a ekvivalence regulárních množin a regulárních jazyků (\textit{viz otázka regulární výrazy}). \begin{compactitem}
+        \item Alternativně např. pro sjednocení (pro ostatní operace je to analogické). Mějme regulární jazyky $L_1$ a $L_2$. Pak musí existovat KA $M_1$ a $M_2$, které je přijímají. Pokud jazyk $L_3 = L_1 \cup L_2$ je regulární, pak musí existovat KA $M_3 = M_1 \cup M_2$, který ho přijímá. % todo, toto neni presny
+    \end{compactitem}
+\end{compactitem}
+
+\subsection{Doplněk ($co$)}
+
+Nechť $L \subseteq \Sigma^*$ je regulární jazyk. Nechť $M = (Q, \Sigma, \delta, q_0, F)$ je úplně definovaný KA, pro který platí $L = M(L)$. Pak KA $M' = (Q, \Sigma, \delta, q_0, Q - F)$ zřejmě přijímá jazyk $L_{co} = \Sigma^* - L$, tj. doplněk jazyka $L$.
+
+\subsection{Průnik}
+
+Uzavřenost vzhledem k průniku plyne z de Morganových zákonů: $$L_1 \cap L_2 = \overline{\overline{L_1 \cap L_2}} = \overline{\overline{L_1} \cup \overline{L_2}}$$ a tedy $L_1, L_2 \in \mathcal{L}_3 \Leftrightarrow L_1 \cap L_2 \in \mathcal{L}_3$
+
+\subsection{Regulárnost}
+
+\begin{compactitem}
     \item Nechť $L \subseteq \Sigma^*$, jak řešit problém: $L \in \mathcal{L}_3$? \begin{compactitem}
 
         \item Dokážeme existenci takového KA $M$, pro který platí $L(M) = L$.
@@ -311,7 +307,9 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
     \end{compactitem}
 \end{compactitem}
 
-\paragraph*{Neregulárnost} \begin{compactitem}
+\subsection{Neregulárnost}
+
+\begin{compactitem}
     \item Nechť $L \subseteq \Sigma^*$, jak řešit problém: $L \not\in \mathcal{L}_3$? \begin{compactitem}
 
         \item S využitím Pumping Lemma pro regulární jazyky.
@@ -320,27 +318,162 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
     \end{compactitem}
 \end{compactitem}
 
-\paragraph*{Prázdnost/neprázdnost} Problém je rozhodnutelný. Můžu sestrojit algoritmus, který pro $\forall w \in \Sigma^*$ zkusí, zda řetězec je přijímaný konečným automatem nebo není (problém dosažitelnosti konečného stavu z vychozího v grafu). Formálně: K jazyku $L \in \mathcal{L}_3$ sestrojíme úplně definovaný DKA $M$, takový, že $L = L(M)$, pak $$ L(M) \not= \emptyset \Leftrightarrow \exists q \in Q ~:~ (q \in F \land \text{q je dosažitelný z } q_0)$$
+\subsection{Prázdnost/neprázdnost}
 
-\paragraph*{Univerzalita} Problém je rozhodnutelný. K jazyku $L \in \mathcal{L}_3$ sestrojíme úplně definovaný DKA $M$, takový, že $L = L(M)$, pak $$ L(M) = \Sigma^* \Leftrightarrow \forall q \in Q ~:~ (q \in F ~\lor~ q \text{ je nedosažitelný z } q_0 )$$
+Problém je rozhodnutelný. Můžu sestrojit algoritmus, který vyzkouší, zda je možné, se nějak dostat z výchozího stavu do nějakého konečného (problém dosažitelnosti v grafu). Formálně: K jazyku $L \in \mathcal{L}_3$ sestrojíme úplně definovaný DKA $M$, takový, že $L = L(M)$, pak $$ L(M) \not= \emptyset \Leftrightarrow \exists q \in Q ~:~ (q \in F \land \text{q je dosažitelný z } q_0)$$
 
-\paragraph*{Náležitost} Problém je rozhodnutelný. K jazyku $L \in \mathcal{L}_3$ sestrojíme úplně definovaný DKA $M$, takový, že $L = L(M)$, pak $$ w \in L \Leftrightarrow (q_0, w) \vdash^* (q, \epsilon) \land q \in F $$
+\subsection{Univerzalita}
 
-\paragraph*{Ekvivalence jazyků} Problém je rozhodnutelný. K jazyku $L_1, L_2 \in \mathcal{L}_3$ sestrojíme úplně definovaný DKA $M_1, M_2$, takový, že $L_1 = L(M_1)$ a $L_2 = L(M_2)$. Automaty $M_1, M_2$ minimalizujeme a porovnáme jejich struktury (ignorujeme identifikátory stavů).
+Problém je rozhodnutelný. K jazyku $L \in \mathcal{L}_3$ sestrojíme úplně definovaný DKA $M$, takový, že $L = L(M)$, pak $$ L(M) = \Sigma^* \Leftrightarrow \forall q \in Q ~:~ (q \in F ~\lor~ q \text{ je nedosažitelný z } q_0 )$$
 
-\subsection{Rozhodnutelnost problémů bezkontextových jazyků}
+\subsection{Náležitost}
 
-\todo{todo}
+Problém je rozhodnutelný. K jazyku $L \in \mathcal{L}_3$ sestrojíme úplně definovaný DKA $M$, takový, že $L = L(M)$, pak $$ w \in L \Leftrightarrow (q_0, w) \vdash^* (q, \epsilon) \land q \in F $$
 
-\subsection{Rozhodnutelnost problémů kontextových jazyků}
+\subsection{Ekvivalence jazyků}
 
-\todo{todo}
+Problém je rozhodnutelný. K jazyku $L_1, L_2 \in \mathcal{L}_3$ sestrojíme úplně definovaný DKA $M_1, M_2$, takový, že $L_1 = L(M_1)$ a $L_2 = L(M_2)$. Automaty $M_1, M_2$ minimalizujeme a porovnáme jejich struktury (ignorujeme identifikátory stavů).
 
-\subsection{Rozhodnutelnost problémů obecných jazyků}
+\subsection{Konečnost}
 
-\todo{todo}
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Vlastnosti bezkontextových jazyků}
+
+Uzávěrové vlastnosti a rozhodnutelnost problémů bezkontextových jazyků.
+
+\subsection{Substituce}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{uzaverove_vlastnosti_L2_01.pdf}
+\end{figure}
+
+\subsection{Sjednocení, konkatenace, iterace, pozitivní iterace, morfismus}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{uzaverove_vlastnosti_L2_02.pdf}
+\end{figure}
+
+\subsection{Průnik}
+
+\begin{compactitem}
+    \item Bezkontextové jazyky nejsou uzavřeny vůči průniku, protipříklad:
+    $$ L_1 = \{ a^n, b^n, c^m ~|~ n, m \geq 1 \} \in \mathcal{L}_2$$
+    $$ L_2 = \{ a^m, b^n, c^n ~|~ n, m \geq 1 \} \in \mathcal{L}_2$$
+    $$ L_1 \cap L_2 = \{ a^n, b^n, c^n ~|~ n \geq 1 \}  \not\in \mathcal{L}_2$$
+\end{compactitem}
+
+\subsection{Doplněk}
+
+\begin{compactitem}
+    \item Bezkontextové jazyky nejsou uzavřeny vůči doplňku.
+
+    \item Předpokládejme, že bezkontextové jazyky jsou uzavřeny vůči doplňku. Potom z uzavřenosti vůči sjednocení a de Morganových zákonů: $$L_1 \cap L_2 = \overline{\overline{L_1 \cap L_2}} = \overline{\overline{L_1} \cup \overline{L_2}}$$ vyplývá uzavřenost vůči průniku. Což je spor.
+\end{compactitem}
+
+\subsection{Bezkontextovost}
+
+\begin{compactitem}
+    \item Nechť $L \subseteq \Sigma^*$, jak řešit problém: $L \in \mathcal{L}_2$? \begin{compactitem}
+
+        \item Dokážeme existenci takového NZA $M$, pro který platí $L(M) = L$.
+
+    \end{compactitem}
+\end{compactitem}
+
+\subsection{Nebezkontextovost}
+
+\begin{compactitem}
+    \item Nechť $L \subseteq \Sigma^*$, jak řešit problém: $L \not\in \mathcal{L}_3$? \begin{compactitem}
+
+        \item S využitím Pumping Lemma pro bezkontextové jazyky.
+
+    \end{compactitem}
+\end{compactitem}
+
+\subsection{Prázdnost/neprázdnost}
+
+Zásobníkový automat je příliš komplexní model pro řešení takovýchto problémů, radši budeme vycházet z bezkontextových gramatik. K rozhodování neprázdnosti lze využít algoritmus iterativně určující množinu $N_t$ nonterminálů generujících terminální řetězce (viz přednášky). Pak $L(G) \not= \emptyset \Leftrightarrow S \in N_t$.
+
+\subsection{Náležitost}
+
+U problému příslušnosti řetězce můžeme např. určit průnik NZA s KA přijímajícím právě řetězec $w$ a pak ověřit neprázdnost (převod na gramatiku, problém prázdnosti gramatiky umíme řešit).
+
+\subsection{Konečnost}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{uzaverove_vlastnosti_L2_03.pdf}
+\end{figure}
+
+\subsection{Ekvivalence jazyků}
+
+\begin{compactitem}
+    \item Nerozhodnutelný problém, dokonce i sama inkluze je nerozhodnutelná.
+    \item Důkaz redukcí, komplikovanější.
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Vlastnosti kontextových jazyků}
+
+Uzávěrové vlastnosti a rozhodnutelnost problémů kontextových jazyků.
+
+\subsection{Sjednocení, průnik, konkatenace, iterace, komplement}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{uzaverove_vlastnosti_L1.pdf}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Vlastnosti obecných jazyků}
+
+Uzávěrové vlastnosti a rozhodnutelnost problémů obecných jazyků.
+
+\begin{compactitem}
+    \item Zkoumáme pro rekurzivně vyčíslitelné $\mathcal{L}_{RE}$ a rekurzivní $\mathcal{L}_{Rec}$ zároveň.
+\end{compactitem}
+
+% \paragraph*{Sjednocení} Sjednocení dvou obecných jazyků je uzavřená operace. Oba obecné jazyky jsou přijímány nějakým TS $M_1$ a $M_2$. Sestrojíme nový NTS $M_{L_1 \cup L_2}$ tak, že sjednotíme po složkách stroje $M_1$ a $M_2$, zavedeme nový počáteční stav, z něj nedeterministické přechody přes $\Delta / \Delta$ do obou původních počátečních stavů a sloučíme původní koncové stavy do jediného nového koncového stavu.
+
+% \paragraph*{Průnik} Průnik dvou obecných jazyků je uzavřená operace. Oba obecné jazyky jsou přijímány nějakým TS $M_1$ a $M_2$. Sestrojíme nový třípáskový NTS $M_{L_1 \cap L_2}$, okopíruje vstup z první pásky na druhou, na ní simuluje stroj $M_1$, pokud ten přijme, okopíruje vstup z první pásky na třetí, na ní simuluje stroj $M_2$, pokud i ten přijme, přijme i stroj $M_{L_1 \cap L_2}$.
+
+\subsection{Sjednocení, průnik, konkatenace, iterace}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{uzaverove_vlasnosti_L0_01.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{uzaverove_vlasnosti_L0_02.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{uzaverove_vlasnosti_L0_03.pdf}
+\end{figure}
+
+\subsection{Doplněk}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{uzaverove_vlasnosti_L0_04.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{uzaverove_vlasnosti_L0_05.pdf}
+\end{figure}
 
 % - Jak ukazu, ze jazyk je bezkontextovy? Dokazu existenci takovyho ZA, ktery ho prijima.
 % - Jak ukazu, ze jazyk neni bezkontextovy? PL
