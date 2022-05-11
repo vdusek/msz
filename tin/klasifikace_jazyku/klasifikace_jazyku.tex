@@ -123,6 +123,10 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
         \item Nedeterministický LOA je NTS s lineárně omezenou páskou v závislosti na délce vstupního řetězce.
         \item Není známo, zda deterministický LOA disponuje stejnou vyjadřovací sílou jako nedeterministický LOA.
     \end{compactitem}
+
+    \item Příklad jazyků: \begin{compactitem}
+        \item $\{ a^n b^n c^n ~|~ n \geq 10 \} \in \mathcal{L}_1 \setminus \mathcal{L}_2$
+    \end{compactitem}
 \end{compactitem}
 
 \paragraph*{Typ 2 (bezkontextové gramatiky)} \begin{compactitem}
@@ -141,6 +145,12 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
         \item Platí $\mathcal{L}_2 \supset \mathcal{L}_{DCF} \supset \mathcal{L}_3$.
         \item Jsou přijímány deterministickým ZA a deterministickým rozšířeným ZA. \todo{todo: ověřit}
     \end{compactitem}
+
+    \item Příklad jazyků: \begin{compactitem}
+        \item $\{ ww^R ~|~ w \in \{a,b\}^+ \} \in \mathcal{L}_{2} \setminus \mathcal{L}_{DCF}$
+        \item $\{ a^n b^n ~|~ n \geq 1 \} \in \mathcal{L}_{DCF} \setminus \mathcal{L}_3$
+    \end{compactitem}
+
 \end{compactitem}
 
 \paragraph*{Typ 3 (regulární gramatiky)} \begin{compactitem}
@@ -161,6 +171,11 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
     \end{compactitem}
 
     \item Třída konečných jazyků $\mathcal{L}_{Fin}$ je podmnožinou regulárních jazyků, platí $\mathcal{L}_{Fin} \subset \mathcal{L}_3$.
+
+    \item Příklad jazyků: \begin{compactitem}
+        \item $\{ a^n b^m ~|~ n \geq 10 \land m \leq 20 \} \in \mathcal{L}_{3} \setminus \mathcal{L}_{Fin}$
+        \item $\{ abc \} \in \mathcal{L}_{Fin}$
+    \end{compactitem}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -262,6 +277,8 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
 \section{Rozhodnutelnost problémů formálních jazyků}
 
 \paragraph*{Problémy nad jazyky} \begin{compactitem}
+    \item Náležitost / nenáležitost jazyka do třídy jazyků.
+
     \item Neprázdnost jazyka~--~Jazyk je neprázdný, pokud obsahuje aspoň 1 řetězec.
 
     \item Prázdnost jazyka~--~Jazyk je prázdný, pokud neobsahuje žádný řetězec.

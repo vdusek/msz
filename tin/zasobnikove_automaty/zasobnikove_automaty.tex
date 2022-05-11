@@ -76,8 +76,6 @@ Zde je změna oproti konečným automatům. Všechny varianty zásobníkového a
 
 \subsection{Nedeterministický zásobníkový automat} Nedeterministický zásobníkový automat (NZA) je výchozí zásobníkový automat (NZA = ZA).
 
-\paragraph*{Příklad} \todo{todo}
-
 \subsection{Rozšířený zásobníkový automat}
 
 Rozšířený (nedeterministický) zásobníkový automat (RNZA) disponuje stejnou vyjadřovací sílou jako NZA (jsou mezi sebou převoditelné).
@@ -90,7 +88,9 @@ Rozšířený (nedeterministický) zásobníkový automat (RNZA) disponuje stejn
     \end{compactitem}
 \end{compactitem}
 
-\textbf{Konfigurace} RNZA a NZA jsou shodné. \textbf{Přechod} se liší díky jinému tvaru přechodové funkce. Formálně: Přechod RNZA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^* \times \Gamma^*)^2$, taková, že $$ (q, w, \alpha) \vdash (q', w', \alpha') \Leftrightarrow \exists a \in (\Sigma \cup \epsilon), ~ \exists \beta, \gamma, \gamma' \in \Gamma^* ~:~ $$
+\paragraph*{Konfigurace, přechod} Konfigurace RNZA a NZA jsou shodné. Přechod se liší díky jinému tvaru přechodové funkce. Formálně: Přechod RNZA je binární relace (značíme $\vdash$) na množině konfigurací $\vdash ~ \subseteq (Q \times \Sigma^* \times \Gamma^*)^2$, taková, že
+
+$$ (q, w, \alpha) \vdash (q', w', \alpha') \Leftrightarrow \exists a \in (\Sigma \cup \epsilon), ~ \exists \beta, \gamma, \gamma' \in \Gamma^* ~:~ $$
 
 $$ ~:~ w = aw' \land \alpha = \gamma \beta \land \alpha' = \gamma' \beta \land (q', \gamma') \in \delta(q, a, \gamma) $$
 
@@ -100,11 +100,52 @@ $$ ~:~ w = aw' \land \alpha = \gamma \beta \land \alpha' = \gamma' \beta \land (
     \caption{Stav zásobníku během přechodu RNZA. Platí $\alpha, \alpha', \beta, \gamma, \gamma' \in \Gamma^*$.}
 \end{figure}
 
+\paragraph*{Příklad} Příklad RNZA, který přijímá jazyk $L = \{ ww^R ~|~ w \in \{a,b\}^+ \}$. Platí $L \in \mathcal{L}_{2} \setminus \mathcal{L}_{DCF}$.
+
+\begin{figure}[H]
+    \centering
+    \begin{tikzpicture}[scale=0.2]
+        \tikzstyle{every node}+=[inner sep=0pt]
+        \draw [black] (23,-25) circle (4.7);
+        \draw (23,-25) node {$q$};
+        \draw [black] (54.4,-25) circle (4.7);
+        \draw (54.4,-25) node {$p$};
+        \draw [black] (54.4,-25) circle (4.1);
+        \draw [black] (10.8,-25) -- (18.3,-25);
+        \draw (10.3,-25) node [left] {$Z$};
+        \fill [black] (18.3,-25) -- (17.5,-24.5) -- (17.5,-25.5);
+        \draw [black] (18.683,-23.188) arc (274.95536:-13.04464:3.525);
+        \draw (13.47,-16.52) node [above] {$a,\mbox{ }\epsilon/a$};
+        \fill [black] (21.81,-20.47) -- (22.24,-19.63) -- (21.25,-19.72);
+        \draw [black] (20.928,-20.802) arc (234:-54:3.525);
+        \draw (23,-13.93) node [above] {$b,\mbox{ }\epsilon/b$};
+        \fill [black] (25.07,-20.8) -- (25.95,-20.45) -- (25.14,-19.86);
+        \draw [black] (24.239,-20.485) arc (192.38414:-95.61586:3.525);
+        \draw (32.71,-16.61) node [above] {$\epsilon,\mbox{ }\epsilon/S$};
+        \fill [black] (27.34,-23.24) -- (28.23,-23.55) -- (28.01,-22.58);
+        \draw [black] (26.557,-28.044) arc (77.1727:-210.8273:3.525);
+        \draw (30.75,-35.27) node [below] {$\epsilon,\mbox{ }aSa/S$};
+        \fill [black] (22.75,-29.67) -- (22.08,-30.34) -- (23.06,-30.57);
+        \draw [black] (23.521,-29.653) arc (34.12774:-253.87226:3.525);
+        \draw (15.88,-35.55) node [below] {$\epsilon,\mbox{ }bSb/S$};
+        \fill [black] (19.62,-28.24) -- (18.68,-28.28) -- (19.24,-29.11);
+        \draw [black] (27.7,-25) -- (49.7,-25);
+        \fill [black] (49.7,-25) -- (48.9,-24.5) -- (48.9,-25.5);
+        \draw (38.7,-25.5) node [below] {$\epsilon,\mbox{ }SZ/\epsilon$};
+    \end{tikzpicture}
+    \caption{Příklad rozšířeného zásobníkového automatu.}
+\end{figure}
+
 \subsection{Deterministický zásobníkový automat}
 
 Deterministický zásobníkový automat (DZA) disponuje menší vyjadřovací sílou než NZA (resp. RNZA). Jazyky přijímané DZA označujeme jako deterministické bezkontextové jazyky ($\mathcal{L}_{DCF}$). Formálně: $\mathcal{L}_{DCF} \subset \mathcal{L}_2$ a tedy $\exists L \in \mathcal{L}_2 : L \not\in \mathcal{L}_{DCF}$.
 
-\paragraph*{Definice} Zdroj nedeterminismu v NZA je volba znaku $a \in ( \Sigma \cup \{ \epsilon \} )$ při přechodu do další konfigurace. DZA se od NZA liší tvarem přechodové funkce, formálně:
+\paragraph*{Zdroje nedeterminismu NZA} \begin{compactitem}
+    \item volba dalšího stavu z množiny stavů ($q \in 2^{Q \times \Gamma^*}$),
+    \item rozhodnutí, zda číst další znak ze vstupu ($a \in ( \Sigma \cup \{ \epsilon \} )$).
+\end{compactitem}
+
+\paragraph*{Definice} Formálně:
 
 $$ \forall q \in Q ~ \forall a \in \Sigma ~ \forall Z \in \Gamma ~:~ $$
 
@@ -112,9 +153,7 @@ $$ ~:~ ( ~ |\delta(q, a, Z)| \leq 1 ~\land~ | \delta(q, \epsilon, Z)| = 0 ) ~ \l
 
 $$ \lor ~ ( ~ |\delta(q, a, Z)| = 0 ~\land~ | \delta(q, \epsilon, Z)| \leq 1 ) $$
 
-\paragraph*{Příklad} Příklad jazyka, který patří do $\mathcal{L}_{DCF}$, ale nepatří do $\mathcal{L}_{3}$.
-
-$$L = a^n b^n ~;~ n \geq 0$$
+\paragraph*{Příklad} Příklad DZA, který přijímá jazyk $L = \{ a^n b^n ~|~ n \geq 0 \}$. Platí $L \in \mathcal{L}_{DCF} \setminus \mathcal{L}_3$.
 
 \begin{figure}[H]
     \centering
@@ -154,4 +193,8 @@ $$L = a^n b^n ~;~ n \geq 0$$
 
 \subsection{Deterministický rozšířený zásobníkový automat}
 
-RNZA obsahuje více zdrojů nedeterminismu než NZA. Kromě možnosti volby $a \in ( \Sigma \cup \{ \epsilon \} )$ je to také volba $ \gamma \in \Gamma^* $. Tedy kolik znaků ze zásobníku bude zkonzumováno. \todo{todo}
+\paragraph*{Zdroje nedeterminismu RNZA} \begin{compactitem}
+    \item volba dalšího stavu z množiny stavů ($q \in 2^{Q \times \Gamma^*}$),
+    \item rozhodnutí, zda číst další znak ze vstupu ($a \in ( \Sigma \cup \{ \epsilon \} )$),
+    \item rozhodnutí, kolik znaků číst ze zásobníku ($ \gamma \in \Gamma^*$).
+\end{compactitem}
