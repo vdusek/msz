@@ -100,30 +100,112 @@ $$ coHP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{TS M na vstupu w n
 \paragraph*{Problém náležitosti} \begin{compactitem}
     \item Problém náležitosti řetězce $w$ do jazyka $L$, $L \in \mathcal{L}_0$ (MP, \textit{Membership Problem}).
 
-    \item Neformálně: Znáte-li TS a jeho vstup, rozhodněte, zda TS daný vstup přijme (zastaví a akceptuje) a nebo nepřijme (zastaví a neakceptuje, zastaví abnormálně, nezastaví).
+    \item Neformálně: Znáte-li TS a jeho vstup, rozhodněte, zda TS daný vstup přijme (zastaví a akceptuje) a nebo nepřijme (zastaví a neakceptuje, zastaví abnormálně, nezastaví). \begin{compactitem}
+        \item Jde o podobný případ jako problém zastavení TS, pouze obsahuje krok navíc.
+    \end{compactitem}
 
     \item Problém není rozhodnutelný, ale je částečně rozhodnutelný.
 \end{compactitem}
 
 $$ MP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{M je TS, který akceptuje řetězec w} \} $$
 
+\paragraph*{Problém nenáležitosti} \begin{compactitem}
+    \item Problém nenáležitosti řetězce $w$ do jazyka $L$, $L \in \mathcal{L}_0$ (coMP, \textit{Non-Membership Problem}).
+
+    \item Neformálně: Znáte-li TS a jeho vstup, rozhodněte, zda TS daný vstup nepřijme (zastaví a neakceptuje, zastaví abnormálně, nezastaví) a nebo přijme (zastaví a akceptuje).
+
+    \item \todo{Problém není ani částečně rozhodnutelný.}
+\end{compactitem}
+
+$$ coMP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{M je TS, který neakceptuje řetězec w} \} $$
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Diagonalizace}
 
-Spočetné -- umím spočítat a uspořádat. Existuje bijekce mezi množinou N a každou spočetnou množinou. Dokážu namapovat.
+\begin{compactitem}
+    \item Diagonalizace (Cantorova diagonální metoda) je důkázová technika sporem, která slouží k porovnání mohutnosti dvou množin (zejména dvou nekonečných množin).
 
-Jazyků je nespočetně mnoho.
+    \item Spočetné nekonečno: \begin{compactitem}
+        \item Dokážeme \uv{spočítat} a uspořádat.
+        \item Existuje bijekce mezi množinou $\mathbb{N}$ a každou spočetně nekonečnou množinou.
+    \end{compactitem}
 
-Ale všech možný programů (TS) je spočetně mnoho, proč? Protože kódování TS je možné interpretovat jako přirozené číslo. A těch je spočetně mnoho.
+    \item Nespočetné nekonečno: \begin{compactitem}
+        \item Nedokážeme \uv{spočítat} a uspořádat.
+        \item Neexistuje bijekce mezi množinou $\mathbb{N}$ a žádnou nespočetně nekonečnou množinou.
+    \end{compactitem}
+\end{compactitem}
 
-\todo{todo}
+\subsection*{Příklad 1: dokažte, že $\mathbb{R}$ je větší než $\mathbb{N}$}
 
-todo dukaz Existence jazyků mimo třídu 0
+\begin{compactitem}
+    \item Zřejmě platí, že pokud podmnožiny množiny je nespočetná, tak i množina je nespočetná. \begin{compactitem}
+        \item Z toho vyplývá, že stačí dokázat že libovolná podmnožina $M \subseteq \mathbb{R}$ je nespočetná.
+        \item Vybereme množinu $M = (0, 1)$.
+    \end{compactitem}
 
-K porovnávání mohutnosti dvou množin
+    \item Předpokládejme, že $M$ je spočetná množina, pak existuje bijekce $f : \mathbb{N} \leftrightarrow M$.
 
-Technika důkazu, že nějaký problém není rozhodnutelný (částečně rozhodnutelný)
+    \item Uspořádejme $M$ do libovolné posloupnosti a zobrazme $f$ jako nekonečnou matici.
+
+    \begin{table}[H]
+        \begin{tabular}{l|llll}
+            & 1. desetinná pozice & 2. desetinná pozice & 3. desetinná pozice & \dots \\ \hline
+            $f(0)$ & $d_{11}$ & $d_{12}$ & $d_{13}$ & \dots \\
+            $f(1)$ & $d_{21}$ & $d_{22}$ & $d_{23}$ & \dots \\
+            $f(2)$ & $d_{31}$ & $d_{32}$ & $d_{33}$ & \dots \\
+            \dots  & \dots    & \dots    & \dots    & \dots \\
+        \end{tabular}
+        \caption*{Kde $\forall i,j : d_{ij} \in \{ 0, 1, \dots, 9 \}$ a $\forall n \in \mathbb{N} : f(n) = 0, d_{n1} d_{n2} \dots$}
+    \end{table}
+
+    \item Uvažme číslo $x = 0, e_1 e_2 e_3 \dots$ takové, že $e_i = 9 - d_ii$ pro $i = 1, 2, 3, \dots$.
+
+    \item Zřejmě platí, že $x \in M$ a tedy, musí existovat $n \in \mathbb{N} : f(n) = x$.
+
+    \item Ale současně $\forall n \in \mathbb{N} : f(n) \not= x$ protože dojde k neshodě minimálně na diagonále. \begin{compactitem}
+        \item Spor.
+    \end{compactitem}
+\end{compactitem}
+
+\subsection*{Příklad 2: dokažte, že $2^{\Sigma^*}$ je větší než $\mathcal{L}_0$}
+
+% Jazyků je nespočetně mnoho.
+
+% Ale všech možný programů (TS) je spočetně mnoho, proč? Protože kódování TS je možné interpretovat jako přirozené číslo. A těch je spočetně mnoho.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{diagonalizace_pr2_p1.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{diagonalizace_pr2_p2.pdf}
+\end{figure}
+
+\subsection*{Příklad 3: dokažte, že HP není rozhodnutelný, ale je částečně rozhodnutelný}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{diagonalizace_pr3_p1.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{diagonalizace_pr3_p2.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{diagonalizace_pr3_p3.pdf}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{diagonalizace_pr3_p4.pdf}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -131,23 +213,75 @@ Technika důkazu, že nějaký problém není rozhodnutelný (částečně rozho
 
 \begin{compactitem}
 
-    \item Problém je aspoň tak těžkej jako jinej problém
+    \item Redukce je důkazová technika, která slouží k dokázání, že nějaký problém není rozhodnutelný (částečně rozhodnutelný) -- neboli, že určitý jazyk není rekurzívní (rekurzívně vyčíslitelný). \begin{compactitem}
+        \item Víme, že jazyk $A$ není rekurzívní (rekurzívně vyčíslitelný) a zkoumáme jazyk $B$. Ukážeme, že $A$ lze úplným TS převést (redukovat) na $B$, to ale znamená, že $B$ rovněž není rekurzivní (rekurzívně vyčíslitelný) -- jinak by šlo použít úplný TS (ne-úplný TS) přijímající $B$ a příslušné redukce k sestavení úplného TS (ne-úplného TS) přijímajícího $A$, což by byl spor.
+    \end{compactitem}
 
-    \item Vytváří uspořádání na problémech, nějaký problém je aspoň tak těžký jak jiný problém
+    \item Redukce vytváří uspořádání na problémech (nějaký problém je aspoň tak těžký jako jiný problém).
 
-    \item Redukce jazyka A na jazyk B je totální, rekurzivně vyčíslitelná funkce... (To znamená, že je implementovatelné pomocí úplného TS)
+    % \item Zachovává členství.
+    % \item Existuje-li redukce jazyka $A$ na $B$, říkáme, že $A$ je redukovatelný na $B$, což značíme $A \leq B$.
 
-    \item Zachovává členství.
+    \item Použití 1. směr: \begin{compactitem}
+        \item Máme známý problém $P_1$, o kterém víme, že je (částečně) rozhodnutelný. To znamená, že existuje TS, který ho (částečně) rozhoduje.
 
-    \item Existuje-li redukce jazyka $A$ na $B$, říkáme, že $A$ je redukovatelný na $B$, což značíme $A \leq B$.
+        \item Máme nový problém $P_2$, o kterém chceme dokázat, že je (částečně) rozhodnutelný. Redukujeme $P_2$ na $P_1$.
+
+        \item Cílem je najít takovou funkci $\sigma$ (překladač), která namapuje instance problému $P_2$ na instance problému $P_1$, takovým způsobem, že není porušena definice redukce.
+
+        \item Z toho vyplývá, že je-li $P_1$ (částečně) rozhodnutelný, tak i $P_2$ je (částečně) rozhodnutelný.
+    \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{redukce_1.pdf}
+    \end{figure}
+
+    \item Použití 2. směr: \begin{compactitem}
+        \item Máme známý problém $P_1$, o kterém víme, že je nerozhodnutelný (ani částečně).
+
+        \item Máme nový problém $P_2$, o kterém chceme dokázat, že je nerozhodnutelný (ani částečně).
+
+        \item Cílem je najít takovou funkci $\sigma$ (překladač), která namapuje instance problému $P_1$ na instance problému $P_2$, takovým způsobem, že není poručena definice redukce.
+
+        \item Z toho vyplývá, že je-li $P_1$ nerozhodnutelný (ani částečně), tak i $P_2$ je nerozhodnutelný (ani částečně).
+    \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{redukce_2.pdf}
+    \end{figure}
 
 \end{compactitem}
 
-\todo{todo}
+\paragraph*{Definice} Mějme jazyky $L_1 \subseteq \Sigma_1^*$ a $L_2 \subseteq \Sigma_2^*$. Redukce jazyka $L_1$ na jazyk $L_2$ je funkce $\sigma : \Sigma_1^* \rightarrow \Sigma_2^*$ taková, že \begin{compactitem}
+    \item $\sigma$ je totální rekurzivně vyčíslitelná funkce,
+    \item $\sigma$ je implementovatelná úplným TS,
+    \item $\forall w \in \Sigma_1^* ~:~ w \in L_1 \Leftrightarrow \sigma(w) \in L_2$.
+\end{compactitem}
 
-Jde o podobný případ jako problém zastavení TS, s tím rozdílem, že po zastavení je ještě třeba zjistit, zda zastavil normálně a přijal a nebo abnormálně.
+\subsection*{Příklad 1): dokažte, že problém neprázdnosti jazyka TS není rozhodnutelný}
 
-\paragraph*{Redukce MP na HP}
+\begin{compactitem}
+    \item Dokážeme redukcí z problému zastavení TS.
+
+    \item Jazyk charakterizující problém zastavení (obsahuje takové instance, pro které TS $M$ na $w$ zastaví):
+
+    $$ HP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{TS M na vstupu w zastaví} \} $$
+
+    \item Jazyk charakterizující problém neprázdnosti (obsahuje takové instance, pro které jazyk TS $M$ není prázdný):
+
+    $$ NEP = \{ \langle M \rangle ~|~ \text{M je TS takový, že } L(M) \not= \emptyset \} $$
+
+    \item Navrhneme redukci: $$\sigma : \{ 0, 1, \# \}^* \rightarrow \{ 0, 1 \}^*$$
+
+    \item Funkce $\sigma$ přiřadí
+
+\end{compactitem}
+
+
+
+\subsection*{Příklad X): redukce MP na HP}
 
 $$ HP \leq MP $$
 
