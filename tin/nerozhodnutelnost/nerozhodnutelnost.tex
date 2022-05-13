@@ -20,6 +20,7 @@
     \item \path{tin_2021_merged.pdf}
     \item \path{TIN_2020-11-03.mp4}
     \item \path{TIN_2020-11-10.mp4}
+    \item \path{TIN_2020-11-20_demo.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -84,7 +85,11 @@
 
     \item Neformálně: Znáte-li zdrojový kód programu (TS) a jeho vstup, rozhodněte, zda program zastaví, nebo zda poběží navždy bez zastavení.
 
-    \item Problém není rozhodnutelný, ale je částečně rozhodnutelný.
+    \item Problém není rozhodnutelný, ale je částečně rozhodnutelný. \begin{compactitem}
+        \item $HP \in \mathcal{L}_{RE}$
+        \item Důkaz: s využitím Cantorovy diagonalizace.
+    \end{compactitem}
+
 \end{compactitem}
 
 $$ HP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{TS M na vstupu w zastaví} \} $$
@@ -96,7 +101,10 @@ $$ HP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{TS M na vstupu w zas
 
     \item Neformálně: Znáte-li zdrojový kód programu (TS) a jeho vstup, rozhodněte, zda program nezastaví (poběží navždy bez zastavení), nebo zda zastaví.
 
-    \item Problém není ani částečně rozhodnutelný.
+    \item Problém není ani částečně rozhodnutelný. \begin{compactitem}
+        \item $coHP \not\in \mathcal{L}_{RE}$
+        \item Důkaz: vyplývá z definice komplementu.
+    \end{compactitem}
 \end{compactitem}
 
 $$ coHP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{TS M na vstupu w nezastaví} \} $$
@@ -110,10 +118,13 @@ $$ coHP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{TS M na vstupu w n
         \item Jde o podobný případ jako problém zastavení TS, pouze obsahuje krok navíc.
     \end{compactitem}
 
-    \item Problém není rozhodnutelný, ale je částečně rozhodnutelný.
+    \item Problém není rozhodnutelný, ale je částečně rozhodnutelný. \begin{compactitem}
+        \item $MP \in \mathcal{L}_{RE}$
+        \item Důkaz: s využitím redukce z HP.
+    \end{compactitem}
 \end{compactitem}
 
-$$ MP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{M je TS, který akceptuje řetězec w} \} $$
+$$ MP = \{ \langle M \rangle \# \langle w \rangle ~|~ w \in L(M) \} $$
 
 \subsection*{Problém nenáležitosti}
 
@@ -122,14 +133,57 @@ $$ MP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{M je TS, který akce
 
     \item Neformálně: Znáte-li TS a jeho vstup, rozhodněte, zda TS daný vstup nepřijme (zastaví a neakceptuje, zastaví abnormálně, nezastaví) a nebo přijme (zastaví a akceptuje).
 
-    \item \todo{Problém není ani částečně rozhodnutelný.}
+    \item Problém není ani částečně rozhodnutelný. \begin{compactitem}
+        \item $coMP \not\in \mathcal{L}_{RE}$
+        \item Důkaz: s využitím redukce z coHP.
+    \end{compactitem}
+
 \end{compactitem}
 
-$$ coMP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{M je TS, který neakceptuje řetězec w} \} $$
+$$ coMP = \{ \langle M \rangle \# \langle w \rangle ~|~ w \not\in L(M) \} $$
 
 \subsection*{Postův korespondenční problém}
 
-\todo{todo}
+\begin{compactitem}
+    \item Postův systém $S$ nad abecedou $\Sigma$ je dán neprázdným seznamem dvojic neprázdných řetězců nad $\Sigma$, formálně: $$ S = \langle (\alpha_1 , \beta_1), \dots, (\alpha_k , \beta_k) \rangle, \text{ pro } k \geq 1, \forall i : 1 \leq i \leq k : \alpha_i, \beta_i \in \Sigma^+ $$
+
+    \item Řešením Postova systému $S$ je každá neprázdná posloupnost přirozených čísel $I = \langle i_1, i_2, \dots, i_m \rangle$, kde $m \geq 1$ a $1 \leq j \leq m : 1 \leq i_j \leq k$, tak, že: $$ \alpha_{i_1}, \alpha_{i_2}, \dots, \alpha_{i_m} = \beta_{i_1}, \beta_{i_2}, \dots, \beta_{i_m} $$ \begin{compactitem}
+        \item $m$ není omezené a indexy se mohou opakovat.
+    \end{compactitem}
+
+    \item Postův korespondenční problém (PCP) zní: existuje pro daný Postův systém řešení?
+
+    \item Problém není ani částečně rozhodnutelný. \begin{compactitem}
+        \item $PCP \not\in \mathcal{L}_{RE}$
+        \item Důkaz: \textit{nezkouší se}
+    \end{compactitem}
+
+    \item Příklad: PS $S$ nad $\Sigma = \{ a, b \}$: \begin{compactitem}
+        \item $S = \langle (ab, a), (aa, baaab), (aa, a) \rangle$
+        \item $S$ má řešení, např. $I = \langle 1, 2, 1, 3\rangle$ \begin{compactitem}
+            \item $ab . aa . ab . aa = a . baaab . a . a$
+        \end{compactitem}
+    \end{compactitem}
+
+\end{compactitem}
+
+\subsection*{Další problémy} \begin{compactitem}
+    \item $ \{ \langle M \rangle ~|~ \text{TS M má aspoň 2020 stavů } \} \in \mathcal{L}_{Rec}$
+
+    \item $ \{ \langle M \rangle ~|~ \text{TS M učiní více než 2020 kroků na vstupu } \epsilon \} \in \mathcal{L}_{Rec}$
+
+    \item $ \{ \langle M \rangle ~|~ \text{TS M učiní více než 2020 kroků na nějakém vstupu } \} \in \mathcal{L}_{Rec}$
+
+    \item $ \{ \langle M \rangle ~|~ L(M) \not= \emptyset \} \in \mathcal{L}_{RE}$
+
+    \item $ \{ \langle M \rangle ~|~ |L(M)| \geq 42 \} \in \mathcal{L}_{RE}$
+
+    \item $ \{ \langle M \rangle ~|~ L(M) = \emptyset \} \not\in \mathcal{L}_{RE}$
+
+    \item $ \{ \langle M \rangle ~|~ |L(M)| \leq 42 \} \not\in \mathcal{L}_{RE}$
+
+    \item $ \{ \langle M \rangle ~|~ L(M) \in \mathcal{L}_{Rec} \} \not\in \mathcal{L}_{RE}$
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -224,8 +278,8 @@ $$ coMP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{M je TS, který ne
 \section{Redukce}
 
 \begin{compactitem}
-    \item Redukce je důkazová technika, která slouží k dokázání, že nějaký problém není rozhodnutelný (částečně rozhodnutelný) -- neboli, že určitý jazyk není rekurzívní (rekurzívně vyčíslitelný). \begin{compactitem}
-        \item Víme, že jazyk $A$ není rekurzívní (rekurzívně vyčíslitelný) a zkoumáme jazyk $B$. Ukážeme, že $A$ lze úplným TS převést (redukovat) na $B$, to ale znamená, že $B$ rovněž není rekurzivní (rekurzívně vyčíslitelný) -- jinak by šlo použít úplný TS (ne-úplný TS) přijímající $B$ a příslušné redukce k sestavení úplného TS (ne-úplného TS) přijímajícího $A$, což by byl spor.
+    \item Redukce je důkazová technika, která slouží k dokázání, že nějaký problém není rozhodnutelný (částečně rozhodnutelný)~--~neboli, že určitý jazyk není rekurzívní (rekurzívně vyčíslitelný). \begin{compactitem}
+        \item Víme, že jazyk $A$ není rekurzívní (rekurzívně vyčíslitelný) a zkoumáme jazyk $B$. Ukážeme, že $A$ lze úplným TS převést (redukovat) na $B$, to ale znamená, že $B$ rovněž není rekurzivní (rekurzívně vyčíslitelný)~--~jinak by šlo použít úplný TS (ne-úplný TS) přijímající $B$ a příslušné redukce k sestavení úplného TS (ne-úplného TS) přijímajícího $A$, což by byl spor.
     \end{compactitem}
 
     \item Redukce vytváří uspořádání na problémech (nějaký problém je aspoň tak těžký jako jiný problém).
@@ -282,63 +336,116 @@ $$ coMP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{M je TS, který ne
     \item Ukázat, zachování členství v jazyce.
 \end{compactenum}
 
-\subsection*{Příklad 1: dokažte, že problém neprázdnosti jazyka TS není rozhodnutelný}
+\subsection*{Příklad 1: dokažte, že problém neprázdnosti jazyka TS je nerozhodnutelný}
 
 \begin{compactitem}
-    \item Dokážeme redukcí z problému zastavení TS.
+    \item Dokážeme redukcí z problému zastavení TS (HP).
 
     \item Jazyk charakterizující problém zastavení (obsahuje takové instance, pro které TS $M$ na $w$ zastaví):
-
-    $$ HP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{TS M na vstupu w zastaví} \} $$
+    $$ HP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{ TS } M \text{ na vstupu } w \text{ zastaví } \} $$
 
     \item Jazyk charakterizující problém neprázdnosti (obsahuje takové instance, pro které jazyk TS $M$ není prázdný):
+    $$ NEMP = \{ \langle M \rangle ~|~ \text{M je TS takový, že } L(M) \not= \emptyset \} $$
 
-    $$ NEP = \{ \langle M \rangle ~|~ \text{M je TS takový, že } L(M) \not= \emptyset \} $$
+    \item Navrhneme redukci (redukující HP na NEMP, viz směr 2, \uv{NEMP je aspoň tak těžký jako HP}):
+    $$ HP \leq NEMP $$
+    $$ \sigma : \{ 0, 1, \# \}^* \rightarrow \{ 0, 1 \}^* $$
 
-    \item Navrhneme redukci: $$\sigma : \{ 0, 1, \# \}^* \rightarrow \{ 0, 1 \}^*$$
+    \item Funkce $\sigma$ přiřadí řetězci $x \in \{ 0, 1, \# \}^*$ řetězec $\langle M_{\sigma} \rangle$, kde $M_{\sigma}$ je TS implementující $\sigma$, pracující následovně: \begin{compactitem}
+        \item $M_{\sigma}$ smaže svůj vstup (pozn. jazyk $L(M_{\sigma})$ tedy bude buď $\emptyset$ a nebo $\Sigma^*$).
 
-    \item Funkce $\sigma$ přiřadí řetězci $x \in \{ 0, 1, \# \}^*$ řetězec $\langle M_x \rangle$, kde $M_x$ je TS pracující následovně: \begin{compactitem}
-        \item $M_x$ smaže svůj vstup (pozn. jazyk $L(M_x)$ tedy bude buď $\emptyset$ a nebo $\Sigma^*$).
+        \item $M_{\sigma}$ zapíše na svůj vstup řetězez $x$.
 
-        \item $M_x$ zapíše na svůj vstup řetězez $x$.
+        \item $M_{\sigma}$ ověří, zda $x = \{ \langle M \rangle \# \langle w \rangle \}$ má validní strukturu pro TS $M$ a jeho vstup $w$. Pokud nemá, tak odmítne.
 
-        \item $M_x$ ověří, zda $x = \{ \langle M \rangle \# \langle w \rangle \}$ má validní strukturu pro TS $M$ a jeho vstup $w$.Pokud nemá, tak odmítne.
-
-        \item TS $M_x$ odsimiluje běh TS $M$ na $w$. Pokud $M$ zastaví, tak přijme, jinak cyklí.
+        \item TS $M_{\sigma}$ odsimiluje běh TS $M$ na $w$. Pokud $M$ zastaví, tak přijme, jinak cyklí.
     \end{compactitem}
 
     \item Funkce $\sigma$ lze evidentně realizovat úplným TS $M_{\sigma}$. Skládá se, ze 4 komponent: \begin{compactenum}
-        \item Smazání vstupu -- konstantní operace, pro kterou $M_{\sigma}$ pouze vypíše daný kód.
+        \item Smazání vstupu~--~konstantní operace, pro kterou $M_{\sigma}$ pouze vypíše daný kód.
 
-        \item Zapsání $x$ na vstup -- snadná operace, $M_{\sigma}$ vypíše kód, který provede přesun doprava a zápis $a_i$ pro $x = a_1 a_2 \dots a_n$ pro $i=1, 2, \dots, n$.
+        \item Zapsání $x$ na vstup~--~snadná operace, $M_{\sigma}$ vypíše kód, který provede přesun doprava a zápis $a_i$ pro $x = a_1 a_2 \dots a_n$ pro $i=1, 2, \dots, n$.
 
-        \item Ověření správného strukturování vstupu -- konstantní operace, pro kterou $M_{\sigma}$ pouze vypíše daný kód.
+        \item Ověření správného strukturování vstupu~--~konstantní operace, pro kterou $M_{\sigma}$ pouze vypíše daný kód.
 
-        \item Předání řízení univerzálnímu TS -- konstantní operace, pro kterou $M_{\sigma}$ pouze vypíše daný kód.
+        \item Předání řízení univerzálnímu TS~--~konstantní operace, pro kterou $M_{\sigma}$ pouze vypíše daný kód.
     \end{compactenum}
 
     \item Ukázání zachování členství v jazyce. \begin{compactitem}
-        \item Studujme jazyk $M_x$: \begin{compactitem}
-            \item $L(M_x) = \emptyset \Leftrightarrow$ $x$ nemá validní strukturu $\langle M \rangle \# \langle w \rangle$ a nebo $M$ na $w$ nezastaví.
+        \item Studujme jazyk $M_{\sigma}$: \begin{compactitem}
+            \item $L(M_{\sigma}) = \emptyset \Leftrightarrow$ $x$ nemá validní strukturu $\langle M \rangle \# \langle w \rangle$ a nebo $M$ na $w$ nezastaví.
 
-            \item $L(M_x) = \Sigma^* \Leftrightarrow$ $x$ má validní strukturu $\langle M \rangle \# \langle w \rangle$ a $M$ na $w$ zastaví.
+            \item $L(M_{\sigma}) = \Sigma^* \Leftrightarrow$ $x$ má validní strukturu $\langle M \rangle \# \langle w \rangle$ a $M$ na $w$ zastaví.
         \end{compactitem}
         \item Zachování členství:
-            $$ \forall x \in \{ 0, 1, \# \}^* : \sigma(x) = \langle M_x \rangle \in NEP \Leftrightarrow $$
-
-            $$ \Leftrightarrow L(M_x) = \Sigma^* \Leftrightarrow $$
-
-            $$ \Leftrightarrow x = \langle M \rangle \# \langle w \rangle \text{ a } M \text{ na } w \text{ zastaví } \Leftrightarrow $$
-
-            $$ \Leftrightarrow x \in HP $$
+        $$ \forall x \in \{ 0, 1, \# \}^* : \sigma(x) = \langle M_{\sigma} \rangle \in NEMP \Leftrightarrow $$
+        $$ \Leftrightarrow L(M_{\sigma}) = \Sigma^* \Leftrightarrow $$
+        $$ \Leftrightarrow x = \langle M \rangle \# \langle w \rangle \text{ a } M \text{ na } w \text{ zastaví } \Leftrightarrow $$
+        $$ \Leftrightarrow x \in HP $$
     \end{compactitem}
 
 \end{compactitem}
 
-\subsection*{Příklad 2: redukce MP na HP}
+\subsection*{Příklad 2: dokažte, že problém prázdnosti jazyka TS není ani částečně rozhodnutelný}
 
-$$ HP \leq MP $$
+\begin{compactitem}
+    \item Dokážeme redukcí z problému nezastavení TS (coHP).
 
-$$ \sigma(\langle M \rangle \# \langle w \rangle) = \langle M' \rangle \# \langle w' \rangle$$
+    \item Jazyk charakterizující problém nezastavení (obsahuje takové instance, pro které TS $M$ na $w$ nezastaví):
+    $$ coHP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{ TS } M \text{ na vstupu } w \text{ nezastaví } \} $$
+
+    \item Jazyk charakterizující problém prázdnosti (obsahuje takové instance, pro které jazyk TS $M$ je prázdný):
+    $$ EMP = \{ \langle M \rangle ~|~ \text{M je TS takový, že } L(M) = \emptyset \} $$
+
+    \item Navrhneme redukci (redukující coHP na EMP, viz směr 2, \uv{EMP je aspoň tak těžký jako coHP}):
+    $$ coHP \leq EMP $$
+    $$ \sigma : \{ 0, 1, \# \}^* \rightarrow \{ 0, 1 \}^* $$
+
+    \item Funkce $\sigma$ přiřadí řetězci $x \in \{ 0, 1, \# \}^*$ řetězec $\langle M_{\sigma} \rangle$, kde $M_{\sigma}$ je TS implementující $\sigma$, pracující následovně: \begin{compactitem}
+        \item $M_{\sigma}$ smaže svůj vstup (pozn. jazyk $L(M_{\sigma})$ tedy bude buď $\emptyset$ a nebo $\Sigma^*$).
+
+        \item $M_{\sigma}$ zapíše na svůj vstup řetězez $x$.
+
+        \item $M_{\sigma}$ ověří, zda $x = \{ \langle M \rangle \# \langle w \rangle \}$ má validní strukturu pro TS $M$ a jeho vstup $w$. Pokud nemá, tak přijme.
+
+        \item TS $M_{\sigma}$ odsimiluje běh TS $M$ na $w$. Pokud $M$ zastaví, tak přijme, jinak cyklí.
+    \end{compactitem}
+
+    \item \textit{Zbytek na stejný princip jako v příkladu 1.}
+\end{compactitem}
+
+\subsection*{Příklad 3: dokažte, že problém náležitosti řetězce jazyku $L(M)$, kde M je TS, je nerozhodnutelný}
+
+\begin{compactitem}
+    \item Dokážeme redukcí z problému zastavení TS (HP).
+
+    \item Jazyk charakterizující problém zastavení (obsahuje takové instance, pro které TS $M$ na $w$ zastaví):
+    $$ HP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{ TS } M \text{ na vstupu } w \text{ zastaví } \} $$
+
+    \item Jazyk charakterizující problém náležitosti řetězce jazyku $L(M)$, kde M je TS (obsahuje takové instance, pro které jazyk TS $M$ na $w$ zastaví a přijme):
+    $$ MP = \{ \langle M \rangle \# \langle w \rangle ~|~ \text{M je TS takový, že } w \in L(M) \} $$
+
+    \item Navrhneme redukci (redukující HP na MP, viz směr 2, \uv{MP je aspoň tak těžký jako HP}):
+    $$ HP \leq MP $$
+    $$ \sigma : \{ 0, 1, \# \}^* \rightarrow \{ 0, 1, \# \}^* $$
+    $$ \sigma(\langle M \rangle \# \langle w \rangle) = \langle M' \rangle \# \langle w' \rangle $$
+
+    \item Funkce $\sigma$ přiřadí řetězci $x \in \{ 0, 1, \# \}^*$ řetězec $\langle M \rangle \# \langle w \rangle$, kde $M_{\sigma}$ je TS implementující $\sigma$, pracující následovně: \begin{compactitem}
+
+        \item $M_{\sigma}$ smaže svůj vstup (pozn. jazyk $L(M_{\sigma})$ tedy bude buď $\emptyset$ a nebo $\Sigma^*$).
+
+        \item $M_{\sigma}$ zapíše na svůj vstup řetězez $x$.
+
+        \item $M_{\sigma}$ ověří, zda $x = \{ \langle M \rangle \# \langle w \rangle \}$ má validní strukturu pro TS $M$ a jeho vstup $w$. Pokud nemá, tak \todo{todo: přijme?}.
+
+        \item TS $M_{\sigma}$ odsimiluje běh TS $M$ na $w$. Pokud $M$ na $w$ zastaví přijme, tak $M_{\sigma}$ přijme. Jinak, $M_{\sigma}$ cyklí a nebo zamítá.
+    \end{compactitem}
+
+    \item \textit{Zbytek na stejný princip jako v příkladu 1.}
+\end{compactitem}
+
+\subsection*{Příklad 4: dokažte, že problém víceznačnosti bezkontextových gramatik, není ani částečně rozhodnutelný}
+
+Příklad je na redukci z PCP, jedná se o těžší redukci a nebude se zkoušet.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
