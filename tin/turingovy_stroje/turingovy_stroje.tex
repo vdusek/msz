@@ -21,6 +21,7 @@
     \item \path{TIN_2020-10-20.mp4}
     \item \path{TIN_2020-10-27.mp4}
     \item \path{TIN_2020-11-03.mp4}
+    \item \path{TIN_2020-11-24_p1.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -189,4 +190,132 @@ stroje je následující: \begin{compactitem}
 
 \section{Vyčíslitelné funkce}
 
-\todo{todo}
+\begin{compactitem}
+    \item Tzv. rekurzivní / vyčíslitelné funkce jsou $ f : \mathbb{N}^n \rightarrow \mathbb{N}^m $, kde $n, m \in \mathbb{N}$.
+
+    \item Klasifikace parciálních funkcí: \begin{compactitem}
+        \item Totální funkce (např. funkce sčítání) -- funkce je definovaná pro celý definiční obor, tj. pro každý vstup existuje výstup.
+
+        \item Striktně parciální funkce (např. funkce dělení) -- funkce není definovaná pro celý definiční obor, tj. existuje vstup jemuž není definovaný výstup.
+    \end{compactitem}
+
+    \item Funkce totální, nemusí být vyčíslitelná (není možné je vypočítat počítačem, ačkoliv matematicky je lze zadefinovat).
+
+    \item Konvence: $n$-tici $(x_1, x_2, \dots, x_n) \in \mathbb{N}^n$ budeme označovat jako $\bar{x}$.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{funkce_hierarchie.pdf}
+    \caption{Hierarchie vyčíslitelných funkcí.}
+\end{figure}
+
+\subsection{Počáteční funkce}
+
+Základní funkce, nacházejí se nejníže v hierarchii vyčíslitelných funkcí.
+
+\begin{compactitem}
+    \item Nulová funkce [$\xi$] (\textit{zero function})
+    $$ \xi : () \rightarrow 0 $$
+    $$ \xi() = 0 $$
+
+    \item Funkce následníka [$\sigma$] (\textit{successor function})
+    $$ \sigma : \mathbb{N} \rightarrow \mathbb{N} $$
+    $$ \sigma(x) = x+1 $$
+
+    \item Projekce [$\pi$] (\textit{projection}) -- Vybírá z $n$-tice $k$-tý prvek.
+    $$ \pi_k^n : \mathbb{N}^n \rightarrow \mathbb{N} $$
+    $$ \pi_k^n(\bar{x}) = x_k $$
+\end{compactitem}
+
+\subsection{Primitivně rekurzivní funkce}
+
+Jde o funkce vytvořené z počátečních funkcí.
+
+\begin{compactitem}
+    \item Kombinace [$\times$] -- Kombinace dvou funkcí $f : \mathbb{N}^k \rightarrow \mathbb{N}^n$ a $g : \mathbb{N}^k \rightarrow \mathbb{N}^m$ vznikne funkce:
+    $$ f \times g : \mathbb{N}^k \rightarrow \mathbb{N}^{n+m} $$
+    $$ f \times g (\bar{x}) = (f(\bar{x}), g(\bar{x})) ~,~ \bar{x} \in \mathbb{N}^k $$
+
+    \item Kompozice [$\circ$] -- Kompozice dvou funkcí $f : \mathbb{N}^k \rightarrow \mathbb{N}^n$ a $g : \mathbb{N}^n \rightarrow \mathbb{N}^m$ vznikne funkce:
+    $$ g \circ f : \mathbb{N}^k \rightarrow \mathbb{N}^n $$
+    $$ g \circ f (\bar{x}) = g(f(\bar{x})) ~,~ \bar{x} \in \mathbb{N}^k $$
+
+    \item Primitivní rekurze -- Primitivní rekurze je technika, která umožňuje vytvořit funkci $f : \mathbb{N}^{k+1} \rightarrow \mathbb{N}^m$ na základě jiných dvou funkcí $g : \mathbb{N}^k \rightarrow \mathbb{N}^m$ a $h : \mathbb{N}^{k+m+1} \rightarrow \mathbb{N}^m$ rovnicemi:
+    $$ f(\bar{x}, 0) = g(\bar{x}) $$
+    $$ f(\bar{x}, y + 1) = h(\bar{x}, y, f(\bar{x}, y)) ~,~ \bar{x} \in \mathbb{N}^k $$
+\end{compactitem}
+
+\noindent Následují příklady definic funkcí, které spadají do třídy primitivně rekurzivních funkcí.
+
+\paragraph*{Konstantní funkce} Funkce $\kappa_m^n$ libovolné $n$-tici $x \in \mathbb{N}^n$ přiřadí konstantní hodnotu $m \in \mathbb{N}$.
+$$ \kappa_m^0 \equiv \sigma \circ \sigma \circ \ldots \circ \sigma \circ \xi $$
+($\sigma$ je aplikována $m$-krát)
+
+\paragraph*{Funkce sčítání}
+$$ plus : \mathbb{N}^2 \rightarrow \mathbb{N} $$
+$$ plus(x, 0) = \pi_1^1 (x)$$
+$$ plus(x, y + 1) = \sigma \circ plus(x, y) $$
+
+\paragraph*{Funkce násobení}
+$$ mult : \mathbb{N}^2 \rightarrow \mathbb{N} $$
+$$ mult(x, 0) = \xi()$$
+$$ mult(x, y + 1) = plus(x, mult(x, y)) $$
+
+\paragraph*{Funkce umocňování}
+$$ exp : \mathbb{N}^2 \rightarrow \mathbb{N} $$
+$$ exp(x, 0) = \sigma \circ \xi()$$
+$$ exp(x, y + 1) = mult(x, exp(x, y)) $$
+
+\paragraph*{Funkce předchůdce}
+$$ pred : \mathbb{N} \rightarrow \mathbb{N} $$
+$$ pred(0) = \xi() $$
+$$ pred(x + 1) = \pi_1^2(x, pred(x)) $$
+
+\paragraph*{Funkce monus} Funkce odčítání, ale nejmenší číslo je $0$.
+$$ monus : \mathbb{N}^2 \rightarrow \mathbb{N} $$
+$$ monus(x, 0) = \pi_1^1 (x) $$
+$$ monus(x, y + 1) = pred \circ monus(x, y) $$
+
+\paragraph*{Funkce negace} Logická negace, $0$ je \textit{false}, ostatní čísla jsou \textit{true}.
+$$ neg : \mathbb{N} \rightarrow \mathbb{N} $$
+$$ neg(x) = monus (\sigma \circ \xi(), x) $$
+
+\paragraph*{Funkce rovnost} Vrací $0$ -- \textit{false} a $1$ -- \textit{true}.
+$$ eq : \mathbb{N}^2 \rightarrow \mathbb{N} $$
+$$ eq \equiv monus \circ ( \kappa_1^2 \times ( plus \circ ((monus \circ (\pi_2^2 \times \pi_1^2)) \times monus \circ (\pi_1^2 \times \pi_2^2 )))) $$
+
+\paragraph*{Funkce je větší} Vrací $0$ -- \textit{false} a $1$ -- \textit{true}.
+$$ isGreater : \mathbb{N}^2 \rightarrow \mathbb{N} $$
+$$ isGreater(x, y) = neg \circ eq(monus(x, y), \xi()) $$
+
+\paragraph*{Funkce odmocnina} Funkce $foo$ je pomocná.
+$$ foo : \mathbb{N}^2 \rightarrow \mathbb{N} $$
+$$ foo(0, y) = \xi() $$
+$$ foo(x+1, y) = plus (isGreater (mult(\sigma \times \sigma(x)), y), foo(x, y)) $$
+$$ sqrt : \mathbb{N} \rightarrow \mathbb{N} $$
+$$ sqrt(x) = monus (x,  foo(x, x)) $$
+
+\subsection{Parciálně rekurzivní funkce}
+
+\begin{compactitem}
+    \item Zavádí koncept tzv. \textit{minimalizace}.
+    \item Umožňuje realizaci \textit{while} cyklu.
+    \item Parciálně rekurzivní funkce jsou ekvivalentní Turingovým strojům.
+    \item \todo{todo: dokončit}
+\end{compactitem}
+
+\subsection{Turingovsky vyčíslitelné funkce}
+
+\begin{compactitem}
+    \item Parciální funkce, kterou může počítat nějaký turingův stroj se nazývá turingovsky vyčíslitelná funkce.
+
+    \item Každá parciálně rekurzivní funkce je turingovsky vyčíslitelná.
+
+    \item Každý výpočetní proces prováděný turingovým strojem je procesem vyčíslení nějaké parciálně rekurzivní funkce.
+\end{compactitem}
+
+\paragraph*{Definice} Turingův stroj $M = (Q, \Sigma, \Gamma, \delta, q_0, g_f)$ vyčísluje (počítá) parciální funkci $f : (\Sigma^{*})^m \rightarrow (\Sigma_1^{*})^n$, $\Sigma_1 \subseteq \Gamma$, $\Delta \not\in \Sigma_1$, jestliže pro každé $(w_1, w_2, \ldots, w_m) \in (\Sigma^{*})^m$ a odpovídající počáteční konfiguraci $\Delta w_1 \Delta w_2 \Delta \ldots \Delta w_m \Delta^{\omega}$ TS $M$: \begin{compactenum}
+    \item V případě, že $f(w_1, w_2, \ldots, w_m)$ je definována, pak M zastaví a páska obsahuje $\Delta v_1 \Delta v_2 \Delta \ldots \Delta v_n \Delta^{\omega}$, kde $(v_1, v_2, \ldots, v_n) = f(w_1, w_2, \ldots, w_m)$.
+    \item V případě, že $f(w_1, w_2, \ldots, w_m)$ není definována, $M$ cyklí nebo zastaví abnormálně.
+\end{compactenum}
