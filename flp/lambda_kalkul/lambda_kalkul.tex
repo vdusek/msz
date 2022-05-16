@@ -19,13 +19,148 @@
 \begin{compactitem}
     \item \path{FLP-FP.pdf}
     \item \path{flp_all_2018.pdf}
-    \item \path{lambda_kalkul.pdf}
     \item \path{FLP_2020-02-03.mp4}
     \item \path{FLP_2020-02-10.mp4}
+    \item \url{https://petrzemek.net/publications}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Úvod a kontext}
+
+\begin{compactitem}
+    \item Lambda kalkul je formální systém (jazyk) a výpočetní model používaný v teoretické informace a matematice pro studium funkcí a rekurze.
+
+    \item Lambda kalkul je teoretickým základem funkcionálního programování a příslušných programovacích jazyků (Lisp, Haskell).
+
+    \item Lambda kalkul je výpočetně ekvivalentní turingovým strojům (a parciálně rekurzivním funkcím) (Church-Turingova teze) -- Jakýkoliv program může být vyjádřen v Lambda kalkulu.
+
+    \item Funkce má ve funkcionálním programování (a tedy i v lambda kalkulu) význam matematický, tj. jedná se o čísté funkce (\textit{pure functions}). Výsledek závisí pouze na vstupních parametrech, funkce nemá žádný interní stav.
+
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Základy}
+
+\begin{compactitem}
+    \item Intuitivně, identita vs rovnost.
+\end{compactitem}
+
+\paragraph*{Proměnná} Proměnná jako z jiných programovacích jazyků.
+
+\paragraph*{Abstrakce} Definice funkce.
+
+\begin{equation}
+    \begin{split}
+        \lk x \lkdot x+2 &~~~~~ \text{odpovídá} ~~~~~ f(x) = x+2 \\
+        \lk x \lkdot \lk y \lkdot x+y &~~~~~ \text{odpovídá} ~~~~~ f(x) = x+y \\
+        \lk x ~ y \lkdot x-y &~~~~~ \text{odpovídá} ~~~~~ f(x) = x-y
+    \end{split}
+\end{equation}
+
+\paragraph*{Aplikace} Volání funkce.
+
+\begin{equation}
+    \begin{split}
+        ( \lk x \lkdot x+2) ~ 5 &~~~~~ \text{odpovídá} ~~~~~ f(5) \\
+        ( \lk x ~ y \lkdot x-y) ~ 10 ~ 5 &~~~~~ \text{odpovídá} ~~~~~ f(10, 5)
+    \end{split}
+\end{equation}
+
+\paragraph*{Výraz} Jako výraz, resp. $\lk$-výraz, se označuje každý z výše uvedených třech prvků (proměnná, abstrakce, aplikace). Typicky se značí velkými písmeny.
+
+\paragraph*{Volná a vázaná proměnná} Rozlišujeme volnou a vázanou proměnnou. Vázanná proměnná je proměnná, která je parametr funkce. Ostatní proměnné jsou volné.
+
+\begin{equation}
+    \begin{split}
+        \lk vazana \lkdot vazana + volna
+    \end{split}
+\end{equation}
+
+\paragraph*{Zjednodušování zápisů}
+
+\begin{equation}
+    \begin{split}
+        (A ~ B) &~~~~~ = ~~~~~ A ~ B \\
+        (\lk E \lkdot (((A) ~ B) ~ C))) &~~~~~ = ~~~~~ \lk E \lkdot A ~ B ~ C \\
+        (\lk A (\lk B (\lk C \lkdot x ))) &~~~~~ = ~~~~~ \lk A ~ B ~ C \lkdot x
+    \end{split}
+\end{equation}
+
+\paragraph*{Pojmenování výrazů}
+
+$$ \lklet K = \lk x \lkdot x+2 ~~~~~ \text{poté K můžeme používat v jiných výrazech} $$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Konverze (redukce)}
+
+\begin{compactitem}
+    \item Upravování výrazů na jiné, často jednodušší, resp. jejich konverze (redukování).
+
+    \item Konverze zapisujeme šipkou.
+\end{compactitem}
+
+\subsection{$\alpha$-konverze [alfa]}
+
+\begin{compactitem}
+    \item Přejmenování proměnných
+
+    \item Provádění má formu substituce: $[W/V]$ znamená, že $V$ je nahrazeno za $W$.
+
+    \item Lze uplatnit pouze na vázané proměnné.
+
+    \item Nesmí se změnit význam výrazu -- vázaná proměnná se nesmí stát volnou a volná proměnná se nesmí stát vázanou.
+
+    \item Příklad správného použití (substituce se bude muset dále vyhodnotit i ve výrazu $E$):
+    $$
+        \lk V \lkdot E \rightarrow_{\alpha} \lk W \lkdot E ~ [W/V]
+    $$
+
+    \item Příklad chybného použití ($y$ se z volné stalo vázanou):
+    $$
+        \lk x \lkdot x ~ y \rightarrow_{\alpha} \lk y \lkdot y ~ y
+    $$
+\end{compactitem}
+
+\subsection{$\beta$-konverze [beta]}
+
+\begin{compactitem}
+    \item Aplikace funkce na argument.
+
+    \item Provedení má opět formu substituce.
+
+    \item Příklad správného použití (substituce se bude muset dále vyhodnotit i ve výrazu $E$):
+    $$
+        ( \lk V \lkdot E ) M \rightarrow_{\beta} \lk M \lkdot E ~ [M/V]
+    $$
+
+    \item Příklad chybného použití ($y$ se z volné stalo vázanou):
+    $$
+        ( \lk x ~ y \lkdot x ~ y ) ( x ~ y ) \rightarrow_{\beta} \lk y \lkdot (x ~ y) ~ y
+    $$
+\end{compactitem}
+
+\subsection{$\eta$-konverze [eta]}
+
+\begin{compactitem}
+    \item Vyjadřuje ekvivalenci výrazů a jejich převoditelnost.
+
+    \item Příklad správného použití (podmínka platnosti: $V$ není volné v $E$):
+    $$ \lk V \lkdot E ~ V \rightarrow_{\eta} E $$
+
+    \item Příklad chybného použití ($x$ je volné):
+    $$ \lk x \lkdot (x ~ y) ~ x \rightarrow_{\eta} (x ~ y) $$
+
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Rekurze}
+
+\begin{compactitem}
+    \item Využívá tzv. pevného bodu. V matematice jako pevný bod označujeme bod, který se v daném zobrazení zobrazí sám na sebe.
+\end{compactitem}
 
 \todo{todo}

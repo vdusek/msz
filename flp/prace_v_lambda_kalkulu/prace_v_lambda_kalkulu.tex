@@ -10,8 +10,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\chapter{FLP -- Práce v lambda kalkulu (demonstrace reprezentace čísel a pravdivostních hodnot a operací nad
-nimi).}
+\chapter{FLP -- Práce v lambda kalkulu (demonstrace reprezentace čísel a pravdivostních hodnot a operací nad nimi).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -27,6 +26,173 @@ nimi).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
+\section{Logické operace}
 
-\todo{todo}
+\subsection{True, False, Not}
+
+$$ \lklet True = \lk x ~ y \lkdot x $$
+
+$$ \lklet False = \lk x ~ y \lkdot y $$
+
+$$ \lklet Not = \lk x \lkdot x ~ False ~ True $$
+
+\paragraph*{Příklad: $Not ~ False$}
+\begin{equation}
+    \begin{split}
+        Not ~ False &= (\lk x \lkdot x ~ False ~ True) False = \\
+        &= False ~ False ~ True = \\
+        &= (\lk x ~ y \lkdot y) False ~ True = \\
+        &= True
+    \end{split}
+\end{equation}
+
+\subsection{And}
+
+$$ \lklet And = \lk x ~ y \lkdot x ~ y ~ False $$
+
+\paragraph*{Příklad: $And ~ True ~ True$}
+\begin{equation}
+    \begin{split}
+        And ~ True ~ True &= (\lk x ~ y \lkdot x ~ y ~ False) True ~ True = \\
+        &= True ~ True ~ False = \\
+        &= (\lk x ~ y \lkdot x) ~ True ~ False = \\
+        &= True
+    \end{split}
+\end{equation}
+
+\paragraph*{Příklad: $And ~ True ~ False$}
+\begin{equation}
+    \begin{split}
+        And ~ True ~ False &= (\lk x ~ y \lkdot x ~ y ~ False) True ~ False = \\
+        &= True ~ False ~ False = \\
+        &= (\lk x ~ y \lkdot x) ~ False ~ False = \\
+        &= False
+    \end{split}
+\end{equation}
+
+\paragraph*{Příklad: $And ~ False ~ True$}
+\begin{equation}
+    \begin{split}
+        And ~ False ~ True &= (\lk x ~ y \lkdot x ~ y ~ False) False ~ True = \\
+        &= False ~ True ~ False = \\
+        &= (\lk x ~ y \lkdot y) ~ True ~ False = \\
+        &= False
+    \end{split}
+\end{equation}
+
+\paragraph*{Příklad: $And ~ False ~ False$}
+\begin{equation}
+    \begin{split}
+        And ~ False ~ False &= (\lk x ~ y \lkdot x ~ y ~ False) False ~ False = \\
+        &= False ~ False ~ False = \\
+        &= (\lk x ~ y \lkdot y) ~ False ~ False = \\
+        &= False
+    \end{split}
+\end{equation}
+
+\subsection{Or}
+
+$$ \lklet Or = \lk x ~ y \lkdot x ~ True ~ y $$
+
+\paragraph*{Příklad: $Or ~ True ~ True$}
+\begin{equation}
+    \begin{split}
+        Or ~ True ~ True &= (\lk x ~ y \lkdot x ~ True ~ y) True ~ True = \\
+        &= True ~ True ~ True = \\
+        &= (\lk x ~ y \lkdot x) ~ True ~ True = \\
+        &= True
+    \end{split}
+\end{equation}
+
+\paragraph*{Příklad: $Or ~ True ~ False$}
+\begin{equation}
+    \begin{split}
+        Or ~ True ~ False &= (\lk x ~ y \lkdot x ~ True ~ y) True ~ False = \\
+        &= True ~ True ~ False = \\
+        &= (\lk x ~ y \lkdot x) True ~ False = \\
+        &= True
+    \end{split}
+\end{equation}
+
+\paragraph*{Příklad: $Or ~ False ~ False$}
+\begin{equation}
+    \begin{split}
+        Or ~ False ~ False &= (\lk x ~ y \lkdot x ~ True ~ y) False ~ False = \\
+        &= False ~ True ~ False = \\
+        &= (\lk x ~ y \lkdot y) False ~ False = \\
+        &= False
+    \end{split}
+\end{equation}
+
+\subsection{Xor}
+
+$$ \lklet Xor = \lk x ~ y \lkdot x ~ (Not ~ y) ~ y $$
+
+\subsection{Nand}
+
+$$ \lklet Nand = \lk x ~ y \lkdot x ~ (Not ~ y) ~ True $$
+
+\subsection{Implikace}
+
+$$ \lklet Implication = \lk x ~ y \lkdot x ~ y ~ True $$
+
+\subsection{Ekvivalence}
+
+$$ \lklet Equivalence = \lk x ~ y \lkdot x ~ y ~ (Not ~ y) $$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Aritmetika}
+
+\subsection{Reprezentace čísel}
+
+\begin{equation}
+    \begin{split}
+        \lklet 0 &= \lk x ~ y \lkdot y \\
+        \lklet 1 &= \lk x ~ y \lkdot x ~ y \\
+        \lklet 2 &= \lk x ~ y \lkdot x ~ (x ~ y) = \lk x ~ y \lkdot x^2 ~ y \\
+        \lklet 3 &= \lk x ~ y \lkdot x ~ (x ~ (x ~ y)) = \lk x ~ y \lkdot x^3 ~ y \\
+        \lklet n &= \lk x ~ y \lkdot x ~ (\ldots ~ (x ~ y) \ldots ) = \lk x ~ y \lkdot x^n ~ y
+    \end{split}
+\end{equation}
+
+\subsection{Následník}
+
+$$ \lklet Succ = \lk a ~ b ~ c \lkdot a ~ b ~ (b ~ c) $$
+
+\paragraph*{Příklad: $Succ 0$}
+\begin{equation}
+    \begin{split}
+        Succ ~ 0 &= (\lk a ~ b ~ c \lkdot a ~ b ~ (b ~ c)) ~ 0 = \\
+        &= \lk b ~ c \lkdot 0 ~ b ~ (b ~ c) = \\
+        &= \lk b ~ c \lkdot (\lk x ~ y \lkdot y) ~ b ~ (b ~ c) = \\
+        &= \lk b ~ c \lkdot (\lk y \lkdot y) ~ (b ~ c) = \\
+        &= \lk b ~ c \lkdot b ~ c \rightarrow_{\alpha} \\
+        &\rightarrow_{\alpha} \lk x ~ y \lkdot x ~ y
+    \end{split}
+\end{equation}
+
+\paragraph*{Příklad: $Succ 2$}
+\begin{equation}
+    \begin{split}
+        Succ ~ 2 &= (\lk a ~ b ~ c \lkdot a ~ b ~ (b ~ c)) ~ 0 = \\
+        &= \lk b ~ c \lkdot 2 ~ b ~ (b ~ c) = \\
+        &= \lk b ~ c \lkdot (\lk x ~ y \lkdot x ~ (x ~ y)) ~ b ~ (b ~ c) = \\
+        &= \lk b ~ c \lkdot (\lk y \lkdot b ~ (b ~ y)) ~ (b ~ c) = \\
+        &= \lk b ~ c \lkdot (b ~ (b ~ (b ~ c))) = \\
+        &= \lk b ~ c \lkdot b^3 ~ c \rightarrow_{\alpha} \\
+        &= \lk x ~ y \lkdot x^3 ~ y
+    \end{split}
+\end{equation}
+
+\subsection{Test na 0}
+
+todo
+
+\subsection{Plus}
+
+todo
+
+\subsection{Mínus}
+
+todo
