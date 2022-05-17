@@ -184,7 +184,8 @@
         list,
         tuple,
         dict,
-        set
+        set,
+        None
     },
     sensitive=false, % keywords are not case-sensitive
     morestring=[b]" % defines that strings are enclosed in double quotes
@@ -221,6 +222,14 @@
                   {|}{{\textcolor{red}\textbar}}1
                   {\ -\ }{{\mdseries\ -\ }}3,
 }
+
+% Deklarace matematickych operatoru pro Lambda Kalkul
+\DeclareMathOperator{\lk}{\lambda\,}
+\DeclareMathOperator{\lkdot}{\,.\,}
+\DeclareMathOperator{\lklet}{\text{LET~}}
+\DeclareMathOperator{\lkalpha}{\,\Rightarrow_{\alpha}\,}
+\DeclareMathOperator{\lkbeta}{\,\Rightarrow_{\beta}\,}
+\DeclareMathOperator{\lketa}{\,\Rightarrow_{\eta}\,}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -277,8 +286,6 @@
 \input{msp/randomizovane_algoritmy/randomizovane_algoritmy}
 \newpage
 
-% ...
-
 % 19
 \input{tin/klasifikace_jazyku/klasifikace_jazyku}
 \newpage
@@ -307,87 +314,81 @@
 \input{tin/slozitost/slozitost}
 \newpage
 
-% ...
+% 32
+\input{flp/lambda_kalkul/lambda_kalkul}
+\newpage
 
-% % 32 - todo
-% \input{flp/lambda_kalkul/lambda_kalkul}
-% \newpage
-
-% % 33 - todo
-% \input{flp/prace_v_lambda_kalkulu/prace_v_lambda_kalkulu}
-% \newpage
-
-% ...
+% 33
+\input{flp/prace_v_lambda_kalkulu/prace_v_lambda_kalkulu}
+\newpage
 
 % % 44 - todo
 % \input{bms/bezdratove_lokalni_site/bezdratove_lokalni_site}
 % \newpage
 
-% % 45
-% \input{gal/hledani_minimalni_kostry/hledani_minimalni_kostry}
-% \newpage
+% 45
+\input{gal/hledani_minimalni_kostry/hledani_minimalni_kostry}
+\newpage
 
-% % 46
-% \input{gal/hledani_nejkratsich_cest/hledani_nejkratsich_cest}
-% \newpage
+% 46
+\input{gal/hledani_nejkratsich_cest/hledani_nejkratsich_cest}
+\newpage
 
-% % 47
-% \input{pdi/volba_koordinatora/volba_koordinatora}
-% \newpage
+% 47
+\input{pdi/volba_koordinatora/volba_koordinatora}
+\newpage
 
-% % 48
-% \input{pdi/konzistentni_globalni_stav/konzistentni_globalni_stav}
-% \newpage
+% 48
+\input{pdi/konzistentni_globalni_stav/konzistentni_globalni_stav}
+\newpage
 
-% % 49
-% \input{pdi/map_reduce/map_reduce}
-% \newpage
+% 49
+\input{pdi/map_reduce/map_reduce}
+\newpage
 
-% % 50
-% \input{kry/symetricka_kryptografie/symetricka_kryptografie}
-% \newpage
+% 50
+\input{kry/symetricka_kryptografie/symetricka_kryptografie}
+\newpage
 
-% % 51
-% \input{kry/asymetricka_kryptografie/asymetricka_kryptografie}
-% \newpage
+% 51
+\input{kry/asymetricka_kryptografie/asymetricka_kryptografie}
+\newpage
 
-% % 52
-% \input{kry/hasovaci_funkce/hasovaci_funkce}
-% \newpage
+% 52
+\input{kry/hasovaci_funkce/hasovaci_funkce}
+\newpage
 
-% % 53
-% \input{kry/sprava_klicu_v_asymetricke/sprava_klicu_v_asymetricke}
-% \newpage
+% 53
+\input{kry/sprava_klicu_v_asymetricke/sprava_klicu_v_asymetricke}
+\newpage
 
-% % PDS prerekvizity
-% \input{pds/pds_prerekvizity/pds_prerekvizity}
-% \newpage
+% PDS prerekvizity
+\input{pds/pds_prerekvizity/pds_prerekvizity}
+\newpage
 
-% % 54
-% \input{pds/prepinace/prepinace}
-% \newpage
+% 54
+\input{pds/prepinace/prepinace}
+\newpage
 
-% % 55
-% \input{pds/smerovace/smerovace}
-% \newpage
+% 55
+\input{pds/smerovace/smerovace}
+\newpage
 
-% % 56
-% \input{pds/teorie_smerovani/teorie_smerovani}
-% \newpage
+% 56
+\input{pds/teorie_smerovani/teorie_smerovani}
+\newpage
 
-% % 57
-% \input{pds/rizeni_toku_a_prevence_zahlceni/rizeni_toku_a_prevence_zahlceni}
-% \newpage
+% 57
+\input{pds/rizeni_toku_a_prevence_zahlceni/rizeni_toku_a_prevence_zahlceni}
+\newpage
 
-% % 58
-% \input{pds/detekce_sitovych_incidentu/detekce_sitovych_incidentu}
-% \newpage
+% 58
+\input{pds/detekce_sitovych_incidentu/detekce_sitovych_incidentu}
+\newpage
 
-% % 59
-% \input{pds/peer_to_peer_site/peer_to_peer_site}
-% \newpage
-
-% ...
+% 59
+\input{pds/peer_to_peer_site/peer_to_peer_site}
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

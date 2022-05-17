@@ -18,10 +18,8 @@
 
 \begin{compactitem}
     \item \path{FLP-FP.pdf}
-    \item \path{flp_all_2018.pdf}
-    \item \path{lambda_kalkul.pdf}
+    \item \path{flp_lambda_kalkul.pdf}
     \item \path{FLP_2020-02-03.mp4}
-    \item \path{FLP_2020-02-10.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -39,10 +37,10 @@ $$ \lklet Not = \lk x \lkdot x ~ False ~ True $$
 \paragraph*{Příklad: $Not ~ False$}
 \begin{equation}
     \begin{split}
-        Not ~ False &= (\lk x \lkdot x ~ False ~ True) False = \\
-        &= False ~ False ~ True = \\
-        &= (\lk x ~ y \lkdot y) False ~ True = \\
-        &= True
+        Not ~ False &= (\lk x \lkdot x ~ False ~ True) ~ False \lkbeta \\
+        &\lkbeta False ~ False ~ True = \\
+        &= (\lk x ~ y \lkdot y) ~ False ~ True \lkbeta \\
+        &\lkbeta True
     \end{split}
 \end{equation}
 
@@ -53,40 +51,40 @@ $$ \lklet And = \lk x ~ y \lkdot x ~ y ~ False $$
 \paragraph*{Příklad: $And ~ True ~ True$}
 \begin{equation}
     \begin{split}
-        And ~ True ~ True &= (\lk x ~ y \lkdot x ~ y ~ False) True ~ True = \\
-        &= True ~ True ~ False = \\
-        &= (\lk x ~ y \lkdot x) ~ True ~ False = \\
-        &= True
+        And ~ True ~ True &= (\lk x ~ y \lkdot x ~ y ~ False) ~ True ~ True \lkbeta \\
+        &\lkbeta True ~ True ~ False = \\
+        &= (\lk x ~ y \lkdot x) ~ True ~ False \lkbeta \\
+        &\lkbeta True
     \end{split}
 \end{equation}
 
 \paragraph*{Příklad: $And ~ True ~ False$}
 \begin{equation}
     \begin{split}
-        And ~ True ~ False &= (\lk x ~ y \lkdot x ~ y ~ False) True ~ False = \\
-        &= True ~ False ~ False = \\
-        &= (\lk x ~ y \lkdot x) ~ False ~ False = \\
-        &= False
+        And ~ True ~ False &= (\lk x ~ y \lkdot x ~ y ~ False) ~ True ~ False \lkbeta \\
+        &\lkbeta True ~ False ~ False = \\
+        &= (\lk x ~ y \lkdot x) ~ False ~ False \lkbeta \\
+        &\lkbeta False
     \end{split}
 \end{equation}
 
 \paragraph*{Příklad: $And ~ False ~ True$}
 \begin{equation}
     \begin{split}
-        And ~ False ~ True &= (\lk x ~ y \lkdot x ~ y ~ False) False ~ True = \\
-        &= False ~ True ~ False = \\
-        &= (\lk x ~ y \lkdot y) ~ True ~ False = \\
-        &= False
+        And ~ False ~ True &= (\lk x ~ y \lkdot x ~ y ~ False) ~ False ~ True \lkbeta \\
+        &\lkbeta False ~ True ~ False = \\
+        &= (\lk x ~ y \lkdot y) ~ True ~ False \lkbeta \\
+        &\lkbeta False
     \end{split}
 \end{equation}
 
 \paragraph*{Příklad: $And ~ False ~ False$}
 \begin{equation}
     \begin{split}
-        And ~ False ~ False &= (\lk x ~ y \lkdot x ~ y ~ False) False ~ False = \\
-        &= False ~ False ~ False = \\
-        &= (\lk x ~ y \lkdot y) ~ False ~ False = \\
-        &= False
+        And ~ False ~ False &= (\lk x ~ y \lkdot x ~ y ~ False) ~ False ~ False \lkbeta \\
+        &\lkbeta False ~ False ~ False = \\
+        &= (\lk x ~ y \lkdot y) ~ False ~ False \lkbeta \\
+        &\lkbeta False
     \end{split}
 \end{equation}
 
@@ -97,30 +95,30 @@ $$ \lklet Or = \lk x ~ y \lkdot x ~ True ~ y $$
 \paragraph*{Příklad: $Or ~ True ~ True$}
 \begin{equation}
     \begin{split}
-        Or ~ True ~ True &= (\lk x ~ y \lkdot x ~ True ~ y) True ~ True = \\
-        &= True ~ True ~ True = \\
-        &= (\lk x ~ y \lkdot x) ~ True ~ True = \\
-        &= True
+        Or ~ True ~ True &= (\lk x ~ y \lkdot x ~ True ~ y) ~ True ~ True \lkbeta \\
+        &\lkbeta True ~ True ~ True = \\
+        &= (\lk x ~ y \lkdot x) ~ True ~ True \lkbeta \\
+        &\lkbeta True
     \end{split}
 \end{equation}
 
 \paragraph*{Příklad: $Or ~ True ~ False$}
 \begin{equation}
     \begin{split}
-        Or ~ True ~ False &= (\lk x ~ y \lkdot x ~ True ~ y) True ~ False = \\
-        &= True ~ True ~ False = \\
-        &= (\lk x ~ y \lkdot x) True ~ False = \\
-        &= True
+        Or ~ True ~ False &= (\lk x ~ y \lkdot x ~ True ~ y) ~ True ~ False \lkbeta \\
+        &\lkbeta True ~ True ~ False = \\
+        &= (\lk x ~ y \lkdot x) True ~ False \lkbeta \\
+        &\lkbeta True
     \end{split}
 \end{equation}
 
 \paragraph*{Příklad: $Or ~ False ~ False$}
 \begin{equation}
     \begin{split}
-        Or ~ False ~ False &= (\lk x ~ y \lkdot x ~ True ~ y) False ~ False = \\
-        &= False ~ True ~ False = \\
-        &= (\lk x ~ y \lkdot y) False ~ False = \\
-        &= False
+        Or ~ False ~ False &= (\lk x ~ y \lkdot x ~ True ~ y) ~ False ~ False \lkbeta \\
+        &\lkbeta False ~ True ~ False = \\
+        &= (\lk x ~ y \lkdot y) False ~ False \lkbeta \\
+        &\lkbeta False
     \end{split}
 \end{equation}
 
@@ -160,39 +158,103 @@ $$ \lklet Equivalence = \lk x ~ y \lkdot x ~ y ~ (Not ~ y) $$
 
 $$ \lklet Succ = \lk a ~ b ~ c \lkdot a ~ b ~ (b ~ c) $$
 
-\paragraph*{Příklad: $Succ 0$}
+\paragraph*{Příklad: $Succ ~ 0$}
 \begin{equation}
     \begin{split}
-        Succ ~ 0 &= (\lk a ~ b ~ c \lkdot a ~ b ~ (b ~ c)) ~ 0 = \\
-        &= \lk b ~ c \lkdot 0 ~ b ~ (b ~ c) = \\
-        &= \lk b ~ c \lkdot (\lk x ~ y \lkdot y) ~ b ~ (b ~ c) = \\
-        &= \lk b ~ c \lkdot (\lk y \lkdot y) ~ (b ~ c) = \\
-        &= \lk b ~ c \lkdot b ~ c \rightarrow_{\alpha} \\
-        &\rightarrow_{\alpha} \lk x ~ y \lkdot x ~ y
+        Succ ~ 0 &= (\lk a ~ b ~ c \lkdot a ~ b ~ (b ~ c)) ~ 0 \lkbeta \\
+        &\lkbeta \lk b ~ c \lkdot 0 ~ b ~ (b ~ c) = \\
+        &= \lk b ~ c \lkdot (\lk x ~ y \lkdot y) ~ b ~ (b ~ c) \lkbeta \\
+        &\lkbeta \lk b ~ c \lkdot (\lk y \lkdot y) ~ (b ~ c) \lkbeta \\
+        &\lkbeta \lk b ~ c \lkdot b ~ c \lkalpha \\
+        &\lkalpha\lk x ~ y \lkdot x ~ y = \\
+        &= 0
     \end{split}
 \end{equation}
 
-\paragraph*{Příklad: $Succ 2$}
+\paragraph*{Příklad: $Succ ~ 2$}
 \begin{equation}
     \begin{split}
-        Succ ~ 2 &= (\lk a ~ b ~ c \lkdot a ~ b ~ (b ~ c)) ~ 0 = \\
-        &= \lk b ~ c \lkdot 2 ~ b ~ (b ~ c) = \\
-        &= \lk b ~ c \lkdot (\lk x ~ y \lkdot x ~ (x ~ y)) ~ b ~ (b ~ c) = \\
-        &= \lk b ~ c \lkdot (\lk y \lkdot b ~ (b ~ y)) ~ (b ~ c) = \\
-        &= \lk b ~ c \lkdot (b ~ (b ~ (b ~ c))) = \\
-        &= \lk b ~ c \lkdot b^3 ~ c \rightarrow_{\alpha} \\
-        &= \lk x ~ y \lkdot x^3 ~ y
+        Succ ~ 2 &= (\lk a ~ b ~ c \lkdot a ~ b ~ (b ~ c)) ~ 2 \lkbeta \\
+        &\lkbeta \lk b ~ c \lkdot 2 ~ b ~ (b ~ c) = \\
+        &= \lk b ~ c \lkdot (\lk x ~ y \lkdot x ~ (x ~ y)) ~ b ~ (b ~ c) \lkbeta \\
+        &\lkbeta \lk b ~ c \lkdot (\lk y \lkdot b ~ (b ~ y)) ~ (b ~ c) \lkbeta \\
+        &\lkbeta \lk b ~ c \lkdot (b ~ (b ~ (b ~ c))) = \\
+        &= \lk b ~ c \lkdot b^3 ~ c \lkalpha\\
+        &= \lk x ~ y \lkdot x^3 ~ y = \\
+        &= 3
     \end{split}
 \end{equation}
 
 \subsection{Test na 0}
 
-todo
+$$ \lklet IsZero = \lk a \lkdot a ~ (\lk b \lkdot False) ~ True $$
 
-\subsection{Plus}
+\paragraph*{Příklad: $IsZero ~ 0$}
+\begin{equation}
+    \begin{split}
+        IsZero ~ 0 &= (\lk a \lkdot a ~ (\lk b \lkdot False) ~ True) ~ 0 \lkbeta \\
+        &\lkbeta 0 ~ (\lk b \lkdot False) ~ True = \\
+        &= (\lk x ~ y \lkdot y) ~ (\lk b \lkdot False) ~ True \lkbeta \\
+        &\lkbeta True
+    \end{split}
+\end{equation}
 
-todo
+\paragraph*{Příklad: $IsZero ~ 3$}
+\begin{equation}
+    \begin{split}
+        IsZero ~ 3 &= (\lk a \lkdot a ~ (\lk b \lkdot False) ~ True) ~ 3 \lkbeta \\
+        &\lkbeta 3 ~ (\lk b \lkdot False) ~ True = \\
+        &= (\lk x ~ y \lkdot x ~ (x ~ (x ~ y))) ~ (\lk b \lkdot False) ~ True \lkbeta \\
+        &\lkbeta (\lk b \lkdot False) ~ ((\lk b \lkdot False) ~ ((\lk b \lkdot False) ~ True)) \lkbeta \\
+        &\lkbeta False
+    \end{split}
+\end{equation}
 
-\subsection{Mínus}
+\subsection{Sčítání}
 
-todo
+\begin{compactitem}
+    \item Myšlenka: $f$-krát se provede následník $g$.
+\end{compactitem}
+
+$$ \lklet Add = \lk f ~ g \lkdot f ~ Succ ~ g $$
+
+\paragraph*{Příklad: $Add ~ 3 ~ 2$}
+\begin{equation}
+    \begin{split}
+        Add ~ 3 ~ 2 &= (\lk f ~ g \lkdot f ~ Succ ~ g) ~ 3 ~ 2 \lkbeta \\
+        &\lkbeta 3 ~ Succ ~ 2 = \\
+        &= \lk x ~ y \lkdot x ~ (x ~ (x ~ y)) ~ Succ ~ 2 \lkbeta \\
+        &\lkbeta Succ ~ (Succ ~ (Succ ~ 2)) \lkbeta \\
+        &\lkbeta Succ ~ (Succ ~ 3) \lkbeta \\
+        &\lkbeta Succ ~ 4 \lkbeta \\
+        &\lkbeta 5
+    \end{split}
+\end{equation}
+
+\subsection{Předchůdce}
+
+\begin{compactitem}
+    \item \textit{Implementace předchůdce je komplikovaná, předpokládám, že se nebude zkoušet.}
+\end{compactitem}
+
+$$ \lklet Prev = \lk \dots $$
+
+\subsection{Odečítání}
+
+\begin{compactitem}
+    \item Myšlenka: $g$-krát se provede předchůdce $f$.
+\end{compactitem}
+
+$$ \lklet Sub = \lk f ~ g \lkdot g ~ Prev ~ f $$
+
+\paragraph*{Příklad: $Sub ~ 3 ~ 2$}
+\begin{equation}
+    \begin{split}
+        Sub ~ 3 ~ 2 &= (\lk f ~ g \lkdot g ~ Prev ~ f) ~ 3 ~ 2 \lkbeta \\
+        &\lkbeta 2 ~ Prev ~ 3 = \\
+        &= (\lk x ~ y \lkdot x ~ (x ~ y)) ~ Prev ~ 3 \lkbeta \\
+        &\lkbeta Prev ~ (Prev ~ 3) \lkbeta \\
+        &\lkbeta= Prev ~ 2 \lkbeta \\
+        &\lkbeta= 1
+    \end{split}
+\end{equation}

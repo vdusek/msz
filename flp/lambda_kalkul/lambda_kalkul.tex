@@ -18,9 +18,8 @@
 
 \begin{compactitem}
     \item \path{FLP-FP.pdf}
-    \item \path{flp_all_2018.pdf}
+    \item \path{flp_lambda_kalkul.pdf}
     \item \path{FLP_2020-02-03.mp4}
-    \item \path{FLP_2020-02-10.mp4}
     \item \url{https://petrzemek.net/publications}
 \end{compactitem}
 
@@ -115,12 +114,12 @@ $$ \lklet K = \lk x \lkdot x+2 ~~~~~ \text{poté K můžeme používat v jiných
 
     \item Příklad správného použití (substituce se bude muset dále vyhodnotit i ve výrazu $E$):
     $$
-        \lk V \lkdot E \rightarrow_{\alpha} \lk W \lkdot E ~ [W/V]
+        \lk V \lkdot E \lkalpha \lk W \lkdot E ~ [W/V]
     $$
 
     \item Příklad chybného použití ($y$ se z volné stalo vázanou):
     $$
-        \lk x \lkdot x ~ y \rightarrow_{\alpha} \lk y \lkdot y ~ y
+        \lk x \lkdot x ~ y \lkalpha \lk y \lkdot y ~ y
     $$
 \end{compactitem}
 
@@ -133,12 +132,12 @@ $$ \lklet K = \lk x \lkdot x+2 ~~~~~ \text{poté K můžeme používat v jiných
 
     \item Příklad správného použití (substituce se bude muset dále vyhodnotit i ve výrazu $E$):
     $$
-        ( \lk V \lkdot E ) M \rightarrow_{\beta} \lk M \lkdot E ~ [M/V]
+        ( \lk V \lkdot E ) M \lkbeta \lk M \lkdot E ~ [M/V]
     $$
 
     \item Příklad chybného použití ($y$ se z volné stalo vázanou):
     $$
-        ( \lk x ~ y \lkdot x ~ y ) ( x ~ y ) \rightarrow_{\beta} \lk y \lkdot (x ~ y) ~ y
+        ( \lk x ~ y \lkdot x ~ y ) ( x ~ y ) \lkbeta \lk y \lkdot (x ~ y) ~ y
     $$
 \end{compactitem}
 
@@ -148,10 +147,10 @@ $$ \lklet K = \lk x \lkdot x+2 ~~~~~ \text{poté K můžeme používat v jiných
     \item Vyjadřuje ekvivalenci výrazů a jejich převoditelnost.
 
     \item Příklad správného použití (podmínka platnosti: $V$ není volné v $E$):
-    $$ \lk V \lkdot E ~ V \rightarrow_{\eta} E $$
+    $$ \lk V \lkdot E ~ V \lketa E $$
 
     \item Příklad chybného použití ($x$ je volné):
-    $$ \lk x \lkdot (x ~ y) ~ x \rightarrow_{\eta} (x ~ y) $$
+    $$ \lk x \lkdot (x ~ y) ~ x \lketa (x ~ y) $$
 
 \end{compactitem}
 
@@ -159,8 +158,40 @@ $$ \lklet K = \lk x \lkdot x+2 ~~~~~ \text{poté K můžeme používat v jiných
 
 \section{Rekurze}
 
+\subsection{Operátor pevného bodu}
+
 \begin{compactitem}
-    \item Využívá tzv. pevného bodu. V matematice jako pevný bod označujeme bod, který se v daném zobrazení zobrazí sám na sebe.
+    \item Operátor pevného bodu značíme $Y$.
+    $$ \lklet Y = \lk f \lkdot ( \lk x \lkdot f ~ (x ~ x)) (\lk x \lkdot f ~ (x ~ x)) $$
+
+    \item V matematice jako pevný bod označujeme bod, který se v daném zobrazení zobrazí sám na sebe (např. $sin(0) = 0$).
+
+    \item Pevný bod výrazu $E$: $E ~ Y$.
+
+    \item Nechť pro výraz $E$ je pevný bod $k_E = Y ~ E$.
+
+    \item Z definice vlastnosti: $E ~ k_E = k_E = Y ~ E = E ~ (Y ~ E)$.
 \end{compactitem}
 
-\todo{todo}
+\subsection{Bottom}
+
+\begin{compactitem}
+    \item Bottom značíme $\perp~$, definuje se pomocí operátoru pevného bodu.
+    $$ \lklet \perp~ = Y ~ ( \lk f ~ x \lkdot f ) $$
+    \item Výraz, který bude neustále na výstup produkovat sebe (a zkonzumuje všechny parametry.)
+    \item Tímto modelujeme do jisté míry nekonečnou smyčku v programu. \begin{compactitem}
+        \item Lze využít pro signalizaci chybné hodnoty v programu, například dělení nulou.
+    \end{compactitem}
+\end{compactitem}
+
+\subsection{Vytvoření rekurze}
+
+\paragraph*{Příklad: vytvoření rekurze}
+\begin{equation}
+    \begin{split}
+        Y ~ E &= \lk f \lkdot ( \lk x \lkdot f ~ (x ~ x)) (\lk x \lkdot f ~ (x ~ x)) ~ E \lkbeta \\
+        &\lkbeta ( \lk x \lkdot E ~ (x ~ x)) (\lk x \lkdot E ~ (x ~ x)) \lkbeta \\
+        &\lkbeta E ~ ((\lk x \lkdot E ~ (x ~ x)) ~ (\lk x \lkdot E ~ (x ~ x))) = \\
+        &= E ~ (Y ~ E)
+    \end{split}
+\end{equation}
