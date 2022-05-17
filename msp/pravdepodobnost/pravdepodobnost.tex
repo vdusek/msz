@@ -1,0 +1,217 @@
+% VUT FIT MITAI
+% MSZ 2021/2022
+% Author: Vladimir Dusek
+% Login: xdusek27
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Path to figures
+\graphicspath{{msp/pravdepodobnost/figures}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{MSP~--~Pravděpodobnost, podmíněná pravděpodobnost, nezávislost.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Zdroje}
+
+\begin{compactitem}
+    \item \path{MSP_pred_01_Opakovani_Pravd-NP-NV.pdf}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Úvod a kontext}
+
+\begin{compactitem}
+    \item Experiment (česky též vědecký pokus) je soubor jednání a pozorování, jehož účelem je ověřit (verifikovat) nebo vyvrátit (falzifikovat) hypotézu nebo poznatek, které něco tvrdí o příčinných vztazích určitých fenoménů.
+
+    \item Deterministický pokus -- vede vždy k jedinému možnému výsledku.
+
+    \item Náhodný (stochastický) pokus -- vede k jednomu z více možných výsledků.
+
+    \item Náhodný jev -- je tvrzení o výsledku náhodného pokusu, o kterém lze po uskutečnění pokusu jednoznačně rozhodnout, zda je čí není pravdivé.
+
+    \item Základní prostor $\Omega$ je množina všech možných výsledků pokusu.
+
+    \item Náhodným jevem $A$ pak rozumíme libovolnou podmnožinu základního prostoru $A \subseteq \Omega$.
+
+    \item Náhodný jev $A$ se nazývá elementární náhodný jev, pokud neexistují různé náhodné jevy $B$, $C$, takové, že $A = B \cup C$.
+
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Základy pravděpodobnosti}
+
+\subsection{Jevové pole}
+
+\begin{compactitem}
+    \item Jevové pole je dvojice $(\Sigma, \Omega)$, kde $\Sigma$ je množina náhodných jevů, resp. systém podmnožin základního prostoru $\Sigma \subseteq 2^{\Omega}$.
+
+    \item Platí: \begin{compactenum}
+        \item $ A \in \Sigma \Rightarrow \bar{A} \in \Sigma $
+        \item $ A, B \in \Sigma \Rightarrow A \cup B, A \cap B, A \setminus B \in \Sigma $
+        \item $ \emptyset \in \Sigma,~ \Omega \in \Sigma $
+    \end{compactenum}
+
+    \item Dále \begin{compactitem}
+        \item $\omega \in \Omega$ je elementární náhodný jev,
+        \item $\Omega$ je jistý jev,
+        \item $\emptyset$ je nemožný jev.
+    \end{compactitem}
+
+\end{compactitem}
+
+\subsection{Kolmogorova axiomatická definice pravděpodobnosti}
+
+\begin{compactitem}
+    \item Nechť $(\Sigma, \Omega)$ je jevové pole, potom zobrazení $P : \Sigma \rightarrow \langle 0, 1 \rangle$ nazveme pravděpodobností na jevovém poli $(\Sigma, \Omega)$, pokud splňuje: \begin{compactitem}
+        \item nezápornost,
+        $$\forall A \in \Sigma ~:~ P(A) \geq 0$$
+        \item normovanost,
+        $$ P(\Omega) = 1 $$
+        \item pravděpodobnost sjednocení disjunktních náhodných jevů je stejná jako součet jejich pravděpodobností.
+        $$ \forall A_1, \ldots, A_n \in \Sigma : A_i \cap A_j = \emptyset \Rightarrow P \left( \bigcup_{i=1} A_i \right) = \sum_{i=1} P(A_i) $$
+    \end{compactitem}
+
+    \item Pro $A \in \Sigma$ nazýváme hodnotu $P(A)$ pravděpodobností jevu $A$.
+
+    \item Trojici $ (\Omega, \Sigma, P) $ nazýváme pravděpodobnostní prostor.
+\end{compactitem}
+
+\subsection{Klasická pravděpodobnost}
+
+\begin{compactitem}
+    \item Předpokládejme: \begin{compactitem}
+        \item Základní prostor $\Omega$ je konečná množina.
+        \item Pro elementární jevy platí:
+        $$\forall \omega \in \Omega : P(\omega) = \frac{1}{|\Omega|}$$
+    \end{compactitem}
+
+    \item Pak pravděpodobnost definujeme jako poměr počtu příznivých jevů ku počtu všech jevů.
+    $$ \forall A \in 2^{\Omega} : P(A) = \frac{|A|}{|\Omega|} $$
+
+    \item Konvence pro zároveň:
+    $$ P(A, B) = P(A) \cdot P(B) $$
+\end{compactitem}
+
+\paragraph*{Příklad: házení šestistrannou kostkou}
+
+\begin{compactitem}
+    \item Základní prostor: $\Omega = \{ 1, 2, 3, 4, 5, 6 \}$
+    \item Jevové pole: $(2^{\Omega}, \Omega)$.
+    \item Elementární náhodné jevy: $ \{1\}, \{2\}, \{3\}, \{4\}, \{5\}, \{6\} $
+    \item Náhodný jev \uv{sudé číslo}: $A = \{ 2, 4, 6 \}$
+    $$ P(A) = \frac{|A|}{|\Omega|} = \frac{3}{6} = 0,5 $$
+    \item Náhodný jev \uv{číslo větší než 4}: $B = \{ 5, 6 \}$
+    $$ P(B) = \frac{|B|}{|\Omega|} = \frac{2}{6} = 0,\bar{3} $$
+\end{compactitem}
+
+\subsection{Geometrická pravděpodobnost}
+
+\begin{compactitem}
+    \item Rozšíření klasické pravděpodobnosti pro nekonečný základní prostor $\Omega$.
+
+    \item Zde je definice pravděpodobnosti založena na porovnání objemů, ploch či délek geometrických útvarů.
+
+    \item Uvažujme dvojrozměrný prostor, výpočet pravděpodobnosti pak vypadá následovně:
+    $$ P(A) = \frac{A_S}{\Omega_S}$$
+    Kde $A_S$ je obsah plochy reprezentující jev $A$ a $\Omega_S$ je obsah plochy reprezentující všechny možné výsledky.
+\end{compactitem}
+
+\subsection{Sum Rule}
+
+\begin{compactitem}
+    \item Nechť $\Omega$ je základní prostor a $A \in 2^{\Omega}$ je náhodný jev, pak platí tzv. \textit{sum rule}:
+    $$ P(A) = \sum_{B \in 2^{\Omega}} P(A) \cdot P(B)$$
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Podmíněná pravděpodobnost}
+
+\subsection{Podmíněná pravděpodobnost}
+
+\begin{compactitem}
+    \item Nechť $(\Sigma, \Omega)$ je jevové pole, $A, B \in \Sigma$ jsou náhodné jevy a platí $P(B) > 0$.
+
+    \item Podmíněná pravděpodobnost jevu $A$ vzhledem k jevu $B$ pak je:
+    $$ P(A ~|~ B) = \frac{P(A \cap B)}{P(B)} $$
+
+    \item Podmíněná pravděpodobnost udává s jakou pravděpodobností nastane jev $A$, když už nastal jev $B$.
+\end{compactitem}
+
+\subsection{Věta o úplné pravděpodobnosti}
+
+\begin{compactitem}
+    \item Nechť $B_i \in 2^{\Omega} ~,~ i \in \{ 1, 2, \ldots, n \}$ je rozklad základního prostoru $\Omega$, platí
+    $$ \bigcup_{i=1}^n B_i = \Omega ~\land~ i, j \in \{ 1, 2, \ldots, n \} : B_i \not= B_j \Rightarrow B_i \cap B_j = \emptyset $$
+
+    \item Nechť $A \in 2^{\Omega}$ je náhodný jev, platí:
+    $$ P(A) = \sum_{i=1}^n P(B_i) \cdot P(A ~|~ B_i) $$
+\end{compactitem}
+
+\subsection{Product rule}
+
+\begin{compactitem}
+    \item Nechť $\Omega$ je základní prostor a $A, B \in 2^{\Omega}$ jsou náhodné jevy, pak platí tzv. \textit{product rule}:
+    $$ P(A, B) = P(A ~|~ B) \cdot P(B) = P(B ~|~ A) \cdot P(A) $$
+\end{compactitem}
+
+\subsection{Bayesova věta}
+
+\begin{compactitem}
+    \item Nechť $B_i \in 2^{\Omega} ~,~ i \in \{ 1, 2, \ldots, n \}$ je rozklad základního prostoru $\Omega$, platí
+    $$ \bigcup_{i=1}^n B_i = \Omega ~\land~ i, j \in \{ 1, 2, \ldots, n \} : B_i \not= B_j \Rightarrow B_i \cap B_j = \emptyset $$
+
+    \item Nechť $A \in 2^{\Omega}$ je náhodný jev, o němž víme, že již nastal.
+    $$ P(B_i ~|~ A) = \frac{P(B_i) \cdot P(A ~|~ B_i)}{P(A)} = \frac{P(B_i) \cdot P(A ~|~ B_i)}{\sum_{j=1}^n P(B_j) \cdot P(A ~|~ B_j)} $$
+\end{compactitem}
+
+\subsection{Nezávislost}
+
+\begin{compactitem}
+    \item Nechť $A, B \in 2^{\Omega}$ jsou náhodné jevy. Tyto jevy nazveme nezávislé, pokud platí:
+    $$ P(A ~|~ B) = P(A) ~\lor~ P(B ~|~ A) = P(B)$$
+
+    \item Alternativně lze zapsat jako:
+    $$ P(A \cap B) = P(A) \cdot P(B) $$
+\end{compactitem}
+
+\paragraph*{Příklad:} \todo{Todo: priklad na nezavislost}
+
+\paragraph*{Příklad: V populaci užívá drogy $2\,\%$ lidí. Test na drogy má $3\,\%$ šanci na falešnou pozitivitu $4\,\%$ na falešnou negativitu. Pokud vyjde člověku test pozitivní, jaká je pravděpodobnost, že skutečně bere drogy?}
+
+\begin{compactitem}
+    \item Nechť $A$ jsou užívalé drog a $B$ jsou neuživatelé drog, pak platí:
+    $$ P(A) = \frac{2}{100} = 0,02 ~~~~~,~~~~~ P(B) = \frac{98}{100} = 0,98$$
+
+    \item Pozitivní výsledek testu na drogy označme jako $P$ a negativní jako $N$, pak platí:
+    $$ P(P ~|~ A) = \frac{97}{100} = 0,97 ~~~~~,~~~~~ P(P ~|~ B) = \frac{3}{100} = 0,03 $$
+    $$ P(N ~|~ A) = \frac{4}{100} = 0,04 ~~~~~,~~~~~ P(N ~|~ B) = \frac{96}{100} = 0,96 $$
+
+    \item Otázka zní:
+    \begin{equation}
+        \begin{split}
+            P(A ~|~ P) &= \frac{ P(A) \cdot P(P ~|~ A) }{P(P)} = \\
+            \\
+            &= \frac{ P(A) \cdot P(P ~|~ A) }{P(A) \cdot P(P~|~A) + P(B) \cdot P(P~|~B)} = \\
+            \\
+            &= \frac{ 0,02 \cdot 0,97 }{0,02 \cdot 0,97 + 0,98 \cdot 0,03} \approx \\
+            \\
+            &\approx 39,75\,\%
+        \end{split}
+    \end{equation}
+\end{compactitem}
+
+\paragraph*{Příklad: Jak odhadnu pravděpodobnost, že dostanu infarkt, když budu tlustý, pokud mám statistiky pořízené na velkém vzorku populace, kde je u každého člověka záznam o tom, zda byl tlustý a zda prodělal infarkt.}
+
+\begin{equation}
+    \begin{split}
+        &P(infarkt ~|~ tlusty) = \frac{P(infarkt) \cdot P(tlusty ~|~ infarkt)}{P(tlusty)} = \\
+        \\
+        &= \frac{P(infarkt) \cdot P(tlusty ~|~ infarkt)}{P(infarkt) \cdot P(tlusty ~|~ infarkt) + P(neInfarkt) \cdot P(tlusty ~|~ neInfarkt)}
+    \end{split}
+\end{equation}
