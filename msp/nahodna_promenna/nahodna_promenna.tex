@@ -17,11 +17,65 @@
 \section{Zdroje}
 
 \begin{compactitem}
-    \item \path{todo}
+    \item \path{MSP_pred_01_Opakovani_Pravd-NP-NV.pdf}
+    \item \path{MSP_pred_02_Opakovani_Statistika_Regrese.pdf}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
+\section{Náhodná proměnná}
 
-\todo{todo}
+\begin{compactitem}
+    \item \textbf{Neformálně}; Náhodná proměnná je funkce, která přiřazuje každému elementárnímu náhodnému jevu nějakou (zpravidla číselnou) hodnotu (například při hodu mincí \uv{hlavě} nulu a \uv{orlu} jedničku). \begin{compactitem}
+        \item Náhodnou veličinu lze jednoduše charakterizovat jako veličinu, jejíž hodnoty nelze před provedením pozorování jednoznačně určit, ale závisí na náhodě.
+    \end{compactitem}
+
+    \item \textbf{Formálně}; Nechť $\Omega$ je základní prostor a $(\Sigma, \Omega)$ je jevové pole. Pak zobrazení $X : \Omega \rightarrow \mathbb{R}$ se nazývá náhodná proměnná, pokud je měřitelné, tj.
+    $$\forall x \in \mathbb{R} : \{ \omega \in \Omega ~|~ X(\omega) < x \} \in \Sigma$$
+
+    \item Realizaci náhodné veličiny, tj. $X(\omega),~ \omega \in \Omega$ označíme $x$, pak \begin{compactitem}
+        \item množinu $\{ \omega \in \Omega ~|~ X(\omega) < x \}$ zapisujeme jako $\{ X < x \}$,
+
+        \item množinu $\{ \omega \in \Omega ~|~ X(\omega) = x \}$ zapisujeme jako $\{ X = x \}$.
+    \end{compactitem}
+
+    \item Obor hodnot náhodné proměnné $X$ se nazývá základní soubor a značí se $Z$.
+    $$ Z = \{ x \in \mathbb{R} ~|~ x = X(\omega) \land \omega \in \Omega \} $$ \begin{compactitem}
+
+        \item Náhodná proměnná se nazývá \textbf{diskrétní}, pokud $Z$ je nejvýše spočetná množina.
+
+        \item Náhodná proměnná se nazývá \textbf{spojitá}, pokud $Z$ je nespočetná množina.
+    \end{compactitem}
+\end{compactitem}
+
+\subsection{Distribuční funkce}
+
+\begin{compactitem}
+    \item Hodnota $P(\{ \omega \in \Omega ~|~ X(\omega) < x \})$ se nazývá distribuční funkce náhodné veličiny $X$ a značí se $F(x)$.
+
+    \item Zkráceně zapisujeme jako $F(x) = P(X < x)$.
+
+    \item Distribuční funkce udává, že hodnota náhodné proměnné je menší než zadaná hodnota.
+
+    \item Platí: \begin{compactitem}
+
+        \item $F(X)$ je neklesající,
+        \item $F(X)$ je zleva spojitá,
+        \item limity:
+        $$ \lim_{x \rightarrow - \infty} F(x) = 0 $$
+        $$ \lim_{x \rightarrow + \infty} F(x) = 1 $$
+    \end{compactitem}
+
+\end{compactitem}
+
+Hustota pravděpodobnosti
+
+Funkční charakteristiky
+
+Číselné charakteristiky
+
+Diskrétní náhodná proměnná
+
+Spojitá náhodná proměnná
+
+Rozdělení pravděpodobnosti

@@ -82,7 +82,7 @@
     \item Trojici $ (\Omega, \Sigma, P) $ nazýváme pravděpodobnostní prostor.
 \end{compactitem}
 
-\subsection{Klasická pravděpodobnost}
+\subsection{Klasická (Laplaceova) pravděpodobnost}
 
 \begin{compactitem}
     \item Předpokládejme: \begin{compactitem}
@@ -193,7 +193,9 @@
 \subsection{Nezávislost}
 
 \begin{compactitem}
-    \item Nechť $A, B \in 2^{\Omega}$ jsou náhodné jevy. Tyto jevy nazveme nezávislé, pokud platí:
+    \item Řekneme, že jevy $A$ a $B$ jsou nezávislé, pokud pravděpodobnost jevu $A$ nezávisí na výskytu jevu $B$.
+
+    \item Formálně: nechť $A, B \in 2^{\Omega}$ jsou náhodné jevy, tyto jevy nazveme nezávislé, pokud platí:
     $$ P(A ~|~ B) = P(A) ~\lor~ P(B ~|~ A) = P(B)$$
 
     \item Lze upravit:
