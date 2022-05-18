@@ -27,7 +27,7 @@ vlna:
 	@vlna -l $(NAME)*.tex
 
 clean:
-	@rm -f *.dvi *.log *.aux *~ *.blg *.bbl *.toc *.out *.lof *.ptc *.fdb_latexmk *.fls *.synctex.gz
+	@rm -f *.dvi *.log *.aux *~ *.blg *.bbl *.toc *.out *.lof *.ptc *.fdb_latexmk *.fls *.synctex.gz *.synctex\(busy\)
 
 clean-all: clean
 	@rm -f $(NAME).pdf

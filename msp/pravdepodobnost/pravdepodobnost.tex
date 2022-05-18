@@ -18,6 +18,7 @@
 
 \begin{compactitem}
     \item \path{MSP_pred_01_Opakovani_Pravd-NP-NV.pdf}
+    \item \path{SUR_2020-02-11.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,7 +57,7 @@
         \item $ \emptyset \in \Sigma,~ \Omega \in \Sigma $
     \end{compactenum}
 
-    \item Dále \begin{compactitem}
+    \item Dále: \begin{compactitem}
         \item $\omega \in \Omega$ je elementární náhodný jev,
         \item $\Omega$ je jistý jev,
         \item $\emptyset$ je nemožný jev.
@@ -121,13 +122,6 @@
     Kde $A_S$ je obsah plochy reprezentující jev $A$ a $\Omega_S$ je obsah plochy reprezentující všechny možné výsledky.
 \end{compactitem}
 
-\subsection{Sum Rule}
-
-\begin{compactitem}
-    \item Nechť $\Omega$ je základní prostor a $A \in 2^{\Omega}$ je náhodný jev, pak platí tzv. \textit{sum rule}:
-    $$ P(A) = \sum_{B \in 2^{\Omega}} P(A) \cdot P(B)$$
-\end{compactitem}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Podmíněná pravděpodobnost}
@@ -153,13 +147,6 @@
     $$ P(A) = \sum_{i=1}^n P(B_i) \cdot P(A ~|~ B_i) $$
 \end{compactitem}
 
-\subsection{Product rule}
-
-\begin{compactitem}
-    \item Nechť $\Omega$ je základní prostor a $A, B \in 2^{\Omega}$ jsou náhodné jevy, pak platí tzv. \textit{product rule}:
-    $$ P(A, B) = P(A ~|~ B) \cdot P(B) = P(B ~|~ A) \cdot P(A) $$
-\end{compactitem}
-
 \subsection{Bayesova věta}
 
 \begin{compactitem}
@@ -167,20 +154,10 @@
     $$ \bigcup_{i=1}^n B_i = \Omega ~\land~ i, j \in \{ 1, 2, \ldots, n \} : B_i \not= B_j \Rightarrow B_i \cap B_j = \emptyset $$
 
     \item Nechť $A \in 2^{\Omega}$ je náhodný jev, o němž víme, že již nastal.
-    $$ P(B_i ~|~ A) = \frac{P(B_i) \cdot P(A ~|~ B_i)}{P(A)} = \frac{P(B_i) \cdot P(A ~|~ B_i)}{\sum_{j=1}^n P(B_j) \cdot P(A ~|~ B_j)} $$
+    $$ P(B_i ~|~ A) = \frac{P(B_i) \cdot P(A ~|~ B_i)}{P(A)}$$
+
+    \item Pravděpodobnost $P(A)$ lze spočítat na základě věty o úplné pravděpodobnosti.
 \end{compactitem}
-
-\subsection{Nezávislost}
-
-\begin{compactitem}
-    \item Nechť $A, B \in 2^{\Omega}$ jsou náhodné jevy. Tyto jevy nazveme nezávislé, pokud platí:
-    $$ P(A ~|~ B) = P(A) ~\lor~ P(B ~|~ A) = P(B)$$
-
-    \item Alternativně lze zapsat jako:
-    $$ P(A \cap B) = P(A) \cdot P(B) $$
-\end{compactitem}
-
-\paragraph*{Příklad:} \todo{Todo: priklad na nezavislost}
 
 \paragraph*{Příklad: V populaci užívá drogy $2\,\%$ lidí. Test na drogy má $3\,\%$ šanci na falešnou pozitivitu $4\,\%$ na falešnou negativitu. Pokud vyjde člověku test pozitivní, jaká je pravděpodobnost, že skutečně bere drogy?}
 
@@ -192,26 +169,69 @@
     $$ P(P ~|~ A) = \frac{97}{100} = 0,97 ~~~~~,~~~~~ P(P ~|~ B) = \frac{3}{100} = 0,03 $$
     $$ P(N ~|~ A) = \frac{4}{100} = 0,04 ~~~~~,~~~~~ P(N ~|~ B) = \frac{96}{100} = 0,96 $$
 
-    \item Otázka zní:
+    \item Na základě věty o úplně pravděpodobnosti:
+    $$ P(P) = P(A) \cdot P(P~|~A) + P(B) \cdot P(P~|~B) = 0,02 \cdot 0,97 + 0,98 \cdot 0,03 = 0,0488$$
+
+    \item Na základě bayesovy věty:
     \begin{equation}
         \begin{split}
-            P(A ~|~ P) &= \frac{ P(A) \cdot P(P ~|~ A) }{P(P)} = \\
-            \\
-            &= \frac{ P(A) \cdot P(P ~|~ A) }{P(A) \cdot P(P~|~A) + P(B) \cdot P(P~|~B)} = \\
-            \\
-            &= \frac{ 0,02 \cdot 0,97 }{0,02 \cdot 0,97 + 0,98 \cdot 0,03} \approx \\
-            \\
-            &\approx 39,75\,\%
+            P(A ~|~ P) &= \frac{ P(A) \cdot P(P ~|~ A) }{P(P)} = \frac{ 0,02 \cdot 0,97 }{0,0488} \approx 39,75\,\%
         \end{split}
     \end{equation}
 \end{compactitem}
 
 \paragraph*{Příklad: Jak odhadnu pravděpodobnost, že dostanu infarkt, když budu tlustý, pokud mám statistiky pořízené na velkém vzorku populace, kde je u každého člověka záznam o tom, zda byl tlustý a zda prodělal infarkt.}
 
-\begin{equation}
-    \begin{split}
-        &P(infarkt ~|~ tlusty) = \frac{P(infarkt) \cdot P(tlusty ~|~ infarkt)}{P(tlusty)} = \\
-        \\
-        &= \frac{P(infarkt) \cdot P(tlusty ~|~ infarkt)}{P(infarkt) \cdot P(tlusty ~|~ infarkt) + P(neInfarkt) \cdot P(tlusty ~|~ neInfarkt)}
-    \end{split}
-\end{equation}
+\begin{compactitem}
+    \item Na základě věty o úplně pravděpodobnosti:
+    $$ P(tlusty) = P(infarkt) \cdot P(tlusty ~|~ infarkt) + P(neInfarkt) \cdot P(tlusty ~|~ neInfarkt)$$
+
+    \item Na základě bayesovy věty:
+    $$ P(infarkt ~|~ tlusty) = \frac{P(infarkt) \cdot P(tlusty ~|~ infarkt)}{P(tlusty)} $$
+\end{compactitem}
+
+\subsection{Nezávislost}
+
+\begin{compactitem}
+    \item Nechť $A, B \in 2^{\Omega}$ jsou náhodné jevy. Tyto jevy nazveme nezávislé, pokud platí:
+    $$ P(A ~|~ B) = P(A) ~\lor~ P(B ~|~ A) = P(B)$$
+
+    \item Lze upravit:
+    $$ P(A ~|~ B) = P(A) $$
+    $$ \frac{P(A \cap B)}{P(B)} = P(A) $$
+    $$ P(A \cap B) = P(A) \cdot P(B) $$
+
+\end{compactitem}
+
+\paragraph*{Příklad: Házení kostkou a (ne)závislé jevy.}
+
+\begin{compactitem}
+    \item $\Omega = \{ 1,2,3,4,5,6 \}$
+    \item Příklad 1: \begin{compactitem}
+        \item $A = \{ 2,4,6 \}$
+        \item $B = \{ 5,6 \}$
+        $$ P(A \cap B) = P(A) \cdot P(B) ~\Rightarrow~ \frac{1}{6} = \frac{1}{3} \cdot \frac{1}{2} $$
+        \item Jevy $A$ a $B$ jsou nezávislé.
+    \end{compactitem}
+
+    \item Příklad 2: \begin{compactitem}
+        \item $C = \{ 1,3,5 \}$
+        \item $D = \{ 3,5 \}$
+        $$ P(C \cap D) = P(C) \cdot P(D) ~\Rightarrow~ \frac{1}{3} \not= \frac{1}{2} \cdot \frac{1}{3} $$
+        \item Jevy $A$ a $B$ jsou závislé.
+    \end{compactitem}
+\end{compactitem}
+
+\subsection{Sum Rule}
+
+\begin{compactitem}
+    \item Nechť $\Omega$ je základní prostor a $A \in 2^{\Omega}$ je náhodný jev, pak platí tzv. \textit{sum rule}:
+    $$ P(A) = \sum_{B \in 2^{\Omega}} P(A) \cdot P(B)$$
+\end{compactitem}
+
+\subsection{Product rule}
+
+\begin{compactitem}
+    \item Nechť $\Omega$ je základní prostor a $A, B \in 2^{\Omega}$ jsou náhodné jevy, pak platí tzv. \textit{product rule}:
+    $$ P(A, B) = P(A ~|~ B) \cdot P(B) = P(B ~|~ A) \cdot P(A) $$
+\end{compactitem}
