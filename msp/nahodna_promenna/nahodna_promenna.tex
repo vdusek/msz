@@ -55,7 +55,11 @@
     % \item Mějme hodnoty $x_1$ a $x_2$, příklad vyjádření pravděpodobnosti vzhledem k náhodné proměnné $X$:
     % $$ P(x_1 < X < x_2) $$
 
-    % \item Pro obor hodnot náhodné proměnné $X$ $$ Z = \{ x \in \mathbb{R} ~|~ \exists \omega \in \Omega : x = X(\omega) \} $$
+    \item Pro obor hodnot náhodné proměnné značíme $Z$. \begin{compactitem}
+        \item Obor hodnot náhodné proměnné je definiční funkce pravděpodobnostní funkce, resp. funkce hustoty pravděpodobnostni.
+    \end{compactitem}
+
+    % = \{ x \in \mathbb{R} ~|~ \exists \omega \in \Omega : x = X(\omega) \} $$
 \end{compactitem}
 
 \subsection{Distribuční funkce}
@@ -87,7 +91,7 @@
 \section{Diskrétní náhodná proměnná}
 
 \begin{compactitem}
-    \item Náhodná proměnná se nazývá \textbf{diskrétní}, pokud základní soubor $Z \subset \mathbb{R}$ je konečná nebo nejvýše spočetně nekonečná množina.
+    \item Náhodná proměnná se nazývá \textbf{diskrétní}, pokud obor hodnot $Z \subset \mathbb{R}$ je konečná nebo nejvýše spočetně nekonečná množina.
 
     \item \textbf{Pravděpodobnostní funkce} \begin{compactitem}
         \item Udává pravděpodobnost, že diskrétní náhodná veličina se přesně rovná nějaké hodnotě.
@@ -122,7 +126,7 @@
     \item \textbf{Příklad} -- náhodná proměnná reprezentující součet hodnot po 5 hodech šestistrannou kostkou.
     $$ X = \text{suma 5 hodů šestistrannou kostkou} $$ \begin{compactitem}
         \item Zkoumání pravděpodobnosti, že součet bude větší než 15:
-            $$ P(X > 15) = \ldots$$
+        $$ P(X > 15) = \ldots$$
     \end{compactitem}
 
 \end{compactitem}
@@ -132,7 +136,7 @@
 \section{Spojitá náhodná proměnná}
 
 \begin{compactitem}
-    \item Náhodná proměnná se nazývá \textbf{spojitá}, pokud základní soubor $Z \subseteq \mathbb{R}$ je nekonečná nespočetná množina a existuje nezáporná, po částech spojitá funkce $f(x)$, taková, že
+    \item Náhodná proměnná se nazývá \textbf{spojitá}, pokud obor hodnot $Z \subseteq \mathbb{R}$ je nekonečná nespočetná množina a existuje nezáporná, po částech spojitá funkce $f(x)$, taková, že
     $$ F(x) = \int_{- \infty}^{x} f(t) ~ dt ~,~ x \in \mathbb{R} $$
 
     \item Pravděpodobnost konkrétní hodnoty je $0$, formálně:
@@ -170,7 +174,7 @@
     \item \textbf{Příklad} -- náhodná proměnná reprezentující čas běhu závodníka v běhu na 100\,m.
     $$ X = \text{čas běhu na 100\,m} $$ \begin{compactitem}
         \item Zkoumání pravděpodobnosti, že zaběhne pod 10:
-            $$ P(X < 10) = \ldots$$
+        $$ P(X < 10) = \ldots$$
     \end{compactitem}
 
 \end{compactitem}
@@ -239,19 +243,71 @@
 
 \subsection{Alternativní (Bernoulliho) rozdělení}
 
-\todo{todo}
+\begin{compactitem}
+    \item Dvě alternativy (mohou být různě pravděpodobné).
+    $$ X \sim A(r) ~,~ r \in \langle 0, 1 \rangle $$
+    $$ Z = \{ 0, 1 \}$$
+    $$ p(x) = \left\{
+        \begin{array}{ll}
+            1-p ~ & x = 0 \\
+            p   ~ & x = 1
+        \end{array}
+        \right. ~,~ x \in Z
+    $$
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{dnp_alternativni.png}
+    \caption{Alternativní rozdělení -- příklad pravděpodobnostní a distribuční funkce.}
+\end{figure}
 
 \subsection{Klasické rozdělení}
 
-\todo{todo}
+\begin{compactitem}
+    \item Všechny náhodné jevy jsou stejně pravděpodobné.
+    $$ X \sim C(n) ~,~ n \in \mathbb{N}$$
+    $$ Z = \{ 0, 1, \ldots, n \}$$
+    $$ p(x) = \frac{1}{n} ~,~ x \in Z $$
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{dnp_klasicke.png}
+    \caption{Klasické rozdělení -- příklad pravděpodobnostní a distribuční funkce.}
+\end{figure}
 
 \subsection{Binomické rozdělení}
 
-\todo{todo}
+\begin{compactitem}
+    \item Popisuje četnost výskytu náhodného jevu v $n$ nezávislých pokusech, v nichž má jev stále stejnou pravděpodobnost. Pokud speciálně $n=1$, jde o alternativní rozdělení.
+    \item Například, jaká je pravděpodobnost, že při 5 vrzích kostkou padne právě $2 \times$ číslo 1?
+    $$ X \sim Bi(n, r) ~,~ n \in \mathbb{N} ~,~ r \in \langle 0, 1 \rangle $$
+    $$ Z = \{ 0, 1, \ldots, n \}$$
+    $$ p(x) = {n \choose x} \cdot p^x \cdot (1-p)^{n-x} ~,~ x \in Z $$
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{dnp_binomicke.png}
+    \caption{Binomické rozdělení -- příklad pravděpodobnostní a distribuční funkce.}
+\end{figure}
 
 \subsection{Poissonovo rozdělení}
 
-\todo{todo}
+\begin{compactitem}
+    \item Popisuje náhodnou veličinu, která vyjadřuje počet výskytů jevů (parametr $\lambda$) v určitém intervalu (času, délky, objemu), když jevy nastávají nezávisle na sobě.
+    \item Například, občas nám přijde dopis (to je náš jev, událost). Během roku dostaneme 1460 dopisů, t.j. v průměru 4 za den. Počet příchozích dopisů během jednoho dne (to je náš časový interval) se řídí Poissonovým rozdělením. Nejvyšší je pravděpodobnost, že přijdou 4 dopisy. Pravděpodobnost dvou dopisů je o něco menší. Pravděpodobnost, že jich přijde 100, je téměř nulová.
+    $$ X \sim Po(\lambda) ~,~ \lambda \in \mathbb{R}^+ $$
+    $$ Z = \{ 0, 1, \ldots \}$$
+    $$ p(x) = e^{- \lambda} \cdot \frac{\lambda^x}{x!} ~,~ x \in Z $$
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{dnp_poissonovo.png}
+    \caption{Poissonovo rozdělení -- příklad pravděpodobnostní a distribuční funkce.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -259,12 +315,60 @@
 
 \subsection{Rovnoměrné rozdělení}
 
-\todo{todo}
+\begin{compactitem}
+    \item Všechny náhodné jevy jsou stejně pravděpodobné (stejné jako klasické rozdělení, akorát pro SNP).
+    $$ X \sim R(a, b) ~,~ a, b \in \mathbb{R} \land a < b $$
+    $$ Z = \mathbb{R} $$
+    $$ f(x) = \left\{
+        \begin{array}{ll}
+            \frac{1}{b-a} ~ & x \in \langle a, b \rangle \\
+            0             ~ & \text{jinak}
+        \end{array}
+        \right. ~,~ x \in Z
+    $$
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{snp_rovnomerne.png}
+    \caption{Rovnoměrné rozdělení -- příklad funkce hustoty pravděpodobnosti a distribuční funkce.}
+\end{figure}
 
 \subsection{Exponenciální rozdělení}
 
-\todo{todo}
+\begin{compactitem}
+    \item Vyjadřuje rozdělení délky intervalu mezi náhodně se vyskytujícími událostmi, jejichž pravděpodobnost výskytu má Poissonovo rozdělení.
+    \item Například, využívá se například v pojistné matematice při určování (pravděpodobnostního) rozdělení výše pojistného plnění nebo času mezi nastalé pojistné události, dále například ve fyzice při modelování času radioaktivního rozpadu a v systémech hromadné obsluhy.
+    $$ X \sim Ex(a, \lambda) ~,~ a, \lambda \in \mathbb{R} \land \lambda > 0 $$
+    $$ Z = \langle a, +\infty \rangle $$
+    $$ f(x) = \left\{
+        \begin{array}{ll}
+            \lambda \cdot e^{-\lambda (x - a)} ~ & x > a        \\
+            0             ~                      & \text{jinak}
+        \end{array}
+        \right. ~,~ x \in Z
+    $$
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{snp_exponencialni.png}
+    \caption{Exponenciální rozdělení -- příklad funkce hustoty pravděpodobnosti a distribuční funkce.}
+\end{figure}
 
 \subsection{Normální (Gaussovo) rozdělení}
 
-\todo{todo}
+\begin{compactitem}
+    \item Jeho důležitost ukazuje centrální limitní věta (CLV), jež zhruba řečeno tvrdí, že součet či aritmetický průměr velkého počtu libovolných vzájemně nezávislých a nepříliš \uv{divokých} náhodných veličin se vždy podobá normálně rozdělené náhodné veličině. Normální rozdělení proto za určitých podmínek dobře aproximuje řadu jiných pravděpodobnostních rozdělení (spojitých i diskrétních).
+    \item Například, náhodné chyby (chyby měření, \dots) způsobené velkým počtem malých, neznámých a vzájemně nezávislých příčin, jsou v důsledku CLV rovněž rozděleny přibližně normálně. Proto bývá normální rozdělení také označováno jako zákon chyb. Podle tohoto zákona se také teoreticky řídí rozdělení některých fyzikálních a technických veličin.
+    $$ X \sim N(\mu, \sigma^2) ~,~ \mu, \sigma^2 \in \mathbb{R} $$
+    $$ Z = \mathbb{R} $$
+    $$ f(x) = \frac{1}{\sigma \cdot \sqrt{2 \pi}} \cdot e^{- \frac{(x-\mu)^2}{2 \sigma^2}} ~,~ x \in Z
+    $$
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{snp_normalni.png}
+    \caption{Normální rozdělení -- příklad funkce hustoty pravděpodobnosti a distribuční funkce.}
+\end{figure}
