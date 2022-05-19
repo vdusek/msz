@@ -17,6 +17,7 @@
 \section{Zdroje}
 
 \begin{compactitem}
+    \item \path{MSP_pred_02_Opakovani_Statistika_Regrese.}pdf
     \item \path{MSP_pred_03_Norm-Bi_Odhady-Testy.pdf}
     \item Wikipedia
 \end{compactitem}
@@ -26,6 +27,8 @@
 \section{Úvod a kontext}
 
 \begin{compactitem}
+    \item Náhodný výběr -- Z celého stavového prostoru jsou náhodně vybrány vzorky (je proveden náhdoný výběr). Např. princip volebních průzkumů.
+
     \item Na statistický soubor $(x_1, x_2, \ldots, x_n)$ můžeme nahlížet jako na výběrový soubor získaný náhodným výběrem z náhodné proměnné $X$. \begin{compactitem}
         \item Stejným způsobem pro vícerozměrné statistické soubory. Soubor\break $((x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n))$ může být získán náhodným výběrem ze dvou náhodných proměnných $X, Y$.
     \end{compactitem}
@@ -34,6 +37,8 @@
 
         \item Typicky číselné charakteristiky jako střední hodnota a rozptyl.
     \end{compactitem}
+
+    \item Jako statistickou hypotézu chápeme určitý předpoklad o rozdělení náhodných veličin. Jestliže se tyto předpoklady týkají hodnot parametrů rozdělení náhodné veličiny, pak hovoříme o parametrických hypotézách. V opačném případě se jedná o hypotézy neparametrické.
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -95,7 +100,7 @@
 
     \item Jako alternativu vůči hypotéze postavíme tzv. \textbf{alternativní hypotézu} $H_A$ (také nulová hypotéza), kterou volíme v kontextu dané úlohy. \begin{compactitem}
         \item Příklad;
-        \item $H : \theta = \theta_0$ je  hypotéza, že parametr $\theta$ má hodnotu $\theta_0$
+        \item $H_0 : \theta = \theta_0$ je  hypotéza, že parametr $\theta$ má hodnotu $\theta_0$
         \item $H_A : \theta > \theta_0$ je jednostranná alternativní hypotéza.
         \item $H_A : \theta \not= \theta_0$ je oboustranná alternativní hypotéza.
     \end{compactitem}
@@ -139,9 +144,9 @@
 
     \item Testujeme: \begin{compactitem}
         \item střední hodnotu, např. Studentův jednovýběrový test;
-        $$ H : \mu = \mu_0 $$
+        $$ H_0 : \mu = \mu_0 $$
         \item rozptyl, např. Test na rozptyl.
-        $$ H : \sigma^2 = \sigma_0^2 $$
+        $$ H_0 : \sigma^2 = \sigma_0^2 $$
     \end{compactitem}
 
     \item Pro výběr z 2-rozměrného Normálního rozdělení jsou jiné testy (např. Studentův párový test).
@@ -156,10 +161,10 @@
 
     \item Testujeme: \begin{compactitem}
         \item rovnost rozptylů, např. F-test;
-        $$ H : \sigma_X^2 = \sigma_Y^2 $$
+        $$ H_0 : \sigma_X^2 = \sigma_Y^2 $$
 
         \item střední hodnotu, např. Studentův dvouvýběrový test za podmínky $\sigma_X^2 = \sigma_Y^2$;
-        $$ H : \mu_X - \mu_Y = \mu_0 $$
+        $$ H_0 : \mu_X - \mu_Y = \mu_0 $$
 
     \end{compactitem}
 \end{compactitem}
@@ -173,7 +178,7 @@
 
     \item Testujeme: \begin{compactitem}
         \item pravděpodobnost $p$
-        $$ H : p = p_0 $$
+        $$ H_0 : p = p_0 $$
     \end{compactitem}
 \end{compactitem}
 
@@ -186,6 +191,6 @@
 
     \item Testujeme: \begin{compactitem}
         \item shodnost pravděpodobností $p_X$ a $p_Y$:
-        $$ H : p_X = p_Y $$
+        $$ H_0 : p_X = p_Y $$
     \end{compactitem}
 \end{compactitem}

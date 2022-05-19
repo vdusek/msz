@@ -24,8 +24,57 @@
 
 \section{Úvod a kontext}
 
-Metoda nejmenších čtverců
+\begin{compactitem}
+    \item \textbf{Korelační analýza} se zabývá vzájemnými (většinou lineárními) závislostmi, kdy se klade důraz především na intenzitu (sílu) vzájemného vztahu než na zkoumání veličin ve směru příčina -- následek.
 
-Lineární regrese
+    \item \textbf{Regresní analýza} se zabývá jednostrannými závislostmi. Jedná se o situaci, kdy proti sobě stojí vysvětlující (nezávislá) proměnná v úloze příčin a vysvětlovaná (závislá) proměnná v úloze následků (hledání závislostí mezi atributy). V podstatě jde o aproximaci souboru dat vhodnou funkcí (tzv. regresní funkce). \begin{compactitem}
+        \item Na začátku regresní analýzy je třeba odhadnout typ funkce. K tomu slouží explorativní analýza, která se používá ke zjištění, jak cílový atribut závisí na ostatních atributech (na kterých a jak).
+        \item Poté je třeba určit parametry regresní funkce, například pomocí metody nejmenších čtverců.
+        \item V závěru je třeba model verifikovat, zda funguje i na datech, na kterých nebyl přímo trénován.
+    \end{compactitem}
 
-Polynomiální regrese
+    \item Rozlišujeme různé typy: \begin{compactitem}
+        \item Jednoduchá lineární regrese -- Cílový atribut závisí na jednom dalším atributu lineárně.
+        \item Vícenásobná lineární regrese -- Cílový atribut závisí na několika dalších atributech lineárně.
+        \item Nelineární regrese -- Cílový atribut závisí na dalších atributech nelineárně.
+    \end{compactitem}
+
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Polynomiální regrese}
+
+\begin{compactitem}
+    \item Polynomiální regrese představuje proložení (aproximaci) zadaných hodnot polynomem.
+
+    \item Postup: \begin{compactitem}
+        \item Mějme datový soubor $Y$ reprezentovaný uspořádanou n-ticí: $$Y = (y_1, y_2, \ldots, y_n)$$
+        \item cílem je najít takový polynom k-tého stupně:
+        $$P_k(x) = p_0 + p_1 x + \ldots + p_k x^k$$
+        \item pro který platí
+        $$y_i = P_k(x_i) + e_i$$
+        pro $i \in 1 \ldots n$, kde $e_i$ je odchylka (nebo také chyba). Koeficienty $p_0, p_1, \ldots, p_k$ jsou přitom voleny tak, aby součet druhých mocnin odchylek, resp. suma $$\sum_{i=1}^n e_i^2$$, byla co nejmenší.
+    \end{compactitem}
+\end{compactitem}
+
+\subsection{Metoda nejmenších čtverců}
+
+\todo{todo}
+
+\subsection{Střední kvadratická chyba}
+
+\begin{compactitem}
+    \item Jedna z chybových metrik je tzv. střední kvadratická chyba (MSE, \textit{Mean Squared Error}).
+
+    \item Mějme trénovací datový soubor $(X, Y)$, kde $X = (x_1, x_2, \ldots, x_n)$ jsou hodnoty ovlivňující proměnné a $Y = (y_1, y_2, \ldots, y_n)$ jsou hodnoty cílové proměnné, a regresní funkci $f$, která aproximuje datovou sadu $(X, Y)$.
+
+    \item Výpočet chyby MSE regresní funkce $f$ na datovém souboru $(X, Y)$:
+    $$ \text{MSE} = \frac{1}{n} \sum_{i=1}^n (y_i - f(x_i))^2 $$
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Příklad}

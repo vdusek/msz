@@ -367,12 +367,16 @@
 
 \begin{compactitem}
     \item Jeho důležitost ukazuje centrální limitní věta (CLV), jež zhruba řečeno tvrdí, že součet či aritmetický průměr velkého počtu libovolných vzájemně nezávislých a nepříliš \uv{divokých} náhodných veličin se vždy podobá normálně rozdělené náhodné veličině. Normální rozdělení proto za určitých podmínek dobře aproximuje řadu jiných pravděpodobnostních rozdělení (spojitých i diskrétních).
+
     \item Parametr $\mu$ udává střední hodnotu, parametr $\sigma^2$ rozptyl.
+
     \item Například, náhodné chyby (chyby měření, \dots) způsobené velkým počtem malých, neznámých a vzájemně nezávislých příčin, jsou v důsledku CLV rovněž rozděleny přibližně normálně. Proto bývá normální rozdělení také označováno jako zákon chyb. Podle tohoto zákona se také teoreticky řídí rozdělení některých fyzikálních a technických veličin.
     $$ X \sim N(\mu, \sigma^2) ~,~ \mu, \sigma^2 \in \mathbb{R} $$
     $$ Z = \mathbb{R} $$
     $$ f(x) = \frac{1}{\sigma \cdot \sqrt{2 \pi}} \cdot e^{- \frac{(x-\mu)^2}{2 \sigma^2}} ~,~ x \in Z
     $$
+
+    \item \textbf{Centrální limitní věta} označuje tvrzení, podle něhož se (za určitých podmínek) rozdělení výběrového průměru blíží k normálnímu rozdělení, a to bez ohledu na to, jaké je rozdělení průměrované náhodné veličiny. Jinak řečeno pokud platí předpoklady centrální limitní věty, tak výběrový průměr má jakožto náhodná veličina asymptoticky normální rozdělení.
 \end{compactitem}
 
 \begin{figure}[H]
