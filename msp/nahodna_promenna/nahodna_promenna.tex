@@ -19,6 +19,7 @@
 \begin{compactitem}
     \item \path{MSP_pred_01_Opakovani_Pravd-NP-NV.pdf}
     \item \path{MSP_pred_02_Opakovani_Statistika_Regrese.pdf}
+    \item Wikipedia
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -55,8 +56,8 @@
     % \item Mějme hodnoty $x_1$ a $x_2$, příklad vyjádření pravděpodobnosti vzhledem k náhodné proměnné $X$:
     % $$ P(x_1 < X < x_2) $$
 
-    \item Pro obor hodnot náhodné proměnné značíme $Z$. \begin{compactitem}
-        \item Obor hodnot náhodné proměnné je definiční funkce pravděpodobnostní funkce, resp. funkce hustoty pravděpodobnostni.
+    \item Obor hodnot náhodné proměnné značíme $Z$. \begin{compactitem}
+        \item Obor hodnot náhodné proměnné je definiční obor pravděpodobnostní funkce, resp. funkce hustoty pravděpodobnostni (viz dále).
     \end{compactitem}
 
     % = \{ x \in \mathbb{R} ~|~ \exists \omega \in \Omega : x = X(\omega) \} $$
@@ -99,7 +100,7 @@
         \item Funkci $p(x) = P(X = x) ~,~ x \in \mathbb{R}$ nazýváme pravděpodobností funkcí diskrétní náhodné veličiny $X$.
 
         \item Platí:
-        $$ \sum_{i=1}^n p(x_i) = 1 $$
+        $$ \sum_{x \in Z} p(x) = 1 $$
         $$ \forall x \in Z ~:~ 0 \leq p(x) \leq 1$$
     \end{compactitem}
 
@@ -111,10 +112,10 @@
 
     \item \textbf{Distribuční funkce} \begin{compactitem}
         \item Distribuční funkce má tvar:
-        $$ F(x) = \sum_{t < x} p(t) ~,~ \forall x \in (-\infty, +\infty)$$
+        $$ F(x) = \sum_{t < x} p(t) ~,~ \forall x \in \mathbb{R}$$
 
-        \item Platí: \todo{Todo: overit}
-        $$ p(x) = \lim_{t \rightarrow x+} F(t) - F(x) $$
+        \item Platí:
+        $$ p(x) = \lim_{t \rightarrow x^+} F(t) - F(x) $$
     \end{compactitem}
 
     \begin{figure}[H]
@@ -171,9 +172,9 @@
         \caption{Příklad distribuční funkce pro SNP.}
     \end{figure}
 
-    \item \textbf{Příklad} -- náhodná proměnná reprezentující čas běhu závodníka v běhu na 100\,m.
-    $$ X = \text{čas běhu na 100\,m} $$ \begin{compactitem}
-        \item Zkoumání pravděpodobnosti, že zaběhne pod 10:
+    \item \textbf{Příklad} -- náhodná proměnná reprezentující vítězný čas závodu v běhu na 100\,m.
+    $$ X = \text{vítězný čas v běhu na 100\,m} $$ \begin{compactitem}
+        \item Zkoumání pravděpodobnosti, že vítězný čas je pod 10:
         $$ P(X < 10) = \ldots$$
     \end{compactitem}
 
@@ -191,10 +192,10 @@
 \end{compactitem}
 
 \begin{compactitem}
+    \item \textbf{Medián} -- Nechť $p \in \langle 0, 1\rangle$ je kvantil náhodné proměnné. Pokud $p = 0,5$, tak se $p$ kvantil nazývá medián a značí se $\tilde{x}$.  \begin{compactitem}
 
-    \item \textbf{Kvantil} -- Kvantil je charakteristika, kterou stanovená část $p$ (uváděná jako číslo z intervalu $\langle 0, 1\rangle$) hodnot nepřesahuje. Je také možné říct, že kvantily jsou hodnoty, které dělí soubor seřazených (například naměřených) hodnot na několik zhruba stejně velkých částí. (Příklad: výrok, že 90\,\% účastníků závodu mělo čas pod 2 hodiny, vlastně konstatuje, že 90. percentil dosažených časů je 2 hodiny.)
-
-    \item \textbf{Medián} -- Nechť $p \in \langle 0, 1\rangle$ je kvantil náhodné proměnné. Pokud $p = 0,5$, tak se $p$ kvantil nazývá medián a značí se $\tilde{x}$.
+        \item Kvantil je charakteristika, kterou stanovená část $p$ (uváděná jako číslo z intervalu $\langle 0, 1\rangle$) hodnot nepřesahuje. Je také možné říct, že kvantily jsou hodnoty, které dělí soubor seřazených (například naměřených) hodnot na několik zhruba stejně velkých částí. (Příklad: výrok, že 90\,\% účastníků závodu mělo čas pod 2 hodiny, vlastně konstatuje, že 90. percentil dosažených časů je 2 hodiny.)
+    \end{compactitem}
 
     \item \textbf{Modus} -- Modus náhodné veličiny $X$ je reálné číslo $\hat{x}$, které je maximem pravděpodobnostní funkce, resp. funkce hustoty pravděpodobnosti.
 
@@ -217,7 +218,7 @@
         $$ D(X) = \sum_{i=1}^n {\left(x_i - E(X)\right)}^2 \cdot p_i $$
 
         \item Pro SNP:
-        $$ D(X) = \int_{-\infty}^\infty {\left( x - E(X) \right)}^2 \cdot p(x) ~ dx = \int_{-\infty}^\infty x^2 \cdot p(x) ~ dx - E(X)^2 $$
+        $$ D(X) = \int_{-\infty}^\infty {\left( x - E^2(X) \right)} \cdot p(x) ~ dx = \int_{-\infty}^\infty x^2 \cdot p(x) ~ dx - E^2(X) $$
     \end{compactitem}
 
     \item \textbf{Směrodatná odchylka} -- Je odmocnina rozptylu náhodné veličiny. \begin{compactitem}
@@ -245,7 +246,8 @@
 
 \begin{compactitem}
     \item Dvě alternativy (mohou být různě pravděpodobné).
-    $$ X \sim A(r) ~,~ r \in \langle 0, 1 \rangle $$
+    \item Parametr $p$ udává pravděpodobnost jevu.
+    $$ X \sim A(p) ~,~ p \in \langle 0, 1 \rangle $$
     $$ Z = \{ 0, 1 \}$$
     $$ p(x) = \left\{
         \begin{array}{ll}
@@ -266,6 +268,7 @@
 
 \begin{compactitem}
     \item Všechny náhodné jevy jsou stejně pravděpodobné.
+    \item Parametr $n$ udává počet alternativ.
     $$ X \sim C(n) ~,~ n \in \mathbb{N}$$
     $$ Z = \{ 0, 1, \ldots, n \}$$
     $$ p(x) = \frac{1}{n} ~,~ x \in Z $$
@@ -281,8 +284,9 @@
 
 \begin{compactitem}
     \item Popisuje četnost výskytu náhodného jevu v $n$ nezávislých pokusech, v nichž má jev stále stejnou pravděpodobnost. Pokud speciálně $n=1$, jde o alternativní rozdělení.
+    \item Parametr $n$ počet opakování a parametr $p$ pravděpodobnost výskytu jevu.
     \item Například, jaká je pravděpodobnost, že při 5 vrzích kostkou padne právě $2 \times$ číslo 1?
-    $$ X \sim Bi(n, r) ~,~ n \in \mathbb{N} ~,~ r \in \langle 0, 1 \rangle $$
+    $$ X \sim Bi(n, p) ~,~ n \in \mathbb{N} ~,~ p \in \langle 0, 1 \rangle $$
     $$ Z = \{ 0, 1, \ldots, n \}$$
     $$ p(x) = {n \choose x} \cdot p^x \cdot (1-p)^{n-x} ~,~ x \in Z $$
 \end{compactitem}
@@ -296,7 +300,8 @@
 \subsection{Poissonovo rozdělení}
 
 \begin{compactitem}
-    \item Popisuje náhodnou veličinu, která vyjadřuje počet výskytů jevů (parametr $\lambda$) v určitém intervalu (času, délky, objemu), když jevy nastávají nezávisle na sobě.
+    \item Popisuje náhodnou veličinu, která vyjadřuje počet výskytů jevů v určitém intervalu (času, délky, objemu), když jevy nastávají nezávisle na sobě.
+    \item Parametr $\lambda$ udává počet výskytů v intervalu (průměr).
     \item Například, občas nám přijde dopis (to je náš jev, událost). Během roku dostaneme 1460 dopisů, t.j. v průměru 4 za den. Počet příchozích dopisů během jednoho dne (to je náš časový interval) se řídí Poissonovým rozdělením. Nejvyšší je pravděpodobnost, že přijdou 4 dopisy. Pravděpodobnost dvou dopisů je o něco menší. Pravděpodobnost, že jich přijde 100, je téměř nulová.
     $$ X \sim Po(\lambda) ~,~ \lambda \in \mathbb{R}^+ $$
     $$ Z = \{ 0, 1, \ldots \}$$
@@ -317,6 +322,7 @@
 
 \begin{compactitem}
     \item Všechny náhodné jevy jsou stejně pravděpodobné (stejné jako klasické rozdělení, akorát pro SNP).
+    \item Parametry $a, b$ udávají dolní, resp. horní hranici intervalu.
     $$ X \sim R(a, b) ~,~ a, b \in \mathbb{R} \land a < b $$
     $$ Z = \mathbb{R} $$
     $$ f(x) = \left\{
@@ -338,7 +344,8 @@
 
 \begin{compactitem}
     \item Vyjadřuje rozdělení délky intervalu mezi náhodně se vyskytujícími událostmi, jejichž pravděpodobnost výskytu má Poissonovo rozdělení.
-    \item Například, využívá se například v pojistné matematice při určování (pravděpodobnostního) rozdělení výše pojistného plnění nebo času mezi nastalé pojistné události, dále například ve fyzice při modelování času radioaktivního rozpadu a v systémech hromadné obsluhy.
+    \item Parametr $\lambda$ udává počet výskytů v intervalu (průměr).
+    \item Například, využívá se v pojistné matematice při určování (pravděpodobnostního) rozdělení výše pojistného plnění nebo času mezi nastalé pojistné události, dále ve fyzice při modelování času radioaktivního rozpadu a v systémech hromadné obsluhy.
     $$ X \sim Ex(a, \lambda) ~,~ a, \lambda \in \mathbb{R} \land \lambda > 0 $$
     $$ Z = \langle a, +\infty \rangle $$
     $$ f(x) = \left\{
@@ -360,6 +367,7 @@
 
 \begin{compactitem}
     \item Jeho důležitost ukazuje centrální limitní věta (CLV), jež zhruba řečeno tvrdí, že součet či aritmetický průměr velkého počtu libovolných vzájemně nezávislých a nepříliš \uv{divokých} náhodných veličin se vždy podobá normálně rozdělené náhodné veličině. Normální rozdělení proto za určitých podmínek dobře aproximuje řadu jiných pravděpodobnostních rozdělení (spojitých i diskrétních).
+    \item Parametr $\mu$ udává střední hodnotu, parametr $\sigma^2$ rozptyl.
     \item Například, náhodné chyby (chyby měření, \dots) způsobené velkým počtem malých, neznámých a vzájemně nezávislých příčin, jsou v důsledku CLV rovněž rozděleny přibližně normálně. Proto bývá normální rozdělení také označováno jako zákon chyb. Podle tohoto zákona se také teoreticky řídí rozdělení některých fyzikálních a technických veličin.
     $$ X \sim N(\mu, \sigma^2) ~,~ \mu, \sigma^2 \in \mathbb{R} $$
     $$ Z = \mathbb{R} $$
