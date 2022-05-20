@@ -14,8 +14,6 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\textit{Pozn. tato otázka je zpracovaná pouze stručně.}
-
 \section{Zdroje}
 
 \begin{compactitem}
@@ -29,21 +27,93 @@
 
 \section{ANOVA}
 
-Statistické metody, které umožňují provádět vícenásobné porovnávání středních hodnot, jsou soustředěny pod souhrnným názvem analýza rozptylu (ANOVA -- Analysis of Variance). Tato metoda je založena na hodnocení vztahů mezi rozptyly porovnávaných výběrových souborů (testování shody středních hodnot se převádí na testování shody dvou rozptylů).
+\begin{compactitem}
+    \item ANOVA (\textit{analysis of variance}, analýza rozptylu) jsou statistické metody, které umožňují provádět vícenásobné porovnávání středních hodnot (resp. rozptylů).
+
+    \item V čem je rozdíl oproti základním testům hypotéz pro vybraná rozdělení?
+
+    \begin{compactitem}
+        \item ANOVA jsou souhrnné testy pro více něž dva výběry (proto spadá pod vícevýběrové testy).
+
+        \item Proč neudělat více dvouvýběrových testů Museli bychom v případě více jak 2 hodnot faktoru provést dvouvýběrový test pro všechny dvojice hodnot, nebo současně porovnat naměřené hodnoty s předem danou hodnotou (efektivita).
+    \end{compactitem}
+
+    \item ANOVA je založena na hodnocení vztahů mezi rozptyly porovnávaných výběrových souborů (testování shody středních hodnot se převádí na testování shody dvou rozptylů).
+
+    \item \textbf{Faktor} -- Statistický znak (znaky), který ovlivňuje měřenou veličinu. U každého faktoru uvažujeme o konečném počtu jeho hodnot.  \begin{compactitem}
+        \item Např. chov králíků, zajímá nás velikost (měřená veličina) v závislosti na typu krmiva (faktor).
+
+        \item Např. Dva termíny pro písemku ze cvičení MSP (logika). Zajímá nás počet bodů z písemky (měřená veličina), v závislosti na skupině (jeden faktor) a na termínu (druhý faktor).
+    \end{compactitem}
+\end{compactitem}
 
 \subsection{Jednofaktorová ANOVA}
 
-\todo{todo}
+\begin{compactitem}
+    \item Náhodná proměnná je ovlivněna pouze jedním faktorem.
+
+    \item U náhodné veličiny $X$ uvažujeme jeden faktor $A$, který nabývá $I$ různých kvalitativních
+    hodnot $A_1, A_2, \ldots, A_I$, kde $I > 2$. \begin{compactitem}
+
+        \item Každá kvalitativní hodnota $A_i$ je popsána náhodnou veličinou $X_i$.
+
+        \item Náhodné veličiny $X_1, X_2, \ldots, X_I$ jsou nezávislé.
+    \end{compactitem}
+
+    \item Testujeme hypotézu
+    $$ H : \mu_1 = \mu_2 = \ldots = \mu_n $$
+
+    \item Proti alternativní
+    $$ H_A : \exists i, j : \mu_i \not= \mu_j $$
+\end{compactitem}
+
+\subsection{Post host analýza}
+
+\begin{compactitem}
+    \item Pokud analýza rozptylu zamítne nulovou hypotézu $ H : \mu_1 = \mu_2 = \ldots = \mu_n $ o vlivu působícího faktoru, je nutno doplnit rozbor ještě dalšími metodami následného zkoumání existujících rozdílů. Tyto tzv. multikomparativní testy (testy pro mnohonásobné porovnávání) pak dávají výsledkem statistickou významnost jednotlivých rozdílů středních hodnot u všech možných párů porovnávaných skupin.
+
+    \item Obvykle testujeme tzv. kontrasty, tj. hledáme dvojice $A_i$ a $A_j$, které vliv třídícího znaku způsobují.
+
+    \item Pro každou dvojici testujeme hypotézu $ H : \alpha_i = \alpha_j $ vzhledem k $ H : \alpha_i \not= \alpha_j $.
+\end{compactitem}
+
+\subsection{Test homoskedasticity}
+
+\begin{compactitem}
+    \item Test rovnosti rozptylů.
+
+    \item Rovnost rozptylů je důležitý předpoklad pro ANOVU.
+
+    \item Testujeme hypotézu
+    $$ H : \sigma^2_1 = \sigma^2_2 = \ldots = \sigma^2_n $$
+
+    \item Proti alternativní
+    $$ H_A : \exists i, j : \sigma^2_i \not= \sigma^2_j $$
+
+\end{compactitem}
 
 \subsection{Dvoufaktorová ANOVA}
 
-V praxi se často setkáváme s pokusy, kdy sledujeme více působících faktorů, např. vliv krmení a plemene, vliv léku v různých stádiích onemocnění, vliv živné půdy a způsobu kultivace na růst zárodků, vliv různých druhů antibiotik a jejich dávky apod. Pokud zkoumáme vliv dvou a více faktorů působících na závisle proměnnou, hovoříme o vícefaktorové analýze rozptylu.
+\begin{compactitem}
+    \item V praxi se často setkáváme s pokusy, kdy sledujeme více působících faktorů, např. vliv krmení a plemene, vliv léku v různých stádiích onemocnění, vliv živné půdy a způsobu kultivace na růst zárodků, vliv různých druhů antibiotik a jejich dávky apod. Pokud zkoumáme vliv dvou a více faktorů působících na závisle proměnnou, hovoříme o vícefaktorové analýze rozptylu.
+
+    \item Náhodná proměnná je ovlivněna dvěma (nebo více) faktory.
+
+    \item Dvoufaktorová bez interakce -- náhodná proměnná je ovlivněna dvěma nezávislými faktory.
+
+    \item Dvoufaktorová s interakcí -- náhodná proměnná je ovlivněna dvěma závislými faktory.
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Testy dobré shody}
 
-Testy dobré shody vycházejí z porovnání teoretické pravděpodobnosti a odhadnuté pravděpodobnosti pomocí relativních četností u náhodné veličiny, která může nabývat konečného počtu možností.
+\begin{compactitem}
+    \item Testy dobré shody vycházejí z porovnání teoretické pravděpodobnosti a odhadnuté pravděpodobnosti pomocí relativních četností u náhodné veličiny, která může nabývat
+    konečného počtu možností.
+
+    \item Vychází se z Multinomického rozdělení, které definuje pravděpodobnost při výběru (s opakováním) z konečného počtu možností.
+\end{compactitem}
 
 \todo{todo}
 
@@ -51,6 +121,8 @@ Testy dobré shody vycházejí z porovnání teoretické pravděpodobnosti a odh
 
 \section{Testy o rozdělení}
 
-Lze provést pomocí testu dobré shody na tříděném statistickém souboru.
+\begin{compactitem}
+    \item Lze provést pomocí testu dobré shody na tříděném statistickém souboru.
+\end{compactitem}
 
 \todo{todo}
