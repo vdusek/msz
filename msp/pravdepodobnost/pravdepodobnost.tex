@@ -24,15 +24,57 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Základy kombinatoriky}
+\section{Popisná statistika}
 
 \todo{todo}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Popisná statistika}
+\section{Základy kombinatoriky}
 
-\todo{todo}
+\subsection{Variace}
+
+\begin{compactitem}
+    \item Variace $k$-té třídy z $n$ prvků je každá uspořádaná $k$-tice vytvořená z celkového počtu $n$ prvků, přičemž při výběru záleží na pořadí jednotlivých prvků.
+
+    \item \textbf{Variace bez opakování} je $k$-členná skupina utvořená z daných $n$ prvků tak, že v nich záleží na pořadí a žádný z daných prvků se v ní neopakuje.
+    $$ V(k, n) = \frac{n!}{(n-k)!} ~,~ k \leq n $$
+
+    \item \textbf{Variace s opakováním} je uspořádaná $k$-tice z $n$ prvků sestavená tak, že každý se v ní vyskytuje nejvýše $k$-krát.
+    $$ V'(k, n) = n^k ~,~ k < n $$
+\end{compactitem}
+
+\subsection{Permutace}
+
+\begin{compactitem}
+    \item Permutace $n$-prvkové množiny je uspořádaná $n$-tice obsahující každý prvek právě jednou, takže jednoznačně určuje jedno z možných uspořádání těchto prvků. Odtud (řídce užívané) české synonymum pro permutaci pořadí. Ekvivalentní definice je, že se jedná o $n$-prvkovou variaci z $n$ prvků.
+
+    \item \textbf{Permutace bez opakování} -- Pokud se prvky ve výběru nemohou opakovat, pak počet všech možných pořadí je určen vztahem.
+    $$ P(n) = n! $$
+
+    \item \textbf{Permutace s opakováním} -- Pokud se prvky ve výběru mohou opakovat, pak počet permutací s opakováním z $n$ prvků je určen jako.
+    $$ P'{(k_1,k_2,\ldots,k_n)} = \frac {(k_1+k_2+\ldots+k_n)!}{{k_1!}\cdot{k_2!}\cdot\ldots\cdot{k_n!}} $$
+\end{compactitem}
+
+\subsection{Kombinace}
+
+\begin{compactitem}
+    \item Kombinace je základní pojem z kombinatoriky, $k$-členná kombinace z $n$ prvků je skupina $k$ prvků, vybraná z $n$ různých prvků, u níž nezáleží na jejich pořadí. Od variace se liší tím, že je neuspořádaná.
+
+    \item \textbf{Kombinace bez opakování} -- Počet kombinací $k$-té třídy z $n$-prvků bez opakování, neuspořádaných $k$-tic vybraných z těchto prvků tak, že se v ní každý vyskytuje nejvýše jednou, je
+    $$ {\displaystyle C_{k}(n)={n \choose k}={n! \over k!(n-k)!}} $$
+
+    \item \textbf{Kombinace s opakováním} -- Počet kombinací $k$-té třídy z $n$ prvků s opakováním, tzn. každý prvek se ve výběru může objevit vícekrát, je určen vztahem.
+    $$ {\displaystyle C_{k}^{\prime }(n)={{(n+k-1)} \choose n-k}={{(n+k-1)} \choose k}={(n+k-1)! \over k!(n-1)!}}$$
+
+    \item Kombinační čísla \begin{compactitem}
+        \item Platí:
+        $$ {n \choose k} = \frac{n!}{k! \cdot (n-k)!} $$
+        $$ 1 = {0 \choose 0} = {n \choose 0} = {n \choose n} $$
+        $$ {n \choose 1} = n$$
+        $$ 0 \leq k \leq n$$
+    \end{compactitem}
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
