@@ -27,18 +27,32 @@
 \section{Úvod a kontext}
 
 \begin{compactitem}
-    \item Náhodný výběr -- Z celého stavového prostoru jsou náhodně vybrány vzorky (je proveden náhdoný výběr). Např. princip volebních průzkumů.
+    \item \textbf{Náhodný výběr} -- Z celého stavového prostoru jsou náhodně vybrány vzorky (je proveden náhodný výběr). \begin{compactitem}
+        Např. princip volebních průzkumů.
+    \end{compactitem}
 
     \item Na statistický soubor $(x_1, x_2, \ldots, x_n)$ můžeme nahlížet jako na výběrový soubor získaný náhodným výběrem z náhodné proměnné $X$. \begin{compactitem}
         \item Stejným způsobem pro vícerozměrné statistické soubory. Soubor\break $((x_1, y_1), (x_2, y_2), \ldots, (x_n, y_n))$ může být získán náhodným výběrem ze dvou náhodných proměnných $X, Y$.
     \end{compactitem}
 
     \item Cílem je, na základě statistického souboru $(x_1, x_2, \ldots, x_n)$ odhadnout parametry náhodné proměnné $X$. \begin{compactitem}
-
-        \item Typicky číselné charakteristiky jako střední hodnota a rozptyl.
+        \item Typicky jde o číselné charakteristiky jako jsou střední hodnota a rozptyl.
     \end{compactitem}
 
-    \item Jako statistickou hypotézu chápeme určitý předpoklad o rozdělení náhodných veličin. Jestliže se tyto předpoklady týkají hodnot parametrů rozdělení náhodné veličiny, pak hovoříme o parametrických hypotézách. V opačném případě se jedná o hypotézy neparametrické.
+    \item Jako \textbf{statistickou hypotézu} chápeme určitý předpoklad o rozdělení náhodných veličin. Jestliže se tyto předpoklady týkají hodnot parametrů rozdělení náhodné veličiny, pak hovoříme o parametrických hypotézách. V opačném případě se jedná o hypotézy neparametrické.
+
+    \item \textbf{Parametrické testy} -- Předpokládají nějaké rozdělení pravděpodobnosti, hypotéza je o parametrech rozdělení základního souboru. \begin{compactitem}
+
+        \item Hypotézy o parametru jednoho základního souboru -- střední hodnota, mediána, rozptyl, \dots
+        \item Hypotézy o parametrech dvou základních souborů
+        (srovnávací testy) -- rovnost středních hodnot, rovnost
+        rozptylů, \dots
+    \end{compactitem}
+
+    \item \textbf{Neparametrické testy} -- Nepředpokládají žádné rozdělení pravděpodobnosti, hypotéza je o jiných vlastnostech základního souboru. \begin{compactitem}
+        \item Hypotéza o tvaru rozdělení, závislosti proměnných, \dots
+    \end{compactitem}
+
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -70,7 +84,7 @@
 
 \begin{compactitem}
     \item Intervalový odhad aproximuje hledaný parametr intervalem. Tj. hledaný parametr se s předem stanovenou spolehlivostí nachází uvnitř výsledného intervalu. \begin{compactitem}
-        \item To se hodí, pokud potřebujeme znát přenost odhadu parametru.
+        \item To se hodí, pokud potřebujeme znát přesnost odhadu parametru.
         \item Bodový odhad je intervalový odhad se spolehlivostí 0.
     \end{compactitem}
 
@@ -81,7 +95,7 @@
     \item Požadavky na intervalový odhad: \begin{compactitem}
         \item aby pravděpodobnost $1 - \alpha$ byla co největší;
         \item interval byl co nejmenší.
-        \item Typicky $\alpha \in \{ 0,1, 0,05, 0,01 \}$.
+        \item Typicky volíme $\alpha \in \{ 0,1, 0,05, 0,01 \}$.
     \end{compactitem}
 
     \item Máme metody pro intervalové odhady parametrů pro jednotlivá pravděpodobnostní rozdělení (Normální, Binomické, \dots).
@@ -99,8 +113,7 @@
     \end{compactitem}
 
     \item Jako alternativu vůči hypotéze postavíme tzv. \textbf{alternativní hypotézu} $H_A$ (také nulová hypotéza), kterou volíme v kontextu dané úlohy. \begin{compactitem}
-        \item Příklad;
-        \item $H_0 : \theta = \theta_0$ je  hypotéza, že parametr $\theta$ má hodnotu $\theta_0$
+        \item $H_0 : \theta = \theta_0$ je hypotéza, že parametr $\theta$ má hodnotu $\theta_0$
         \item $H_A : \theta > \theta_0$ je jednostranná alternativní hypotéza.
         \item $H_A : \theta \not= \theta_0$ je oboustranná alternativní hypotéza.
     \end{compactitem}
@@ -193,286 +206,4 @@
         \item shodnost pravděpodobností $p_X$ a $p_Y$:
         $$ H_0 : p_X = p_Y $$
     \end{compactitem}
-\end{compactitem}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Příklad: Při kontrole výrobků byla sledována odchylka X [mm] jejich rozměru od požadované velikosti. Naměřené hodnoty tvoří statistický soubor.}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.49\linewidth]{1-1-crop.pdf}
-    \hfill
-    \includegraphics[width=.49\linewidth]{1-2-crop.pdf}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Proveďte roztřídění statistického souboru, vytvořte tabulku četností a nakreslete histogramy pro relativní četnosti a relativní kumulativní četnosti.}
-
-\begin{compactitem}
-    \item Variační obor:
-    $${\displaystyle \big\langle x_{(1)} ~,~ x_{(n)} \big\rangle = \big\langle \min_{i} x_i ~,~ \max_{i} x_i \big\rangle = \big\langle -0.83 ~,~ 1 \big\rangle}$$
-
-    \item Rozpětí:
-    $${\displaystyle x_{(n)} - x_{(1)} = 1.83}$$
-
-    \item Počet tříd:
-    $${\displaystyle m = 10}$$
-
-    \item Délka třídy:
-    $${\displaystyle \frac{x_{(n)} - x_{(1)}}{m} = 0.183}$$
-\end{compactitem}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{1-a-1-crop.pdf}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.75\linewidth]{1-a-2.pdf}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.75\linewidth]{1-a-3.pdf}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Vypočtěte aritmetický průměr, medián, modus, rozptyl a směrodatnou odchylku.}
-
-\begin{compactitem}
-    \item Aritmetický průměr:
-    $${\displaystyle \overline{x} = {\frac {1}{n}} \sum_{i=1}^{n} x_{i} = 0.0546}$$
-
-    \item Medián:
-    $${\displaystyle \tilde{x} = 0.075}$$
-
-    \item Modus:
-    $${\displaystyle \hat{x} = 0.44}$$
-
-    \item Rozptyl:
-    $${\displaystyle s^2 = {\frac {1}{n}} \sum_{i=1}^{n}(x_i - \overline{x})^2} \approx 0.2031$$
-
-    \item Směrodatná odchylka:
-    $${\displaystyle s = \sqrt{{\frac {1}{n}} \sum_{i=1}^{n}(x_i - \overline{x})^2}} \approx 0.4507$$
-\end{compactitem}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Vypočtěte bodové odhady střední hodnoty, rozptylu a směrodatné odchylky.}
-
-\begin{compactitem}
-    \item Bodový odhad střední hodnoty:
-    $${\displaystyle \overline{x} = {\frac {1}{n}} \sum_{i=1}^{n} x_{i} = 0.0546}$$
-
-    \item Bodový odhad rozptylu:
-    $${\displaystyle s^2 = {\frac {1}{n-1}} \sum_{i=1}^{n}(x_i - \overline{x})^2} \approx 0.2073$$
-
-    \item Bodový odhad směrodatné odchylky:
-    $${\displaystyle s = \sqrt{{\frac {1}{n-1}} \sum_{i=1}^{n}(x_i - \overline{x})^2}} \approx 0.4553$$
-\end{compactitem}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Testujte předpoklad o výběru z normálního rozdělení Pearsonovým (chí-kvadrát) testem na hladině významnosti $0.05$.}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{1-d-1-crop.pdf}
-\end{figure}
-
-\begin{compactitem}
-    \item Aby celkový počet teoretických četností odpovídal reálným, byly krajní intervaly rozšířeny. Aby všechny teoretické četnosti byly větší jako 1 a aspoň 80\,\% z nich bylo větších než 5 byly hranice tříd upraveny.
-\end{compactitem}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{1-d-2-crop.pdf}
-\end{figure}
-
-\begin{compactitem}
-    \item Testovací kritérium: ${\displaystyle t = \sum_{i=1}^{m} = \frac{(f_i - \hat{f_i})^2}{\hat{f_i}} \approx 6.135}$, kde $f$ je empirická četnost a $\hat{f}$ je teoretická četnost.
-
-    \item Stupeň volnosti: ${\displaystyle k = m - q - 1 = 4}$, kde $m$ je počet tříd a $q$ je počet odhadů parametrů.
-
-    \item Kvantil Pearsonova rozdělení pro hladinu významnosti ${\displaystyle \alpha = 0.05}$:
-    $${\displaystyle \qquad \chi_{1 - \alpha}^2(k) = \chi_{0.95}^2(4) \approx 9.4877}$$
-
-    \item Doplněk kritického oboru:
-    $${\displaystyle \overline{W_\alpha} = \big\langle 0 ~,~ \chi_{1 - \alpha}^2(k) \big\rangle \approx \big\langle 0 ~,~ 9.4877 \big\rangle}$$
-
-    \item Jelikož ${\displaystyle t \in \overline{W_\alpha}}$, tak hypotéza ${\displaystyle X \sim N(0.0546, 0.2073)}$ se \textbf{nezamítá}.
-\end{compactitem}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{1-d-3.pdf}
-\end{figure}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Za předpokladu (bez ohledu na výsledek části d), že statistický soubor byl získán náhodným výběrem z normálního rozdělení, určete intervalové odhady střední hodnoty, rozptylu a směrodatné odchylky se spolehlivostí $0.95$ a $0.99$.}
-
-\begin{compactitem}
-    \item Předpokládáme ${\displaystyle X \sim N(\mu, \sigma^2)}$
-
-    \item Bodový odhad střední hodnoty: ${\displaystyle \overline{x} = 0.0546}$
-
-    \item Bodový odhad rozptylu: ${\displaystyle s^2 \approx 0.2073}$
-
-    \item Bodový odhad směrodatné odchylky: ${\displaystyle s \approx 0.4553}$
-\end{compactitem}
-
-\paragraph*{Intervalový odhad střední hodnoty}
-
-\begin{compactitem}
-    \item Stupeň volnosti: ${\displaystyle k = n - 1 = 49}$, kde $n$ je počet vzorků.
-
-    \item Kvantil Studentova rozdělení pro hladinu významnosti ${\displaystyle \alpha = 0.05}$:
-    $${\displaystyle \qquad t_{1 - \frac{\alpha}{2}}(k) = t_{0.975}(49) \approx 2.0096}$$
-
-    \item Kvantil Studentova rozdělení pro hladinu významnosti ${\displaystyle \alpha = 0.01}$:
-    $${\displaystyle \qquad t_{1 - \frac{\alpha}{2}}(k) = t_{0.995}(49) \approx 2.6799}$$
-
-    \item Střední hodnota pro ${\displaystyle \alpha = 0.05 :}$
-    $${\displaystyle \qquad \mu \in \bigg\langle \overline{x} - t_{1 - \frac{\alpha}{2}}(k) \cdot \frac{s}{\sqrt{n}} ~,~ \overline{x} + t_{1 - \frac{\alpha}{2}}(k) \cdot \frac{s}{\sqrt{n}} \bigg\rangle \approx \bigg\langle -0.0761 ~,~ 0.1853 \bigg\rangle}$$
-
-    \item Střední hodnota pro ${\displaystyle \alpha = 0.01 :}$
-    $${\displaystyle \qquad \mu \in \bigg\langle \overline{x} - t_{1 - \frac{\alpha}{2}}(k) \cdot \frac{s}{\sqrt{n}} ~,~ \overline{x} + t_{1 - \frac{\alpha}{2}}(k) \cdot \frac{s}{\sqrt{n}} \bigg\rangle \approx \bigg\langle -0.1197 ~,~ 0.2289 \bigg\rangle}$$
-\end{compactitem}
-
-\paragraph*{Intervalový odhad rozptylu}
-
-\begin{compactitem}
-    \item Kvantil Pearsonova rozdělení pro hladinu významnosti ${\displaystyle \alpha = 0.05}$:
-    $${\displaystyle \qquad \chi_{\frac{\alpha}{2}}^2(k) = \chi_{0.025}^2(49) \approx 31.555}$$
-    $${\displaystyle \qquad \chi_{1 - \frac{\alpha}{2}}^2(k) = \chi_{0.975}^2(49) \approx  70.222}$$
-
-    \item Kvantil Pearsonova rozdělení pro hladinu významnosti ${\displaystyle \alpha = 0.01}$:
-    $${\displaystyle \qquad \chi_{\frac{\alpha}{2}}^2(k) = \chi_{0.005}^2(49) \approx 27.249}$$
-    $${\displaystyle \qquad \chi_{1 - \frac{\alpha}{2}}^2(k) = \chi_{0.995}^2(49) \approx  78.231}$$
-
-    \item Rozptyl pro ${\displaystyle \alpha = 0.05 :}$
-    $${\displaystyle \qquad \sigma^2 \in \bigg\langle \frac{(n - 1) \cdot s^2}{\chi_{1 - \frac{\alpha}{2}}^2(k)} ~,~ \frac{(n - 1) \cdot s^2}{\chi_{\frac{\alpha}{2}}^2(k)} \bigg\rangle \approx \bigg\langle 0.1447 ~,~ 0.3219 \bigg\rangle}$$
-
-    \item Rozptyl pro ${\displaystyle \alpha = 0.01 :}$
-    $${\displaystyle \qquad \sigma^2 \in \bigg\langle \frac{(n - 1) \cdot s^2}{\chi_{1 - \frac{\alpha}{2}}^2(k)} ~,~ \frac{(n - 1) \cdot s^2}{\chi_{\frac{\alpha}{2}}^2(k)} \bigg\rangle \approx \bigg\langle 0.1298 ~,~ 0.3727 \bigg\rangle}$$
-\end{compactitem}
-
-\paragraph*{Intervalový odhad směrodatné odchylky}
-
-\begin{compactitem}
-    \item Směrodatná odchylka pro ${\displaystyle \alpha = 0.05 :}$
-    $${\displaystyle \qquad \sigma \in \bigg\langle \sqrt{\frac{(n - 1) \cdot s^2}{\chi_{1 - \frac{\alpha}{2}}^2(k)}} ~,~ \sqrt{\frac{(n - 1) \cdot s^2}{\chi_{\frac{\alpha}{2}}^2(k)}} \bigg\rangle \approx \bigg\langle 0.3803 ~,~ 0.5674 \bigg\rangle}$$
-
-    \item Směrodatná odchylka pro ${\displaystyle \alpha = 0.01 :}$
-    $${\displaystyle \qquad \sigma \in \bigg\langle \sqrt{\frac{(n - 1) \cdot s^2}{\chi_{1 - \frac{\alpha}{2}}^2(k)}} ~,~ \sqrt{\frac{(n - 1) \cdot s^2}{\chi_{\frac{\alpha}{2}}^2(k)}} \bigg\rangle \approx \bigg\langle 0.3603 ~,~ 0.6106 \bigg\rangle}$$
-\end{compactitem}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Testujte hypotézu optimálního seřízení stroje, tj. že střední hodnota odchylky je nulová, proti dvoustranné alternativní hypotéze, že střední hodnota odchylky je různá od nuly, a to na hladině významnosti $0.05$.}
-
-\begin{compactitem}
-    \item Hypotéza: ${\displaystyle H_0 : \mu = 0}$
-
-    \item Alternativní hypotéza ${\displaystyle H_{A} : \mu \neq 0}$
-
-    \item Bodový odhad střední hodnoty: ${\displaystyle \overline{x} = 0.0546}$
-
-    \item Bodový odhad směrodatné odchylky: ${\displaystyle s \approx 0.4553}$
-
-    \item Počet vzorků: ${\displaystyle n = 50}$
-\end{compactitem}
-
-\paragraph*{Testujeme pomocí Studentova jednovýběrového testu}
-
-\begin{compactitem}
-    \item Testovací kritérium: ${\displaystyle t = \frac{\overline{x} - \mu}{s} \cdot \sqrt{n} \approx 0.848}$
-
-    \item Stupeň volnosti: ${\displaystyle k = n - 1 = 49}$
-
-    \item Kvantil Studentova rozdělení pro hladinu významnosti ${\displaystyle \alpha = 0.05}$:
-    $${\displaystyle \qquad t_{1 - \frac{\alpha}{2}}(k) = t_{0.975}(49) \approx 2.0096}$$
-
-    \item Doplněk kritického oboru pro alternativní hypotézu ${\displaystyle H_{A}}$:
-    $${\displaystyle \qquad \overline{W_\alpha} = \big\langle -t_{1 - \frac{\alpha}{2}}(k) ~,~ t_{1 - \frac{\alpha}{2}}(k) \big\rangle \approx \big\langle 2.0096 ~,~ 2.0096 \big\rangle}$$
-
-    \item Jelikož ${\displaystyle t \in \overline{W_\alpha}}$, tak hypotéza ${\displaystyle H_0}$ se \textbf{nezamítá} a alternativní hypotéza ${\displaystyle H_A}$ se \textbf{zamítá}.
-\end{compactitem}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\subsection{Ověřte statistickým testem na hladině významnosti $0.05$, zda seřízení stroje ovlivnilo kvalitu výroby, víte-li, že výše uvedený statistický soubor $50$ hodnot vznikl spojením dvou dílčích statistických souborů tak, že po naměření prvních $20$ hodnot bylo provedeno nové seřízení stroje a pak bylo naměřeno zbývajících $30$ hodnot.}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.7\linewidth]{1-g-1-crop.pdf}
-\end{figure}
-
-\begin{minipage}{0.49\textwidth}
-    $${\displaystyle n_x = 20}$$
-    $${\displaystyle \overline{x} = 0.2105}$$
-    $${\displaystyle s_x^2 \approx 0.1806}$$
-    $${\displaystyle s_x \approx 0.425}$$
-\end{minipage}
-%
-\begin{minipage}{0.49\textwidth}
-    $${\displaystyle n_y = 30}$$
-    $${\displaystyle \overline{y} \approx -0.0493}$$
-    $${\displaystyle s_y^2 \approx 0.2039}$$
-    $${\displaystyle s_y \approx 0.4516}$$
-\end{minipage}
-
-\paragraph*{Test rovnosti rozptylů pomocí F-testu}
-
-\begin{compactitem}
-    \item Hypotéza
-    $${\displaystyle H_0 : \sigma_x^2 = \sigma_y^2}$$
-
-    \item  Alternativní hypotéza
-    $${\displaystyle H_A : \sigma_x^2 \neq \sigma_y^2}$$
-
-    \item  Testovací kritérium:
-    $${\displaystyle t = \frac{s_x^2}{s_y^2} \approx 0.7844}$$
-
-    \item Stupně volnosti:
-    $${\displaystyle \qquad k_x = n_x - 1 = 19}$$
-    $${\displaystyle \qquad k_y = n_y - 1 = 29}$$
-
-    \item Kvantily Fisher-Snedecorova rozdělení pro hladinu významnosti ${\displaystyle \alpha = 0.05}$:
-    $${\displaystyle \qquad F_{\frac{\alpha}{2}} (k_x, k_y) = F_{0.025} (19, 29) \approx 0.4163}$$
-    $${\displaystyle \qquad F_{1 - \frac{\alpha}{2}} (k_x, k_y) = F_{0.975} (19, 29) \approx 2.2313}$$
-
-    \item  Doplněk kritického oboru pro alternativní hypotézu ${\displaystyle H_A}$:
-    $${\displaystyle \qquad \overline{W_\alpha} = \big\langle F_{\frac{\alpha}{2}} (k_x, k_y) ~,~ F_{1 - \frac{\alpha}{2}} (k_x, k_y) \big\rangle \approx \big\langle 0.4163 ~,~ 2.2313 \big\rangle}$$
-
-    \item Jelikož ${\displaystyle t \in \overline{W_\alpha}}$, tak hypotéza ${\displaystyle H_0}$ se \textbf{nezamítá}.
-\end{compactitem}
-
-\paragraph*{Test rovnosti středních hodnot pomocí Studentova dvouvýběrového testu}
-
-\begin{compactitem}
-    \item Hypotéza (pro ${\displaystyle \mu_0 = 0}$ za podmínky ${\displaystyle \sigma_x^2 = \sigma_y^2}$)
-    $${\displaystyle H_0 : \mu_x - \mu_y = \mu_0}$$
-
-    \item Alternativní hypotéza
-    $${\displaystyle H_A : \mu_x - \mu_y \neq 0}$$
-
-    \item Stupeň volnosti:
-    $${\displaystyle k = n_x + n_y -2 = 48}$$
-
-    \item Testovací kritérium:
-    $${\displaystyle t = \frac{\overline{x} - \overline{y} - \mu_0}{\sqrt{k_x \cdot s_x^2 + k_y \cdot s_y^2}} \cdot \sqrt{\frac{n_x \cdot n_y \cdot k}{n_x + n_y}} \approx 2.04}$$
-
-    \item Kvantil Studentova rozdělení pro hladinu významnosti ${\displaystyle \alpha = 0.05}$:
-    $${\displaystyle \qquad t_{1 - \frac{\alpha}{2}}(k) = t_{0.975}(48) \approx 2.0106}$$
-
-    \item Doplněk kritického oboru pro alternativní hypotézu ${\displaystyle H_{A}}$:
-    $${\displaystyle \qquad \overline{W_\alpha} = \big\langle -t_{1 - \frac{\alpha}{2}}(k) ~,~ t_{1 - \frac{\alpha}{2}}(k) \big\rangle \approx \big\langle -2.0106 ~,~ 2.0106 \big\rangle}$$
-
-    \item Jelikož ${\displaystyle t \notin \overline{W_\alpha}}$, tak hypotéza ${\displaystyle H_0}$ se \textbf{zamítá}.
 \end{compactitem}
