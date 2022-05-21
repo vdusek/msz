@@ -47,7 +47,7 @@
     \item Rozdělení klasifikátorů dle popisu: \begin{compactitem}
         \item \textbf{Parametrický klasifikátor} \begin{compactitem}
             \item Klasifikátor lze popsat parametry.
-            \item Např. přímka, parabola, \dots
+            \item Např. polynom, pravděpodobností rozdělení, \dots
         \end{compactitem}
 
         \item \textbf{Neparametrický klasifikátor} \begin{compactitem}
@@ -55,35 +55,6 @@
             \item Např. K-nejbližších sousedů
         \end{compactitem}
     \end{compactitem}
-
-\end{compactitem}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Generativní modely klasifikátorů}
-
-\begin{compactitem}
-    \item Z testovacích dat (z pozorování) spočítáme parametry pro každou třídu do které chceme klasifikovat -- $p(features ~|~ class)$
-
-    \item Poté spočítáme apriorní pravděpodobnost třídy -- $p(class)$.
-
-    \item Pomocí bayesova vzorce odvodíme posteriorní pravděpodobnost každé třídy pro daný příznak -- $p(class ~|~ features)$.
-
-    \item Výhody: \begin{compactitem}
-        \item Jsou robustnější, odolnější vůči přetrénování.
-        \item Stačí méně trénovacích dat.
-    \end{compactitem}
-
-    \item Nevýhody: \begin{compactitem}
-        \item Snažíme se přesně modelovat model (funkci hustoty pravděpodobnosti) --\break $p(features ~|~ class)$. Ale i tam, kde to nepotřebujeme, tedy tam kde nesousedí s žádnou jinou třídou. Nás primárně zajímá hranice těch tříd.
-        \item Což je nevyužívání potenciálu parametrů (např. stavíme komplexní systém nad jednoduchým)
-        \item Další problém nastává, pokud data nejsou Gaussovsky rozložená.
-    \end{compactitem}
-
-    \item Modely: \begin{compactitem}
-        \item Maximum a-posteriori klasifikátor (MAP) -- Gaussovský klasifikátor
-    \end{compactitem}
-
 \end{compactitem}
 
 \subsection{K-nejbližších sousedů}
@@ -112,6 +83,50 @@
     \caption{Příklad klasifikace pomocí metody k-nejbližších sousedů.}
 \end{figure}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Generativní modely klasifikátorů}
+
+\begin{compactitem}
+    \item Z testovacích dat (z pozorování) spočítáme parametry pro každou třídu do které chceme klasifikovat -- $p(features ~|~ class)$
+
+    \item Poté spočítáme apriorní pravděpodobnost třídy -- $p(class)$.
+
+    \item Pomocí bayesova vzorce odvodíme posteriorní pravděpodobnost každé třídy pro daný příznak -- $p(class ~|~ features)$.
+
+    \item Výhody: \begin{compactitem}
+        \item Jsou robustnější, odolnější vůči přetrénování.
+        \item Stačí méně trénovacích dat.
+    \end{compactitem}
+
+    \item Nevýhody: \begin{compactitem}
+        \item Snažíme se přesně modelovat model (funkci hustoty pravděpodobnosti) --\break $p(features ~|~ class)$. Ale i tam, kde to nepotřebujeme, tedy tam kde nesousedí s žádnou jinou třídou. Nás primárně zajímá hranice těch tříd.
+        \item Což je nevyužívání potenciálu parametrů (např. stavíme komplexní systém nad jednoduchým)
+        \item Další problém nastává, pokud data nejsou Gaussovsky rozložená.
+    \end{compactitem}
+
+    \item Modely: \begin{compactitem}
+        \item Maximum a-posteriori klasifikátor (MAP) -- Gaussovský klasifikátor
+    \end{compactitem}
+
+    \item Aplikace bayesovy věty:
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{bayes.pdf}
+        \caption{Bayesovský teorém o podmíněné pravděpodobnosti.}
+    \end{figure}
+
+    \begin{compactitem}
+        \item Apriorní pravděpodobnost (prior probability) -- Spočítáme jako marginální\break pravděpodobnost třídy na trénovacích datech.
+
+        \item Věrohodnost (likelihood) -- Spočítáme jako podmíněnou pravděpodobnost.
+
+        \item Evidence -- Spočítáme pomocí sum rule.
+
+        \item Posterirní pravděpodobnost (posterior probability) -- Výsledek, s jakou pravděpodobností vzorek náleží jaké třídě,
+    \end{compactitem}
+\end{compactitem}
+
 \subsection{Gaussovský klasifikátor}
 
 \begin{compactitem}
@@ -133,7 +148,7 @@
     \item Cílem trénování je získat pravděpodobností funkci (parametry normálních rozdělení) pro jednotlivé třídy.
     $${\displaystyle p(x) = \mathcal{N}(x, \mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}} \cdot e^{- \frac{(x - \mu)^2}{2 \sigma^2}} }$$
 
-    \item Při trénování provádíme tzv. odhad s maximální věrohodností (\textit{maximum likelihood estimation}) pro střední hodnotu a rozptyl. Objektivní funkce vypadá následovně:
+    \item Při trénování provádíme tzv. odhad s maximální věrohodností (\textit{maximum likelihood estimation}) pro střední hodnotu a rozptyl. Objektivní funkce, kterou se snažíme maximalizovat, vypadá následovně:
     $$ {\displaystyle \prod_{i=1}^{n} \mathcal{N}(x_i, \mu, \sigma^2)} $$
 
     \item Z objektivní funkce lze odvolit, že nejlepší odhady parametrů střední hodnotu a rozptylu jsou bodové odhady:
@@ -156,23 +171,6 @@
             \end{split}
         \end{equation}
 
-    \end{compactitem}
-
-    \item Aplikace bayesovy věty.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.75\linewidth]{bayes.pdf}
-        \caption{Bayesovský teorém o podmíněné pravděpodobnosti.}
-    \end{figure}
-
-    \begin{compactitem}
-        \item Apriorní pravděpodobnost (prior probability) -- Spočítáme jako marginální pravděpodobnost třídy na trénovacích datech.
-
-        \item Věrohodnost (likelihood) -- Spočítáme jako podmíněnou pravděpodobnost.
-
-        \item Evidence -- Spočítáme pomocí sum rule.
-
-        \item Posterirní pravděpodobnost (posterior probability) -- Výsledek, s jakou pravděpodobností vzorek náleží jaké třídě,
     \end{compactitem}
 
 \end{compactitem}
@@ -203,8 +201,50 @@
 
 \subsection{Lineární logistická regrese}
 
-\todo{todo}
+\begin{compactitem}
+    \item Rozhodovací hranici mezi třídami modelujeme pomocí regresní funkce (lineární) a její výstup dáme na vstup jiné funkce, která vrátí pravděpodobnost náležitosti dané třídě (hodnotu z intervalu $\langle 0, 1 \rangle$). \begin{compactitem}
+        \item Takovou funkcí může být např. sigmoid:
+        $$ f(x) = \frac{e^x}{e^x + 1} $$
+    \end{compactitem}
+
+    \item Jak probíhá klasifikace? \begin{compactitem}
+        \item Pravděpodobnost, že datový vzorek $\textbf{x}$ (reprezentovaný vektorem 2 příznaků) náleží třídě $\omega_1$.
+        \item Spočítáme standardní lineární regresi a výstup dáme na vstup funkci sigmoid, která už vrátí hodnoty z intervalu $\langle 0, 1 \rangle$.
+        \item Výpočet probíhá jako lineární kombinace dvou lineárních funkci (máme 2 příznaky, ale klidně bychom mohli použít polynom vyššího řádu).
+        \item Vektor $\mathbf{w}$ reprezentuje natrénované váhy.
+        $$ P(\omega_1 ~|~ \textbf{x}) = \sigma(\mathbf{\hat{x}^T} \cdot \mathbf{w}) = \sigma(w_1 \cdot x_1 + w_2 \cdot x_2 + w_0)$$
+    \end{compactitem}
+
+    \item Jak probíhá trénování? \begin{compactitem}
+        \item Jak naučit vektor $\mathbf{w}$? Opět lze použít odhad s maximální věrohodností (MLE, \textit{maximum likelihood estimation}).
+
+        \item Akorát nemáme Gaussovo, ale Bernoulliho rozdělení.
+
+        \item Tuto funkci chceme zmaximalizovat pro trénovací data, tedy najít maximální hodnoty vektoru $\mathbf{w}$.
+        $$ P(\mathbf{t} ~|~ \mathbf{X}) = \prod_{i=1}^n P(t_i ~|~ \mathbf{x}_i) = \prod_{i=1}^n \sigma(\mathbf{\hat{x}_i^T} \cdot \mathbf{w})^{t_i} \cdot (1 - \sigma(\mathbf{\hat{x}_i^T} \cdot \mathbf{w}))^{(1 - t_i)}$$
+
+        \item Objektivní funkci MLE lze transformovat na chybovou funkci Cross Entropy (CE).
+    \end{compactitem}
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{linear_regression.png}
+    \caption{Příklad natrénované hranici pro klasifikaci s využitím linearní regrese.}
+\end{figure}
 
 \subsection{Support Vector Machine}
 
-\todo{todo}
+\begin{compactitem}
+    \item Myšlenka spočívá v tom, že najdeme dvě rovnoběžky mezi datovými třídami a uprostřed rovnoběžek vedeme přímku, která tvoří rozhodovací hranici.
+
+    \item Provádí tvrdé rozhodování (žádná pravděpodobnost náležitosti dané třídě).
+
+    \item Pokud jsou data prolnutý skrz nějaký gaussovský šum, tak SVM může mít problémy.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{svm.png}
+    \caption{Příklad SVM klasifikátoru.}
+\end{figure}
