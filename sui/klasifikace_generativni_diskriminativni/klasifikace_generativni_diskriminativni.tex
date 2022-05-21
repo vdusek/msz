@@ -17,11 +17,107 @@
 \section{Zdroje}
 
 \begin{compactitem}
-    \item \path{todo}
+    \item \path{08-basics_in_ml.pdf}
+    \item \path{SUI_2019-11-11_1080p.mp4}
+    \item \path{SUI_2019-11-18_1080p.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Úvod a kontext}
+
+\begin{compactitem}
+    \item Klasifikace je druh problému, kde je cílem zařadit nový vzorek do jedné nebo více kategorií na základě množiny trénovacích dat, která obsahuje vzorky, jejichž kategorie je známa.
+
+    \item Rozdělení klasifikátorů dle typu modelu: \begin{compactitem}
+        \item \textbf{Generativní modely} \begin{compactitem}
+            \item Modelují přímo rozložení hustoty pravděpodobnosti.
+            \item Většinou nemají takový problém s přetrénováním.
+            \item Modulární -- sestavíme jednoduché modely, které popisují nějaký konkrétní fenomény v datech a ty poté můžeme skládat dohromady.
+        \end{compactitem}
+
+        \item \textbf{Diskriminativní modely} \begin{compactitem}
+            \item Modelují přímo rozhodovací hranici.
+            \item Menší plýtvání parametry -- učíme se přímo rozhodovací hranici.
+            \item Většinou fungují dobře, pokud máme hodně trénovacích dat.
+            \item Umožňuje end-to-end řešení.
+        \end{compactitem}
+    \end{compactitem}
+
+    \item Rozdělení klasifikátorů dle popisu: \begin{compactitem}
+        \item \textbf{Parametrický klasifikátor} \begin{compactitem}
+            \item Klasifikátor lze popsat parametry.
+            \item Např. přímka, parabola, \dots
+        \end{compactitem}
+
+        \item \textbf{Neparametrický klasifikátor} \begin{compactitem}
+            \item Klasifikátor nelze popsat parametry, repektive všechna trénovací data jsou parametrem.
+            \item Např. K-nejbližších sousedů
+        \end{compactitem}
+    \end{compactitem}
+
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Generativní modely klasifikátorů}
+
+\begin{compactitem}
+    \item Z testovacích dat (z pozorování) spočítáme parametry pro každou třídu do které chceme klasifikovat -- $p(features ~|~ class)$
+
+    \item Poté spočítáme apriorní pravděpodobnost třídy -- $p(class)$.
+
+    \item Pomocí bayesova vzorce odvodíme posteriorní pravděpodobnost každé třídy pro daný příznak -- $p(class ~|~ features)$.
+
+    \item Výhody: \begin{compactitem}
+        \item Jsou robustnější, odolnější vůči přetrénování.
+        \item Stačí méně trénovacích dat.
+    \end{compactitem}
+
+    \item Nevýhody: \begin{compactitem}
+        \item Snažíme se přesně modelovat model (funkci hustoty pravděpodobnosti) --\break $p(features ~|~ class)$. Ale i tam, kde to nepotřebujeme, tedy tam kde nesousedí s žádnou jinou třídou. Nás primárně zajímá hranice těch tříd.
+        \item Což je nevyužívání potenciálu parametrů (např. stavíme komplexní systém nad jednoduchým)
+        \item Další problém nastává, pokud data nejsou Gaussovsky rozložená.
+    \end{compactitem}
+
+    \item Modely: \begin{compactitem}
+        \item Maximum a-posteriori klasifikátor (MAP) -- Gaussovský klasifikátor
+    \end{compactitem}
+
+\end{compactitem}
+
+\subsection{Gaussovský klasifikátor}
+
+\todo{todo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Diskriminativní modely klasifikátorů}
+
+\begin{compactitem}
+    \item Snažíme se z trénovacích dat neodhadovat celé funkce hustoty pravděpodobnosti, ale pouze hranice mezi třídami.
+
+    \item Data nemusejí být Gaussovsky rozdělená (resp. každá třída odpovídat nějakému pravděpodobnostímu rozdělení).
+
+    \item Učíme se rovnou $p(class ~|~ features)$, případně s žádnou pravděpodobností vůbec nepočítáme.
+
+    \item Výhody/nevýhody: \begin{compactitem}
+        \item Menší plýtvání parametry.
+        \item Obvykle vyšší výkon s dostatečným množstvím dat.
+        \item Umožňuje \uv{end-to-end} řešení.
+    \end{compactitem}
+
+    \item Modely: \begin{compactitem}
+        \item Lineární logistická regrese
+        \item Support Vector Machine
+        \item Neuronové sítě
+    \end{compactitem}
+\end{compactitem}
+
+\subsection{Lineární logistická regrese}
+
+\todo{todo}
+
+\subsection{Support Vector Machine}
 
 \todo{todo}
