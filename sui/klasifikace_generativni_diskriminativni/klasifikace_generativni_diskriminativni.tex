@@ -86,9 +86,96 @@
 
 \end{compactitem}
 
+\subsection{K-nejbližších sousedů}
+
+\begin{compactitem}
+    \item V n-dimenzionálním prostoru máme trénovací data, o kterých víme jaké třídě náleží (jedná se o učení s učitelem).
+
+    \item Pokud chceme klasifikovat nový vzorek tak pomocí některé distanční metriky (Euklidovská, Hammingova, \dots) spočítáme jeho K nejbližších sousedů.
+
+    \item Na základě toho jaké třídě náleží nejvíce sousedů, rozhodneme do které třídy náš vzorek přiřadíme.
+
+    \item Výhody: \begin{compactitem}
+        \item Dokážeme využít tzv. měkkého rozhodování, tedy rozlišovat kolik ze sousedů náleží jaké třídě a tím neurčovat pouze binárně ano/ne, ale můžeme říct s jakou pravděpodobností náleží najé třídě.
+
+    \end{compactitem}
+    \item Nevýhody: \begin{compactitem}
+        \item Výpočetní náročnost (není výpočetně efektivní)
+        \item Musíme mít k dispozici všechny trénovací data, abychom mohli klasifikovat.
+        \item Veličiny je nutné normalizovat (záleží na distanční metrice) -- převést do stejného dynamického rozsahu (např. vydělit maximem, pomocí variace a standardní odchylky).
+    \end{compactitem}
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{knn_classification.png}
+    \caption{Příklad klasifikace pomocí metody k-nejbližších sousedů.}
+\end{figure}
+
 \subsection{Gaussovský klasifikátor}
 
-\todo{todo}
+\begin{compactitem}
+    \item Gaussovský klasifikátor, resp. MAP (\textit{maximum aposteriori probability}) klasifikátor.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\linewidth]{gauss_classification.pdf}
+        \caption{Příklad gaussovského klasifikátoru pro dvourozměrná data. Data jsou klasifikována do dvou tříd. Každá třída je modelována dvěma normálníma rozděleníma.}
+    \end{figure}
+
+    \item Při trénování modelujeme normální rozložení pravděpodobnosti v datech pro jednotlivé třídy. \begin{compactitem}
+        \item Rozložení může být až n-rozměrné v závilosti na množství příznaků -- tzv. vícerozměrné gaussovo rozložení.
+        \item Třída může být modelována více než jedním normálním rozložením -- tzv. multivariantní gaussovo rozložení.
+    \end{compactitem}
+
+    \item Pro klasifikaci je využívána teorie pravděpodobnosti, resp. bayesův teorém a je počítána pravděpodobnost náležitosti do určité třídy.
+
+    \item Cílem trénování je získat pravděpodobností funkci (parametry normálních rozdělení) pro jednotlivé třídy.
+    $${\displaystyle p(x) = \mathcal{N}(x, \mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}} \cdot e^{- \frac{(x - \mu)^2}{2 \sigma^2}} }$$
+
+    \item Při trénování provádíme tzv. odhad s maximální věrohodností (\textit{maximum likelihood estimation}) pro střední hodnotu a rozptyl. Objektivní funkce vypadá následovně:
+    $$ {\displaystyle \prod_{i=1}^{n} \mathcal{N}(x_i, \mu, \sigma^2)} $$
+
+    \item Z objektivní funkce lze odvolit, že nejlepší odhady parametrů střední hodnotu a rozptylu jsou bodové odhady:
+    $$ {\displaystyle \mu = \frac{1}{n} \sum_{i=1}^n x_i } $$
+    $$ {\displaystyle \sigma^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \mu)^2 } $$
+
+    \item Jak probíhá klasifikace? \begin{compactitem}
+        \item Mějme dvě třídy $\omega_1$ a $\omega_2$.
+
+        \item Pro daný datový vzorek a jeho příznak (vektor příznaků) $x$, vyber třídu $\omega_i$ s větší posteriorní pravděpodobností $P(\omega_i ~|~ x)$
+
+        \item Vyber $\omega_1$ pokud:
+        \begin{equation}
+            \begin{split}
+                &P(\omega_1 ~|~ x) > P (\omega_2 ~|~ x) ~\Rightarrow~ \\
+                \\
+                ~\Rightarrow~ &\frac{P(\omega_1) \cdot P(\omega_1 ~|~ x)}{P(x)} > \frac{P(\omega_2) \cdot P(\omega_2 ~|~ x)}{P(x)} ~\Rightarrow~ \\
+                \\
+                ~\Rightarrow~ &P(\omega_1 ~,~ x) > P(\omega_2 ~,~ x)
+            \end{split}
+        \end{equation}
+
+    \end{compactitem}
+
+    \item Aplikace bayesovy věty.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{bayes.pdf}
+        \caption{Bayesovský teorém o podmíněné pravděpodobnosti.}
+    \end{figure}
+
+    \begin{compactitem}
+        \item Apriorní pravděpodobnost (prior probability) -- Spočítáme jako marginální pravděpodobnost třídy na trénovacích datech.
+
+        \item Věrohodnost (likelihood) -- Spočítáme jako podmíněnou pravděpodobnost.
+
+        \item Evidence -- Spočítáme pomocí sum rule.
+
+        \item Posterirní pravděpodobnost (posterior probability) -- Výsledek, s jakou pravděpodobností vzorek náleží jaké třídě,
+    \end{compactitem}
+
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
