@@ -114,7 +114,7 @@
 \subsection{Regularizace}
 
 \begin{compactitem}
-    \item Přidání regularizačních členů do objektivních funkcí.
+    \item Metody jak zabránit přetrénování, a to přidáním náhodného šumu, změnou hodnot parametrů modelu (penalizace extrémních hodnot), přidání regularizačních členů do objektivních funkcí, \dots
 
     \item Regularizace vah: \begin{compactitem}
         \item Myšlenka: můžu omezit váhy a tím zvýšit generalizaci modelu.
@@ -128,11 +128,17 @@
     \end{compactitem}
 \end{compactitem}
 
+\subsection{Předtrénování}
+
+\begin{compactitem}
+    \item Způsob iniciálního nastavení parametrů modelu, učení bez učitele, kdy nastavujeme parametry modelu pouze na základě vstupů na obecné datové sadě.
+
+    \item Dotrénování následně proběhne na specifické datové sadě s učitelem.
+\end{compactitem}
+
 \subsection{Finetuning}
 
 \begin{compactitem}
-    \item \textit{Předpokládám, že tímhle je myšleno \uv{předtrénování} v názvu otázky.}
-
     \item Využití modelu, který byl natrénován pro podobnou úlohu a jeho dotrénování pro náš specifický problém.
     \begin{compactitem}
         \item Může být přetrénována pouze část modelu, jeho konec např.

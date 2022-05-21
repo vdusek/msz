@@ -57,6 +57,12 @@
     \end{compactitem}
 \end{compactitem}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{generative_discriminative.png}
+    \caption{Podstata diskriminativních a generativních modelů.}
+\end{figure}
+
 \subsection{K-nejbližších sousedů}
 
 \begin{compactitem}
@@ -149,7 +155,7 @@
     $${\displaystyle p(x) = \mathcal{N}(x, \mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}} \cdot e^{- \frac{(x - \mu)^2}{2 \sigma^2}} }$$
 
     \item Při trénování provádíme tzv. odhad s maximální věrohodností (\textit{maximum likelihood estimation}) pro střední hodnotu a rozptyl. Objektivní funkce, kterou se snažíme maximalizovat, vypadá následovně:
-    $$ {\displaystyle \prod_{i=1}^{n} \mathcal{N}(x_i, \mu, \sigma^2)} $$
+    $$ {\displaystyle \argmax_{\eta} ~ p(X ~|~ \eta) = \argmax_{\eta} ~ \prod_{i=1}^{n} p(x_i ~|~ \mathbf{\eta}) = \argmax_{\mu, \sigma^2} ~ \prod_{i=1}^{n} \mathcal{N}(x_i, \mu, \sigma^2)} $$
 
     \item Z objektivní funkce lze odvolit, že nejlepší odhady parametrů střední hodnotu a rozptylu jsou bodové odhady:
     $$ {\displaystyle \mu = \frac{1}{n} \sum_{i=1}^n x_i } $$
