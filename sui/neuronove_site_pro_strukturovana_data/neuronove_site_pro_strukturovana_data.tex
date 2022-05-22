@@ -21,7 +21,6 @@
     \item \path{10-sequences_and_language.pdf}
     \item \path{SUI_2019-12-02.mp4}
     \item \path{SUI_2019-12-09.mp4}
-    \item \path{SUI_2019-12-16.mp4} % ?
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -40,6 +39,8 @@
 
         \item \textbf{Invariance zpracování vzhledem k pozici} -- V případě obrázku, vychází myšlenky, že objekty v obraze se mohou pohybovat. Pokud se určitý objekt detekuje na jednom místě, je možné ho stejným způsobem detekovat i na jiném místě.
     \end{compactitem}
+
+    \item Další specifické vlastnosti mají sekvence (video, zvuk) -- časovou souvislost.
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -88,6 +89,12 @@
     \centering
     \includegraphics[width=1\linewidth]{conv.png}
     \caption{Příklad aplikace konvoluce, vstup má 3 barevné kanaly, vrstva obsahuje 3 konvoluční filtry.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{conv-kernel.pdf}
+    \caption{Příklad konvolučních jader.}
 \end{figure}
 
 \subsection{Pooling vrstvy}
@@ -155,11 +162,46 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{vgg.png}
-    \caption{Příklad konvoluční neuronové sítě VGG pro klasifikaci obrazu (vstupní a ztrátová vrstva nejsou ve schématu zobrazeny).}
+    \caption{Příklad konvoluční neuronové sítě VGG pro klasifikaci obrazu (vstupní a ztrátová vrstva nejsou ve schématu zobrazeny). Čím hlubší vrstva, tím menší matice, ale o to více konvolučních filtrů.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Rekurentní neuronové sítě}
 
-\todo{todo}
+\begin{compactitem}
+    \item Základní vícevrstvé NN i konvoluční NN patří mezi tzv. dopředné neuronové sítě.
+
+    \item Rekurentní NN jsou další kategorií, která narozdíl od dopředných NN nepropaguje signál výhradně do dalších vrstev. \begin{compactitem}
+        \item Resp. rekurentní vrstvy nejsou acyklické, ale obsahují jakýsi \textit{self loop}.
+    \end{compactitem}
+
+    % \item Specifikem strukturovaných dat v rámci videa nebo zvuku je kombinace prostorové i časové souvislosti, v tom nám vnitřní stav neuronu pomůže.
+
+    \item U výpočtu odezvy perceptronu je využito kromě aktuálního vstupu i vnitřní stav perceptronu. \begin{compactitem}
+        \item
+        Resp. jsou využity informace z předchozích vstupů, které jsou zakódovány ve vnitřním stavu.
+    \end{compactitem}
+
+    \item Rekurentní NN dokáží zachytit vlastnosti časové souvislosti v rámci sekvence dat.
+
+    \item Rekurentní NN mají problém se naučit dlouhodobé závislosti.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{recurrent.pdf}
+    \caption{Vizualizace rekurentní vrstvy. Výstup vrstvy jde na vstup stejné vrstvě v další iteraci.}
+\end{figure}
+
+\subsection{Vanilla RNN}
+
+\begin{compactitem}
+    \item První model rekurentní NN, základní model.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{rnn-vanilla.pdf}
+    \caption{Schéma Vanilla RNN.}
+\end{figure}

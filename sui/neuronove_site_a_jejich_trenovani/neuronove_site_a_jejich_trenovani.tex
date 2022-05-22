@@ -89,11 +89,14 @@
 \begin{compactitem}
     \item Aktivační funkce (také přenosová) slouží pro výpočet výstupní hodnoty neuronu v~závislosti na jeho vektoru vstupních hodnot.
 
-    \item Bez aktivačních funkcí by výstup neuronu mohla být jakákoliv hodnota. Aktivační funkce poskytuje tedy jisté hranice, mezi kterými může neuron produkovat výstup.
+    \item Proč jsou aktivační funkce potřeba:\begin{compactitem}
+
+        \item Přidávají do výpočtu nelinearitu -- bez nich, by bylo možné libovolně velkou neuronovou síť vyjádřit jako jednu lineární fuknci!
+
+        \item Bez aktivačních funkcí by výstup neuronu mohla být jakákoliv hodnota. Aktivační funkce poskytuje tedy jisté hranice, mezi kterými může neuron produkovat výstup.
+    \end{compactitem}
 
     \item Volba aktivační funkce má výrazný vliv na dobu učení (trénování) neuronové sítě.
-
-    \item Bez aktivačních funkcí, by bylo možné libovolně velkou neuronovou síť vyjádřit jako jednu lineární fuknci!
 
     \item Např. sigmoid, ReLU (\textit{rectified linear unit}), jednotkový skok, hyperbolický tangens, \dots
 \end{compactitem}

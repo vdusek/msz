@@ -63,6 +63,8 @@
         \item Cross-entropy -- pro klasifikaci.
     \end{compactitem}
 
+    \item Často objektivní funkce vrací chybu pro celý dataset, a chybová funkce chyby pro konkrétní datový vzorek.
+
     \item Složitější modely (např. neuronové sítě) využívají jiné, složitější optimalizační strategie (např. gradient descent).
 \end{compactitem}
 
@@ -114,19 +116,25 @@
 \subsection{Regularizace}
 
 \begin{compactitem}
-    \item Metody jak zabránit přetrénování, a to přidáním náhodného šumu, změnou hodnot parametrů modelu (penalizace extrémních hodnot), přidání regularizačních členů do objektivních funkcí, \dots
+    \item Metody jak zabránit přetrénování, a to přidáním náhodného šumu, změnou hodnot parametrů modelu (penalizace extrémních hodnot), přidání regularizačních členů do chybové funkce funkcí, \dots
 
     \item Regularizace vah: \begin{compactitem}
-        \item Myšlenka: můžu omezit váhy a tím zvýšit generalizaci modelu.
+        \item Myšlenka: můžu omezit váhy, nedopustím příliš velké hodnoty.
 
-        \item K objektivní funkci přičítám složku, která mi říká, jak moc velké jsou váhy, řekněme chci držet váhy poměrně blízko nule.
+        \item K chybové funkci přičítám složku, která mi říká, jak moc velké jsou váhy (např. velikost vah na druhou).
     \end{compactitem}
 
     \item Regularizace aktivací: \begin{compactitem}
-        \item Myšlenka: můžu omezit aktivaci a tím zvýšit generalizaci modelu.
-        \item K objektivní funkci přičítám složku, která mi říká, jak moc velké jsou hodnoty které mi lezou do aktivační funkce, chci aby ta třeba byla blízko nule, apod
+        \item Myšlenka: můžu omezit aktivaci vrstvu.
+        \item K chybové funkci přičítám složku, která mi říká, jak moc velké jsou hodnoty které vstupují do aktivační funkce.
     \end{compactitem}
+
+    \item Formálně; $J$ je objektivní funkce, $\theta$ jsou parametry modelu, $D$ je dataset (s označenými daty -- učení s učitelem), $loss$ je chybová funkce, $\lambda$ je funkce, která počítá regularizaci vah a $\beta$ je funkce, která počítá regularizaci aktivací.
+    $$
+        J(D, \theta) = \sum_{x, y}^D loss(f(x), y) + \lambda(|\theta|)^2 + \beta(|activation|)^2
+    $$
 \end{compactitem}
+
 
 \subsection{Předtrénování}
 
@@ -152,7 +160,7 @@
 \subsection{Multi-task learning}
 
 \begin{compactitem}
-    \item Taková úloha strojového učení, ve které se řeší více učebních úloh současně, přičemž se využívají společné rysy a rozdíly mezi úlohami.
+    \item Taková úloha strojového učení, ve které se řeší více učebních úloh současně, přičemž se využívají společné rysy a rozdíly mezi úlohami (model se naráz učí na několik úloh).
 
     \item To může vést ke zvýšení efektivity učení a přesnosti předpovědí pro modely specifické pro danou úlohu ve srovnání s tím, pokud by modely byly trénovaný odděleně.
 
