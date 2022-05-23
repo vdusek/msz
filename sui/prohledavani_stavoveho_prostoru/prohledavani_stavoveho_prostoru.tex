@@ -18,9 +18,12 @@
 
 \begin{compactitem}
     \item \path{szz-discord-bazi.pdf}
+    \item \path{szz-kastak.pdf}
     \item \path{Wikipedia}
     \item Mé vypracované otázky k BIT SZZ.
 \end{compactitem}
+
+\textit{Tato otázka není dobře zpracovaná (vlastně není dobrá vůbec).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -50,11 +53,11 @@
     \end{compactitem}
 
     \item \textbf{Definice problému} \begin{compactenum}
-        \item Počáteční stav
-        \item Množina akcí $a$, která lze provést v každém stavu $s$ -- $a = getActions(s)$
-        \item Přechodový model, nový stav (deterministický) po provedení akce $a$ ze stavu $s$ -- $result(s, a)$
-        \item Test, je-li stav cílový -- $isGoal(s)$
-        \item Cena cesty (počet kroků v sekvenci)
+        \item Počáteční stav.
+        \item Množina akcí $a$, která lze provést v každém stavu $s$ ($a = getActions(s))$.
+        \item Přechodový model, nový stav (deterministický) po provedení akce $a$ ze stavu $s$ -- $result(s, a)$.
+        \item Test, je-li stav cílový -- $isGoal(s)$.
+        \item Cena cesty (počet kroků v sekvenci).
     \end{compactenum}
 
     \item \textbf{Kritéria hodnocení algoritmů} \begin{compactitem}
@@ -80,49 +83,43 @@
 
 \begin{compactitem}
     \item Algoritmy nevyužívají žádné další informace kromě samotné definice úlohy.
+
+    \item Aby algoritmus pořád neopakoval stejné kroky, musí si svou historii nějak ukládat (seznam CLOSED).
 \end{compactitem}
 
 \subsection{Prohledávání do šířky (BFS -- Breadth First Search)}
 
 \begin{compactitem}
-    \item Používá frontu OPEN a seznam CLOSED.
+    \item Prohledává postupně od nejbližších (vzdálenost chápeme jako počet uzlů na cestě).
+    \item Používá FIFO frontu OPEN a seznam CLOSED.
 
-    \item Algoritmus: \begin{compactenum}
-        \item Sestrojit frontu OPEN (obsahuje všechny uzly určené k expanzi) a seznam CLOSED (bude obsahovat všechny expandované uzly). Do fronty OPEN umístit počáteční uzel.
+    \item Hodnocení \begin{compactitem}
+        \item Úplná, optimální (pokud jsou všechny akce stejně dobré -- fixní cena kroku).
+        \item Časová a prostorová složitost: $\mathcal{O}(b^d)$.
+    \end{compactitem}
+\end{compactitem}
 
-        \item Je-li fronta OPEN prázdná, pak úloha nemá řešení a prohledávání je ukončeno jako neúspěšné. Jinak pokračovat krokem 3.
+\subsection{Uniform Cost Search (UCS, Best First Search)}
 
-        \item Vybrat z čela fronty OPEN uzel.
+\begin{compactitem}
+    \item Co když je každá akce jinak dobrá? \begin{compactitem}
+        \item Stačí nevybrat nejbližší uzel (hloubka stromu), ale uzel s nejmenší cenou cesty.
+        \item Slepé prohledávání do šířky s respektováním cen přechodů.
+    \end{compactitem}
 
-        \item Je-li vybraný uzel cílovým uzlem, ukončit prohledávání jako úspěšné a vrátit cestu od kořenového uzlu k uzlu cílovému. Jinak pokračovat krokem 4.
-
-        \item Vybraní uzel expandovat a jeho bezprostřední následníky, kteří nejsou ani ve frontě OPEN ani v seznamu CLOSED, umístit do fronty OPEN. Vrátit se ke kroku 2.
-    \end{compactenum}
+    \item Používá prioritní frontu OPEN a seznam CLOSED.
 
     \item Hodnocení \begin{compactitem}
         \item Úplná, optimální.
-        \item Časová a prostorová složitost: $\mathcal{O}(b^d)$.
+        \item Prostorová i časová složitost metody je dána cenou optimálního řešení ($C^*$) dělenou nejmenším přírůstkem ceny mezi dvěma uzly ($\Delta C_{min}$): $\mathcal{O}(b^{C^* / \Delta C_{min}})$.
     \end{compactitem}
 \end{compactitem}
 
 \subsection{Prohledávání do hloubky (DFS -- Depth First Search)}
 
 \begin{compactitem}
-    \item Používá zásobník OPEN a seznam CLOSED. \begin{compactitem}
-        \item Eliminace stejných stavů v OPEN a eliminace předků.
-    \end{compactitem}
-
-    \item Algoritmus: \begin{compactenum}
-        \item Sestrojit zásobník OPEN (obsahuje všechny uzly určené k expanzi) a seznam CLOSED (bude obsahovat všechny expandované uzly). Do zásobníku OPEN umístit počáteční uzel.
-
-        \item Je-li zásobník OPEN prázdný, pak úloha nemá řešení a prohledávání je ukončeno jako neúspěšné. Jinak pokračovat krokem 3.
-
-        \item Vybrat z vrcholu zásobníku OPEN uzel.
-
-        \item Je-li vybraný uzel cílovým uzlem, ukončit prohledávání jako úspěšné a vrátit cestu od kořenového uzlu k uzlu cílovému. Jinak pokračovat krokem 4.
-
-        \item Vybraní uzel expandovat a jeho bezprostřední následníky, kteří nejsou ani v zásobníku OPEN ani v seznamu CLOSED, umístit do zásobníku OPEN. Vrátit se ke kroku 2.
-    \end{compactenum}
+    \item DFS řeší problém s pamětí při prohledávání stromu (v grafu musíme stejně ukládat prozkoumané stavy, takže nám nepomůže).
+    \item Používá LIFO zásobník OPEN a seznam CLOSED.
 
     \item Hodnocení \begin{compactitem}
         \item Není úplná, není optimální.
@@ -136,6 +133,23 @@
     \end{compactitem}
 \end{compactitem}
 
+\subsection{Backtracking}
+
+\begin{compactitem}
+    \item Slepé prohledávání se zpětným návrácení \begin{compactitem}
+        \item Operátory je nutné udržovat seřezené.
+        \item Velmi podobné DFS, ale místo expanze uzlu (generování všech následníků) generuje pouze jediného následníka (nejprve prvního a při případných návratech další).
+        \item Jde využít opět omezenou hloubku (jako u DLS).
+    \end{compactitem}
+
+    \item Využívá zásobník OPEN.
+
+    \item Hodnocení \begin{compactitem}
+        \item Není úplný, ani optimální.
+        \item Extrémně nízká prostorová složitost.
+    \end{compactitem}
+\end{compactitem}
+
 \subsection{Birectional Search (obousměrné BFS)}
 
 \begin{compactitem}
@@ -145,59 +159,9 @@
         \item Např. lze použít pro řešení úlohy Loydovu osmičku, ale nelze použít pro řešení úlohy dvou džbánů.
     \end{compactitem}
 
-    \item Algoritmus: \begin{compactenum}
-        \item Sestrojit fronty OPEN1 a OPEN2 (obsahují všechny uzly určené k expanzi) a seznamy CLOSED1 a CLOSED2 (budou obsahovat všechny expandované uzli). Do fronty OPEN1 umístit počáteční uzel a do fronty OPEN2 cílový uzel.
-        \item Je-li fronta OPEN1 prázdná, pak úloha nemá řešení a prohledávání končí jako neúspěšné.
-        \item Vybrat z čela fronty OPEN1 uzel a umístit ho do CLOSED1.
-        \item Vybraný uzel expandovat. Pokud některý z bezprostředních následníků je prvkem fronty OPEN2 jedná se o "můstek", pak ukončit prohledávání jako úspěšné a vyznačit cestu od počátečního uzlu, přes můstek, k cílovému. Jinak uložit tohoto následníka do fronty OPEN1.
-        \item Vybrat z čela fronty OPEN2 uzel a umístit ho do CLOSED2.
-        \item Vybraný uzel expandovat. Pokud některý z bezprostředních následníků je prvkem fronty OPEN1 jedná se o "můstek", pak ukončit prohledávání jako úspěšné a vyznačit cestu od počátečního uzlu, přes můstek, k cílovému. Jinak uložit tohoto následníka do fronty OPEN1 a vrátit se na bod 2.
-    \end{compactenum}
-
     \item Hodnocení \begin{compactitem}
         \item Úplná, optimální.
         \item Časová a prostorová složitost: $\mathcal{O}(2b^{d / 2})$.
-    \end{compactitem}
-\end{compactitem}
-
-\subsection{Uniform Cost Search (UCS)}
-
-\begin{compactitem}
-    \item Slepé prohledávání do šířky s respektováním cen přechodů (BFS, best first search).
-    \item Používá seznam OPEN a seznam CLOSED.
-
-    \item Algoritmus: \begin{compactenum}
-        \item Sestrojit dva prázdné seznamy, OPEN (bude obsahovat uzly určené k expanzi)  a CLOSED (bude obsahovat seznam expandovaných uzlů). Do seznamu OPEN umístěte počáteční uzel včetně jeho ohodnocení.
-        \item Je-li seznam OPEN prázdný, pak úloha nemá řešení, a proto ukončit prohledávání jako neúspěšné. Jinak pokračovat.
-        \item Vybrat ze seznamu OPEN uzel s nejnižším ohodnocením.
-        \item Je-li vybraný uzel uzlem cílovým, ukončit prohledávání jako úspěšné a vrátit cestu od kořenováho uzlu k cílovému. Jinak pokračovat.
-        \item Vybraný uzel expandovat a jeho bezprostřední následníky, kteří nejsou v seznamu CLOSED, umístit do seznamu OPEN (včetně jejich ohodnocení). Expandovaný uzel umístit do seznamu CLOSED. Z uzlů, které se v seznamu OPEN vyskytují výcekrát, ponechat pouze ten s nejnižším ohodnocením, ostatní ze seznamu OPEN vyškrtnout a vrátit se na bod 2.
-    \end{compactenum}
-
-    \item Hodnocení \begin{compactitem}
-        \item Úplná, optimální.
-        \item Prostorová i časová složitost metody je dána cenou optimálního řešení ($C^*$) dělenou nejmenším přírůstkem ceny mezi dvěma uzly ($\Delta C_{min}$): $\mathcal{O}(b^{C^* / \Delta C_{min}})$.
-    \end{compactitem}
-\end{compactitem}
-
-\subsection{Backtracking}
-
-\begin{compactitem}
-    \item Slepé prohledávání se zpětným návrácení (operátory je nutné udržovat seřezené).
-    \item Velmi podobné DFS, ale místo expanze uzlu (generování všech následníků) generuje pouze jediného následníka (nejprve prvního a při případných návratech další).
-    \item Jde využít opět omezenou hloubku (jako u DLS).
-    \item Využívá zásobník OPEN.
-
-    \item Algoritmus: \begin{compactenum}
-        \item Sestrojit zásobník OPEN (obsahuje všechny uzly určené k expanzi) a umístit do něho počáteční uzel.
-        \item Je-li zásobník OPEN prázdný, pak úloha nemá řešení a prohledávání je ukončeno jako neúspěšné. Jinak pokračovat.
-        \item Jde-li na uzel na vrcholu zásobníku aplikovat první (další) operátor, tak tento operátor aplikovat a pokračovat krokem 4. V opačném případě odstranit tento uzel ze zásobníku a vrátit se na bod 2.
-        \item Je-li vygenerovaný uzel (tj. uzel vzniklý aplikací operátoru na uzel na vršku zásobníku) uzlem cílovým, ukončit prohledávání jako úspěšné a vrátit cestu od kořenového uzlu k cílovému. Jinak uložit nový uzel na vršek zásobníku a vrátit se na bod 2.
-    \end{compactenum}
-
-    \item Hodnocení \begin{compactitem}
-        \item Není úplný, ani optimální.
-        \item Extrémně nízká prostorová složitost.
     \end{compactitem}
 \end{compactitem}
 
@@ -207,6 +171,12 @@
 
 \begin{compactitem}
     \item Algoritmy využívají informace o tom, jak je daný stav \uv{nadějný}.
+    \item Implementace metod odpovídá UCS (jediná změna je způsob ohodnocení uzlů).
+    \item UCS využíval pro ohodnocení uzlu $n$ funkci $g(n)$, která odpovídala nejkratší ceně cesty z počátečního uzlu do uzlu $n$.
+    \item Informované metody se řídí podle funkce $f(n)$, která využívá funkci $h(n)$ a může mít tvar: \begin{compactitem}
+        \item $f(n) = g(n) + h(n)$,
+        \item $h(n)$ je heuristická funkce a je to odhad ceny cesty z uzlu $n$ do nejbližšího cílového uzlu.
+    \end{compactitem}
 \end{compactitem}
 
 \subsection{Hladový algoritmus (Greedy Search)}
@@ -214,67 +184,145 @@
 \begin{compactitem}
     \item \uv{Hladové/chamtivé prohledávání, bereme nejbližší krok.}
 
-    \item Ohodnocuje uzly pouze heuristickou funkcí. \begin{compactitem}
+    \item Využívá se pouze heuristická funkce, $g(n) = 0$, $f(n) = h(n)$. \begin{compactitem}
         \item Odhadovanou cenou z daného uzlu do uzlu cílového.
         \item K expanzi vybírá uzel, který má toto hodnocení nejnižší.
         \item Např. vzdálenost vzdušnou čarou.
     \end{compactitem}
 
     \item Dobrá heuristika může časovou náročnost výrazně redukovat.
-
-    \item Pokud se do seznamu OPEN ukládají všichni bezprostřední následnící expandovaného uzlu => i jeho předci (v bodu 5 se pak vypustí kontrola "kteří nejsou jeho předky") pak GS není úplný!
 \end{compactitem}
-
-
-
-
-
-
 
 \subsection{A* Search}
 
-\todo{todo}
+\begin{compactitem}
+    \item Využívají se obě složky funkce $f(n)$:
+    $$ f(n) = g(n) + h(n) $$
+
+    \item Úplná i optimální \begin{compactitem}
+        \item Platí pro tzv. přípustné heuristiky, kdy odhad $h(n)$ nebude nikdy větší než reálná cena do cíle.
+    \end{compactitem}
+
+    \item Heuristika je v tomto případě chápána jako způsob prořezávání (prunning) -- vyloučení některých možností bez jejich prozkoumání.
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Lokální prohledávání}
 
-\todo{todo}
+\begin{compactitem}
+    \item Neprohledáváme systematicky celý prostor, jsme pouze v jednom (nebo i více) aktuálním uzlu (stavu), který vyhodnocujeme a modifikujeme.
+
+    \item Metody využívají málo paměti, jsou použitelné pro řešení úloh ve velkých (i spojitých) prostorech, kde nemáme zdroje pro prozkoumání všech možností.
+
+    \item Abychom získali nový uzel ze současného, využíváme sousednost uzlů (např. skrze akce, náhodná malá změna, kombinace více uzlů).
+\end{compactitem}
 
 \subsection{Hill climbing}
 
-\todo{todo}
+\begin{compactitem}
+    \item Také označovaný jako \textit{greedy local search}.
+
+    \item Jako nový uzel se zvolí nejlepší ze sousedních uzlů (steepest-ascent varianta), který je zároveň lepší než současný uzel; pokud takový není, výsledným řešením (výstupem algoritmu) je současný uzel.
+
+    \item Problematické jsou lokální extrémy a části, na kterých je funkce konstantní (plateau).
+
+    \item Gradient descent u trénování neuronových sítí by sem spadal (resp. varianta tohoto algoritmu pro spojité prostředí).
+
+    \item Vylepšení: \begin{compactitem}
+        \item Stochastic hill climbing -- pokud je více sousedních uzlů lepších než aktuální, nemusí se volit ten nejlepší.
+
+        \item Random-restart hill climbing -- jeden běh algoritmu nalezne lokální extrém, pokud iterativně spouštíme algoritmus s (náhodnou) inicializací, zvyšujeme pravděpodobnost nalezení globálního extrému.
+    \end{compactitem}
+\end{compactitem}
 
 \subsection{Simulated annealing}
 
-\todo{todo}
+\begin{compactitem}
+    \item Kombinace hill-climbing a náhodné procházky (volíme náhodného souseda).
+    \item Náhodně vybíráme sousední uzel, pokud je lepší než současný, nahradíme, pokud je horší, spočítáme, o kolik je horší $\Delta E$ (záporné číslo).
+    \item Myšlenka snižování teploty $T$ v každé iteraci (čím nižší je teplota, tím menší pravděpodobnost nahrazení horším uzlem).
+    \item Pravděpodobnost nahrazení horším uzlem se spočítá podle vztahu $e^{\Delta E / T}$.
+\end{compactitem}
 
-\subsection{Genetické algoritmy}
+\subsection{Local beam search}
 
-\todo{todo}
+\begin{compactitem}
+    \item Podobné jako BFS, ale uchovává pouze omezené množství uzlů.
+\end{compactitem}
+
+\subsection{Genetický algoritmus}
+
+\begin{compactitem}
+    \item Nejprve se selekcí vyberou rodiče, pak se křížením vytvoří potomci a následně v některých případech dochází k mutaci, nakonec se upraví původní populace a proces se opakuje. \begin{compactitem}
+        \item Fitness funkce -- vyhodnocovací metrika (objektivní funkce) u GA.
+        \item Selection (selekce) -- výběr rodičů.
+        \item Crossover (křížení) -- proces vytvoření nového potomka z rodičovských uzlů.
+        \item Mutation (mutace) -- náhodná změna potomka.
+    \end{compactitem}
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Prohledávání v nejistém prostředí}
 
-\todo{todo}
+\begin{compactitem}
+    \item Máme nedeterministické akce (nejisté prostředí, částečně pozorovatelné prostředí).
 
-% \section{Adversial search}
-% - co to je?
+    \item Zadaný problém již nelze řešit pouze pevně danou sekvencí akcí, ale potřebujeme vytvořit nějaký plán / strategii.
+
+    \item Výsledkem $RESULT(s, a)$ je nyní množina akcí a
+    cena $COST(s, a, s')$ provedení akce $a$ ve stavu $s$ závisí také na novém stavu $s'$, ve kterém se ocitneme po provedení akce.
+
+    \item Dříve jsme věděli, co se stane po provedení akce, plán = sekvence akcí (nezávisle na vjemech) Nyní se rozhodujeme i na základě vjemů.
+
+    \item Řešení pomocí AND / OR prohledávacích stromů (operátor and se používá pro výsledek nedeterministické akce).
+
+    \item Bavíme se o belief state -- reflektuje agentovu důvěru o aktuálním stavu (v jakých stavech se může nacházet). V nepozorovatelném prostředí se vyskytuje celkem $2^n$ belief states.
+
+    \item Incremental belief-state search -- postupně hledáme řešení pro každý stav; výhoda: pokud neexistuje řešení, zjistí se rychle; jiná řešení později. Udržování si Belief state je základem inteligentního agenta v ČPP (většina reálných prostředí).
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Hraní her}
+\section{Hraní her (adversial search)}
 
-\todo{todo}
+\begin{compactitem}
+    \item Typ prohledávání v soutěživém prostředí, často ho označujeme jako hry teorie her (game theory).
+
+    \item Nejčastěji se jedná o speciální druh her: \begin{compactitem}
+        \item Hry s nulovým součtem (zero-sum game) -- Součet zisku/užitku všech hráčů je konstantní -- typ her, ve kterých není možné, aby všichni prosperovali (lepší výsledek je na úkor druhých).
+        \item Tahové
+        \item Dvou hráčů
+        \item Perfect information (plně pozorovatelné)
+        \item Deterministické
+    \end{compactitem}
+
+    \item Multiagentní prostředí, pokud se v prostředí vyskytují dva agenti, chápeme to tak, že nám druhý agent (hráč) chce škodit.
+
+    \item Prozkoumat všechny možnosti je u většiny her (stejně jako rozhodování v reálném světě) nemožné a přesto nutné zvolit nějakou akci (tah).
+
+    \item Hra má svůj strom (game tree), my ovšem prohledáváme pouze některé části tohoto stromu, což je náš prohledávací strom (search tree).
+
+    \item Každý stav hry je ohodnocen hodnotící funkcí. Kladné hodnoty této funkce musí znamenat příznivý stav pro hráče na tahu (hráče A). Záporné pak příznivý stav pro protihráče (hráče B).
+\end{compactitem}
 
 \subsection{Algoritmus MiniMax}
 
-\todo{todo}
+\begin{compactitem}
+    \item Hry dvou hráčů.
+    \item Racionální chování, protivník vždy zvolí svůj nejlepší tah (pro nás nejhorší).
+\end{compactitem}
 
 \subsection{Alpha-beta pruning}
 
-\todo{todo}
+\begin{compactitem}
+    \item Hry dvou hráčů.
+    \item Stejné jako MiniMax ale používá pruning.
+    \item Alpha -- dosavadní nejlepší tah pro MAX
+    \item Beta -- dosavadní nejlepší tah pro MIN
+    \item Neprohledávat zbytečně, pokud by MIN nebo MAX tento tah stejně neprovedli.
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -283,11 +331,23 @@
 \begin{compactitem}
     \item Úlohy s omezujícíma podmínkama (CSP, \textit{constraint satisfaction problem}).
 
-    \item Záleží pouze na nalezení cílového stavu při splnění předem daných omezujících podmínek.
-
-    \item Není důležitý postup!
+    \item Záleží pouze na nalezení cílového stavu při splnění předem daných omezujících podmínek (není důležitý postup!).
 
     \item Stavy v CSPs jsou obvykle definovány množinou proměnných, kterým se přiřazují hodnoty z množin přípustných hodnot pro tyto proměnné.
+
+    \item Opět nehledáme sekvenci akcí/tahů, nyní se ani nesnažíme najít nejlepší řešení. Hledáme pouze nějaké řešení, které splňuje předem stanovené podmínky pro kombinaci hodnot proměnných.
+
+    \item Formální definice CSP úlohy: \begin{compactitem}
+        \item $X$ je množina proměnných,
+        \item $D$ je množina domén,
+        \item $D_i$ je domána pro $X_i$,
+        \item $C$ je množina omezení, která definují povolené kombinace hodnot.
+    \end{compactitem}
+
+    \item \textbf{Naivní prohledávání} v každé úrovni stromu přiřadí hodnotu jedné proměnné, po přiřazení všech se zkoumá, jestli je řešení konzistentní.
+
+    \item \textbf{Inference je alternativa} k prohledávání. Uvažujeme inferenci nazývanou constraint propagation CP. Snahou je snížit počet hodnot v
+    doménách, což zrychlí prohledávání. Existuje několik algoritmů využívajících tento přístup.
 \end{compactitem}
 
 \subsection{Backtracking pro CSP}
