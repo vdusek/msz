@@ -19,6 +19,7 @@
 \begin{compactitem}
     \item \path{09-nosql_databases.pdf}
     \item \path{UPA_2019-11-19.mp4}
+    \item \path{szz-kastak.pdf}
     \item \url{https://youtu.be/W2Z7fbCLSTw}
 \end{compactitem}
 
@@ -135,7 +136,14 @@
 \begin{compactitem}
     \item Nerelační datový model (klíč-hodnota, dokumenty, grafy, \dots) a distribuovaná architektura.
 
-    \item Nenahrazují klasické relační databáze, mají jiné využití (pro klasické informační systémy je nejlepší relační databáze).
+    \item Kdy jsou vhodné? \begin{compactitem}
+        \item Pro distribuované uložení či zpracování nerelačních dat.
+        \item Pokud potřebujeme vysokou rychlost na úkor ACID.
+    \end{compactitem}
+
+    \item Kdy nejsou vhodné? \begin{compactitem}
+        \item NoSQL nenahrazují klasické relační databáze, mají jiné využití, pro klasické informační systémy je nejlepší relační databáze.
+    \end{compactitem}
 
     \item NoSQL dodržují tzv. BASE, resp. BaSsEc (CAP s kompromisy), znamená následující: \begin{compactitem}
         \item \textbf{Basically available} -- Většinu času je dostupná. Data nejsou uložena na všech uzlech, jsou rozloženy na některých uzlech s jistým replikačním faktorem (např.: uchováváme tři kopie na nejvíc potřebných místech).
@@ -163,6 +171,8 @@
         \item Vysoká škálovatelnost (přidávání, ubírání dat).
         \item Pokud nás zajímá pouze část hodnoty, ať pro dotazy nebo zápis, tak je poměrně neefektivní.
     \end{compactitem}
+
+    \item Podpora \textit{partitioning} (\textit{sharding}) -- Rozdělení dat na různé uzly v clusteru.
 \end{compactitem}
 
 \begin{figure}[H]
@@ -183,7 +193,7 @@
         \item jako cache nad jinou datovou vrstvou,
         \item jako message broker (např. Celery, systém pro správu distribuované fronty úloh).
     \end{compactitem}
-    \item Např. Redis, Memcached, \dots
+    \item Např. Redis, Memcached, Oracle NoSQL, \dots
 \end{compactitem}
 
 \subsubsection*{Sloupcové databáze (\textit{wide column})}
@@ -225,24 +235,55 @@
 
 \begin{compactitem}
     \item Alternativa k relačním databázím.
+    \item Uchováváme uzly a hrany, které tyto uzly spojují.
     \item Využití: \begin{compactitem}
-        \item todo
+        \item RDF dokumenty,
+        \item Reprezentace sítí (dopravní, počítačové) a jejich topologie.
     \end{compactitem}
     \item Např. Neo4j, Dgraph, \dots
 \end{compactitem}
 
 \subsection{Dotazování v NoSQL}
 
-\todo{todo}
+\begin{compactitem}
+    \item Klíč se využívá na: \begin{compactitem}
+        \item Nalezení správného uzlu v clusteru pro daný klíč (pomocí directory service a nebo distribuované hashovací tabulky).
+
+        \item Následně nalezení diskového bloku, kde je hodnota uložena v rámci uzlu (pomocí stromových struktur, hashovací tabulky, \dots).
+    \end{compactitem}
+
+    \item Je těžké vykonávat nad dotazi nějaké optimalizace (jako se děje v relačních databází).
+
+    \item Typicky není podporována \textit{join} operace.
+
+    \item Filtrování podle klíče: \begin{compactitem}
+        \item Vždy podporováno.
+        \item Klíč je primární index, implementovaný pomocí distribuované hashovací tabulky.
+        \item Je možné zavést druhořadé indexy, pouze pro dotazování (ne pro \textit{sharding}).
+    \end{compactitem}
+
+    \item Filtrování podle hodnoty: \begin{compactitem}
+        \item Podporované pouze ve specializovaných NoSQL.
+    \end{compactitem}
+\end{compactitem}
 
 \subsection{Agregace dat}
 
-\todo{todo}
+\begin{compactitem}
+    \item Agregace $\sim$ \textit{grouping}.
+    \item Je omezené hranicemi daného shardu (je snažší agregovat data v rámci shardu).
+    \item Map-Reduce se používá pro složité nebo vlastní agregace.
 
-\subsubsection*{Pomocí Map-Reduce}
+    \item \textbf{Agregace pomocí Map-Reduce} \begin{compactitem}
+        \item Ve fázi \textit{map} se odděleně vykoná daná operace \textit{map} na dataset na každém uzlu (transformace vstupní kolekce na výstupní).
+        \item Výsledky operace \textit{map} ze všech uzlů, se podle klíče spojí dohromady (tzv. \textit{handshake} fáze pro výměnu dat mezi uzly).
+        \item Nakonec se podle jednotlivých hodnot klíče aplikuje zadaná \textit{reduce} operace na každý seznam hodnot.
+    \end{compactitem}
 
-\todo{todo}
-
-\subsubsection*{Agregační pipeline}
-
-\todo{todo}
+    \item \textbf{Agregační pipeline} \begin{compactitem}
+        \item V MongoDB.
+        \item Dokumenty vstupují do více úrovňové pipeline, která je transformuje na výsledek.
+        \item Jde o pipeline pro zpracování a hlavní agregaci a filtrování dat (agregační vzory).
+        \item Všechny výsledky, průběžné i finální, jsou kolekce dokumentů.
+    \end{compactitem}
+\end{compactitem}
