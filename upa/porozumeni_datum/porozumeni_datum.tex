@@ -17,11 +17,120 @@
 \section{Zdroje}
 
 \begin{compactitem}
-    \item \path{todo}
+    \item \path{11-porozumeni_datum.pdf}
+    \item \path{UPA_2019-12-03.mp4}
+    \item \path{UPA_2019-12-10.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
+\section{Důvod a cíl porozumění datům}
+
+\begin{compactitem}
+    \item Druhý krok modelu procesu CRISP
+
+    \item Cílem je získat detailní informace o datech, jejich vlastnostech a vytvořit podklady pro datovou sadu. Dozvědět se o datech co nejvíce.
+
+    \item Předpoklady (z pohledu dat): \begin{compactitem}
+        \item chápeme problematiku (máme kontext),
+        \item máme stanovený cíl projektu a kritéria úspěšnosti,
+        \item víme, jaká data jsou / budou k dispozici,
+        \item víme, o jakou DM úlohu půjde.
+    \end{compactitem}
+
+    \item Vstup: \begin{compactitem}
+        \item Dostupné datové zdroje a dokumentace k nim.
+    \end{compactitem}
+
+    \item Výstup: \begin{compactitem}
+        \item Podklady pro vytvoření počáteční datové sady nebo přímo vytvoření.
+        \item Detailní informace o vlastnostech dat (popisné charakteristiky + grafy).
+    \end{compactitem}
+
+    \item Dosažením cíle zahrnuje kroky: \begin{compactitem}
+        \item Rozpracovaní informace -- Jaké data máme, význam, dostupnost, cena, věrohodnost dat.
+
+        \item Popis dat -- struktura, význam, formát a množství dat.
+
+        \item Prozkoumání dat (explorační analýza) -- popisné charakteristiky, grafy, korelace, \dots
+
+        \item Zhodnocení kvality dat -- Úplnost, chybějíci hodnoty, šum, \dots
+    \end{compactitem}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Popisné charakteristiky z hlediska distribuce výpočtu}
+
+\begin{compactitem}
+    \item \textbf{Distributivní} \begin{compactitem}
+        \item Lze počítat distribuovaně.
+        \item Např.: počet prvků.
+    \end{compactitem}
+
+    \item \textbf{Algebratické} \begin{compactitem}
+        \item Výsledek je algebraická operace nad mezivýsledky, které lze počítat distribuovaně.
+        \item Např.: průměr.
+    \end{compactitem}
+
+    \item \textbf{Holistické} \begin{compactitem}
+        \item Lze spočítat pouze výpočtem nad celým souborem.
+        \item Např.: medián.
+    \end{compactitem}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Statistické popisné charakteristiky}
+
+\begin{compactitem}
+    \item Různými statistickými metodami se snažíme datům lépe porozumnět a získat o nich více informací.
+\end{compactitem}
+
+\begin{compactitem}
+    \item \textbf{Míry polohy} -- Určují střed dat, případně další body z hlediska hodnot dat. \begin{compactitem}
+        \item Aritmetický průměr (vážený průměr, citlivost na odlehlé hodnoty)
+
+        \item Geometrický průměr (n-tá odmocina ze součinu hodnot, kde n je počet vzorků). Typicky pro výpočet tempa růsta.
+
+        \item Harmonický průměr -- Počet vzorků / suma převrácených hodnot.
+
+        \item Medián
+
+        \item Modus
+
+        \item Kvantily \begin{compactitem}
+            \item Sada společných hodnot, vyjadřujících nějakou míru, která má 2 parametry $(k, q)$.
+            \item $q$-kvantilů rozděluje uspořádaný datový soubor na $q$ přibližně stejně pravděpodobných intervalů (stejný počet výskytu).
+            \item Hodnoty kvantilů jsou hodnoty náhodné veličiny, tedy průměr v každém $q$ intervalu.
+        \end{compactitem}
+    \end{compactitem}
+
+    \item \textbf{Míry variability} -- Určují rozptýlenost hodnot kolem středu. \begin{compactitem}
+        \item Rozpětí -- max-min, ovlivněno extrémy
+        \item Mezikvartilové rozpětí -- rozpětí 50\,\% středních hodnot, např. pro kvartil, $q_3$ -- $q_2$
+        \item Rozptyl
+        \item Směrodatná odchylka
+    \end{compactitem}
+
+    \item \textbf{Další} \begin{compactitem}
+        \item šikmost, špičatost, \dots
+    \end{compactitem}
+
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Vizualizační techniky}
 
 \todo{todo}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Korelační analýza}
+
+\begin{compactitem}
+    \item Korelace (\textit{correlation}) popisuje vzájemný vztah mezi dvěma atributy (jak se vzájemně ovlivňují). Pokud se mezi dvěma atributy potvrdí korelace, je pravděpodobné, že jsou atributy na sobě závislé. Na základě toho však ještě nelze rozhodnout, zda jeden z~nich je příčinou a druhý následkem (korelace neimplikuje kauzalitu).
+
+    \item Míra korelace je vyjadřována pomocí korelačních koeficientů, které nabývají hodnot z~intervalu $\langle-1,1\rangle$. Hodnota korelačního koeficientu $-1$ značí zcela nepřímou závislost (antikorelaci), tedy čím vyšších hodnot nabývá jeden atribut, tím nižších nabývá druhý. Hodnota korelačního koeficientu $+1$ značí zcela přímou závislost. Pokud je korelační koeficient roven 0 (nekorelovanost), pak mezi znaky není žádná statisticky zjistitelná lineární závislost. Avšak i při nulovém korelačním koeficientu na sobě veličiny mohou záviset, pouze tento vztah nelze vyjádřit lineární funkcí, a to ani přibližně.
+\end{compactitem}
