@@ -32,6 +32,7 @@
 % - prepinace nemodifikuji paket
 % - prepinace samy o sobe nepotrebuji MAC adresu a vetsinou nemaji zadnou
 % - "The basic function of a switch is transparent bridging" - preposle paket a nikdo to ani nepozna
+% - Mame dva typy blokování (head of line, vnitřní)
 
 \paragraph*{CAM tabulka} CAM tabulka je datová struktura v přepínači, která uchovává informace o tom, za jakým fyzickým portem je zařízení s jakou MAC adresou. Jak se plní? Přepínač si ji plní automaticky. V momentě kdy k němu přijde paket, doplní si MAC adresu a port přes který paket přišel. Pokud přepínač neví za jakým portem je cílová MAC adresa, pošle to všem (\textit{flooding}).
 
