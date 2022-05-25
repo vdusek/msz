@@ -27,7 +27,7 @@
 \section{Důvod a cíl porozumění datům}
 
 \begin{compactitem}
-    \item Druhý krok modelu procesu CRISP
+    \item Druhý krok modelu procesu CRISP.
 
     \item Cílem je získat detailní informace o datech, jejich vlastnostech a vytvořit podklady pro datovou sadu. Dozvědět se o datech co nejvíce.
 
@@ -100,9 +100,9 @@
         \item Modus
 
         \item Kvantily \begin{compactitem}
-            \item Sada společných hodnot, vyjadřujících nějakou míru, která má 2 parametry $(k, q)$.
-            \item $q$-kvantilů rozděluje uspořádaný datový soubor na $q$ přibližně stejně pravděpodobných intervalů (stejný počet výskytu).
+            \item Má 2 parametry $(k, q)$, $q$-kvantilů rozděluje uspořádaný datový soubor na $q$ přibližně stejně pravděpodobných intervalů (stejný počet výskytu).
             \item Hodnoty kvantilů jsou hodnoty náhodné veličiny, tedy průměr v každém $q$ intervalu.
+            \item Pro $q = 100$ percentily, $q = 10$, decily, $q = 5$ kvintily, $q = 4$ kvartily.
         \end{compactitem}
     \end{compactitem}
 
@@ -123,7 +123,107 @@
 
 \section{Vizualizační techniky}
 
-\todo{todo}
+\subsection{Vizualizační technika pro jeden atribut}
+
+\begin{compactitem}
+    \item Cíl -- ukázat rozložení hodnot atributu.
+
+    \item Pro kvantitativní atributy -- krabicový graf, graf hustoty pravděpodobnosti, houslový graf, kvantilový graf, \dots
+
+    \item Pro kategorické atributy -- histogram.
+\end{compactitem}
+
+\subsection{Vizualizační technika pro více atributů}
+
+\begin{compactitem}
+    \item Cíl: \begin{compactitem}
+        \item Porovnání rozložení hodnot.
+
+        \item Odhalení potenciálních vztahů mezi atributy (korelace).
+    \end{compactitem}
+
+    \item Porovnání rozložení hodnot dvou atributů: \begin{compactitem}
+        \item krabicový / houslový graf,
+        \item histogram,
+        \item bodový graf, lokální regrese.
+    \end{compactitem}
+
+    \item Porovnání hodnot více atributů: \begin{compactitem}
+        \item krabicový / houslový graf,
+        \item matice grafů,
+        \item rozšíření použití hloubky, barvy, velikosti, tvaru, \dots,
+        \item systém paralelních souřadnic.
+    \end{compactitem}
+\end{compactitem}
+
+\subsection{Konkrétní typy vizualizací}
+
+\subsubsection{Krabicový graf (box plot)}
+
+\begin{compactitem}
+    \item Rozdělení podle kvartilů.
+    \item Zobrazen medián, odlehlé hodnoty (1. a 4. kvartil) a maximum i minimum.
+    \item Na ose x máme kategorický atribut, na ose y kvantitativní atribut.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{box_plot.png}
+    \caption{Krabicový graf.}
+\end{figure}
+
+\subsubsection{Histogram, graf hustoty pravděpodobnosti}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{histogram_density.png}
+    \caption{Histogram a graf hustoty pravděpodobnosti.}
+\end{figure}
+
+\subsubsection{Houslový graf}
+
+\begin{compactitem}
+    \item Kombinace krabicového grafu a grafu hustoty.
+    \item Dokáže odhalit vícemodální data! (viz obrázek, více než jeden vrchol)
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{houslovy_graf_1.png}
+    \caption{Houslový graf 1.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{houslovy_graf_2.png}
+    \caption{Houslový graf 2.}
+\end{figure}
+
+\subsubsection{Bodový graf}
+
+\begin{compactitem}
+    \item Klasický, jednoduchý.
+    \item Pro prvotní náhled na data, odhalí nejvýraznější rysy.
+    \item Lze kombinovat s regresí.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{bodovy_graf.png}
+    \caption{Bodový graf.}
+\end{figure}
+
+\subsubsection{Sloupcový graf}
+
+\begin{compactitem}
+    \item Pro kategorické atributy.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{sloupcovy_graf.png}
+    \caption{Sloupcový graf.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -134,3 +234,64 @@
 
     \item Míra korelace je vyjadřována pomocí korelačních koeficientů, které nabývají hodnot z~intervalu $\langle-1,1\rangle$. Hodnota korelačního koeficientu $-1$ značí zcela nepřímou závislost (antikorelaci), tedy čím vyšších hodnot nabývá jeden atribut, tím nižších nabývá druhý. Hodnota korelačního koeficientu $+1$ značí zcela přímou závislost. Pokud je korelační koeficient roven 0 (nekorelovanost), pak mezi znaky není žádná statisticky zjistitelná lineární závislost. Avšak i při nulovém korelačním koeficientu na sobě veličiny mohou záviset, pouze tento vztah nelze vyjádřit lineární funkcí, a to ani přibližně.
 \end{compactitem}
+
+\subsection{Číselné vyjádření}
+
+\begin{compactitem}
+    \item Pro kvantitativní atributy: \begin{compactitem}
+        \item \textbf{Pearsonův korelační koeficient} \begin{compactitem}
+            \item Výpočet pomocí kovariace -- průměrná hodnota součinu vzdáleností jednotlivých atributů od průměrné hodnoty.
+
+            \item A celé je ještě normalizované pomocí součinu směrodatných odchylek.
+
+            \item Výsledek je z intervalu $(-1, 1)$ a vyjadřují pozitivní (přímá úměra) a negativní korelaci (nepřímá úměra).
+        \end{compactitem}
+        \begin{equation}
+            {\displaystyle \rho _{X,Y}={\frac {\operatorname {cov} (X,Y)}{\sigma _{X}\sigma _{Y}}}}
+        \end{equation}
+    \end{compactitem}
+
+    \item Pro kategorické atributy: \begin{compactitem}
+        \item \textbf{Test dobré shody} \begin{compactitem}
+            \item Je stanovena nějaká nulová (bázová) hypotéza a testem dobré shody se buďto vyvrací nebo nevyvrací.
+
+            \item Rozdíl četností naměřených a očekávaných hodnot.
+
+            \item Očekávané četnosti spočítáme dle nějakého rozdělení.
+
+            \item Čím vyšší hodnota, tím vyšší pravděpodobnost, že jsou data korelovaná.
+        \end{compactitem}
+    \end{compactitem}
+\end{compactitem}
+
+
+
+
+
+\subsection{Vizuální techniky}
+
+\begin{compactitem}
+    \item Korelaci atributů vyhodnotíme na základě vizualizace, k tomu může sloužit např. \begin{compactitem}
+        \item bodový graf,
+        \item matice korelačních koeficientů s tepelnou mapou,
+        \item matice bodových grafů.
+    \end{compactitem}
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\linewidth]{korelace_bodovy_graf.png}
+    \caption{Korelace v bodovém grafu.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{korelace_teplotni_mapa.png}
+    \caption{Korelace v matici korelačních koeficientů s teplotní mapou.}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{korelace_matice.png}
+    \caption{Korelace v matici bodových grafů.}
+\end{figure}
