@@ -18,6 +18,9 @@
 
 \begin{compactitem}
     \item Má DP.
+    \item \path{10-ziskavani_znalosti.pdf}
+    \item \path{UPA_2019-11-26.mp4}
+    \item \path{UPA_2019-12-03.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -35,35 +38,57 @@
 \section{Proces získávání znalostí z dat}
 
 \begin{compactitem}
-    \item Používá se tzv. model CRISP (\textit{CRoss-Industry Standard Process for Data Mining}). Viz obrázek dále.
-
-    \item Konkrétněji je celý proces získávání znalostí zobrazen na obrázku dále. A to jako iterativní sekvence kroků, které jsou představeny v~následujícím výčtu: \begin{compactenum}
-        \item \textbf{Datové čištění}~--~Odstranění šumu, nekonzistencí, neúplností a dalších znaků dat nízké kvality.
-
-        \item \textbf{Datové integrace}~--~Kombinace několika různých datových zdrojů. Proces čištění a integrace bývá typicky prováděn v~jednom kroku jako forma předzpracování (příprava dat). Výsledky tohoto kroku pak jsou ukládány do datového skladu.
-
-        \item \textbf{Výběr}~--~Selekce relevantních dat z~datového skladu pro konkrétní dolovací úlohu.
-
-        \item \textbf{Datové transformace}~--~Transformace dat do potřebné podoby pro konkrétní dolovací algoritmus.
-
-        \item \textbf{Dolování z~dat}~--~Hlavní krok ve kterém jsou použity statistické metody či algoritmy strojového učení pro získávání nových dat (datových vzorů).
-
-        \item \textbf{Vyhodnocení}~--~Vyhodnocení a identifikování datových vzorů, které mohou představovat novou znalost.
-
-        \item \textbf{Prezentace}~--~Předávání a prezentování získaných znalostí uživatelům pomocí vhodných vizualizačních technik.
-    \end{compactenum}
+    \item Celý proces získávání znalostí je zobrazen na obrázku dále. Jedná se o iterativní sekvenci kroků, které jsou představeny v~následujícím výčtu.
 \end{compactitem}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{crisp.pdf}
-    \caption{Model CRISP.}
-\end{figure}
+\begin{compactenum}
+    \item \textbf{Datové čištění}~--~Odstranění šumu, nekonzistencí, neúplností a dalších znaků dat nízké kvality.
+
+    \item \textbf{Datové integrace}~--~Kombinace několika různých datových zdrojů. Proces čištění a integrace bývá typicky prováděn v~jednom kroku jako forma předzpracování (příprava dat). Výsledky tohoto kroku pak jsou ukládány do datového skladu.
+
+    \item \textbf{Výběr}~--~Selekce relevantních dat z~datového skladu pro konkrétní dolovací úlohu.
+
+    \item \textbf{Datové transformace}~--~Transformace dat do potřebné podoby pro konkrétní dolovací algoritmus.
+
+    \item \textbf{Dolování z~dat}~--~Hlavní krok ve kterém jsou použity statistické metody či algoritmy strojového učení pro získávání nových dat (datových vzorů).
+
+    \item \textbf{Vyhodnocení}~--~Vyhodnocení a identifikování datových vzorů, které mohou představovat novou znalost.
+
+    \item \textbf{Prezentace}~--~Předávání a prezentování získaných znalostí uživatelům pomocí vhodných vizualizačních technik.
+\end{compactenum}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{knowledge_discovery_diagram.pdf}
     \caption{Fáze procesu získávání znalostí z~databází. V~diagramu je možné se vracet zpět a jednotlivé fáze libovolně revidovat a opakovat (např. zvolit jiné parametry dolovacího algoritmu pro získání lepších výsledků).}
+\end{figure}
+
+\subsection{Model CRISP}
+
+\begin{compactitem}
+    \item Model CRISP (\textit{CRoss-Industry Standard Process for Data Mining}) je formální, teoretický model, popisující proces získávání znalostí z databází.
+
+    \item Časté jsou návraty mezi fázemi modelu.
+\end{compactitem}
+
+\begin{compactenum}
+    \item \textbf{Pochopení kontextu}~--~Cílem je dozvědět se co nejvíce o kontextu řešeného problému (pochopení dané problematiky).
+
+    \item \textbf{Pochopení dat}~--~Cílem je dozvědět se o dostupných/potřebných datech co nejvíce (popis, prozkoumání a zhodnocení kvality dat).
+
+    \item \textbf{Příprava dat}~--~Cílem je připravit data pro aplikaci dolovacího algoritmu (výběr, čištění, integrace, transformace).
+
+    \item \textbf{Modelování}~--~Cílem je vytvořit model připravených dat.
+
+    \item \textbf{Zhodnocení}~--~Cílem je zhodnotit dosažené výsledky a další postup.
+
+    \item \textbf{Použití}~--~Cílem je stanovit strategie použití výsledků a naplánování kroků.
+\end{compactenum}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{crisp.pdf}
+    \caption{Model CRISP.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -139,102 +164,123 @@
     \item Substruktura se může vyskytovat v~datech, která mají strukturní formu (např. grafy, stromy nebo mřížky).
 \end{compactitem}
 
-
-
-
-
 \subsection{Asociační analýza}
 
-Asociační analýza (\textit{association rule learning}) je metoda nalézání asociačních pravidel spojujících zároveň se vyskytující atributy (např. události, položky atd.) ve zkoumaných datech. Typickým použitím je analýza nákupního košíku, tj. zkoumání, které položky jsou často nakupovány společně. Příkladem takového asociačního pravidla může být
-
-\begin{equation}
-    kupuje(X, pocitac) \rightarrow kupuje(X, monitor)
-\end{equation}
-
-kde $X$ je proměnná reprezentující zákazníka. Pravidlo říká, že pokud si zákazník koupí počítač, pravděpodobně si koupí i monitor.
-
-\subsection*{Klasifikace}
-
-Klasifikace (\textit{classification}) je forma prediktivní úlohy, kdy je novým datovým vzorům přiřazováno předem známé kategoriální označení tříd (zařazování dat do skupin na základě různých aspektů). Taková analýza pomáhá lépe porozumět datům jako celku. Z~hlediska strojového učení se jedná o~úlohu učení s~učitelem. Klasifikátor je nejprve třeba naučit na označené trénovací datové sadě. Až poté je možné, aby klasifikátor predikoval přiřazení třídy novým datům. Možné využití klasifikace:
-
 \begin{compactitem}
-    \item Klasifikace potenciálních zákazníků banky na základě rizikovosti na ty, kterým je vhodné poskytnout úvěr a na ty kterým ne.
+    \item Asociační analýza (\textit{association rule learning}) je metoda nalézání asociačních pravidel spojujících zároveň se vyskytující atributy (např. události, položky atd.) ve zkoumaných datech.
 
-    \item Klasifikace e-mailů~--~Rozhodnout, zda se jedná o~spam či nikoliv.
+    \item Typickým použitím je analýza nákupního košíku, tj. zkoumání, které položky jsou často nakupovány společně.
 
-    \item Stanovení lékařské diagnózy na základě výsledků různých vyšetření.
-
-    \item Cílení marketingu~--~Vyhodnotit kterému uživateli zobrazit jakou reklamu.
+    \item Příkladem takového asociačního pravidla může být
+    \begin{equation}
+        kupuje(X, pocitac) \rightarrow kupuje(X, monitor)
+    \end{equation}
+    kde $X$ je proměnná reprezentující zákazníka. Pravidlo říká, že pokud si zákazník koupí počítač, pravděpodobně si koupí i monitor.
 \end{compactitem}
 
-Mezi běžné klasifikační metody patří:
+\subsection{Klasifikace}
 
 \begin{compactitem}
-    \item klasifikátor k-nejbližších sousedů,
+    \item Klasifikace (\textit{classification}) je forma prediktivní úlohy, kdy je novým datovým vzorům přiřazováno předem známé kategoriální označení tříd (zařazování dat do skupin na základě různých aspektů).
 
-    \item Bayesovská (naivní) klasifikace a Bayesovské sítě,
+    \item Taková analýza pomáhá lépe porozumět datům jako celku.
 
-    \item rozhodovací stromy,
+    \item Z~hlediska strojového učení se jedná o~úlohu učení s~učitelem.
 
-    \item SVM (\textit{Support Vector Machine}),
+    \item Klasifikátor je nejprve třeba naučit na označené trénovací datové sadě. Až poté je možné, aby klasifikátor predikoval přiřazení třídy novým datům.
 
-    \item klasifikace pomocí neuronových sítí.
+    \item Možné využití klasifikace: \begin{compactitem}
+        \item Klasifikace potenciálních zákazníků banky na základě rizikovosti na ty, kterým je vhodné poskytnout úvěr a na ty kterým ne.
+
+        \item Klasifikace e-mailů~--~Rozhodnout, zda se jedná o~spam či nikoliv.
+
+        \item Stanovení lékařské diagnózy na základě výsledků různých vyšetření.
+
+        \item Cílení marketingu~--~Vyhodnotit kterému uživateli zobrazit jakou reklamu.
+    \end{compactitem}
+
+    \item Mezi běžné klasifikační metody patří:
+
+    \begin{compactitem}
+        \item klasifikátor k-nejbližších sousedů,
+
+        \item Bayesovská (naivní) klasifikace a Bayesovské sítě,
+
+        \item rozhodovací stromy,
+
+        \item SVM (\textit{Support Vector Machine}),
+
+        \item klasifikace pomocí neuronových sítí.
+    \end{compactitem}
 \end{compactitem}
 
 \subsection{Regrese}
 
-Regrese (\textit{regression}) je prediktivní úloha, ve které se na základě znalosti jistých atributů predikuje hodnota jiného (cílového) atributu. Avšak narozdíl od klasifikace, není cílový atribut kategorický, nýbrž numerický (má spojitý charakter). Možné využití regrese:
-
 \begin{compactitem}
-    \item Určení výše platu pracovníka na základě znalostí jeho dalších vlastností.
+    \item Regrese (\textit{regression}) je prediktivní úloha, ve které se na základě znalosti jistých atributů predikuje hodnota jiného (cílového) atributu.
+    \item Narozdíl od klasifikace, není cílový atribut kategorický, nýbrž numerický (má spojitý charakter). \item Možné využití regrese: \begin{compactitem}
+        \item Určení výše platu pracovníka na základě znalostí jeho dalších vlastností.
 
-    \item Predikce očekávané pooperační délky života pacientů trpících rakovinou.
+        \item Predikce očekávané pooperační délky života pacientů trpících rakovinou.
 
-    \item Predikce výšky dítěte.
+        \item Predikce výšky dítěte.
 
-    \item Predikce vývoje ceny komodity.
-\end{compactitem}
+        \item Predikce vývoje ceny komodity.
+    \end{compactitem}
 
-Pro účely regrese lze využít některé klasifikační algoritmy (neuronové sítě, k-nejbližších sousedů, SVM) rozšířené o~predikování spojité veličiny a nebo regresní analýzu. Regresní analýza je matematická metoda hledání závislostí mezi atributy. V~podstatě jde o~aproximaci trénovacích dat vhodnou funkcí (regresní funkce). Na začátku regresní analýzy je třeba odhadnout typ funkce. K~tomu slouží explorativní analýza, která se používá ke zjištění, jak cílový atribut závisí na ostatních atributech (na kterých a jak). Poté je třeba určit parametry regresní funkce, například pomocí metody nejmenších čtverců. V~závěru je třeba model verifikovat, zda funguje i na datech, na kterých nebyl přímo trénován. Jsou rozlišovány různé typy:
+    \item Pro účely regrese lze využít některé klasifikační algoritmy (neuronové sítě, k-nejbli\-žších sousedů, SVM) rozšířené o~predikování spojité veličiny a nebo regresní analýzu. Regresní analýza je matematická metoda hledání závislostí mezi atributy. V~podstatě jde o~aproximaci trénovacích dat vhodnou funkcí (regresní funkce).
 
-\begin{compactitem}
-    \item \textbf{Jednoduchá lineární regrese}~--~Cílový atribut závisí na jednom dalším atributu lineárně.
+    \item Jsou rozlišovány různé typy: \begin{compactitem}
+        \item \textbf{Jednoduchá lineární regrese}~--~Cílový atribut závisí na jednom dalším atributu lineárně.
 
-    \item \textbf{Vícenásobná lineární regrese}~--~Cílový atribut závisí na několika dalších atributech lineárně.
+        \item \textbf{Vícenásobná lineární regrese}~--~Cílový atribut závisí na několika dalších atributech lineárně.
 
-    \item \textbf{Nelineární regrese}~--~Cílový atribut závisí na dalších atributech nelineárně.
+        \item \textbf{Nelineární regrese}~--~Cílový atribut závisí na dalších atributech nelineárně.
+    \end{compactitem}
 \end{compactitem}
 
 \subsection{Shluková analýza}
 
-Na rozdíl od klasifikace nejsou při shlukové analýze (\textit{clustering}) předem známy třídy rozdělení dat. Proces shlukování se sám snaží data rozdělit do přirozených skupin (shluků). Vytvořené shluky pravděpodobně odrážejí nějaký fenomén v~datech, který způsobuje, že některé instance jsou si navzájem podobnější než jiné. Shlukování přirozeně vyžaduje jiné techniky než metody klasifikace. Z~hlediska strojového učení se jedná o~učení bez učitele. Existují různé způsoby, jak lze vyjádřit výsledek shlukování:
-
 \begin{compactitem}
-    \item Identifikované shluky tvoří disjunktní množiny. Každá instance patří pouze do jednoho shluku a každý shluk obsahuje alespoň jednu instanci.
+    \item Na rozdíl od klasifikace nejsou při shlukové analýze (\textit{clustering}) předem známy třídy rozdělení dat.
 
-    \item Identifikované shluky se mohou překrývat. Každá instance může patřit do několika shluků.
+    \item Proces shlukování se sám snaží data rozdělit do přirozených skupin (shluků).
 
-    \item Identifikované shluky se překrývají a každá instance patří do každého shluku s~určitou pravděpodobností.
+    \item Vytvořené shluky pravděpodobně odrážejí nějaký fenomén v~datech, který způsobuje, že některé instance jsou si navzájem podobnější než jiné.
 
-    \item Identifikované shluky tvoří hierarchickou strukturu. Na nejvyšší úrovni je hrubé rozdělení instancí do shluků a každý shluk je dále upřesněn, v~krajním případě až na jednotlivé instance.
+    \item Vytvořené shluky pravděpodobně odrážejí nějaký fenomén v~datech, který způsobuje, že některé instance jsou si navzájem podobnější než jiné.
+
+    \item Existují různé způsoby, jak lze vyjádřit výsledek shlukování:
+
+    \begin{compactitem}
+        \item Identifikované shluky tvoří disjunktní množiny. Každá instance patří pouze do jednoho shluku a každý shluk obsahuje alespoň jednu instanci.
+
+        \item Identifikované shluky se mohou překrývat. Každá instance může patřit do několika shluků.
+
+        \item Identifikované shluky se překrývají a každá instance patří do každého shluku s~určitou pravděpodobností.
+
+        \item Identifikované shluky tvoří hierarchickou strukturu. Na nejvyšší úrovni je hrubé rozdělení instancí do shluků a každý shluk je dále upřesněn, v~krajním případě až na jednotlivé instance.
+    \end{compactitem}
+
+    \item Za základní algoritmus shlukování je považován algoritmus \textbf{k-means} (\textit{k-means clustering}). Data rozděluje do shluků, které tvoří disjunktní množiny a počet shluků musí být předem zadán ($k$). Na začátku je náhodně vybráno $k$ počátečních bodů, které představují počáteční středy shluků. Všechny datové body jsou přiřazeny do shluků podle vzdálenosti k~nejbližšímu středu. Poté je vypočtena střední hodnota bodů v~každém shluku, aby se vytvořil nový střed shluku. Takto algoritmus iterativně pokračuje, dokud dochází ke změnám ve shlucích.
 \end{compactitem}
-
-Za základní algoritmus shlukování je považován algoritmus \textbf{k-means} (\textit{k-means clustering}). Data rozděluje do shluků, které tvoří disjunktní množiny a počet shluků musí být předem zadán ($k$). Na začátku je náhodně vybráno $k$ počátečních bodů, které představují počáteční středy shluků. Všechny datové body jsou přiřazeny do shluků podle vzdálenosti k~nejbližšímu středu. Poté je vypočtena střední hodnota bodů v~každém shluku, aby se vytvořil nový střed shluku. Takto algoritmus iterativně pokračuje, dokud dochází ke změnám ve shlucích.
 
 \subsection{Analýza odlehlých hodnot}
 
-Cílem analýzy odlehlých hodnot (\textit{outlier detection}) je nalezení extrémních hodnot, které se výrazně liší od ostatních. Takové datové objekty se nazývají odlehlé (anomálie). Možné využití analýzy odlehlých hodnot:
-
 \begin{compactitem}
-    \item Odhalení podezřelého chování na záběrech z~bezpečnostních kamer.
+    \item Cílem analýzy odlehlých hodnot (\textit{outlier detection}) je nalezení extrémních hodnot, které se výrazně liší od ostatních.
 
-    \item Detekce vadných kusů při výrobě.
+    \item Takové datové objekty se nazývají odlehlé (anomálie). Možné využití analýzy odlehlých hodnot: \begin{compactitem}
+        \item Odhalení podezřelého chování na záběrech z~bezpečnostních kamer.
 
-    \item Odhalení platby odcizenou platební kartou.
+        \item Detekce vadných kusů při výrobě.
 
-    \item Detekce chyb měření.
+        \item Odhalení platby odcizenou platební kartou.
+
+        \item Detekce chyb měření.
+    \end{compactitem}
+
+    \item Pro tyto účely je možné využít statistické metody. Nejprve jsou v~datech hledány pravděpodobností rozdělení, které stojí za generováním dat. Datové vzory, pro které je velmi nepravděpodobné, že byly vygenerovány tímto vybraným rozdělením, jsou prohlášeny za odlehlé hodnoty.
+
+    \item Dále je možné využít některé upravené klasifikační metody, jako jsou algoritmus k-nejbližších sousedů, neuronové sítě a SVM. Také je možné využít některé shlukovací algoritmy, které dokáží přirozeně detekovat hodnoty, které se výrazně liší od ostatních a nepřiřadit je do žádného shluku. Jedná se o~tzv. metody shlukování založené na hustotě.
 \end{compactitem}
-
-Pro tyto účely je možné využít statistické metody. Nejprve jsou v~datech hledány pravděpodobností rozdělení, které stojí za generováním dat. Datové vzory, pro které je velmi nepravděpodobné, že byly vygenerovány tímto vybraným rozdělením, jsou prohlášeny za odlehlé hodnoty.
-
-Dále je možné využít některé upravené klasifikační metody, jako jsou algoritmus k-nejbližších sousedů, neuronové sítě a SVM. Také je možné využít některé shlukovací algoritmy, které dokáží přirozeně detekovat hodnoty, které se výrazně liší od ostatních a nepřiřadit je do žádného shluku. Jedná se o~tzv. metody shlukování založené na hustotě.
