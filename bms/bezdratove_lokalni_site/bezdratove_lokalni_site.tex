@@ -27,6 +27,84 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Bezdrátová komunikace}
+
+\begin{compactitem}
+    \item Princip bezdrátové komunikace a jednotlivé fáze přenosu.
+\end{compactitem}
+
+\begin{compactenum}
+    \item \textbf{Kódování hlasu a digitalizace} \begin{compactitem}
+        \item Z analogového hlasu uděláme digitální signál.
+        \item Velká redundance, provádíme kompresy.
+        \item Dojde ke ztrátě nějakých informací a přidání šumu (kvantizační šum) při dekódování.
+        \item Např. pulzně kódová modulace (PCM, \textit{pulse-code modulation}).
+    \end{compactitem}
+
+    \item \textbf{Kódování kanálu} \begin{compactitem}
+        \item Data přenáším přes rádiové kanály (eventualně infračervené záření), které jsou nespolehlivé (data mohu ztratit, bit může přeskočit, \dots).
+        \item Počítáme s tím, zavádíme redundanci tak, aby bylo možné většinu chyb opravit. \begin{compactitem}
+            \item Chceme minimalizovat opětovné přenášení (to je problém).
+            \item Detekce chyb pomocí BER -- Bit Error Rate, FER -- Frame Error Rate.
+        \end{compactitem}
+        \item Zvyšuje se tím výrazně objem dat.
+        \item Metody: \begin{compactitem}
+            \item Blokové korekční kódy (Hammingův kód) -- vstup je rámec, výstup je původní rámec + zabezpečovací bity.
+            \item Konvoluční korekční kódy -- nezná pojem rámec, vstupují bity a vystupují bity rychleji.
+            \item Turbo korekční kódy.
+        \end{compactitem}
+    \end{compactitem}
+
+    \item \textbf{Prokládání (\textit{interleaving})} \begin{compactitem}
+        \item Pokud se na kanálu objevuje nějaké rušení, tak je většinou impulsní a zaruší se několik bitů vedle sebe.
+        \item To se nelíbí mechanismům kódování kanálu, ty mají rády pokud je zarušen \uv{sem tam} nějaký bit, ale ne shluk vedle sebe.
+        \item Zabraňujeme tomu tak, že prohazujeme pořadí jednotlivých bitů.
+    \end{compactitem}
+
+    \item \textbf{Šifrování dat} \begin{compactitem}
+        \item Může být v různé fázi, není shoda.
+        \item Umístění šifrování tak jak ve schématu je problém, jelikož se mohou objevit chyby díky přenosu, což se většine šifrovacích algoritmů nelíbí, proto by dávalo smysl to umístit až za (de)kódování kanálu.
+    \end{compactitem}
+
+    \item \textbf{Modulace} \begin{compactitem}
+        \item Dostat náš signál do analogové podoby pro přenos a na potřebnou frekvenci (úprava frekvencí, amplitud, fází).
+        \item Také prováděn multiplexing (přenášení více signálů přes jednu anténu).
+    \end{compactitem}
+
+    \item \textbf{Přenos signálu přes telekomunikační síť} \begin{compactitem}
+        \item Jak bylo řečeno výše, jde o nespolehlivý přenos přes rádiové (nebo historicky infračervené) záření.
+    \end{compactitem}
+
+    \item \textbf{Demodulace} \begin{compactitem}
+        \item Dostat signál z podoby vhodné pro přenos na podobu vhodnou pro dekódování (úprava frekvencí, amplitud, fází).
+        \item Prováděn demultiplexing.
+    \end{compactitem}
+
+    \item \textbf{Dešifrování} \begin{compactitem}
+        \item Dešifrování, platí to stejné jako u šifrování.
+    \end{compactitem}
+
+    \item \textbf{Prokládání (\textit{deinterleaving})} \begin{compactitem}
+        \item Překládání bitů analogicky k prokládání na druhé straně.
+    \end{compactitem}
+
+    \item \textbf{Dekódování kanálu} \begin{compactitem}
+        \item Opravení chyb.
+    \end{compactitem}
+
+    \item \textbf{Dekódování hlasu} \begin{compactitem}
+        \item Pokud chceme řeč, tak převod do analogové podoby.
+    \end{compactitem}
+\end{compactenum}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{bezdratova_komunikace.pdf}
+    \caption{Schéma bezdrátové komunikace.}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Modulace}
 
 \todo{todo}
