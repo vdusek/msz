@@ -30,7 +30,10 @@
 \section{Bezdrátová komunikace}
 
 \begin{compactitem}
-    \item Princip bezdrátové komunikace a jednotlivé fáze přenosu.
+    \item Radiové vlny je elektromagnetické vlnění ve frekvenčním rozsahu 300\,GHz -- 30\,Hz.
+    \item Bitová rychlost -- Počet přenesených bitů za časovou jednotku.
+    \item Baudová rychlost -- Počet přenesených signálových jednotek za časovou jednotku (baud rate $\leq$ bit rate).
+    \item Princip bezdrátové komunikace a jednotlivé fáze přenosu:
 \end{compactitem}
 
 \begin{compactenum}
@@ -42,7 +45,7 @@
     \end{compactitem}
 
     \item \textbf{Kódování kanálu} \begin{compactitem}
-        \item Data přenáším přes rádiové kanály (eventualně infračervené záření), které jsou nespolehlivé (data mohu ztratit, bit může přeskočit, \dots).
+        \item Data jsou přenášena přes rádiové kanály, které jsou nespolehlivé (data se mohou ztratit, bit může \uv{přeskočit}, \dots).
         \item Počítáme s tím, zavádíme redundanci tak, aby bylo možné většinu chyb opravit. \begin{compactitem}
             \item Chceme minimalizovat opětovné přenášení (to je problém).
             \item Detekce chyb pomocí BER -- Bit Error Rate, FER -- Frame Error Rate.
@@ -107,14 +110,68 @@
 
 \section{Modulace}
 
-\todo{todo}
+\begin{compactitem}
+    \item Na straně vysílače: \begin{compactitem}
+        \item \textbf{Digitální modulace} (klíčování) -- Vstupní (digitální) signál, je třeba převést na analogový.
+
+        \item \textbf{Analogová modulace} -- Analogový signál je třeba dostat na správnou frekvenci pro přenos (kombinace s nosným signálem).
+    \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{modulace.png}
+        \caption{Digitální a analogová modulace.}
+    \end{figure}
+
+    \item Na straně přijímače: \begin{compactitem}
+        \item \textbf{Analogová demodulace} -- Oddělení nosného signálu.
+
+        \item \textbf{Synchronizace a digitalizace} -- Převod analogového signálu na digitální.
+    \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{demodulace.png}
+        \caption{Analogová demodulace a digitalizace.}
+    \end{figure}
+\end{compactitem}
+
+\subsection{Analogová (de)modulace}
+
+\begin{compactitem}
+    \item Vstup: analog, výstup: analog.
+    \item Amplitudová modulace (AM, \textit{amplitude modulation}).
+    $$ f(x) = C \cdot \sin{(x)} ~,~ C \in \mathbb{R} $$
+    \item Frekvenční modulace (FM, \textit{frequency modulation}).
+    $$ f(x) = \sin{(C \cdot x)} ~,~ C \in \mathbb{R} $$
+    \item Fázová modulace (PM, \textit{phase modulation}).
+    $$ f(x) = \sin{(x + C)} ~,~ C \in \mathbb{R} $$
+\end{compactitem}
+
+\subsection{Digitální (de)modulace}
+
+\begin{compactitem}
+    \item Vstup: digitál, výstup: analog.
+    \item Cíl: v jedné sinusovce (signálová jednotka) přenést co nejvíce bitů.
+    \item Amplitudová modulace (ASK, \textit{amplitude shift keying}).
+    \item Frekvenční modulace (FSK, \textit{frequency shift keying}).
+    \item Fázová modulace (PSK, \textit{phase shift keying}). \begin{compactitem}
+        \item 2-PSK, 4-PSK, 8-PSK
+    \end{compactitem}
+    \item Kvadraturní amplitudová modulace (QAM, \textit{quadrature amplitude modulation (shift keying)}). \begin{compactitem}
+        \item 8-QAM, 16-QAM, 32-QAM, 64-QAM
+    \end{compactitem}
+    \item Pro ASK, FSK, 2-PSK: baud rate = bit rate.
+\end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Sdílení spektra}
 
 \begin{compactitem}
-    \item Metoda přístupu ke kanálu (\textit{channel access method}) umožňuje více než dvěma koncovým zařízením připojeným ke stejnému přenosovému médiu přenášet přes něj a sdílet jeho kapacitu (a to tak, aby se vzájemně nerušili).
+    \item Jak umožnit více než dvěma koncovým zařízením připojeným ke stejnému přenosovému médiu komunikovat tak, aby se vzájemně nerušili? \begin{compactitem}
+        \item Metoda přístupu ke kanálu (\textit{channel access method}).
+    \end{compactitem}
 
     \item Metoda přístupu ke kanálu je založena na sdílení spektra (multiplexing), které umožňuje několika datovým tokům nebo signálům sdílet stejný komunikační kanál nebo přenosové médium. V této souvislosti multiplexování zajišťuje fyzická vrstva.
 
@@ -155,7 +212,7 @@
 
 \begin{compactitem}
     \item Všichni vysílají na jednom kanálu po celou dobu. \begin{compactitem}
-        \item  Nesnažíme se bránit vzájemnému zarušení, to bereme jak osoučást systému.
+        \item  Nesnažíme se bránit vzájemnému zarušení, to bereme jako součást systému.
     \end{compactitem}
 
     \item Všichni dostávají signál všech a musí si extrahovat informace pro sebe. \begin{compactitem}
@@ -164,9 +221,16 @@
         \item Každá stanice má své unikátní číslo, pokud přijímač toto číslo zná, může se \uv{naladit} (z čísla derivujeme \uv{náhodný} signál).
     \end{compactitem}
 
-    \item Nevýhoda: složitost přijímače (potřeba počítač pro kódování / dekódování).
+    \item Nevýhoda: \begin{compactitem}
+        \item složitost přijímače (potřeba počítač pro kódování / dekódování),
+        \item nižší rychlost přenosu.
+    \end{compactitem}
 
-    \item Výhoda: žádné ochranné intervaly, žádná koordinace a synchronizace, odolnost proti rušení, ochrana proti odposlouchávání.
+    \item Výhoda: \begin{compactitem}
+        \item efektivní využití pásma (žádné ochranné intervaly),
+        \item žádná koordinace a synchronizace,
+        \item odolnost proti rušení a odposlouchávání.
+    \end{compactitem}
 \end{compactitem}
 
 \begin{figure}[H]
@@ -189,19 +253,37 @@
     \caption{DSSS.}
 \end{figure}
 
+\subsubsection{FHSS (\textit{frequency hopping spread spectrum})}
+
+\begin{compactitem}
+    \item Uživatel má k dispozici několik frekvenčních kanálů.
+    \item Náhodně vygenerovaná sekvence definuje, kdy se komunikuje přes jaký frekvenční kanál. -- Frekvenční kanály se v průběhu komunikace střídají.
+\end{compactitem}
+
 \subsection{Ortogonální multiplex s frekvenčním dělením (OFDM)}
 
 \begin{compactitem}
     \item Ortogonální multiplex s frekvenčním dělením (OFDM, \textit{orthogonal frequency division multiplexing})
 
-    \item Přenos je rozložen do mnoha úzkých subkanálů, které jsou přenášeny paralelně.
+    \item Kombinace a FDMA multiplexingu a QAM modulace. \begin{compactitem}
+        \item Datový tok celého kanálu se tak dělí na stovky dílčích datových toků jednotlivých subnosných.
+        \item Vzniká mnoho úzkých subkanálů, které jsou přenášeny paralelně.
+    \end{compactitem}
+
+    \item Subnosné frekvence jsou dále modulovány dle potřeby různě robustními modulacemi (QPSK, 16-QAM, 64-QAM).
+
+    \item Jednotlivé subnosné jsou vzájemně ortogonální, takže maximum každé nosné by se mělo překrývat s minimy ostatních.
 
     \item Umožňuje, aby se postranní pásma subkanálů překrývala, což šetří pásmo.
 
     \item Přijímač je schopen oddělit překrývající se subkanály, protože jsou ortogonální.
 \end{compactitem}
 
-\todo{todo}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{ofdm.png}
+    \caption{Subkanály OFDM, pouze krajní se nemohou překrývat.}
+\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -236,9 +318,15 @@
 
     \item Jako fyzické médium se používá \textbf{rádiový přenos} (typicky bezlicenční pásmo 2,4\,GHz), ačkoliv historicky byl ve hře i infračervený přenos.
 
-    \item \textbf{Infrastrukturní síť} -- Máme nějakou infrastrukturu (\textit{access point}), ke které se připojují klienti.
+    \item \textbf{Adhoc sítě} \begin{compactitem}
+        \item Decentralizovaný typ bezdrátové sítě, kde nezávisí na předem existující infrastruktuře, jako jsou směrovače v kabelových sítích nebo \textit{access pointy} v bezdrátových sítích.
+        \item Jako ad hoc síť se typicky označuje množina sítí, kde jsou všechna zařízení rovnocenná a volně spojitelná s jakoukoliv jinou ad hoc sítí v dosahu.
+        \item Určité uzly podílí na předávání dat jiným uzlům a jejich určení je prováděno dynamicky na základě síťové konektivity.
+    \end{compactitem}
 
-    \item \textbf{Adhoc sítě} -- Náhodně se potká několik bezdrátových zařízení a propojí se.
+    \item \textbf{Infrastrukturní síť} \begin{compactitem}
+        \item Máme předem danou infrastrukturu (směrovače, \textit{access pointy}), ke které se připojují klienti.
+    \end{compactitem}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -252,15 +340,13 @@
 
     \item Fyzická vrstva -- fyzické médium (rádiové, infračervené vysílání) + vrstva konvergence, která zapouzdřuje médium.
 
-    \item Vrstva síťového rozhraní (vrstva přístup k médiu) -- přístup k médiu, fragmentace, šifrování, detekce a korekce chyb. \begin{compactitem}
-        \item Zajišťuje přístup k fyzickému médie
-    \end{compactitem}
+    \item Vrstva síťového rozhraní -- přístup k fyzickému médiu, fragmentace, šifrování, detekce a korekce chyb.
 \end{compactitem}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\linewidth]{wifi-architektura.pdf}
-    \caption{IEEE 802.11 WiFi architektura.}
+    \caption{IEEE 802.11 WiFi architektura, PHY značí fyzickou vrstvu, MAC síťového rozhraní.}
 \end{figure}
 
 \subsection{IEEE 802.11}
@@ -271,9 +357,9 @@
     \item Maximální rychlost: 2\,Mbitps.
 
     \item Fyzická vrstva: \begin{compactitem}
-        \item rádiové kanály, multimplexing CDMA (\textit{code division multiple access}), konkrétně DSSS (\textit{direct sequence spread spectrum}),
-        \item rádiové kanály, CDMA, konkrétně FHSS, zahynulo.
-        \item infračervené kanály, zahynulo.
+        \item rádiové kanály, multimplexing CDMA (\textit{code division multiple access}), konkrétně DSSS (\textit{direct sequence spread spectrum}) -- přežilo,
+        \item rádiové kanály, CDMA, konkrétně FHSS -- zahynulo.
+        \item infračervené kanály -- zahynulo.
     \end{compactitem}
 
     \item Fyzická vrstva, která přežila, má 11 kanálů o šířce 22 MHz, které se překrývají (netypické).
@@ -282,13 +368,14 @@
 \subsection{IEEE 802.11a}
 
 \begin{compactitem}
-    \item Frekvenční pásmo: 5,0\,GHz (přidávají nové ).
+    \item Americký nástupce (použití pouze USA) 802.11.
+
+    \item Frekvenční pásmo: 5,0\,GHz.
     \item Maximální rychlost: 54\,Mbitps
     \item Maximální dosah: 100\,m mimo budovy, 10\,m v budově.
-    \item Americká varianta (pouze USA) po 802.11.
 
     \item Cíl: \begin{compactitem}
-        \item přidělení nového frekvenčního pásma, které není tak vytížené (zpětná kompatibilita není nutná),
+        \item přidělení nového frekvenčního pásma, které není tak vytížené (není zpětná kompatibilita),
         \item dosáhnutí vyšší rychlosti,
         \item odstranění infračervených a rádiových FHSS kanálů.
     \end{compactitem}
@@ -297,7 +384,7 @@
         \item Díky tomu, že není zpětně kompatibilní, může používat nové sdílení spektra OFDM.
     \end{compactitem}
 
-    \item Modulace: BPSK, QPSK, 16 QAM, 64 QAM.
+    \item Modulace: 2-PSK, 4-PSK, 16-QAM, 64-QAM.
 
     \item Zhodnocení: \begin{compactitem}
         \item není zpětně kompatibilní,
@@ -309,10 +396,11 @@
 \subsection{IEEE 802.11b}
 
 \begin{compactitem}
+    \item Evropský nástupce (použití celosvětově) 802.11.
+
     \item Frekvenční pásmo: 2,4\,GHz.
     \item Maximální rychlost: 11\,Mbitps.
     \item Maximální dosah: 300\,m mimo budovy, 30\,m v budově.
-    \item Evropská varianta (celosvětové) po 802.11.
 
     \item Cíl: \begin{compactitem}
         \item původní frekvenční pásmo,
@@ -347,7 +435,6 @@
         \item sdílení spektra OFDM,
         \item zpětná kompatibilita s 802.11b.
     \end{compactitem}
-
 \end{compactitem}
 
 \begin{figure}[H]
@@ -360,24 +447,89 @@
 
 \section{Bluetooth}
 
-Standardizace IEEE.
+\begin{compactitem}
+    \item Bluetooth, \textit{wireless personal area network}.
 
-Wireless Personal Area Network
+    \item Typický případ použití: komunikace mezi různými zařízeními stejného uživatele. \begin{compactitem}
+        \item Propojení počítačů, periferie, mobilní telefon (náhrada kabelů).
+    \end{compactitem}
 
-\todo{todo}
+    \item Univerzální rádiový prostředek pro bezdrátové propojení v ad-hoc sítích.
 
+    \item Krátký dosah (10 m) a nízká spotřeba (bezlicenční pásmo 2,4\,GHz).
 
-% Popište fyzickou (rádiové vlastnosti a modulaci) a linkovou (topologie) vrstvu Bluetooth stacku. (6 bodů)
+    \item Požadavky: přenos hlasu a dat (datová rychlost cca. 1\,Mbitps).
 
-% bluetooth, NMT,fm rádio a ještě nějaký, seřadit podle frekvence
+    \item Vlastnosti: \begin{compactitem}
+        \item Frekvenční pásmo: 2,4\,GHz (79 rádiových kanálů, vzdálenost 1\,MHz).
+        \item Modulace: G-FSK (\textit{gaussian frequency-shift keying}).
+        \item Multiplexing: FHSS (\textit{frequency hopping spread spectrum}).
+        \item Datové přenosy -- asynchronní, bez navázání spojení.
+        \item Hlasové přenosy -- synchronní, navazování spojení, forward error correction, vadné pakety se neposílají znovu.
+    \end{compactitem}
 
+    \item Topologie: hvězdicová, \uv{pikonet} / \uv{scatternet}.
 
-% Zacal jsem neco vykladat o frekvencich na jakych bezi wifi a bluetooth. Ze patri do bezlicencnich pasem. Ze patri do VHF a SHF pasem. Pak se me zeptal jak bych v kratkosti charakterizoval wifi a bluetooth. Na to jsem rekl neco o rychlostech, bezpecnosti, spotrebe. Pak jsem zminil standard 802.11. Zminil jsem 2 radiove a jeden infracerveny. Pak jsem uvedl jako priklad 802.11a, rek frekvenci rychlost. Mel jsem pocit, ze povidam tak 2 minuty a p. Skorpil rekl ze mu to staci. EM se na to moc dobre netvaril ale stahnul minutku na nulu a byl konec.
+    \item Zabezpečení: \begin{compactitem}
+        \item PIN $\rightarrow$ šifrovací klíč (128 bit) $\rightarrow$ šifrovaná komunikace.
+    \end{compactitem}
 
-% jaké frekvenční pásmo je používané v standardu 802.15.1
+    \item Historicky problémy s kompatibilitou a párováním.
+\end{compactitem}
 
+\subsection{Pikonet}
 
-% Ked som si precital tuto otazku tak som si celu tu minutu na vydych hovoril v duchu (FUUUUUUUUUUUU). Zo sieti som poriadne vedel GSM a GPS a vobec som nemal sajny co sa moze spytat z tohto. Tak som zacal ze je to definovane v IEEE 802.11, pod tym existuje viacero verzii, medzi hlavne patria a,b,g. a je pomaly a ma velky dosah, b rychle, maly dosah a g rychle a ma velky dosah. Nasledovala otazka ci viem aky je rozdiel medzi infrastrukturnym a adhoc systemom, tak som vydedukoval ze adhoc vytvorime siet na mieste, infrastrukturny pouzijeme nieco co uz tam je. Prikyvol, tak to bolo snad dobre. Potom este otazka ze aku linkovu vrstvu pouziva wifi, nevedel som. Tak som mal povedat akukolvek. Mal som taky vypadok, ze ani to som nevedel som tresol MAC. To zrusil, ze Ethernet. Tak som mal povedat co je nad tym, som povedal IP. A nakoniec ako funguje NAT (to ani neviem ci je niekde v okruhu, ale som si pamatal z inych predmetov). Takze som dokopy toho moc nepovedal, ani som toho moc nevedel, ale vychadzal som s tym, ze F to nebude urcite.
+\begin{compactitem}
+    \item Sbírka zařízení, které se nacházejí ve vzájemné blízkosti podle
+    principu ad-hoc.
 
+    \item Jedno z nich pracuje jako master a ostatní jako slave po celou dobu života pikonetu.
 
-% Srovnejte Wifi a Bluetooth z hlediska frekvence, dosahu a využití. Popište hlavní výhody a nevýhody Wifi oproti LAN. Popište stručně základní architekturu Wifi. V čem se liší standard 802.11b od základního 802.11? Jak dosahuje vyšší rychlosti? V čem je nevýhoda 802.11a oproti b? Vysvětlete OFDM modulaci. Které verze 802.11 ji využívají? Popište pojmy Pikonet a Scatternet. Co je service discovery protokol?
+    \item Master určuje hopping sekvenci, slave se musí zasynchronizovat.
+
+    \item Každý pikonet má svou hopping sekvenci.
+
+    \item Uzel se stane účastníkem pikonetu tím, že se zasychnchronizuje na hopping sekvenci.
+
+    \item Každý pikonet má jeden master uzel a v jednom okamžiku až 7 aktivních slave uzlů (ale více než 200 může být ve stavu \uv{zaparkovaný}).
+
+    \item Všechna zařízení v pikonetu mají stejnou hopping sekvenci.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\linewidth]{pikonet.pdf}
+    \caption{Příklad pikonetu.}
+\end{figure}
+
+\subsection{Scatternet}
+
+\begin{compactitem}
+    \item Propojení několika blízkých pikonetů prostřednictvím sdílení uzlů master nebo slave. \begin{compactitem}
+        \item Uzel může být slave v jednom pikonetu a master ve druhém.
+    \end{compactitem}
+
+    \item Komunikace mezi pikonety. \begin{compactitem}
+        \item Uzel přeskakuje tam a zpátky mezi pikonety.
+    \end{compactitem}
+
+    \item Ne každý uzel se dokáže připojit do více pikonetů, většinou pouze laptop nebo smartphone.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\linewidth]{scatternet.pdf}
+    \caption{Příklad scatternetu.}
+\end{figure}
+
+\subsection{Protokol stack}
+
+\begin{compactitem}
+    \item Service discovery protokol -- Protokol pro zjištění nabízených služeb, hledá uzly v rádiovém dosahu.
+\end{compactitem}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{bluetooth_protocol_stack.pdf}
+    \caption{Bluetooth protokol stack.}
+\end{figure}
