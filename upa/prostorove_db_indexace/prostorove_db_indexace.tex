@@ -30,16 +30,30 @@
 \begin{compactitem}
     \item Ve vícedimenzionálním prostoru nelze z reprezentace hodnot jednoznačně určit uspořádání -- předchůdce a následníka. Nelze tedy použít obecně užívané indexační algoritmy pro 1D.
 
-    \item Řešením by mohlo být mapování bodů do jediné dimenze, nicméně zde dochází ke ztrátě sousednosti, transformace by nemusela být realizovatelná a výsledek dotazů by nemusel být transformovatelný zpět.
-
-    \item Z tohoto důvodu se v prostorových databázích využívají specializované indexační algoritmy.
+    \item Řešení v podobě mapování do 1D nám většinou nestačí, proto se v prostorových databázích využívají specializované indexační algoritmy.
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Indexace bodů pomocí stromů dělících prostor}
+\section{Mapování do 1D}
 
-\subsection{k-D Tree}
+\begin{compactitem}
+    \item Nejjednodušší řešení je namapovat data do jednorozměrného prostoru.
+    \item Touto transformací však zcela jistě ztratíme sousednost.
+    \item Krom toho, taková transformace nemusí být vůbec realizovatelná. A pokud ano, tak výsledek dotazů nemusí být transformovatelný zpět, takže lze výsledek jen těžko interpretovat.
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Indexace bodů}
+
+\begin{compactitem}
+    \item Pro indexaci bodů využíváme 2 přístupy: stromy dělící prostor a hashování.
+\end{compactitem}
+
+\subsection{Stromy dělící prostor}
+
+\subsubsection{k-D Tree}
 
 \begin{compactitem}
     \item k-D Tree je datová struktura (binární strom) dělící prostor hyperplochami na nejvyšší možné úrovni, a to vždy na dvě části. \begin{compactitem}
@@ -62,7 +76,7 @@
     \caption{k-D tree.}
 \end{figure}
 
-\subsection{Adaptivní k-D Tree}
+\subsubsection{Adaptivní k-D Tree}
 
 \begin{compactitem}
     \item Snaží se eliminovat problémy spojené s pořadím vkládání bodů.
@@ -80,7 +94,7 @@
     \caption{Adaptivní k-D Tree.}
 \end{figure}
 
-\subsection{BSP (\textit{binary space partitioning}) Tree}
+\subsubsection{BSP (\textit{binary space partitioning}) Tree}
 
 \begin{compactitem}
     \item Stejný jako Adaptivní k-D Tree až na to, že dělící hyperplochy nemusí být rovnoběžné s osovým (souřadným) systémem.
@@ -94,7 +108,7 @@
     \caption{BSP Tree.}
 \end{figure}
 
-\subsection{Quad Tree}
+\subsubsection{Quad Tree}
 
 \begin{compactitem}
     \item Stejný jako k-D Tree až na to, že prostor se dělí na čtvrtiny (dvě dělící hyperplochy na bod).
@@ -108,11 +122,9 @@
     \caption{Quad Tree.}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Hashování}
 
-\subsection{Indexace bodů pomocí hashování}
-
-\subsection{Grid File}
+\subsubsection{Grid File}
 
 \begin{compactitem}
     \item Sledovaný úsek prostoru je rozdělen $n$-rozměrnou mřížkou (ne nutně pravidelnou) na buňky. \begin{compactitem}
@@ -135,7 +147,7 @@
     \caption{Grid File.}
 \end{figure}
 
-\subsection{Two-level Grid File}
+\subsubsection{Two-level Grid File}
 
 \begin{compactitem}
     \item Je zavedena mřížka druhé úrovně. \begin{compactitem}
@@ -151,7 +163,7 @@
     \caption{Two-level Grid File.}
 \end{figure}
 
-\subsection{Twin Grid File}
+\subsubsection{Twin Grid File}
 
 \begin{compactitem}
     \item Celá struktura se vyskytuje dvakrát. \begin{compactitem}
