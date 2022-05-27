@@ -44,28 +44,53 @@
 \subsubsection{k-D Tree}
 
 \begin{compactitem}
-    \item Tento algoritmus je založen na principu dělení prostoru hyperplochami (v rovině to jsou přímky) na nejvyšší možné úrovni, a to vždy na dvě části.
+    \item k-D Tree je datová struktura (binární strom) dělící prostor hyperplochami na nejvyšší možné úrovni, a to vždy na dvě části. \begin{compactitem}
+        \item Hyperplocha v rovině to je přímka.
+        \item Dělící hyperplocha musí být rovnoběžná s osovým (souřadným) systémem.
+    \end{compactitem}
 
-    \item Dělící hyperplocha musí být rovnoběžná s osovým (souřadným) systémem.
+    \item Myšlenka: vytvoříme uspořádání na množině bodů v prostoru (podobně jako ho máme přirozeně na množině čísel) a díky tomu, budeme moct uspořádat body do stromu.
 
-    \item Při dělení, musí ve výsledných plochách být obsažen vždy alespoň jeden bod, který pak už není součástí jakékoli jiné hyperplochy.
+    \item Při dělení, musí ve výsledných plochách být obsažen vždy aspoň jeden bod, který pak už není součástí jakékoli jiné hyperplochy.
 
-    \item Vkládání a vyhledávání je bez problému, avšak při mazání je potřeba znovuustavit celý strom, algoritmus je tak výhodný pro statická data.
+    \item Vkládání a vyhledávání je bez problému, avšak při mazání je potřeba znovuustavit celý strom, algoritmus je tak vhodný pro statická data.
 \end{compactitem}
 
-
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{kd_tree.pdf}
+    \caption{k-D tree.}
+\end{figure}
 
 \subsubsection{Adaptivní k-D Tree}
 
 \todo{todo}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{adaptivni_kd_tree.pdf}
+    \caption{Adaptivní k-D Tree.}
+\end{figure}
+
 \subsubsection{BSP Tree}
 
 \todo{todo}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{bsp_tree.pdf}
+    \caption{BSP Tree.}
+\end{figure}
+
 \subsubsection{Quad Tree}
 
 \todo{todo}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{quad_tree.pdf}
+    \caption{Quad Tree.}
+\end{figure}
 
 \subsection{Hashování}
 
