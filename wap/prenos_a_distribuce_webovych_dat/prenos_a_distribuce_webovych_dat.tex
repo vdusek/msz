@@ -17,13 +17,98 @@
 \section{Zdroje}
 
 \begin{compactitem}
+    \item \path{05-distribuce.pdf}
+    \item \path{WAP_2021-03-11.mp4}
+    \item \path{WAP_2021-03-18.mp4}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{URI}
+
+\begin{compactitem}
+    \item URI (\textit{universal resource identifier}) je textový řetězec s definovanou strukturou, který slouží k přesné specifikaci zdroje informací (ve smyslu dokument nebo služba) na internetu.
+
+    \item URL (\textit{uniform resource locator}) a UNR (\textit{uniform resource name}) jsou podmnožiny URI.
+
+    \noindent\begin{minipage}{\linewidth}
+        \begin{lstlisting}[language=bash, caption={Struktura URI.}]
+
+ scheme:[//[user[:password]@]host[:port]][/path][?query][#fragment]
+
+\end{lstlisting}
+    \end{minipage}
+
+    \item Jednotlivé části: \begin{compactitem}
+
+        % Schema
+        \item \path{scheme} \begin{compactitem}
+            \item Definuje sémantiku zbytku URI.
+            \item Např. \path{http}, \path{ftp}, \path{file}, \path{git}, \path{ldap}, \path{mailto}, \path{postgresql}, \ldots
+        \end{compactitem}
+
+        % Autorita cesty
+        \item \path{[//[user[:password]@]host[:port]]} \begin{compactitem}
+            \item Autorita cesty -- Delegace zodpovědnosti za popis URI.
+            \item Volitelná autentizace (user, password).
+            \item Doménové jméno nebo IP adresa.
+            \item Číslo portu transportní vrstvy (volitelné).
+        \end{compactitem}
+
+        % Cesta
+        \item \path{[/path]} \begin{compactitem}
+            \item Cesta (hierarchická část).
+        \end{compactitem}
+
+        % Query
+        \item \path{[?query]} \begin{compactitem}
+            \item Obsahuje segmenty ve formatu \path{klic=hodnota} oddělené \path{&}.
+            \item Např. \path{?submit_view=t&order=6&form_f1=2017}
+        \end{compactitem}
+
+        % Fragment
+        \item \path{[#fragment]} \begin{compactitem}
+            \item Identifikace sekundárního zdroje v rámci primárního zdroje.
+        \end{compactitem}
+    \end{compactitem}
+
+    \item Příklady: \begin{compactitem}
+        \item \path{https://jakjsmenatom.cz}
+        \item \path{file://localhost/home/vdusek/Documents/hello.txt}
+        \item \path{mailto:josef.novak@gmail.com}
+        \item \path{postgresql://user_name:secret_password@localhost/db_name}
+    \end{compactitem}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Protokol HTTP}
+
+\begin{compactitem}
     \item \todo{todo}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
+\section{Protokol HTTP streaming}
 
 \begin{compactitem}
     \item \todo{todo}
 \end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{CDN}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{XHR}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
