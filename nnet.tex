@@ -157,6 +157,36 @@
     showlines=true
 }
 
+% Listing style for Javascript
+\lstdefinelanguage{javascript}{
+    basicstyle=\small\ttfamily,
+    keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, await, async, const},
+    keywordstyle=\color{blue},
+    ndkeywords={class, export, boolean, throw, implements, import, this},
+    ndkeywordstyle=\color{darkgray},
+    identifierstyle=\color{black},
+    sensitive=false,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{purple},
+    stringstyle=\color{red},
+    morestring=[b]',
+    morestring=[b]",
+    morestring=[b]`,
+    numbers=left,
+    showstringspaces=false,
+    breaklines=true,
+    frame=none,
+    backgroundcolor=\color{background},
+    literate=%
+        {:}{{{\color{delim}{:}}}}{1}
+        {,}{{{\color{delim}{,}}}}{1}
+        {(}{{{\color{delim}{(}}}}{1}
+        {)}{{{\color{delim}{)}}}}{1}
+        {\{}{{{\color{delim}{\{}}}}{1}
+        {\}}{{{\color{delim}{\}}}}}{1}
+}
+
 % Listing style for Python
 \lstdefinelanguage{python}{
     basicstyle=\small\ttfamily,
@@ -457,6 +487,18 @@
 % 59
 \input{pds/peer_to_peer_site/peer_to_peer_site}
 \newpage
+
+% % 60
+% \input{wap/udalosti_v_javascriptu/udalosti_v_javascriptu}
+% \newpage
+
+% 61
+\input{wap/prenos_a_distribuce_webovych_dat/prenos_a_distribuce_webovych_dat}
+\newpage
+
+% % 62
+% \input{wap/bezpecnost_webovych_aplikaci/bezpecnost_webovych_aplikaci}
+% \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

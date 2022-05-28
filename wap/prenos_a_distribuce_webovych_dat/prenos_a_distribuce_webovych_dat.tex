@@ -6,7 +6,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Path to figures
-\graphicspath{{wap/udalosti_v_javascriptu/figures}}
+\graphicspath{{wap/prenos_a_distribuce_webovych_dat/figures}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -17,7 +17,8 @@
 \section{Zdroje}
 
 \begin{compactitem}
-    \item \path{05-distribuce.pdf}
+    \item \path{WAP04_transport.pdf}
+    \item \path{WAP05_frontend.pdf}
     \item \path{WAP_2021-03-11.mp4}
     \item \path{WAP_2021-03-18.mp4}
 \end{compactitem}
@@ -48,7 +49,7 @@
         \end{compactitem}
 
         % Autorita cesty
-        \item \path{[//[user[:password]@]host[:port]]} \begin{compactitem}
+        \item \path{:[//[user[:password]@]host[:port]]} \begin{compactitem}
             \item Autorita cesty -- Delegace zodpovědnosti za popis URI.
             \item Volitelná autentizace (user, password).
             \item Doménové jméno nebo IP adresa.
@@ -85,15 +86,160 @@
 \section{Protokol HTTP}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item HTTP \textit{hypertext transfer protocol}) je internetový protokol určený pro komunikaci s webovými servery. Slouží pro přenos hypertextových dokumentů zejména ve formátu HTML, ale i jiných typů souborů. \begin{compactitem}
+        \item Dovoluje přenos dat téměř jakéhokoliv formátu (hlavička Content Type -- MIME).
+    \end{compactitem}
+
+    \item Původně protokol typu: požadavek $\rightarrow$ odpověď.
+
+    \item Metody (stejné pro všechny verze): \begin{compactitem}
+        \item GET: získání zdroje
+        \item HEAD: obdobné, ale pouze hlavičky
+        \item POST: zaslání dat na server, změna stavu
+        \item PUT: nahrazení (kompletní přepsání) zdroje dodaným obsahem
+        \item PATCH: Částečná modifikace zdroje
+        \item DELETE: odstranění zdroje
+        \item CONNECT: vytvoření tunelu, např. při použití HTTPS a proxy
+        \item OPTIONS: zjištění podporovaných metod (zdroj, nebo server) a dalších parametrů (např. cache)
+        \item TRACE: Debugging, adresát vrací původní zprávu (s drobnými změnami)
+    \end{compactitem}
+
+    \item Hlavičky: Content-Type, Content-Length, Connection, Keep-Alive, \dots
+    \item Stavové kódy.
 \end{compactitem}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Protokol HTTP streaming}
+\subsection{HTTPS}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item HTTPS znamená HTTP s využitím TLS (\textit{transport layer security}), což je mezivrstva mezi TCP a HTTP, která řeší šifrování.
+
+    \item Zajišťuje: \begin{compactitem}
+        \item Integritu -- bez znalosti kryptografického klíče není možnost data změnit tak, aby to nebylo možné detekovat.
+        \item Utajení -- bez znalosti kryptografického klíče není možnost data číst.
+    \end{compactitem}
+
+    \item Autentizace jedné/obou komunikujících stran pomocí certifikátů X.509, které obsahují veřejný klíč, a který je podepsaný certifikační autoritou (alternativně \textit{self signed}).
+\end{compactitem}
+
+\subsection{HTTP/1.0}
+
+\begin{compactitem}
+    \item Pro každý dotaz musí být navázáno TCP spojení (SYN, ACK), to je 1 RTT (\textit{round trip time}). \begin{compactitem}
+        \item  V případě HTTPS ještě TLS, to je 1-2 RTT navíc.
+    \end{compactitem}
+
+    \item Spoustu volitelných hlaviček.
+\end{compactitem}
+
+\noindent\begin{minipage}{\linewidth}
+    \begin{lstlisting}[language=bash, caption={Příklad HTTP/1.0 komunikace.}]
+GET / HTTP/1.0
+User-Agent: telnet
+Accept: */*
+
+HTTP/1.1 200 OK
+Date: Fri, 08 Feb 2019 13:07:30 GMT
+Server: Apache
+Content-Location: index.php.cz
+Vary: negotiate,accept-language
+TCN: choice
+Pragma: no-cache
+X-Frame-Options: deny
+Connection: close
+Content-Type: text/html; charset=iso-8859-2
+Content-Language: cs
+\end{lstlisting}
+\end{minipage}
+
+\subsection{HTTP/1.1}
+
+\begin{compactitem}
+    \item Zavádí \textbf{Keep-Alive} spojení -- Znovupoužití jednoho TCP spojení pro více dotazů. \begin{compactitem}
+        \item Timeout Keep-Alive -- Konec spojení.
+    \end{compactitem}
+    \item Přenosy dat po částech (chunked).
+    \item Požadavky na konkrétní části dat (byte-range).
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{http_keep_alive.pdf}
+        \caption{Komunikace HTTP 1 a HTTP 1.1 s Keep-Alive.}
+    \end{figure}
+
+    \item \textbf{Pipelining} -- Pošlu více souvisejících požadavků ihned za sebou (např. \path{GET /html} a \path{GET /css}). \begin{compactitem}
+        \item Problém dlouho zpracovávaných dotazů (typ \textit{head of line blocking}).
+        \item Potenciální útok na server $\rightarrow$ vyčerpání paměti.
+        \item Některé servery, či mezilehlé prvky (cache, aplikační firewall) nemusí podporovat pipelineing.
+        \item Vzniká iniciativou klienta.
+    \end{compactitem}
+
+    \item Paralelizace dotazů HTTP -- Prohlížeč automaticky ustanoví několik TCP spojení se serverem.
+\end{compactitem}
+
+\subsection{HTTP/2}
+
+\begin{compactitem}
+    \item Cíl: ještě více vylepšit využívání jediného spojení. \begin{compactitem}
+        \item Paralelní zpracování několika požadavků.
+        \item Proudy dat.
+        \item Vylepšení konceptu pipeliningu, aby skutečně fungoval.
+        \item Multiplexing proudů, části požadavků i odpovědí se mohou míchat.
+    \end{compactitem}
+
+    \item Šifrovaná (TLS 1.2 a novější) i nešifrovaná verze
+
+    \item Data jsou přenášena v \textbf{binární podobě} -- možnost převodu do textové formy v debuggerech. \begin{compactitem}
+        \item Zachovává sémantiku metod.
+        \item Zachovává členění zprávy do hlaviček a těla
+        \item Zprávy jsou přenášeny v rámcích.
+    \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.9\linewidth]{binary_format.png}
+        \caption{Binární formát.}
+    \end{figure}
+
+    \item Složky spojení HTTP/2: \begin{compactitem}
+        \item Rámce -- Nejmenší jednotky, nesou hlavičku rámce s identifikátorem proudu, do kterého rámec patří.
+        \item Zprávy -- Kompletní sekvence rámců, které tvoří dotazy a odpovědi.
+        \item \textbf{Proud (stream)} -- Obousměrný tok dat, který nese zprávy.
+    \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{http2_stream.png}
+        \caption{HTTP 2 spojení, binární streamy.}
+    \end{figure}
+
+    \item \textbf{Server push} -- zaslání odpovědi aniž by přišel dotaz. \begin{compactitem}
+        \item HTTP přestává být protokolem typu dotaz $\rightarrow$ odpověď a stává se dotaz $\rightarrow$ $1-n$ odpovědí.
+        \item Např. Klient si zažádá o index.html. Server mu ho pošle a k tomu metada o dalších souborech, které s ním souvisí, ve formě tzv. push promises. \begin{compactitem}
+            \item Jde o stejný obsah jako při HTTP HEAD.
+        \end{compactitem}
+    \end{compactitem}
+
+    \item Výhody HTTP/2: \begin{compactitem}
+        \item Jedno spojení nese několik dotazů a odpovědí.
+        \item Proudům je možné přiřazovat priority (HTML, CSS, JavaScript prioritní. Obrázky, videa a další zdroje méně prioritní).
+        \item Jedno TCP spojení per origin (trojice schema, hostname, port).
+        \item Nabízí kompresi hlaviček.
+    \end{compactitem}
+\end{compactitem}
+
+\subsection{HTTP/3}
+
+\begin{compactitem}
+    \item Cíl, vyřešit problémy: \begin{compactitem}
+        \item Head of line blocking při TCP -- přejít na UDP.
+        \item Problém dlouhého navázání spojení TCP (1 RTT) + TLS (až 2 RTT).
+    \end{compactitem}
+    \item Nový protokol QUIC mezi transportní a aplikační vrstvou.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{http_protocol_stacks.png}
+        \caption{HTTP evoluce a protokoly.}
+    \end{figure}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -101,14 +247,58 @@
 \section{CDN}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item Problém: DNS lookup -- 1 RTT, TCP handshake -- 1 RTT, TLS handshake -- 2 RTT, HTTP request -- 1-n RTT.
+
+    \item Tedy, komunikace může být někdy pomalá, řešíme, jak web zrychlit.
+
+    \item Řešení je tzv. CDN (\textit{content delivery network}).
+
+    \item Myšlenka: Velké části obsahu stránky jsou neměnné, málo časté změny. Nakopírujeme je blíže klientům. \begin{compactitem}
+        \item Distribuovat servery různě po světě -- nejbližší uzel blíže uživateli.
+        \item Distribuce (nejen) statického a objemného obsahu co nejblíže ke klientovi.
+    \end{compactitem}
+
+    \item Soukromá (poskytovatel obsahu vlastní CDN), vs. komerční CDN (Akamai, Limelight, Level-3 a další).
+
+    \item Zároveň slouží jako ochrana před DDoS.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{cdn.png}
+        \caption{Příklad CDN.}
+    \end{figure}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{XHR}
+\section{XHR (AJAX)}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item XHR (XMLHttpRequest), resp. AJAX (\textit{Asynchronous JavaScript and XML}).
+
+    \item API prohlížeče pro dynamické dotazy pomocí HTTP(S). \begin{compactitem}
+        \item Dynamické úpravy DOM.
+    \end{compactitem}
 \end{compactitem}
 
+\noindent\begin{minipage}{\linewidth}
+    \begin{lstlisting}[language=javascript, caption={Příklad využití XHR.}]
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "/images/photo.webp");
+xhr.responseType = "blob";
+
+// obsluzna funkce (callback)
+xhr.onload = function() {
+    if (this.status == 200) {
+        var img = document.createElement("img");
+        img.src = window.URL.createObjectURL(this.response);
+        img.onload = function() {
+            ndow.URL.revokeObjectURL(this.src);
+        }
+        document.body.appendChild(img);
+    };
+}
+
+xhr.send();
+\end{lstlisting}
+\end{minipage}
