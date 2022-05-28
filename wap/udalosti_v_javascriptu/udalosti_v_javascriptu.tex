@@ -17,12 +17,127 @@
 \section{Zdroje}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item \path{01-JavaScript.pdf}
+    \item \path{WAP_2021-02-11_1080p.mp4}
+    \item \path{WAP_2021-02-18_1080p.mp4}
+    \item \path{WAP_2021-02-25_1080p.mp4}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Úvod a kontext}
+
+\begin{compactitem}
+    \item ECMAScript -- standardizace Javascriptu.
+    \item Dynamicky typovaný.
+    \item Hoisting -- deklarace vsech promennych se presouvaji na zacatek bloku.
+    \item Datové typy -- primitivní vs objekty (obecný objekt, pole, regex, funkce).
+    \item Operátory rest a spread.
+    \item Callbacks -- Funkce $f$ je předaná jako parametr funkci $g$. Při vyhodnocování funkce $g$ je funkce $f$ zavolána.
+    \item Prototypování, this.
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Zpracování události}
+
+\begin{compactitem}
+    \item Kód se vykonává tak dlouho, dokud se sám nevzdá procesoru (run-to-completition)
+\end{compactitem}
+
+\begin{compactitem}
+    \item Asynchronní funkce se deklauje pomocí klíčového slova \path{async} -- při vykonávání funkce, se příkazy vykonávají asynchronně.
+    \item Např. čekání na data z API (\path{fetch}, \path{axios}).
+    \item Vrácen je \path{promise} -- Slib, že v budoucnu bude něco navráceno. K datům uvnitř \path{promise} se pristupuje přes \path{then}.
+\end{compactitem}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=javascript, caption={Příklad asynchronního programování, async + await.}]
+for (let i=1; i<=5; i++) {
+    setTimeout( function timer() {
+        console.log(i);
+    }, i*1000 );
+}
+\end{lstlisting}
+\end{minipage}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Smyčka událostí}
+
+Hlavní smyčka programu -- event loop
+postupně zpracovává jednu událost za druhou
+každá událost se zpracuje, dokud je v rámci co vykonávat
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Asynchronní programování}
+
+Klasické synchronní volání funkce způsobí, že vlákno je po celou dobu operace blokované, ať už prováděním kódu samotné funkce, nebo čekáním na dokončení operace probíhající mimo váš program (např. volání API, databázový dotaz). To znamená, že vlákno po dobu prováděné operace nemůže dělat žádnou jinou práci. V praxi je ale často zapotřebí, aby operace probíhala někde na pozadí a vlákno, ze kterého byla operace volána, bylo využito k vykonání jiné části programu. Když je operace dokončena, je o tom volající informován a může na to nějakým způsobem reagovat. Tento přístup k tvorbě programů se nazývá asynchronní programování a řeší blokování vláken.
+
+\subsection{Asynchronní programování v Javascriptu}
+
+\begin{compactitem}
+    \item Asynchronní funkce se deklauje pomocí klíčového slova \path{async} -- při vykonávání funkce, se příkazy vykonávají asynchronně.
+    \item Např. čekání na data z API (\path{fetch}, \path{axios}).
+    \item Vrácen je \path{promise} -- Slib, že v budoucnu bude něco navráceno. K datům uvnitř \path{promise} se pristupuje přes \path{then}.
+\end{compactitem}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=javascript, caption={Příklad asynchronního programování, async + await.}]
+function resolveAfter2Seconds() {
+    return new Promise(resolve => {
+        setTimeout(() => { resolve("resolved"); }, 2000);
+    })
+}
+
+async function asyncCall() {
+    console.log("calling");
+    const result = await resolveAfter2Seconds();
+    console.log(result);
+}
+
+asyncCall();
+\end{lstlisting}
+\end{minipage}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=javascript, caption={Příklad asynchronního programování, volání API.}]
+const fetchPromise = fetch("https://mdn.github.io/learning-area/javascript/apis/fetching-data/can-store/products.json");
+
+console.log(fetchPromise);
+
+fetchPromise.then( response => {
+    console.log(`Received response: ${response.status}`);
+});
+
+console.log("Started request...");
+
+// Output:
+// Promise { <state>: "pending" }
+// Started request...
+// Received response: 200
+\end{lstlisting}
+\end{minipage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Klientské události}
+
+\begin{compactitem}
+    \item event listener
+    \item \todo{todo}
+\end{compactitem}
+
+\section{Obsluha událostí}
 
 \begin{compactitem}
     \item \todo{todo}
