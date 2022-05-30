@@ -39,8 +39,10 @@
 \paragraph*{Stav procesu} Lokální stav procesu $p_i$ značíme $LS_i$. Lokální stav je definován jako sekvence všech událostí, o~kterých proces $p_i$ ví. Nechť $e$ je libovolná událost, $e \in LS_i$ značí, že událost $e$ patří do lokálního stavu procesu $p_i$, $e \not\in LS_i$ značí, že událost $e$ nepatří do lokálního stavu procesu $p_i$.
 
 \paragraph*{Stav komunikačního kanálu} Stav komunikačního kanálu $C_{ij}$ značíme $SC_{ij}$ a je definován množinou zpráv, které obsahuje. Pro kanál $C_{ij}$ můžeme definovat jeho stav na základě lokálních stavů procesů $LS_i$ a $LS_j$: $$
-transit(LS_i, LS_j) = \{ m_{ij} \,|\, send(m_{ij}) \in LS_i \land rec(m_{ij}) \not\in LS_j \}
-$$.
+    SC_{ij} = transit(LS_i, LS_j) = \{ m_{ij} \,|\, send(m_{ij}) \in LS_i \land rec(m_{ij}) \not\in LS_j \}
+$$
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Model komunikace}
 
@@ -52,46 +54,47 @@ $$.
     \item Causal ordering (kauzální uspořádání) -- Systém, který podporuje kauzální doručení zpráv splňuje následující vlastnost. Pro jakékoliv dvě zprávy $m_{ij}$ a $m_{kj}$ platí, pokud $send(m_{ij}) \rightarrow send(m_{kj})$, pak i $recv(m_{ij}) \rightarrow recv(m_{kj})$.
 \end{compactitem}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Konzistentní globální stav}
 
-\paragraph*{Globální stav} Globální stav distribuovaného systému je kolekce lokálních stavů procesů a komunikačních kanálů. $$
-GS = \Big\{ \bigcup_{i} LS_i \,,\, \bigcup_{i, j} SC_{ij} \Big\}
-$$.
+\paragraph*{Globální stav} Globální stav distribuovaného systému je kolekce lokálních stavů procesů a komunikačních kanálů. $${\displaystyle
+            GS = \Big\{ \bigcup_{i} LS_i \,,\, \bigcup_{i, j} SC_{ij} \Big\}
+        }$$
 
 \paragraph*{Časoprostorový diagram} Diagram pro vizualizaci komunikace procesů v~distribuovaném systému. Viz obrázek~\ref{48_example_cut} a~\ref{48_example_consistent_state}.
 
-\paragraph*{Konzistentní globální stav} Konzistentní globální stav (\textit{snapshot}) je stav systému v~určitém časovém okamžiku. Lze si jej představit jako řez v~časoprostorovém diagramu, který rozděluje diagram na dvě části: minulost a budoucnost. Aby byl řez (globální stav) konzistentní, tak pokud je doručení nějaké zprávy v~minulosti, musí být v~minulosti i její odeslání. Formálně jde o~globální stav, který splňuje nálsedující podmínky:
+\paragraph*{Konzistentní globální stav} Konzistentní globální stav (\textit{\textit{snapshot}}) je stav systému v~určitém časovém okamžiku. Lze si jej představit jako řez v~časoprostorovém diagramu, který rozděluje diagram na dvě části: minulost a budoucnost. Aby byl řez (globální stav) konzistentní, tak pokud je doručení nějaké zprávy v~minulosti, musí být v~minulosti i její odeslání. Formálně jde o~globální stav, který splňuje nálsedující podmínky:
 
-$$
-send(m_{ij}) \in LS_i \Rightarrow m_{ij} \in SC_{ij} \oplus recv(m_{ij}) \in LS_j
-$$,
+$${\displaystyle
+            send(m_{ij}) \in LS_i \Rightarrow m_{ij} \in SC_{ij} \oplus recv(m_{ij}) \in LS_j
+        }$$
 
-$$
-send(m_{ij}) \not\in LS_i \Rightarrow m_{ij} \not\in SC_{ij} \land recv(m_{ij}) \not\in LS_j
-$$.
+$${\displaystyle
+            send(m_{ij}) \not\in LS_i \Rightarrow m_{ij} \not\in SC_{ij} \land recv(m_{ij}) \not\in LS_j
+        }$$
 
-\paragraph*{K čemu je \textit{snapshot}} \textit{Snapshot} lze využít např. pro tvorbu záloh systému nebo při zotavování systému po chybách.
+\paragraph*{K čemu je \textit{\textit{snapshot}}} \textit{Snapshot} lze využít např. pro tvorbu záloh systému nebo při zotavování systému po chybách.
 
-\paragraph*{Jak lze \textit{snapshot} vytvořit} Absence globální sdílené paměti, globálních hodin a nepředvídatelná délka zpoždění v~odesílání zpráv v~distribuovaném systému činí problém vytváření snapshotů netriviálním. Způsob vytváření lze rozdělit do dvou kategorií: na základě algoritmů a na základě checkpointů.
+\paragraph*{Jak lze \textit{\textit{snapshot}} vytvořit} Absence globální sdílené paměti, globálních hodin a nepředvídatelná délka zpoždění v~odesílání zpráv v~distribuovaném systému činí problém vytváření snapshotů netriviálním. Způsob vytváření lze rozdělit do dvou kategorií: na základě algoritmů a na základě checkpointů.
 
 \paragraph*{Problémy při zaznamenávání snapshotu} Jak rozlišit mezi zprávami, které mají být součástí snapshotu a které nikoliv?
 \begin{compactitem}
     \item Zprávy, které jsou odeslány procesem před zaznamenáním svého  snapshotu, jsou zaznamenány do stavu.
-    \item Zprávy, které jsouodeslány procesem po zaznamenání svého  snapshotu, nejsou zaznamenány do stavu.
+    \item Zprávy, které jsou odeslány procesem po zaznamenání svého  snapshotu, nejsou zaznamenány do stavu.
 \end{compactitem}
 
-\noindent Jak rozpoznat okamžik, ve kterém má proces zaznamenat snapshot?
+\noindent Jak rozpoznat okamžik, ve kterém má proces zaznamenat \textit{snapshot}?
 \begin{compactitem}
-    \item Proces $p_j$ musí zaznamenat svůj snapshot před zpracováním zprávy $m_{ij}$, která byla poslána procesem $p_i$ po zaznamenání jeho snapshotu.
+    \item Proces $p_j$ musí zaznamenat svůj \textit{snapshot} před zpracováním zprávy $m_{ij}$, která byla poslána procesem $p_i$ po zaznamenání jeho snapshotu.
 \end{compactitem}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{example_cut.pdf}
-    \caption{Příklad řezu v~časoprostorovém diagramu. Řez $C_1$ je nekonzistentní, kvůli zprávě $m_1$. Řez $C_2$ je konzistentní a zpráva $m_4$ je zachycena ve stavu kanálu $Ch_{21}$.}
+    \caption{Příklad řezu v~časoprostorovém diagramu. Řez $C_1$ je nekonzistentní, kvůli zprávě $m_1$. Řez $C_2$ je konzistentní a zpráva $m_4$ je zachycena ve stavu kanálu $SC_{21}$.}
     \label{48_example_cut}
 \end{figure}
-
 
 \begin{figure}[H]
     \centering
@@ -99,3 +102,46 @@ $$.
     \caption{Příklad konzistentního globální stavu formálně.}
     \label{48_example_consistent_state}
 \end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Chandy-Lamport algoritmus}
+
+\begin{compactitem}
+    \item Pro FIFO komunikaci.
+
+    \item Používá tzv. marker (kontrolní zpráva) pro oddělení zpráv před zaznamenáním snapshotu a po. \begin{compactitem}
+
+        \item Poté, co proces zaznamená svůj lokální stav, odešle marker do všech (odchozích) kanálů, předtím než bude posílat další zprávy.
+
+        \item Marker odděluje zprávy v kanálu na ty, které mají být zahrnuty do snapshotu, a na ty, které ne.
+
+        \item Proces musí zaznamenat svůj lokální stav nejpozději v okamžiku, kdy obdrží marker skrze některý svůj (příchozí) kanál.
+    \end{compactitem}
+
+    % \item Postup: \begin{compactitem}
+    %     \item Algoritmus může být spuštěn libovolným procesem, který zaznamená svůj lokální stav a odešle marker na všechny své (odchozí) kanály.
+
+    %     \item Proces, který přijme marker a ještě nezaznamenal svůj lokální stav, zaznamená stav kanálu, přes který marker přijal, poté zaznamená svůj lokální stav a odešle marker na všechny (odchozí) kanály.
+
+    %     \item Algoritmus je ukončen poté, co každý proces obdrží marker na všech svých příchozích kanálech.
+
+    %     \item Všechny lokální stavy se rozšíří mezi všechny ostatní procesy a všechny mohou určit globální stav.
+    % \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\linewidth]{chandy_lamport_alg.pdf}
+        \caption{Pseudokód algoritmu Chandy Lamport.}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{chandy_lamport_example.pdf}
+        \caption{Příklad zaznamenání globální stavu pomocí algoritmu Chandy Lamport. Modrý obdelník značí zaznamenání lokálního stavu. Červené zprávy souvisí s odesíláním markeru. Zeleně jsou označeny zprávy, které jsou zaznamenány ve stavu kanálu. Modré jsou zprávy v minulosti, zaznamenány ve stavu kanálu. Šedé jsou zprávy v budoucnosti, nejsou zaznamenány vůbec.}
+    \end{figure}
+
+    \item Složitost: \begin{compactitem}
+        \item Z pohledu jedné instance vyžaduje algoritmus $\mathcal{O}(e)$ zpráv, kde $e$ je počet hran v síti, resp. počet komunikačních kanálů.
+    \end{compactitem}
+\end{compactitem}
