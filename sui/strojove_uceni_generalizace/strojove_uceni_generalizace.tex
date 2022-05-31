@@ -60,12 +60,12 @@
 
         \item Metoda nejmenších čtverců (\textit{Least squares}) -- pro regresi.
 
-        \item Cross-entropy -- pro klasifikaci.
+        \item Křížová entropie (\textit{Cross-entropy}) -- pro klasifikaci.
     \end{compactitem}
 
     \item Často objektivní funkce vrací chybu pro celý dataset, a chybová funkce chyby pro konkrétní datový vzorek.
 
-    \item Složitější modely (např. neuronové sítě) využívají jiné, složitější optimalizační strategie (např. gradient descent).
+    \item Komplikovanější modely (např. neuronové sítě) využívají jiné, složitější optimalizační strategie (např. gradient descent).
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,9 +79,9 @@
         \item V případě klasifikace to znamená rozpoznávat co nejlépe i doposud neviděná data (data, na kterých model nebyl trénován).
     \end{compactitem}
 
-    \item \textbf{Přetrénování} (overfitting) -- Model se příliš specializuje na trénovací data, negeneralizuje. Trénování chceme ukončit včas, předtím, než se model začne přetrénovávat.
+    \item \textbf{Přetrénování} (\textit{overfitting}) -- Model se příliš specializuje na trénovací data, negeneralizuje. Trénování chceme ukončit včas, předtím, než se model začne přetrénovávat.
 
-    \item \textbf{Podtrénování} (underfitting) -- Model je málo natrénovaný, trénování by ještě mělo pokračovat.
+    \item \textbf{Podtrénování} (\textit{underfitting}) -- Model je málo natrénovaný, trénování by ještě mělo pokračovat.
 
     \begin{figure}[H]
         \centering
@@ -118,30 +118,28 @@
 \begin{compactitem}
     \item Metody jak zabránit přetrénování, a to přidáním náhodného šumu, změnou hodnot parametrů modelu (penalizace extrémních hodnot), přidání regularizačních členů do chybové funkce funkcí, \dots
 
-    \item Regularizace vah: \begin{compactitem}
+    \item \textbf{Regularizace vah} \begin{compactitem}
         \item Myšlenka: můžu omezit váhy, nedopustím příliš velké hodnoty.
-
         \item K chybové funkci přičítám složku, která mi říká, jak moc velké jsou váhy (např. velikost vah na druhou).
     \end{compactitem}
 
-    \item Regularizace aktivací: \begin{compactitem}
+    \item \textbf{Regularizace aktivací} \begin{compactitem}
         \item Myšlenka: můžu omezit aktivaci vrstvu.
         \item K chybové funkci přičítám složku, která mi říká, jak moc velké jsou hodnoty které vstupují do aktivační funkce.
     \end{compactitem}
 
-    \item Formálně; $J$ je objektivní funkce, $\theta$ jsou parametry modelu, $D$ je dataset (s označenými daty -- učení s učitelem), $loss$ je chybová funkce, $\lambda$ je funkce, která počítá regularizaci vah a $\beta$ je funkce, která počítá regularizaci aktivací.
+    \item Formálně; $J$ je objektivní funkce, $\theta$ jsou parametry modelu, $D$ je dataset (s označenými daty -- učení s učitelem), $loss$ je chybová funkce, $f$ je model, $\lambda$ je funkce, která vrátí \uv{penalizaci} na základě velikosti vah a $\beta$ je funkce, která vrátí \uv{penalizaci} na základě velikosti aktivací.
     $$
         J(D, \theta) = \sum_{x, y}^D loss(f(x), y) + \lambda(|\theta|)^2 + \beta(|activation|)^2
     $$
 \end{compactitem}
 
-
 \subsection{Předtrénování}
 
 \begin{compactitem}
-    \item Způsob iniciálního nastavení parametrů modelu, učení bez učitele, kdy nastavujeme parametry modelu pouze na základě vstupů na obecné datové sadě.
+    \item Způsob iniciálního nastavení parametrů modelu učení bez učitele, kdy nastavujeme parametry modelu pouze na základě vstupů na obecné datové sadě.
 
-    \item Dotrénování následně proběhne na specifické datové sadě s učitelem.
+    \item Dotrénování následně proběhne na specifické datové sadě pomocí učení s učitelem.
 \end{compactitem}
 
 \subsection{Finetuning}
