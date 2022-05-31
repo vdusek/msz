@@ -33,11 +33,12 @@
     \item Postrelační databázový systém je relační databázový systém rozšířený o určitou specifikaci na databázové úrovni, protože aplikační řešení problému by bylo nedostačující (neefektivní). \begin{compactitem}
         \item Na konci 80. let roste vliv objektové orientace. To má za důsledek vznik objektových databází a rozširování schopností relačních databází (SŘBD) nad rámec relačního modelu.
     \end{compactitem}
-    \item Vývoj databází
-    \item Relační model, SŘBD, standard SQL
-    \item Objektově orientované SŘBD
-    \item Objektově relační DB, datové sklady, získávání znalostí z dat
-    \item NoSQL databáze, podpora XML a JSON, grafové databáze, BigData, Data Science
+    \item Vývoj databází \begin{compactitem}
+        \item Relační model, SŘBD, standard SQL.
+        \item Objektově orientované SŘBD.
+        \item Objektově relační DB, datové sklady, získávání znalostí z dat.
+        \item NoSQL databáze, podpora XML a JSON, grafové databáze, BigData, Data Science.
+    \end{compactitem}
 \end{compactitem}
 
 \subsection{Relační databáze}
@@ -75,7 +76,7 @@
 \section{Objektové databáze}
 
 \begin{compactitem}
-    \item Objektová databáze je databázový řízený systém, ve kterém je informace reprezentována ve formě objektu a používá se v objektově orientovaném programování.
+    \item Objektová databáze je databázový řízený systém, ve kterém je informace reprezentována ve formě objektů a používá se v objektově orientovaném programování.
 
     \item Umožňují modelování a vytváření perzistentních dat jako objektů.
 
@@ -86,6 +87,13 @@
     \item Datový model: \begin{compactitem}
         \item Neexisuje jednoznačná definice jako u relačního modelu.
         \item Objektový (třídy, zapouzdření, dědičnost, polymorfismus, jednoznačný OID, komunikace zasílání zpráv).
+
+        \item Databáze je tvořena kolekcí objektů, které mezi sebou komunikují zasíláním zpráv.
+
+        \item Vlastnosti objektu jsou definovány třídou, ta zapouzdřuje data i chování.
+
+        \item Data jsou reprezentovány atributy, chování je definováno metodami třídy.
+
         \item Atributy objektů mohou být jiné objekty (abstraktní datové typy).
         \item Vztahy objektů vytvářené pomocí referencí prostřednictvím OID.
         \item Vztahy $M:M$ lze vytvářet přímo.
@@ -135,12 +143,12 @@
     \item Standardizováno (SQL 1999).
 
     \item Objektově relační rysy: \begin{compactitem}
-        \item Objektový model je založený na konceptech \begin{compactitem}
-            \item Strukturovaný datový typ
-            \item Typová tabulka
+        \item Objektový model je založený na konceptech. \begin{compactitem}
+            \item Strukturovaný datový typ.
+            \item Typová tabulka.
         \end{compactitem}
-        \item Uživatelem definované typy (UDT) \begin{compactitem}
-            \item Odpovídají abstraktním datovým typům
+        \item Uživatelem definované typy (UDT). \begin{compactitem}
+            \item Odpovídají abstraktním datovým typům.
         \end{compactitem}
     \end{compactitem}
 \end{compactitem}
