@@ -17,13 +17,14 @@
 \section{Zdroje}
 
 \begin{compactitem}
-    \item \path{szz-discord-bazi.pdf}
-    \item \path{szz-kastak.pdf}
+    \item \path{opora_izu-esf-5a.pdf}
+    \item \path{02-prohledavani.pdf}
+    \item \path{03-lokalni_prohledavani.pdf}
+    \item \path{04-prohledavani_nejiste_prostredi.pdf}
+    \item \path{05-adversarial_search.pdf}
+    \item \path{06-csp.pdf}
     \item \path{Wikipedia}
-    \item Mé vypracované otázky k BIT SZZ.
 \end{compactitem}
-
-\textit{Tato otázka není dobře zpracovaná (vlastně není dobrá vůbec).}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -97,11 +98,18 @@
         \item Úplná, optimální (pokud jsou všechny akce stejně dobré -- fixní cena kroku).
         \item Časová a prostorová složitost: $\mathcal{O}(b^d)$.
     \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{bfs.png}
+        \caption{Ukázka BFS. Pořadí, ve kterém jsou uzly expandovány odpovídá názvům uzlů.}
+    \end{figure}
 \end{compactitem}
 
 \subsection{Uniform Cost Search (UCS, Best First Search)}
 
 \begin{compactitem}
+    \item De facto Dijkstrův algoritmus.
     \item Co když je každá akce jinak dobrá? \begin{compactitem}
         \item Stačí nevybrat nejbližší uzel (hloubka stromu), ale uzel s nejmenší cenou cesty.
         \item Slepé prohledávání do šířky s respektováním cen přechodů.
@@ -113,6 +121,12 @@
         \item Úplná, optimální.
         \item Prostorová i časová složitost metody je dána cenou optimálního řešení ($C^*$) dělenou nejmenším přírůstkem ceny mezi dvěma uzly ($\Delta C_{min}$): $\mathcal{O}(b^{C^* / \Delta C_{min}})$.
     \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\linewidth]{ucs.png}
+        \caption{Ukázka UCS. Pořadí, ve kterém jsou uzly expandovány odpovídá názvům uzlů.}
+    \end{figure}
 \end{compactitem}
 
 \subsection{Prohledávání do hloubky (DFS -- Depth First Search)}
@@ -131,6 +145,37 @@
         \item Slepé prohledávání do omezené hloubky (Depth Limited Search - DLS).
         \item Slepé prohledávání do omezené hloubky s postupným zanořováním (Iterative Deeping Search - IDS) -- Postupně se volá procedura DLS a postupně se zvyšuje maximální hloubka.
     \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{dfs.png}
+        \caption{Ukázka DFS.}
+    \end{figure}
+\end{compactitem}
+
+\subsection{Prohledávání do omezené hloubky (DLS -- Depth Limited Search)}
+
+\begin{compactitem}
+    \item Vylepšení DFS, kde se omezí hloubka prohledávání. \begin{compactitem}
+        \item Proč to dělat? Ochrana proti zacyklení.
+    \end{compactitem}
+    \item Úplná metoda, pokud není řešení ve větší
+    hloubce, než je nastavený limit.
+\end{compactitem}
+
+\subsection{Prohledávání do omezené hloubky s postupným zanořováním (IDS -- Iterative Deeping Search)}
+
+\begin{compactitem}
+    \item Iterativní DLS, začíná se s limitem 0 a v každé iteraci se o 1 zvyšuje.
+    \item Doporučená metoda při využití neinformovaných metod (pokud víme, že máme dostatek paměti, BFS bude rychlejší).
+    \item Optimální metoda s malými paměťovými nároky.
+    \item Optimálnost s ohledem na počet operací (ne cenu řešení).
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{ids.png}
+        \caption{Ukázka IDS.}
+    \end{figure}
 \end{compactitem}
 
 \subsection{Backtracking}
@@ -148,9 +193,15 @@
         \item Není úplný, ani optimální.
         \item Extrémně nízká prostorová složitost.
     \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{backtracking.png}
+        \caption{Ukázka Backtrackingu.}
+    \end{figure}
 \end{compactitem}
 
-\subsection{Birectional Search (obousměrné BFS)}
+\subsection{Birectional Search (BS, obousměrné BFS)}
 
 \begin{compactitem}
     \item BFS z počátečního a cílového stavu zároveň, hledá se spojení.
@@ -163,6 +214,12 @@
         \item Úplná, optimální.
         \item Časová a prostorová složitost: $\mathcal{O}(2b^{d / 2})$.
     \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{bs.png}
+        \caption{Ukázka BS, prohledávání stavového prostoru hlavolamu 8 metodou obousměrného prohledávání.}
+    \end{figure}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -191,6 +248,12 @@
     \end{compactitem}
 
     \item Dobrá heuristika může časovou náročnost výrazně redukovat.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.5\linewidth]{greedy_search.png}
+        \caption{Ukázka hladového algoritmu, vybírá maximum.}
+    \end{figure}
 \end{compactitem}
 
 \subsection{A* Search}
@@ -204,6 +267,12 @@
     \end{compactitem}
 
     \item Heuristika je v tomto případě chápána jako způsob prořezávání (prunning) -- vyloučení některých možností bez jejich prozkoumání.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{a_star.png}
+        \caption{Ukázka A* Search.}
+    \end{figure}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -234,6 +303,12 @@
 
         \item Random-restart hill climbing -- jeden běh algoritmu nalezne lokální extrém, pokud iterativně spouštíme algoritmus s (náhodnou) inicializací, zvyšujeme pravděpodobnost nalezení globálního extrému.
     \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{hill_climb_searching.png}
+        \caption{Ukázka Hill climbing.}
+    \end{figure}
 \end{compactitem}
 
 \subsection{Simulated annealing}
@@ -243,24 +318,34 @@
     \item Náhodně vybíráme sousední uzel, pokud je lepší než současný, nahradíme, pokud je horší, spočítáme, o kolik je horší $\Delta E$ (záporné číslo).
     \item Myšlenka snižování teploty $T$ v každé iteraci (čím nižší je teplota, tím menší pravděpodobnost nahrazení horším uzlem).
     \item Pravděpodobnost nahrazení horším uzlem se spočítá podle vztahu $e^{\Delta E / T}$.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{simulated_annealing.png}
+        \caption{Ukázka Simulated annealing.}
+    \end{figure}
 \end{compactitem}
 
-\subsection{Local beam search}
+% \subsection{Local beam search}
 
-\begin{compactitem}
-    \item Podobné jako BFS, ale uchovává pouze omezené množství uzlů.
-\end{compactitem}
+% \begin{compactitem}
+%     \item Vychází z beam search -- princip je podobný BFS, ale uchováváme pouze omezené množství uzlů. \begin{compactitem}
+%         \item Nejprve expandujeme počáteční uzel, ponecháme však pouze $k$ nejlepších následníků, pak expandujeme těchto $k$ následníků, z nichž ponecháme opět $k$ nejlepších atd.
+%     \end{compactitem}
 
-\subsection{Genetický algoritmus}
+%     \item Local beam search můžeme chápat jako beam search inicializovaný několika počátečními uzly.
+% \end{compactitem}
 
-\begin{compactitem}
-    \item Nejprve se selekcí vyberou rodiče, pak se křížením vytvoří potomci a následně v některých případech dochází k mutaci, nakonec se upraví původní populace a proces se opakuje. \begin{compactitem}
-        \item Fitness funkce -- vyhodnocovací metrika (objektivní funkce) u GA.
-        \item Selection (selekce) -- výběr rodičů.
-        \item Crossover (křížení) -- proces vytvoření nového potomka z rodičovských uzlů.
-        \item Mutation (mutace) -- náhodná změna potomka.
-    \end{compactitem}
-\end{compactitem}
+% \subsection{Genetický algoritmus}
+
+% \begin{compactitem}
+%     \item Nejprve se selekcí vyberou rodiče, pak se křížením vytvoří potomci a následně v některých případech dochází k mutaci, nakonec se upraví původní populace a proces se opakuje. \begin{compactitem}
+%         \item Fitness funkce -- vyhodnocovací metrika (objektivní funkce) u GA.
+%         \item Selection (selekce) -- výběr rodičů.
+%         \item Crossover (křížení) -- proces vytvoření nového potomka z rodičovských uzlů.
+%         \item Mutation (mutace) -- náhodná změna potomka.
+%     \end{compactitem}
+% \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -276,11 +361,26 @@
 
     \item Dříve jsme věděli, co se stane po provedení akce, plán = sekvence akcí (nezávisle na vjemech) Nyní se rozhodujeme i na základě vjemů.
 
-    \item Řešení pomocí AND / OR prohledávacích stromů (operátor and se používá pro výsledek nedeterministické akce).
+    \item Řešení pomocí AND / OR prohledávacích stromů (operátor and se používá pro výsledek nedeterministické akce). \begin{compactitem}
+        \item OR -- můžu si vybrat, kterou akci provedu.
+        \item AND -- výsledkem akce může být více stavů, řešení pro všechny možné nové stavy.
+    \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{and_or_prohledavaci_stromy.png}
+        \caption{AND-OR prohledávací stromy.}
+    \end{figure}
 
     \item Bavíme se o belief state -- reflektuje agentovu důvěru o aktuálním stavu (v jakých stavech se může nacházet). V nepozorovatelném prostředí se vyskytuje celkem $2^n$ belief states.
 
     \item Incremental belief-state search -- postupně hledáme řešení pro každý stav; výhoda: pokud neexistuje řešení, zjistí se rychle; jiná řešení později. Udržování si Belief state je základem inteligentního agenta v ČPP (většina reálných prostředí).
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{nedeterministicke_akce.png}
+        \caption{Nedeterministické akce: pohyb může selhat.}
+    \end{figure}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -312,6 +412,12 @@
 \begin{compactitem}
     \item Hry dvou hráčů.
     \item Racionální chování, protivník vždy zvolí svůj nejlepší tah (pro nás nejhorší).
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{mini_max.pdf}
+        \caption{Příklad na zbytečná vyšetřování některých uzlů AND/OR grafu metodou MiniMax.}
+    \end{figure}
 \end{compactitem}
 
 \subsection{Alpha-beta pruning}
@@ -322,6 +428,12 @@
     \item Alpha -- dosavadní nejlepší tah pro MAX
     \item Beta -- dosavadní nejlepší tah pro MIN
     \item Neprohledávat zbytečně, pokud by MIN nebo MAX tento tah stejně neprovedli.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{alpha_beta.pdf}
+        \caption{Příklad práce procedury AlfaBeta (alfa a beta řezů).}
+    \end{figure}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -353,14 +465,33 @@
 \subsection{Backtracking pro CSP}
 
 \begin{compactitem}
-    \item Metodu zpětného navracení (backtracking) lze k řešení CSP použít velmi snadno -- pokud aplikace operátoru vede na stav porušující omezující podmínky, pak je tento operátor považován za neaplikovatelný (bod 3 algoritmu).
+    \item Metodu zpětného navracení (backtracking) lze k řešení CSP použít velmi snadno -- pokud aplikace operátoru vede na stav porušující omezující podmínky, pak je tento operátor považován za neaplikovatelný a vrací se o krok zpět.
 
     \item Metoda je úplná (a každá úplná metoda je pro CSP optimální). Označíme-li symbolem $n$ počet proměnných a symbolem $m$ maximální počet přiřaditelných hodnot, pak platí: \begin{compactitem}
         \item Pro prostorovou složitost: $\mathcal{O}(n)$
         \item Pro časovou složitost: $\mathcal{O}(m^n)$
     \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{backtrack_csp.pdf}
+        \caption{Řešení úlohy čtyř dam metodou Backtracking for CSP (fail značí neúspěch, Goal znamená cíl).}
+    \end{figure}
 \end{compactitem}
 
 \subsection{Forward-checking}
 
-\todo{todo}
+\begin{compactitem}
+    \item Princip algoritmu Forward checking spočívá v tom, že po každém přiřazení hodnoty nějaké proměnné vyřazuje z množin přípustných hodnot dosud volných proměnných ty hodnoty, které jsou s právě přiřazenou hodnotou v konfliktu.
+
+    % \item Algoritmus je dán procedurou, která rekurzivně volá sama sebe: \begin{compactitem}
+    %     \item Přiřaď každé proměnné $i = 1, 2, \ldots, n)$ množinu přípustných hodnot $S_i$.
+    %     \item Volej proceduru $Forward\_Checking$ pro první proměnnou $(i = 1)$.
+    % \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{forwardcheck_csp.pdf}
+        \caption{Řešení úlohy čtyř dam metodou Forward checking (fail značí neúspěch, Goal znamená cíl).}
+    \end{figure}
+\end{compactitem}
