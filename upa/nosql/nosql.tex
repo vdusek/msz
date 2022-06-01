@@ -155,18 +155,10 @@
 
     \item Tedy omezuje se konzistence a databáze je vysoce dostupná a odolná proti výpadkům.
 
-    \item Vlastnosti: \begin{compactitem}
-        \item Slabá konzistence
-        \item 100\,\% dostupnost (dostupná \uv{jak jen to půjde})
-        \item Jednodušší a rychlejší
-        \item Agresivní, optimistický přístup
-        \item Jednodušší evoluce
-    \end{compactitem}
-
     \item Princip NoSQL paradigmat: \begin{compactitem}
         \item Několik typů databází, většina založena na principu klíč-hodnota.
         \item Implementováno pomocí hashování (extrémně rychlé).
-        \item Hodnota je BLOB (binary large object) -- databáze se je často vůbec nesnaží chápat.
+        \item Hodnota je BLOB (\textit{binary large object}) -- databáze se je často vůbec nesnaží chápat.
         \item Nemá předdefinované schéma -- flexibilita.
         \item Vysoká škálovatelnost (přidávání, ubírání dat).
         \item Pokud nás zajímá pouze část hodnoty, ať pro dotazy nebo zápis, tak je poměrně neefektivní.
@@ -199,7 +191,7 @@
 \subsubsection*{Sloupcové databáze (\textit{wide column})}
 
 \begin{compactitem}
-    \item Řádky jako u relační databáze, u řádků máme různé sloupce s hodnotami, ale narozdíl od relačních databází nemá schéma (ačkoliv data jsou svým způsobem strukturovaná).
+    \item Řádky jako u relační databáze, narozdíl od relačních databází nemá schéma (ačkoliv data jsou svým způsobem strukturovaná).
     \item Klíč-hodnota, kde hodnota je řádek v tabulce.
     \item Optimalizované pro čtení dat po sloupcích, místo po řádcích (vhodné pro analýzu).
     \item Dotazovací jazyk podobný SQL (nemá \textit{joins}).
