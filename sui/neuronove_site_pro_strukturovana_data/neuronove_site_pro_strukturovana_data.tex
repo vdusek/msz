@@ -82,19 +82,13 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\linewidth]{convolution.pdf}
-    \caption{Příklad aplikace konvoluce.}
+    \caption{Příklad aplikace konvoluce (\textit{výsledek je chybný, má být 10}, $7+4+2-2-1=10$).}
 \end{figure}
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{conv.png}
     \caption{Příklad aplikace konvoluce, vstup má 3 barevné kanaly, vrstva obsahuje 3 konvoluční filtry.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{conv-kernel.pdf}
-    \caption{Příklad konvolučních jader.}
 \end{figure}
 
 \subsection{Pooling vrstvy}
@@ -152,6 +146,18 @@
 \end{compactitem}
 
 \subsection{Příklady architektur}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{conv_layers.png}
+    \caption{Příklad konvoluční vrstvy. Vstupem je obrázek o velikosti $H \times W$, který má $c$ kanálů. Konvoluční vrstva má $M$ konvolučních jader. Každé konvoluční jádro má velikost $k \times k$ a je zopakováno pro všechny kanály ($c$-krát). Výstup každého konvolučního jádra je agregován (sečten) do jednoho obrázku. Výstup konvoluční vrstvy je obrázek o velikosti $P \times Q$, který má $M$ kanálů (počet kanálů výstupního obrázku odpovídá počtu konvolučních jader ve vrstvě).}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\linewidth]{conv-kernel.pdf}
+    \caption{Příklad konvolučních jader.}
+\end{figure}
 
 \begin{figure}[H]
     \centering
