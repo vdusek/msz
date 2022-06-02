@@ -37,6 +37,35 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\section{Správa sezení}
+
+\begin{compactitem}
+    \item Vzhledem k tomu, že protokol HTTP je bezstavový, potřebujeme způsob jak asociovat jeden HTTP request druhému, tedy způsob jak ukládat uživatelská data mezi HTTP requesty.
+
+    \item Soubory cookie nebo parametry URL (např. jako \url{example.com?asd=lol&boo=no}) jsou vhodnými způsoby přenosu dat mezi dvěma nebo více požadavky. Nejsou však vhodné v případě, že nechceme, aby tato data byla čitelná/editovatelná na straně klienta. \begin{compactitem}
+        \item Cookies jsou malé bloky dat vytvořené webovým serverem během prohlížení webových stránek uživatelem a uložené do jeho počítače nebo jiného zařízení jeho webovým prohlížečem.
+    \end{compactitem}
+
+    \item Řešením je uložit tato data na straně serveru, dát jim id a nechat klienta znát (a předat zpět při každém http požadavku) pouze toto id. ID je na straně klienta uloženo jako cookie.
+
+    \item Sezení (session) je tedy ustanovené síťové spojení mezi klientem a serverem.
+
+    \item Možné útoky: \begin{compactitem}
+        \item Krádež sezení -- získání hodnoty ID sezení útočníkem.
+        \item Vnucení sezení -- vložení útočníkova ID sezení k oběti.
+    \end{compactitem}
+
+    \item Jak zabránit odcizení ID sezení? \begin{compactitem}
+        \item Cookies jsou přenášeny pouze přes HTTPS.
+        \item Cookies není dostupné přes Javascript, je dostupné pouze přes HTTP.
+        \item Nastavení délky sezení (automatické odhlášení).
+        \item Změna ID sezení, pokud se provede nějaká akce (přihlášení/odhlášení, citlivá akce -- změna hesla, úprava oprávnění, \ldots).
+    \end{compactitem}
+
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Same-origin policy (SOP)}
 
 \begin{compactitem}
@@ -46,8 +75,11 @@
 
     \item Tato zásada zabraňuje tomu, aby škodlivý skript na jedné stránce získal přístup k citlivým datům na jiné webové stránce prostřednictvím jejího DOM.
 
-    \item \todo{todo}
-
+    \item Příklad: \begin{compactitem}
+        \item Webová aplikace je dostupná na url \url{https://jakjsmenatom.cz}.
+        \item Její API je dostupné na url \url{https://api.jakjsmenatom.cz}.
+        \item Při SOP, API komunikuje pouze se subdoménami \url{jakjsmenatom.cz}, z jiné domény nelze API dotazovat.
+    \end{compactitem}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -101,7 +133,57 @@
 \section{Cross-site request forgery (CSRF)}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item Útočník přinutí uživatele změnit stav ve webové aplikaci, ke které je již přihlášený.
+    \item Změna stavu, ne krádež dat. -- Útočník nemá přístup k odpovědi na změnu stavu.
+    \item Není porušená důvěrnost, ale je porušena integrita.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{csrf_1.pdf}
+        \caption{Princip CSRF, část 1.}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{csrf_2.pdf}
+        \caption{Princip CSRF, část 2.}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{csrf_realizace.pdf}
+        \caption{Jak je možné realizovat CSRF útok.}
+    \end{figure}
+
+    \item Obrana proti CSRF -- \textbf{Synchronizační token} \begin{compactitem}
+        \item Každá zmena stavu závisí na náhodném unikátním tokenu (unikátní pro sezení).
+        \item Token je unikátní pro konkrétní operací, obsahuje zašifrované informace klíčem dostupným jen serveru -- typ operace, čas operace, jméno uživatele, nonce, unikátní náhodný řetězec.
+        \item Token použit \begin{compactitem}
+            \item Součástí URL GET měnících stav -- Lépe: nepoužívat GET definovaný jako bezpečná metoda pro změnu stavu.
+            \item Součástí požadavků PUT, DELETE aj. prováděných pomocí XHR.
+            \item Skryté pole ve formulářích.
+        \end{compactitem}
+    \end{compactitem}
+
+    \item Obrana proti CSRF -- \textbf{HTTP hlavičky} \begin{compactitem}
+        \item Kontrola hlavičky Origin \begin{compactitem}
+            \item Origin: \url{https://fit.vutbr.cz}
+            \item Obsahuje origin, ze kterého pochází dotaz.
+            \item Kontrola, zda odpovídá očekávanému (pokud je součásti dotazu).
+        \end{compactitem}
+
+        \item Kontrola hlavičky Referer \begin{compactitem}
+            \item Referer: \url{https://fit.vutbr.cz/study/courses/WAP/private/lectures/2019.php?p=bezpečn}
+            \item URL naposledy zobrazené stránky.
+            \item Kontrola, zda odpovídá očekávanému (pokud je součásti dotazu).
+        \end{compactitem}
+    \end{compactitem}
+
+    \item Obrana proti CSRF -- \textbf{Interakce uživatele} \begin{compactitem}
+        \item Nová autentizace.
+        \item Jednorázově použitelný token (explictně zadaný uživatelem).
+        \item CAPTCHA.
+    \end{compactitem}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
