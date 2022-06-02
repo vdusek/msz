@@ -24,9 +24,9 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Popisná statistika}
+% \section{Popisná statistika}
 
-\todo{todo}
+% \todo{todo}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -38,10 +38,14 @@
     \item Variace $k$-té třídy z $n$ prvků je každá uspořádaná $k$-tice vytvořená z celkového počtu $n$ prvků, přičemž při výběru záleží na pořadí jednotlivých prvků.
 
     \item \textbf{Variace bez opakování} je $k$-členná skupina utvořená z daných $n$ prvků tak, že v nich záleží na pořadí a žádný z daných prvků se v ní neopakuje.
-    $$ V(k, n) = \frac{n!}{(n-k)!} ~,~ k \leq n $$
+    $$ V(k, n) = \frac{n!}{(n-k)!} ~,~ k \leq n $$ \begin{compactitem}
+        \item Např. Mějme fotbalové družstvo o celkem 20ti hráčích. Kolik možných základních 11 je možné sestavit? Posty jsou respektovány.
+    \end{compactitem}
 
     \item \textbf{Variace s opakováním} je uspořádaná $k$-tice z $n$ prvků sestavená tak, že každý se v ní vyskytuje nejvýše $k$-krát.
-    $$ V'(k, n) = n^k ~,~ k < n $$
+    $$ V'(k, n) = n^k ~,~ k < n $$ \begin{compactitem}
+        \item Např. Kolik možných hesel, je možné vytvořit, ze znaků a-z, A-Z, 0-9?
+    \end{compactitem}
 \end{compactitem}
 
 \subsection{Permutace}
@@ -50,7 +54,9 @@
     \item Permutace $n$-prvkové množiny je uspořádaná $n$-tice obsahující každý prvek právě jednou, takže jednoznačně určuje jedno z možných uspořádání těchto prvků. Odtud (řídce užívané) české synonymum pro permutaci pořadí. Ekvivalentní definice je, že se jedná o $n$-prvkovou variaci z $n$ prvků.
 
     \item \textbf{Permutace bez opakování} -- Pokud se prvky ve výběru nemohou opakovat, pak počet všech možných pořadí je určen vztahem.
-    $$ P(n) = n! $$
+    $$ P(n) = n! $$ \begin{compactitem}
+        \item Např. na konferenci vystoupí 5 řečníků, jaký je počet všech možných pořadí, ve kterých vystoupí?
+    \end{compactitem}
 
     \item \textbf{Permutace s opakováním} -- Pokud se prvky ve výběru mohou opakovat, pak počet permutací s opakováním z $n$ prvků je určen jako.
     $$ P'{(k_1,k_2,\ldots,k_n)} = \frac {(k_1+k_2+\ldots+k_n)!}{{k_1!}\cdot{k_2!}\cdot\ldots\cdot{k_n!}} $$
@@ -62,7 +68,10 @@
     \item Kombinace je základní pojem z kombinatoriky, $k$-členná kombinace z $n$ prvků je skupina $k$ prvků, vybraná z $n$ různých prvků, u níž nezáleží na jejich pořadí. Od variace se liší tím, že je neuspořádaná.
 
     \item \textbf{Kombinace bez opakování} -- Počet kombinací $k$-té třídy z $n$-prvků bez opakování, neuspořádaných $k$-tic vybraných z těchto prvků tak, že se v ní každý vyskytuje nejvýše jednou, je
-    $$ {\displaystyle C_{k}(n)={n \choose k}={n! \over k!(n-k)!}} $$
+    $$ {\displaystyle C_{k}(n)={n \choose k}={n! \over k!(n-k)!}} $$ \begin{compactitem}
+        \item Např. V rovině je 6 různých bodů (žádné 3 neleží na jedné přímce). Kolik různých úseček dostaneme pospojováním všech těchto bodů navzájem?
+        \item Např. Mějme fotbalové družstvo o celkem 20ti hráčích. Kolik může být kombinací základních 11? Když neřešíme posty.
+    \end{compactitem}
 
     \item \textbf{Kombinace s opakováním} -- Počet kombinací $k$-té třídy z $n$ prvků s opakováním, tzn. každý prvek se ve výběru může objevit vícekrát, je určen vztahem.
     $$ {\displaystyle C_{k}^{\prime }(n)={{(n+k-1)} \choose n-k}={{(n+k-1)} \choose k}={(n+k-1)! \over k!(n-1)!}}$$
@@ -114,7 +123,7 @@
 \subsection{Jevové pole}
 
 \begin{compactitem}
-    \item Jevové pole je dvojice $(\Sigma, \Omega)$, kde $\Sigma$ je množina náhodných jevů, resp. systém podmnožin základního prostoru $\Sigma \subseteq 2^{\Omega}$.
+    \item Mejmě dvojici $(\Sigma, \Omega)$. $\Omega$ je základní prostor a $\Sigma$ je množina náhodných jevů, resp. systém podmnožin základního prostoru $\Sigma \subseteq 2^{\Omega}$. $\Sigma$ nazýváme jevové pole.
 
     \item Platí: \begin{compactenum}
         \item $ A \in \Sigma \Rightarrow \bar{A} \in \Sigma $
@@ -139,12 +148,15 @@
         \item normovanost,
         $$ P(\Omega) = 1 $$
         \item pravděpodobnost sjednocení disjunktních náhodných jevů je stejná jako součet jejich pravděpodobností.
-        $$ \forall A_1, \ldots, A_n \in \Sigma : A_i \cap A_j = \emptyset \Rightarrow P \left( \bigcup_{i=1} A_i \right) = \sum_{i=1} P(A_i) $$
+        $$ \forall A_1, \ldots, A_n \in \Sigma : A_i \cap A_j = \emptyset \Rightarrow P \left( \bigcup_{i=1}^n A_i \right) = \sum_{i=1}^n P(A_i) $$
     \end{compactitem}
 
     \item Pro $A \in \Sigma$ nazýváme hodnotu $P(A)$ pravděpodobností jevu $A$.
 
     \item Trojici $ (\Omega, \Sigma, P) $ nazýváme pravděpodobnostní prostor.
+
+    \item Dále platí, nechť $A, B \in \Sigma$:
+    $$ A \cap B \not= \emptyset \Rightarrow P(A \cup B) = P(A) + P(B) - P(A \cap B) $$
 \end{compactitem}
 
 \subsection{Klasická (Laplaceova) pravděpodobnost}
@@ -158,9 +170,6 @@
 
     \item Pak pravděpodobnost definujeme jako poměr počtu příznivých jevů ku počtu všech jevů.
     $$ \forall A \in 2^{\Omega} : P(A) = \frac{|A|}{|\Omega|} $$
-
-    \item Konvence pro zároveň:
-    $$ P(A, B) = P(A) \cdot P(B) $$
 \end{compactitem}
 
 \paragraph*{Příklad: házení šestistrannou kostkou}
@@ -224,27 +233,6 @@
     \item Pravděpodobnost $P(A)$ lze spočítat na základě věty o úplné pravděpodobnosti.
 \end{compactitem}
 
-\paragraph*{Příklad: V populaci užívá drogy $2\,\%$ lidí. Test na drogy má $3\,\%$ šanci na falešnou pozitivitu $4\,\%$ na falešnou negativitu. Pokud vyjde člověku test pozitivní, jaká je pravděpodobnost, že skutečně bere drogy?}
-
-\begin{compactitem}
-    \item Nechť $A$ jsou užívalé drog a $B$ jsou neuživatelé drog, pak platí:
-    $$ P(A) = \frac{2}{100} = 0,02 ~~~~~,~~~~~ P(B) = \frac{98}{100} = 0,98$$
-
-    \item Pozitivní výsledek testu na drogy označme jako $P$ a negativní jako $N$, pak platí:
-    $$ P(P ~|~ A) = \frac{97}{100} = 0,97 ~~~~~,~~~~~ P(P ~|~ B) = \frac{3}{100} = 0,03 $$
-    $$ P(N ~|~ A) = \frac{4}{100} = 0,04 ~~~~~,~~~~~ P(N ~|~ B) = \frac{96}{100} = 0,96 $$
-
-    \item Na základě věty o úplně pravděpodobnosti:
-    $$ P(P) = P(A) \cdot P(P~|~A) + P(B) \cdot P(P~|~B) = 0,02 \cdot 0,97 + 0,98 \cdot 0,03 = 0,0488$$
-
-    \item Na základě bayesovy věty:
-    \begin{equation}
-        \begin{split}
-            P(A ~|~ P) &= \frac{ P(A) \cdot P(P ~|~ A) }{P(P)} = \frac{ 0,02 \cdot 0,97 }{0,0488} \approx 39,75\,\%
-        \end{split}
-    \end{equation}
-\end{compactitem}
-
 \paragraph*{Příklad: Jak odhadnu pravděpodobnost, že dostanu infarkt, když budu tlustý, pokud mám statistiky pořízené na velkém vzorku populace, kde je u každého člověka záznam o tom, zda byl tlustý a zda prodělal infarkt.}
 
 \begin{compactitem}
@@ -255,10 +243,31 @@
     $$ P(infarkt ~|~ tlusty) = \frac{P(infarkt) \cdot P(tlusty ~|~ infarkt)}{P(tlusty)} $$
 \end{compactitem}
 
+\paragraph*{Příklad: V populaci užívá drogy $2\,\%$ lidí. Test na drogy má $3\,\%$ šanci na falešnou pozitivitu $4\,\%$ na falešnou negativitu. Pokud vyjde člověku test pozitivní, jaká je pravděpodobnost, že skutečně bere drogy?}
+
+\begin{compactitem}
+    \item Nechť $A$ jsou užívalé drog a $B$ jsou neuživatelé drog, pak platí:
+    $$ P(A) = \frac{2}{100} = 0,02 ~~~~~,~~~~~ P(B) = \frac{98}{100} = 0,98$$
+
+    \item Pozitivní výsledek testu na drogy označme jako $P$ a negativní jako $N$, pak platí:
+    $$ P(P ~|~ A) = \frac{96}{100} = 0,96 ~~~~~,~~~~~ P(P ~|~ B) = \frac{3}{100} = 0,03 $$
+    $$ P(N ~|~ A) = \frac{4}{100} = 0,04 ~~~~~,~~~~~ P(N ~|~ B) = \frac{97}{100} = 0,97 $$
+
+    \item Na základě věty o úplně pravděpodobnosti:
+    $$ P(P) = P(A) \cdot P(P~|~A) + P(B) \cdot P(P~|~B) = 0,02 \cdot 0,96 + 0,98 \cdot 0,03 = 0,0486 $$
+
+    \item Na základě bayesovy věty:
+    \begin{equation}
+        \begin{split}
+            P(A ~|~ P) &= \frac{ P(A) \cdot P(P ~|~ A) }{P(P)} = \frac{ 0,02 \cdot 0,96 }{0,0486} \approx 39,51\,\%
+        \end{split}
+    \end{equation}
+\end{compactitem}
+
 \subsection{Nezávislost}
 
 \begin{compactitem}
-    \item Řekneme, že jevy $A$ a $B$ jsou nezávislé, pokud pravděpodobnost jevu $A$ nezávisí na výskytu jevu $B$.
+    \item Řekneme, že jevy $A$ a $B$ jsou nezávislé, pokud situace, kdy nastal jev $A$, neovlivní pravděpodobnost, že nastane jev $B$.
 
     \item Formálně: nechť $A, B \in 2^{\Omega}$ jsou náhodné jevy, tyto jevy nazveme nezávislé, pokud platí:
     $$ P(A ~|~ B) = P(A) ~\lor~ P(B ~|~ A) = P(B)$$
@@ -268,30 +277,46 @@
     $$ \frac{P(A \cap B)}{P(B)} = P(A) $$
     $$ P(A \cap B) = P(A) \cdot P(B) $$
 
+    \item A tedy platí:
+    $$ A, B \in 2^{\Omega} : A, B \text{ jsou nezávislé} \Leftrightarrow P(A \cap B) = P(A) \cdot P(B) $$
+
+    \item Pozn. nezávislé jevy a disjunktní jevy jsou něco jiného.
 \end{compactitem}
 
-\paragraph*{Příklad: Házení kostkou a (ne)závislé jevy.}
+\paragraph*{Příklad: Dva hody kostkou a (ne)závislé jevy.}
 
 \begin{compactitem}
-    \item $\Omega = \{ 1,2,3,4,5,6 \}$
-    \item Příklad 1: \begin{compactitem}
-        \item $A = \{ 2,4,6 \}$
-        \item $B = \{ 5,6 \}$
-        $$ P(A \cap B) = P(A) \cdot P(B) ~\Rightarrow~ \frac{1}{6} = \frac{1}{3} \cdot \frac{1}{2} $$
-        \item Jevy $A$ a $B$ jsou nezávislé.
+    \item \textbf{Zadání} \begin{compactitem}
+        \item Nechť $\Omega$ je základní prostor dvou hodů kostkou, pak $|\Omega| = 36$.
+
+        \item Nechť $A \in 2^{\Omega}$ je jev, kdy první hod padla 4.
+        $$ A = \{ (4,1), (4,2), \ldots, (4,6) \}$$
+
+        \item Nechť $B \in 2^{\Omega}$ je jev, kdy druhý hod padla 2.
+        $$ B = \{ (1,2), (2,2), \ldots, (6,2) \}$$
+
+        \item Nechť $C \in 2^{\Omega}$ je jev, kdy součet hodů je 6.
+        $$ C = \{ (1,5), (2,4), (3,3), (4,2), (5,1) \}$$
     \end{compactitem}
 
-    \item Příklad 2: \begin{compactitem}
-        \item $C = \{ 1,3,5 \}$
-        \item $D = \{ 3,5 \}$
-        $$ P(C \cap D) = P(C) \cdot P(D) ~\Rightarrow~ \frac{1}{3} \not= \frac{1}{2} \cdot \frac{1}{3} $$
-        \item Jevy $A$ a $B$ jsou závislé.
-    \end{compactitem}
+    \item \textbf{a) Jsou jevy A a B nezávislé?}
+    $$\displaystyle{ P(A) = \frac{1}{6} ~,~ P(B) = \frac{1}{6}}$$
+    $$\displaystyle{ P(A) \cdot P(B) = \frac{1}{36} }$$
+    $$\displaystyle{ P(A \cap B) = \frac{|\{ (4,2) \}|}{36} = \frac{1}{36} }$$
+    $$ P(A \cap B) = P(A) \cdot P(B) ~\Rightarrow~ \text{jevy A, B jsou nezávislé} $$
+
+    \item \textbf{b) Jsou jevy A a C nezávislé?}
+    $$\displaystyle{ P(A) = \frac{1}{6} ~,~ P(C) = \frac{5}{36}}$$
+    $$\displaystyle{ P(A) \cdot P(B) = \frac{5}{36} }$$
+    $$\displaystyle{ P(A \cap B) = \frac{|\{ (4,2) \}|}{36} = \frac{1}{36} }$$
+    $$ P(A \cap B) \not= P(A) \cdot P(B) ~\Rightarrow~ \text{jevy A, B jsou závislé} $$
 \end{compactitem}
 
 \subsection{Sum Rule}
 
 \begin{compactitem}
+    \item \textit{Učilo se v SUI, platí pro nezávislé jevy.}
+
     \item Nechť $\Omega$ je základní prostor a $A \in 2^{\Omega}$ je náhodný jev, pak platí tzv. \textit{sum rule}:
     $$ P(A) = \sum_{B \in 2^{\Omega}} P(A) \cdot P(B)$$
 \end{compactitem}
@@ -299,6 +324,11 @@
 \subsection{Product rule}
 
 \begin{compactitem}
+    \item \textit{Učilo se v SUI, platí pro nezávislé jevy.}
+
     \item Nechť $\Omega$ je základní prostor a $A, B \in 2^{\Omega}$ jsou náhodné jevy, pak platí tzv. \textit{product rule}:
     $$ P(A, B) = P(A ~|~ B) \cdot P(B) = P(B ~|~ A) \cdot P(A) $$
+
+    \item Konvence pro zároveň:
+    $$ P(A, B) = P(A) \cdot P(B) $$
 \end{compactitem}
