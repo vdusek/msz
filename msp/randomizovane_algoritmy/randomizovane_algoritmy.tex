@@ -81,7 +81,7 @@ $$ E[X] = E \left[ \sum_{i=1}^n X_i \right] = \sum_{i=1}^n E \left[ X_i \right] 
 
     \item Můžeme randomizovat seznam kandidátů.
 
-    \item Složitost: \begin{compactitem}
+    \item Složitost ($c_h$ je cena najmutí nového kandidáta): \begin{compactitem}
         \item nejhorší případ: $\mathcal{O}(n \cdot c_h)$
         \item nejlepší případ: $\mathcal{O}(c_h)$
     \end{compactitem}
@@ -281,5 +281,5 @@ def monte_carlo(A, n):
         $$1 - \frac{1}{n^c}$$
     \end{compactitem}
 
-    \item Reálné použití spočívá v kombinace randomizace a \textit{brute force} přístupu. Na začátku randomizujeme, protože je malá šance, že bude porušena korektnost. Jak se graf zmenšuje, tak pravděpodobnost porušení korektnosti se zvyšuje. Zároveň cena na \textit{brute force} řešení se snižuje. Takže, až graf je dostatečně malý, tak provedeme \textit{brute force}.
+    \item Reálné použití spočívá typicky v kombinaci randomizace a \textit{brute force} přístupu. Na začátku randomizujeme, protože je menší šance, že bude porušena korektnost. Tím se problém redukujeme na menší (v případě min-cut se graf zmenšuje). Čím menší instance problému, tím je vyšší pravděpodobnost porušení korektnosti, ale zároveň se cena \textit{brute force} řešení snižuje. Tedy, až je instance problému dostatečně malá (graf je dostatečně malý), tak provedeme jeho vyřešení \textit{brute force} algoritmem (který je korektní).
 \end{compactitem}
