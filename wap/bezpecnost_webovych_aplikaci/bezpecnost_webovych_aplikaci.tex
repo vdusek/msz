@@ -71,14 +71,27 @@
 \begin{compactitem}
     \item Origin (původ), definovaný trojicí URI segemntů ---- schéma, doména, port.
 
-    \item Podle této zásady webový prohlížeč povolí skriptům obsaženým na první webové stránce přístup k datům na druhé webové stránce, ale pouze v případě, že obě webové stránky mají stejný origin.
+    \item SOP je důležitý bezpečnostní mechanismus, který omezuje způsob, jakým může dokument nebo skript načtený jedním origin interagovat se zdrojem z jiného origin. \begin{compactitem}
+        \item Webový prohlížeč povolí skriptům obsaženým na první webové stránce přístup k datům na druhé webové stránce, ale pouze v případě, že obě webové stránky mají stejný origin.
+    \end{compactitem}
 
-    \item Tato zásada zabraňuje tomu, aby škodlivý skript na jedné stránce získal přístup k citlivým datům na jiné webové stránce prostřednictvím jejího DOM.
+    \item SOP zabraňuje tomu, aby škodlivý skript na jedné stránce získal přístup k citlivým datům na jiné webové stránce prostřednictvím jejího DOM.
 
     \item Příklad: \begin{compactitem}
         \item Webová aplikace je dostupná na url \url{https://jakjsmenatom.cz}.
         \item Její API je dostupné na url \url{https://api.jakjsmenatom.cz}.
         \item Při SOP, API komunikuje pouze se subdoménami \url{jakjsmenatom.cz}, z jiné domény nelze API dotazovat.
+    \end{compactitem}
+
+    \item Útok: \textbf{Postraní kanály obcházející SOP} \begin{compactitem}
+        \item SOP brání přečtení odpovědi $\rightarrow$ nebrání však odeslání požadavku. \begin{compactitem}
+            \item XHR na origin mimo SOP.
+            \item Obrázek s atributem src mimo SOP.
+        \end{compactitem}
+        \item XHR generuje událost load při existenci zdroje, i když prohlížeč přístup k obsahu odmítne. \begin{compactitem}
+            \item Podle událostí error, či timeout lze zjistit otevřené porty.
+        \end{compactitem}
+        \item V kombinaci s CSRF lze měnit stav na serveru.
     \end{compactitem}
 \end{compactitem}
 
@@ -234,6 +247,3 @@
 
     \item Hlavička \textbf{Content Security Policy}.
 \end{compactitem}
-
-% Pokracovani:
-% cas 58:00
