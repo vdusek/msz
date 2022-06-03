@@ -123,7 +123,7 @@
 
 \begin{compactitem}
     \item Jaká je pravděpodobnost, že zpráva byla úspěšně přijata do 5ti kroků?
-    $$ Pr(s_0, s_1, s_3) + Pr(s_0, s_1, s_2, s_1, s_3) = 0,98 + 0,02 + 0,098 = 0,9996 $$
+    $$ Pr(s_0, s_1, s_3) + Pr(s_0, s_1, s_2, s_1, s_3) = 0,98 + 0,02 \cdot 0,98 = 0,9996 $$
 
     \item Jaká je pravděpodobnost, že zpráva bude někdy doručena?
     $$ \sum_{n=0}^{\infty} Pr(s_0, (s_1, s_2)^n, s_3) = \sum_{n=0}^{\infty} 0,02^n \cdot 0,98 = 1 $$
@@ -335,7 +335,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\linewidth]{priklad_4.pdf}
-    \caption{Příklad na problém dosažitelnosti. $T = \{ r_1, r_2, \ldots, r_6 \}$.}
+    \caption{Příklad na problém dosažitelnosti. $T = \{ r_1 \}$.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
