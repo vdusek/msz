@@ -695,12 +695,13 @@
 \begin{compactitem}
     \item Predikujeme, kam se bude skákat.
     \item Tabulka kde je uložené na jaké adresy se skákalo.
-    \item Intuice:
-    \item Když prediktor podmínky skokové instrukce (BHT) říká \uv{bude se skákat}: \begin{compactitem}
-        \item a prediktor cílové adresy zná adresu -- skočí se,
-        \item a prediktor cílové adresy nezná adresu -- neskočí se.
+    \item Intuice: \begin{compactitem}
+        \item Když prediktor podmínky skokové instrukce (BHT) říká \uv{bude se skákat}: \begin{compactitem}
+            \item a prediktor cílové adresy zná adresu -- skočí se,
+            \item a prediktor cílové adresy nezná adresu -- neskočí se.
+        \end{compactitem}
+        \item Když prediktor podmínky skokové instrukce (BHT) říká \uv{nebude se skákat}, tak se skákat nebude ať má přediktor cílové adresy cokoliv. Prediktor skokové instrukce má vyšší prioritu.
     \end{compactitem}
-    \item Když prediktor podmínky skokové instrukce (BHT) říká \uv{nebude se skákat}, tak se skákat nebude ať má přediktor cílové adresy cokoliv. Prediktor skokové instrukce má vyšší prioritu.
 \end{compactitem}
 
 \subsubsection{Branch Target Address Cache (BTAC)}
