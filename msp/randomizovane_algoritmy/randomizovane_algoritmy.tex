@@ -70,7 +70,7 @@
 
 $$ X_i = I\{ \text{i-tý hod mincí je událost padne orel} \}$$
 $$ X = \sum_{i=1}^n X_i$$
-$$ E[X] = E \left[ \sum_{i=1}^n X_i \right] = \sum_{i=1}^n E \left[ X_i \right] = \sum_{i=1}^n \frac{1}{2} = \frac{n}{2}$$
+$$ E[X] = E \left[ \sum_{i=1}^n X_i \right] = \sum_{i=1}^n E \left[ X_i \right] = \sum_{i=1}^n x_i \cdot p(x_i) = \sum_{i=1}^n 1 \cdot \frac{1}{2} = \frac{n}{2}$$
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -116,7 +116,7 @@ $$ E[X] = E \left[ \sum_{i=1}^n X_i \right] = \sum_{i=1}^n E \left[ X_i \right] 
 
     \item Pravděpodobnost, že i-tý kandidát je přijat (kandidát i je přijat, pokud je lepší, než všichni předchozí).
     $$ E[X_i] = \frac{1}{i}$$
-    $$ E[X] = E \left[ \sum_{i=1}^n X_i \right] = \sum_{i=1}^n E \left[ X_i \right] = \sum_{i=1}^n \frac{1}{i} = \ln{n} + \mathcal{O}(1)$$
+    $$ E[X] = E \left[ \sum_{i=1}^n X_i \right] = \sum_{i=1}^n E \left[ X_i \right] = \sum_{i=1}^n x_i \cdot p(x_i) = \sum_{i=1}^n 1 \cdot \frac{1}{i} = \ln{n} + \mathcal{O}(1)$$
 
     \item Pravděpodobnostní analýza nám dává asymptotický lepší ohraničení ceny
 
@@ -156,7 +156,7 @@ def las_vegas(A, n):
         \end{array}
         \right. $$
     $$ X = \sum_{i=1}^{\infty} X_i $$
-    $$ E[X] = E \left[ \sum_{i=1}^{\infty} X_i \right] = \sum_{i=1}^{\infty} E \left[ X_i \right] = \sum_{i=1}^{\infty} Pr\{ X_i \} =\sum_{i=1}^{\infty} \left(\frac{1}{2}\right)^{i-1} = 2 = \mathcal{O}(1)$$
+    $$ E[X] = E \left[ \sum_{i=1}^{\infty} X_i \right] = \sum_{i=1}^{\infty} E \left[ X_i \right] = \sum_{i=1}^{\infty} Pr\{ X_i \} = \sum_{i=1}^{\infty} \left(\frac{1}{2}\right)^{i-1} = 2 = \mathcal{O}(1)$$
 \end{compactitem}
 
 \subsection{Příklad: Analýza Quicksortu.}
