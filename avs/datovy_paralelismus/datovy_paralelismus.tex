@@ -178,8 +178,7 @@
 \section{Vektorizace pomocí OpenMP}
 
 \noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=bash, caption={Obyčejná smyčka.}]
-
+\begin{lstlisting}[language=c_language, caption={Obyčejná smyčka.}]
 void add(float* a, float* b, float* c, float* d, float* e, int n)
 {
     #pragma omp simd
@@ -187,48 +186,40 @@ void add(float* a, float* b, float* c, float* d, float* e, int n)
         a[i] = a[i] + b[i] + c[i] + d[i] + e[i];
     }
 }
-
 \end{lstlisting}
 \end{minipage}
 
 \noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=bash, caption={Redukce, po skončení vektorovýho výpočtu posčítá mezivýsledky.}]
-
+\begin{lstlisting}[language=c_language, caption={Redukce, po skončení vektorovýho výpočtu posčítá mezivýsledky.}]
 #pragma omp simd reduction(+:sum)
 for (i = 0; i < *p; i++) {
     A[i] = B[i] * C[i];
     sum = sum + A[i];
 }
-
 \end{lstlisting}
 \end{minipage}
 
 \noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=bash, caption={Aligned, dané proměnné jsou zarovnány na počet bytů.}]
-
+\begin{lstlisting}[language=c_language, caption={Aligned, dané proměnné jsou zarovnány na počet bytů.}]
 #pragma omp simd aligned(sum:64)
 
 \end{lstlisting}
 \end{minipage}
 
 \noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=bash, caption={Safelen, maximální počet iterací, které se mohou vykonávat současně bez porušení závislostí.}]
-
+\begin{lstlisting}[language=c_language, caption={Safelen, maximální počet iterací, které se mohou vykonávat současně bez porušení závislostí.}]
 #pragma omp simd safelen (10)
 for (i = 0; i < MAX; i++) {
-    a[i] += a[i - 10]
+    a[i] += a[i - 10];
 }
-
 \end{lstlisting}
 \end{minipage}
 
 \noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=bash, caption={Linear, hodnota proměnné je ve vztahu k číslu iterace.}]
-
+\begin{lstlisting}[language=c_language, caption={Linear, hodnota proměnné je ve vztahu k číslu iterace.}]
 #pragma omp simd linear (x)
 for (i = 0; i < MAX; i++) {
-    x[i] = x_orig + i * linear_step
+    x[i] = x_orig + i * linear_step;
 }
-
 \end{lstlisting}
 \end{minipage}
