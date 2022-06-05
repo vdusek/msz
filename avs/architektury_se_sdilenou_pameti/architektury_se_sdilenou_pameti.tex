@@ -21,6 +21,7 @@
     \item \path{AVS-12.pdf}
     \item \path{AVS_2019-12-02.mp4}
     \item \path{AVS_2019-12-09.mp4}
+    \item \textit{Otázka je propletená s otázkou AVS 5.}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -43,11 +44,17 @@
         \item \textbf{Serializaci zápisů} -- všechny CPU vidí zápisy na adresu x v témže pořadí (u sběrnice splněno triviálně).
     \end{compactitem}
 
-    \item Jakmile do sdílené paměti může přistupovat více vláken, je nutné zajistit, aby na jedné adrese našla při čtení vždy stejná data, ať jsou data v kterékoliv úrovni cache nebo v hlavní paměti (tj. koherentní kopie).
+    \item Jakmile do sdílené paměti může přistupovat více vláken, je nutné zajistit, aby na jedné adrese našla při čtení vždy stejná data, ať jsou data v kterékoliv úrovni cache nebo v hlavní paměti (tj. koherentní kopie). \begin{compactitem}
+        \item \textbf{Koherence} se týká jednoznačnosti zápisů/čtení na 1 adresu.
 
-    \item \textbf{Koherence} se týká jednoznačnosti zápisů/čtení na 1 adresu.
+        \item \textbf{Konzistence} se týká pořadí přístupů na různé adresy. Oproti koherenci specifikuje v jakém pořadí jednotlivé procesy spouštějí své paměťové operace, či jak se toto pořadí jeví ostatním procesům.
+    \end{compactitem}
 
-    \item \textbf{Konzistence} se týká pořadí přístupů na různé adresy. Oproti koherenci specifikuje v jakém pořadí jednotlivé procesy spouštějí své paměťové operace, či jak se toto pořadí jeví ostatním procesům.
+    \item Proto je kritická: \begin{compactitem}
+        \item Aktualizace (zápis) dat na jednu adresu 1 vláknem (správný postup je dán \textbf{protokolem koherence cache}).
+
+        \item Aktualizace dat na různých adresách více vlákny (pořadí je určeno \textbf{modelem paměťové konzistence}).
+    \end{compactitem}
 \end{compactitem}
 
 \subsection{UMA (\textit{uniform memory access})}
@@ -56,6 +63,8 @@
     \item Uniformní doba přístupu do hlavní paměti. \begin{compactitem}
         \item Každý procesor/jádro platí stejnou pokutu za přístup do libovolné části paměti.
     \end{compactitem}
+
+    \item Centrální sdílená paměť $\rightarrow$ UMA.
 
     \item Implementace: \begin{compactitem}
         \item Plné propojení -- extrémně drahé.
@@ -99,14 +108,25 @@
 \section{Zajištění lokality dat}
 
 \begin{compactitem}
-    \item \todo{Todo: dokoncit tuto sekci}
-    \item \todo{Todo: koherence pameti cache na toto navazuje, viz dalsi otazka}
+    \item \textbf{Prostorová lokalita} \begin{compactitem}
+        \item Prostorová lokalita (\textit{spatial locality}) se týká používání datových prvků v rámci relativně blízkých míst uložení.
 
-    \item Hlavní příčinou pomalého běhu aplikací v systému SAS je fyzická vzdálenost paměti od procesoru, který s ní pracuje.
+        \item Pokud procesor pracuje s daným datovým blokem, pravděpodobně bude pracovat i s následujícím datovým blokem. -- Do cache se načte z paměti požadovaný blok i blok následující.
+    \end{compactitem}
 
-    \item Pro uspokojivý provoz aplikace je třeba klást zvláštní důraz na zajištění lokality dat zpracovávaných dat.
+    \item \textbf{Časová lokalita} \begin{compactitem}
+        \item Časová lokalita (\textit{temporal locality}) označuje opětovné použití konkrétních dat v relativně krátkém časovém období.
 
-    \item Případně omezení současného přepisování konkrétní stránky paměti v cache.
+        \item Pokud procesor pracoval nedávno s daným datovým blokem, pravděpodobně s ním bude pracovat i v budoucnu. -- Z cache odstraňujeme datové bloky, se kterými procesor dlouho nepracoval.
+    \end{compactitem}
 
-    \item Příklad: místo toho, aby procesor přistupoval k rychlé systémové sběrnici, aby mohl do paměti RAM, musí jít do karty PCI a pak přes dráty do přepínače, odtud do sousedního uzlu, do paměti a zpět.
+    \item \textbf{Jak zajistit} \begin{compactitem}
+        \item Hlavní příčinou pomalého běhu aplikací v systému SAS je fyzická vzdálenost paměti od procesoru, který s ní pracuje.
+
+        \item Pro uspokojivý provoz aplikace je třeba klást zvláštní důraz na zajištění lokality dat zpracovávaných dat.
+
+        \item Případně omezení současného přepisování konkrétní stránky paměti v cache.
+
+        \item Příklad: místo toho, aby procesor přistupoval k rychlé systémové sběrnici, aby mohl do paměti RAM, musí jít do karty PCI a pak přes dráty do přepínače, odtud do sousedního uzlu, do paměti a zpět.
+    \end{compactitem}
 \end{compactitem}
