@@ -253,6 +253,32 @@
                   {\ -\ }{{\mdseries\ -\ }}3,
 }
 
+% Listing style for C
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinelanguage{c_language}{
+    backgroundcolor=\color{backgroundColour},
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\small\ttfamily,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=C
+}
+
 % Deklarace matematickych operatoru pro Lambda Kalkul
 \DeclareMathOperator{\lk}{\lambda\,}
 \DeclareMathOperator{\lkdot}{\,.\,}
@@ -328,13 +354,13 @@
 \input{avs/architektury_se_sdilenou_pameti/architektury_se_sdilenou_pameti}
 \newpage
 
-% % 5 - todo
-% \input{avs/koherence_pameti_cache/koherence_pameti_cache}
-% \newpage
+% 5
+\input{avs/koherence_pameti_cache/koherence_pameti_cache}
+\newpage
 
-% % 6 - todo
-% \input{avs/paralelni_zpracovani_v_openmp/paralelni_zpracovani_v_openmp}
-% \newpage
+% 6
+\input{avs/paralelni_zpracovani_v_openmp/paralelni_zpracovani_v_openmp}
+\newpage
 
 % 7
 \input{msp/pravdepodobnost/pravdepodobnost}
