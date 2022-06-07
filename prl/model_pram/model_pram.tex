@@ -17,12 +17,36 @@
 \section{Zdroje}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item \path{PRL_06_PRAM_MNG.pdf}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
+\section{Analýza algoritmů}
+
+\begin{compactitem}
+    \item Počet procesorů potřebných k řešení úlohy v závislosti na velikosti instance $n$.
+    $$ p(n) $$
+
+    \item Čas potřebný k vyřešení úlohy v krocích.
+    $$ t(n) $$
+
+    \item Cena paralelního řešení -- Jaké množství práce je potřebné na vyřešení problému.
+    $$ c(n) = p(n) \cdot t(n) $$
+
+    \item Optimální cena -- Taková cena, která je rovna optimálnímu sekvenčnímu algoritmu.
+    $$ c(n) = t_{seq}(n) $$
+
+    \item Zrychlení oproti sekvenčnímu algoritmu.
+    $$ \displaystyle{ \frac{ t_{seq}(n) }{ t(n) } } $$
+
+    \item Efektivnost.
+    $$ \displaystyle{ \frac{ t_{seq}(n) }{ c(n) } } $$
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Dále}
 
 \begin{compactitem}
     \item \todo{todo}
