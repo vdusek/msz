@@ -11,6 +11,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{PDI -- Klasifikace algoritmů volby koordinátora, algoritmus Bully a jeho složitost.}
+\label{chapter_pdi_koordinator}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -26,12 +27,13 @@
 \section{Úvod a kontext}
 
 \begin{compactitem}
-    \item Mějme množinu procesů v~rámci distribuovaného systému. Řešíme problém  nalezení shody na nějaké věci (synchronizační problém). Problém můžeme rozdělit na dvě situace:
-    \begin{compactitem}
-        \item \textbf{Problém volby koordinátora} -- Výběr jednoho z~procesů, který bude vedoucím procesem (koordinátor). Tento proces pak může vykonat určitou činnost nebo může sloužit ostatním procesům k~realizaci  význačné role v~systému.
+    \item Mějme množinu procesů v~rámci distribuovaného systému. Řešíme problém nalezení shody na nějaké věci (synchronizační problém). Problém můžeme rozdělit na dvě situace: \begin{compactitem}
+        \item \textbf{Problém volby koordinátora} -- Výběr jednoho z~procesů, který bude vedoucím procesem (koordinátor). Tento proces pak může vykonat určitou činnost nebo může sloužit ostatním procesům k~realizaci význačné role v~systému.
+
         \item \textbf{Problém vzájemného vyloučení} -- Předpokládejme, že konkrétní zdroj může v~daném okamžiku používat pouze jeden proces. Tento problém se běžně vyskytuje ve víceprocesorových systémech, ale také v~distribuovaných systémech.
     \end{compactitem}
-    \item Synchronizační problémy lze v~rámci operačních systémů nebo multiprocesorových systémů řešit pomocí provádění atomických operací, sdílené paměti apod. (je pro ně podpora v~rámci operačního systému nebo hardwaru). V~distribuovaných systémech nic takového není z~principu možné a proto se synchronizační problémy řeší pomocí zasílání zprav, resp. algoritmicky.
+
+    \item Synchronizační problémy lze v~rámci operačních systémů nebo multiprocesorových systémů řešit pomocí provádění atomických operací, sdílené paměti apod. -- je pro ně podpora v~rámci operačního systému nebo hardwaru. V~distribuovaných systémech takovéto prostředky nejsou často k dispozici, proto se synchronizační problémy řeší pomocí zasílání zprav, resp. algoritmicky.
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -56,7 +58,11 @@
 
 \section{Bully algoritmus}
 
-Pro topologii každý s~každým -- každý proces může komunikovat s~každým dalším procesem. Používá tři druhy zpráv: ELECTION, OK, COORDINATOR.
+\begin{compactitem}
+    \item Pro topologii každý s~každým -- každý proces může komunikovat s~každým dalším procesem.
+
+    \item Používá tři druhy zpráv: ELECTION, OK, COORDINATOR.
+\end{compactitem}
 
 \subsection{Postup}
 
@@ -74,22 +80,20 @@ Pro topologii každý s~každým -- každý proces může komunikovat s~každým
 
 \subsection{Složitost}
 
-Složitost z~hlediska počtu zpráv.
-
-\bigskip\noindent Nejhorší případ (iniciátor s~nejmenším ID):
-
 \begin{compactitem}
-    \item $(n-1)$ iterací
-    \item $2(n-1)$ zpráv ELECTION a OK pro každou iteraci
-    \item $(n-1)$ zpráv COORDINATOR
-    \item Celkem: $(n-1) \times 2(n-1) + (n-1) \approx n^2$
-\end{compactitem}
+    \item Složitost z~hlediska počtu zpráv.
 
-\noindent Nejlepší případ (iniciátor s~největším ID):
+    \item Nejhorší případ (iniciátor s~nejmenším ID): \begin{compactitem}
+        \item $(n-1)$ iterací
+        \item $2(n-1)$ zpráv ELECTION a OK pro každou iteraci
+        \item $(n-1)$ zpráv COORDINATOR
+        \item Celkem: $(n-1) \times 2(n-1) + (n-1) \approx n^2$
+    \end{compactitem}
 
-\begin{compactitem}
-    \item $(n-1)$ zpráv COORDINATOR
-    \item Celkem: $(n-1)$
+    \item Nejlepší případ (iniciátor s~největším ID): \begin{compactitem}
+        \item $(n-1)$ zpráv COORDINATOR
+        \item Celkem: $(n-1)$
+    \end{compactitem}
 \end{compactitem}
 
 \subsection{Příklad}
@@ -104,8 +108,13 @@ Složitost z~hlediska počtu zpráv.
 
 \section{Ring Algoritmus}
 
-Pro kruhovou topologii -- procesy jsou uspořádané do kruhu podle svého proces ID.
-Každý proces musí vědět nejenom o~svém následovníkovi, ale také o~jeho následníkovi, který funguje jako \uv{záloha}, v~případě že by se přímý následník stal nedostupný. Používá dva druhy zpráv: ELECTION, COORDINATOR.
+\begin{compactitem}
+    \item Pro kruhovou topologii -- procesy jsou uspořádané do kruhu podle svého proces ID.
+
+    \item Každý proces musí vědět nejenom o~svém následovníkovi, ale také o~jeho následníkovi, který funguje jako \uv{záloha}, v~případě že by se přímý následník stal nedostupný.
+
+    \item Používá dva druhy zpráv: ELECTION, COORDINATOR.
+\end{compactitem}
 
 \subsection{Postup}
 
@@ -125,9 +134,10 @@ Každý proces musí vědět nejenom o~svém následovníkovi, ale také o~jeho 
 
 \subsection{Složitost}
 
-Složitost z~hlediska počtu zpráv.
-
-\bigskip\noindent Vždy $2n \approx n$ zpráv. Jedno kolečko \uv{oběhne} zpráva ELECTION a druhé zpráva COORDINATOR.
+\begin{compactitem}
+    \item Složitost z~hlediska počtu zpráv.
+    \item Vždy $2n \approx n$ zpráv. Jedno kolečko \uv{oběhne} zpráva ELECTION a druhé zpráva COORDINATOR.
+\end{compactitem}
 
 \subsection{Příklad}
 
@@ -141,7 +151,9 @@ Složitost z~hlediska počtu zpráv.
 
 \section{Algoritmus pro obecnou topologii}
 
-Předpokládáme, že nemáme ani kruhovou topologii ani spojení každý s~každým. Např.: peer-to-peer sítě, sensorové sítě, \dots
+\begin{compactitem}
+    \item Předpokládáme, že nemáme ani kruhovou topologii ani spojení každý s~každým. Např.: peer-to-peer sítě, sensorové sítě, \dots
+\end{compactitem}
 
 \subsection{Postup}
 
@@ -153,9 +165,8 @@ Předpokládáme, že nemáme ani kruhovou topologii ani spojení každý s~kaž
 
 \subsection{Složitost}
 
-Složitost z~hlediska počtu zpráv.
-
 \begin{compactitem}
+    \item Složitost z~hlediska počtu zpráv.
     \item Inicializační broadcast: počet hran grafu.
     \item Odpověď: počet hran kostry grafu.
     \item Result broadcast: počet hran kostry grafu.
