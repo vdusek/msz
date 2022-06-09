@@ -129,7 +129,7 @@
 \subsection{Chang Roberts algoritmus}
 
 \begin{compactitem}
-    \item \textit{Toto je 1:1 Ring algoritmus z PDI, viz otázku~\ref{chapter_pdi_koordinator}.}
+    \item \textit{Toto je v podstatě Ring algoritmus z PDI, viz otázku~\ref{chapter_pdi_koordinator}. Ring algoritmus používá seznam a díky tomu ušetří jedno kolo zpráv, tj. vyšší prostorová složitost výměnou za lepší časovou.}
 
     \item Předpokládá kruhovou topologii.
     \item Hledá maximální hodnotu PID.
@@ -253,11 +253,13 @@
     \item Jeden token reprezentuje v systému jednu kritickou sekci.
     \item Proces může vstoupit do kritické sekce, pokud obdrží token.
     \item Důkaz o vzájemném vyloučení procesu je triviální (token může držet jen jeden proces a ten jej předává, pokud není v kritické sekci).
-    \item Vlastnosti: \begin{compactitem}
-        \item nezpůsobuje vyhladovění;
-        \item nezpůsobuje uváznutí;
-        \item \textit{fault tolerance}.
-    \end{compactitem}
+    \item Předpokládá stromovou uspořádanou strukturu.
+
+    % \item Vlastnosti: \begin{compactitem}
+    %     \item nezpůsobuje vyhladovění;
+    %     \item nezpůsobuje uváznutí;
+    %     \item \textit{fault tolerance}.
+    % \end{compactitem}
 
     \item Analýza: \begin{compactitem}
         \item Počet zaslaných zpráv -- třída složitosti $\mathcal{O}(\log{N})$.
@@ -276,6 +278,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Distribuovaný broadcast}
+
+% todo: priklad, kauzalni, ktery neni uplny a uplny, ktery neni kauzalni
 
 \begin{compactitem}
     \item Distribuovaný broadcast $\sim$ všesměrové vysílání.
@@ -306,7 +310,7 @@
     \end{compactitem}
 
     \item Klasifikace \begin{compactitem}
-        \item Best effort broadcast -- platnost a shoda.
+        \item Best effort broadcast -- platnost (shoda nikoliv, protože nekorektní proces odešle pouze podmnožině korektních).
         \item Spolehlivý (reliable) broadcast -- platnost, shoda a integrita.
         \item FIFO broadcast -- spolehlivý a FIFO uspořádání.
         \item Kauzální broadcast -- spolehlivý a kauzální uspořádání.

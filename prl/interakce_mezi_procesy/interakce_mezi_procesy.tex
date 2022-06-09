@@ -19,12 +19,71 @@
 \begin{compactitem}
     \item \path{PRL_09_SynchSareMem_slidyA.pdf}
     \item \path{PRL_09_SynchSareMem_slidyB.pdf}
+    \item \path{PRL_10_Modely_slidy.pdf}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Úvod a kontext}
+\section{Vzájemné vyloučení}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item Interakce mezi procesy \begin{compactitem}
+        \item Soupeření
+        \item Kooperace
+    \end{compactitem}
+
+    \item Co řešíme \begin{compactitem}
+        \item Kritická sekce
+        \item Uváznutí (deadlock)
+        \item Vyhladovění
+    \end{compactitem}
+
+    \item Typické problémy \begin{compactitem}
+        \item Producent a konzument
+        \item Problém 5ti filozofů
+        \item Čtenáří a písaři
+    \end{compactitem}
+
+    \item Softwarové řešení \begin{compactitem}
+        \item Dekkerův algoritmus
+        \item Petersonův algoritmus
+    \end{compactitem}
+
+    \item Hardwarové řešení \begin{compactitem}
+        \item Atomické instrukce \begin{compactitem}
+            \item test and set
+            \item swap
+            \item bounded wait test and set
+        \end{compactitem}
+    \end{compactitem}
+
+    \item OS řešení \begin{compactitem}
+        \item Semafory
+        \item Monitory
+        \item Kritická sekce
+    \end{compactitem}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Zasílání zpráv}
+
+\begin{compactitem}
+    \item Primitiva \begin{compactitem}
+        \item send
+        \item receive
+    \end{compactitem}
+
+    \item Druhy kanálů \begin{compactitem}
+        \item Synchronní
+        \item Asynchronní
+    \end{compactitem}
+
+    \item Modely komunikujících procesů \begin{compactitem}
+        \item CSP (Communication Sequential Processes)
+        \item Occam
+        \item PI-Kalkul
+        \item ADA
+        \item Linda
+    \end{compactitem}
 \end{compactitem}

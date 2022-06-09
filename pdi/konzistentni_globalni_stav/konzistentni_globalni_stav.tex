@@ -141,7 +141,9 @@ $${\displaystyle
         \caption{Příklad zaznamenání globální stavu pomocí algoritmu Chandy Lamport. Modrý obdelník značí zaznamenání lokálního stavu. Červené zprávy souvisí s odesíláním markeru. Zeleně jsou označeny zprávy, které jsou zaznamenány ve stavu kanálu. Modré jsou zprávy v minulosti, zaznamenány ve stavu kanálu. Šedé jsou zprávy v budoucnosti, nejsou zaznamenány vůbec.}
     \end{figure}
 
+    % todo
     \item Složitost: \begin{compactitem}
         \item Z pohledu jedné instance vyžaduje algoritmus $\mathcal{O}(e)$ zpráv, kde $e$ je počet hran v síti, resp. počet komunikačních kanálů.
+        $$ n \cdot (n-1) = \mathcal{O}(n^2) $$
     \end{compactitem}
 \end{compactitem}
