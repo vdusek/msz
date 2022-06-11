@@ -74,51 +74,134 @@
 \subsection{Producenti a konzumenti}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item Mějme konečnou vyrovnávací paměť (buffer) a 2 procesy, které vykonávají jisté operace. \begin{compactitem}
+        \item Producent, který vykonává operaci zápisu do bufferu (produkuje informace).
+        \item Konzument, který vykonává operace čtení z bufferu (konzumuje informace).
+    \end{compactitem}
+    \item Operace posouvají ukazatele (\path{in}, \path{out}), které ukazují na místa, kde se bude číst, resp. zapisovat.
+    \item Problémy: \begin{compactitem}
+        \item Soubežná činnost producenta a konzumenta.
+        \item Co se stane, když konzument nemá co konzumovat?
+        \item Co se stane, když producent chce produkovat a buffer je plný?
+    \end{compactitem}
 \end{compactitem}
 
-\noindent\begin{minipage}{\linewidth}
-\begin{lstlisting}[language=c_language, caption={Naivní implementace s aktivním čekáním.}]
-typedef int item;
-extern int n;
-item buffer[n - 1];
-int in = 0, out = 0, counter = 0;
+\subsubsection{Implementace s aktivním čekáním}
 
-void Producent() {
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=c_language, caption={Implementace s aktivním čekáním.}]
+int n = SIZE, in = 0, out = 0, counter = 0;
+char buffer[n];
+
+void producent() {
     while (1) {
-        // produce a new item
-        item new_item = produce();
-        // wait if the buffer is full
-        while (counter == n)
-            ;
-        buffer[in] = new_item;
-        in += 1 % n;
+        char item = produce(); // produce new item
+        while (counter == n); // wait if the buffer is full
+        buffer[in] = item;
+        in = (in + 1) % n;
         counter += 1;
     }
 }
 
-void Consument() {
+void consument() {
     while (1) {
-        // wait until the buffer is not empty
-        while (counter == 0)
-            ;
-        // produce a new item
-        item consumend_item = buffer[out];
-        out += 1 % n;
+        while (counter == 0); // wait until the buffer is not empty
+        char item = buffer[out]; // take item
+        out = (out + 1) % n;
         counter -= 1;
-        consume(consumend_item);
+        consume(item); // consume item
     }
 }
 \end{lstlisting}
 \end{minipage}
 
-\subsection{Čtenáři a písaři}
+\subsubsection{Implementace s využitím semaforů}
+
+\begin{compactitem}
+    \item Semafor S -- zajištění výhradního přístupu k bufferu.
+    \item Semafor N -- určený pro synchronizování procesů na čísle $N = in - out$, což vyjadřuje počet prvků v bufferu.
+\end{compactitem}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=c_language, caption={Implementace s využitím semaforů.}]
+semaphore S, N;
+int n = SIZE, in = 0, out = 0;
+char buffer[n];
+N.count = 0;
+S.count = 1;
+
+void producent() {
+    while (1) {
+        char item = produce(); // produce new item
+        S.lock();
+        buffer[in] = item;
+        in += 1;
+        S.unlock();
+        N.unlock();
+    }
+}
+
+void consument() {
+    while (1) {
+        N.lock();
+        S.lock();
+        char item = buffer[out]; // take item
+        out += 1;
+        S.unlock()
+        consume(item); // consume item
+    }
+}
+\end{lstlisting}
+\end{minipage}
+
+\subsubsection{Implementace s využitím semaforů a cyklického bufferu}
+
+\begin{compactitem}
+    \item Semafor S -- zajištění výhradního přístupu k bufferu.
+    \item Semafor N -- určený pro synchronizování procesů na čísle $N = in - out$, což vyjadřuje počet prvků v bufferu.
+    \item Semafor E -- určený pro synchronizování procesů na počtu volných míst v bufferu.
+\end{compactitem}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=c_language, caption={Implementace s využitím semaforů a cyklického bufferu.}]
+semaphore S, N, E;
+int n = SIZE, in = 0, out = 0;
+char buffer[n];
+N.count = 0;
+S.count = 1;
+E.count = n;
+
+void producent() {
+    while (1) {
+        char item = produce(); // produce new item
+        S.lock();
+        buffer[in] = item;
+        in += 1;
+        S.unlock();
+        N.unlock();
+    }
+}
+
+void consument() {
+    while (1) {
+        N.lock();
+        S.lock();
+        char item = buffer[out]; // take item
+        out += 1;
+        S.unlock()
+        consume(item); // consume item
+    }
+}
+\end{lstlisting}
+\end{minipage}
+
+\subsection{Problém večeřících filosofů}
 
 \begin{compactitem}
     \item \todo{todo}
 \end{compactitem}
 
-\subsection{Problém večeřících filosofů}
+\subsection{Čtenáři a písaři}
 
 \begin{compactitem}
     \item \todo{todo}
