@@ -24,44 +24,176 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Vzájemné vyloučení}
+\section{Úvod a kontext}
 
 \begin{compactitem}
     \item Interakce mezi procesy \begin{compactitem}
-        \item Soupeření
-        \item Kooperace
-    \end{compactitem}
+        \item \textbf{Soupeření} (\textit{competition}) \begin{compactitem}
+            \item Dva a více procesů se snaží v jeden okamžik přistoupit k nějakému sdílenému zdroji.
+            \item Je třeba synchronizace, ke zdroji může přistoupit pouze jeden proces, ostatní musí čekat.
+            \item Problémy: čtenáři a písaři, problém večeřících filosofů
+        \end{compactitem}
 
-    \item Co řešíme \begin{compactitem}
-        \item Kritická sekce
-        \item Uváznutí (deadlock)
-        \item Vyhladovění
-    \end{compactitem}
-
-    \item Typické problémy \begin{compactitem}
-        \item Producent a konzument
-        \item Problém 5ti filozofů
-        \item Čtenáří a písaři
-    \end{compactitem}
-
-    \item Softwarové řešení \begin{compactitem}
-        \item Dekkerův algoritmus
-        \item Petersonův algoritmus
-    \end{compactitem}
-
-    \item Hardwarové řešení \begin{compactitem}
-        \item Atomické instrukce \begin{compactitem}
-            \item test and set
-            \item swap
-            \item bounded wait test and set
+        \item \textbf{Kooperace} (\textit{cooperation}) \begin{compactitem}
+            \item Dva a více procesů na něčem spolupracují a nebo se na něčem musí dohodnout.
+            \item Problémy: producenti a konzumenti
         \end{compactitem}
     \end{compactitem}
 
-    \item OS řešení \begin{compactitem}
-        \item Semafory
-        \item Monitory
-        \item Kritická sekce
+    \item \textbf{Kritická sekce} \begin{compactitem}
+        \item Část programu, ve které se pracuje se sdíleným prostředkem.
+        \item Je nutné zaručit, pokud procesy přistupují ke sdíleným zdrojům (místo ve sdílené paměti), musí být tento přístup výlučný.
     \end{compactitem}
+
+    \item \textbf{Uváznutí} (\textit{deadlock}) \begin{compactitem}
+        \item Uváznutí je situace, kdy proces(y) čekají na událost, která nemůže nastat.
+        \item Příklad: nechť $p_1$ a $p_2$ jsou procesy a $r_1$ a $r_2$ sdílené prostředky. Proces $p_1$ disponuje $r_1$ a zároveň požaduje (čeká na) $r_2$. Proces $p_2$ disponuje $r_2$ a zároveň požaduje (čeká na) $r_1$.
+        \item Může existovat uzavřená smyčka takovýchto procesů.
+    \end{compactitem}
+
+    \item \textbf{Vyhladovění} (\textit{starvation}) \begin{compactitem}
+        \item Proces(y) se nemůže dostat ke sdílenému zdroji.
+        \item Příklad: nechť $p_1$, $p_2$ a $p_3$ jsou procesy a $r$ je sdílené prostředek. Všechny procesy pracují s $r$. Procesy $p_1$ a $p_2$ se vzájemně střídají při práci s $r$, ale $p_3$ se k $r$ nikdy nedostane.
+    \end{compactitem}
+
+    \item \textbf{Souběh} (\textit{race condition}) \begin{compactitem}
+        \item Procesy soupeří o sdílený zdroj, výsledek jejich operací je nepředvídatelný, jelikož může nastat nesprávné pořadí nebo načasování.
+        \item Příklad: nechť $p_1$ a $p_2$ jsou procesy a $r$ je sdílený prostředek. Oba procesy chtějí hodnotu ve sdílené proměnné inkrementovat. Po zápisu obou procesů, může proměnná $r$ nabývat dvou různých hodnot $r_i \in \{ r_{i-1} +1 , r_{i-1} +2 \}$.
+    \end{compactitem}
+
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problémy}
+
+\begin{compactitem}
+    \item Typické problémy práce se sdílenou pamětí.
+\end{compactitem}
+
+\subsection{Producenti a konzumenti}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=c_language, caption={Naivní implementace s aktivním čekáním.}]
+typedef int item;
+extern int n;
+item buffer[n - 1];
+int in = 0, out = 0, counter = 0;
+
+void Producent() {
+    while (1) {
+        // produce a new item
+        item new_item = produce();
+        // wait if the buffer is full
+        while (counter == n)
+            ;
+        buffer[in] = new_item;
+        in += 1 % n;
+        counter += 1;
+    }
+}
+
+void Consument() {
+    while (1) {
+        // wait until the buffer is not empty
+        while (counter == 0)
+            ;
+        // produce a new item
+        item consumend_item = buffer[out];
+        out += 1 % n;
+        counter -= 1;
+        consume(consumend_item);
+    }
+}
+\end{lstlisting}
+\end{minipage}
+
+\subsection{Čtenáři a písaři}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+\subsection{Problém večeřících filosofů}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Softwarové řešení}
+
+\begin{compactitem}
+    \item Softwarové (algoritmické, pomocí zasílání zpráv) řešení práce se sdílenou pamětí.
+\end{compactitem}
+
+\subsection{Dekkerův algoritmus}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+\subsection{Pettersonův algoritmus}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Hardwarové řešení}
+
+\begin{compactitem}
+    \item Hardwarové řešení práce se sdílenou pamětí.
+\end{compactitem}
+
+\subsection{Test and set}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+\subsection{Swap}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+\subsection{Bounded wait Test and set}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{OS řešení}
+
+\begin{compactitem}
+    \item Řešení práce se sdílenou pamětí na úrovni operačního systému.
+\end{compactitem}
+
+\subsection{Semafory}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+\subsection{Monitory}
+
+\begin{compactitem}
+    \item \todo{todo}
+\end{compactitem}
+
+\subsection{Kritické sekce}
+
+\begin{compactitem}
+    \item \todo{todo}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -53,8 +53,8 @@
 \begin{equation}
     \begin{split}
         \lk x \lkdot x+2 &~~~~~ \text{odpovídá} ~~~~~ f(x) = x+2 \\
-        \lk x \lkdot \lk y \lkdot x+y &~~~~~ \text{odpovídá} ~~~~~ f(x) = x+y \\
-        \lk x ~ y \lkdot x-y &~~~~~ \text{odpovídá} ~~~~~ f(x) = x-y
+        \lk x \lkdot \lk y \lkdot x+y &~~~~~ \text{odpovídá} ~~~~~ f(x, y) = x+y \\
+        \lk x ~ y \lkdot x-y &~~~~~ \text{odpovídá} ~~~~~ f(x, y) = x-y
     \end{split}
 \end{equation}
 
@@ -132,7 +132,7 @@ $$ \lklet K = \lk x \lkdot x+2 ~~~~~ \text{poté K můžeme používat v jiných
 
     \item Příklad správného použití (substituce se bude muset dále vyhodnotit i ve výrazu $E$):
     $$
-        ( \lk V \lkdot E ) M \lkbeta \lk M \lkdot E ~ [M/V]
+        ( \lk V \lkdot E ) M \lkbeta E ~ [M/V]
     $$
 
     \item Příklad chybného použití ($y$ se z volné stalo vázanou):

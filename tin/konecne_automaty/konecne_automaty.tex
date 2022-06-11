@@ -285,7 +285,7 @@ Všechny varianty konečného automatu mají stejnou vyjadřovací sílu (jsou m
 \paragraph*{Pravá kongruence} Pravá kongruence (pravá invariance) je speciální typ relace ekvivalence, která splňuje požadovanou vlatnost. Nechť $\Sigma$ je abeceda a $\thicksim$ je relace ekvivalence nad $\Sigma^*$. Relace ekvivalence $\thicksim$ je pravou kongruencí pokud platí: $$ \forall u, v, w \in \Sigma^* ~:~ u \thicksim v \Rightarrow uw \thicksim vw $$
 Myšlenka: Pro všechny slova $u, v$ z jazyka platí, že pokud jsem se přes ně dostal do nějakého (stejného) stavu, tak když k oboum připojím slovo $w$, tak se zase dostanu do stejného stavu.
 
-\paragraph*{Prefixová ekvivalence} Nechť $L$ je libovolný (ne nutně regulární) jazyk nad abecedou $\Sigma$. Na množině $\Sigma^*$ definujeme relaci $\thicksim_L$ zvanou prefixová ekvivalence pro $L$ takto: $$ u \thicksim_L v \Leftrightarrow ( \forall w \in \Sigma^* ~:~ uw \in L \Leftrightarrow uw \not\in L )$$
+\paragraph*{Prefixová ekvivalence} Nechť $L$ je libovolný (ne nutně regulární) jazyk nad abecedou $\Sigma$. Na množině $\Sigma^*$ definujeme relaci $\thicksim_L$ zvanou prefixová ekvivalence pro $L$ takto: $$ u \thicksim_L v \Leftrightarrow ( \forall w \in \Sigma^* ~:~ uw \in L \Leftrightarrow vw \in L )$$
 Myšlenka: slova $u$ a $v$ dovedou konečný automat do stejného stavu.
 
 \paragraph*{Mihill-Nerodova věta} Jazyk $L \subseteq \Sigma^*$ je regulární právě když: \begin{compactitem}
