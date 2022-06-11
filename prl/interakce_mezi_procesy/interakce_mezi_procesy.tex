@@ -174,9 +174,10 @@ E.count = n;
 void producent() {
     while (1) {
         char item = produce(); // produce new item
+        E.lock();
         S.lock();
         buffer[in] = item;
-        in += 1;
+        in = (in + 1) % n;
         S.unlock();
         N.unlock();
     }
@@ -187,8 +188,9 @@ void consument() {
         N.lock();
         S.lock();
         char item = buffer[out]; // take item
-        out += 1;
+        out = (out + 1) % n;
         S.unlock()
+        E.unlock()
         consume(item); // consume item
     }
 }
@@ -198,14 +200,80 @@ void consument() {
 \subsection{Problém večeřících filosofů}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item Mějme 5 filozofů (procesů), kteří přemýšlejí (čekají) a jedí (pracují). Je k dispozici 5 vidliček a každý potřebuje 2 aby mohl jíst.
 \end{compactitem}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=c_language, caption={Implementace problému večeřících filosofů s využitím semaforů.}]
+semaphore T, Forks[5]; // number of resources
+
+int n = SIZE, in = 0, out = 0;
+char buffer[n];
+T.count = 4; // number of process - 1
+
+void philosopher(pid) { // pid in {0, 1, 2, 3, 4}
+    while (1) {
+        think();
+
+        T.lock();
+        Forks[pid].lock();
+        Forks[(pid+1) % 5].lock();
+
+        eat();
+
+        Forks[(pid+1) % 5].unlock();
+        Forks[pid].unlock();
+        T.unlock();
+    }
+}
+\end{lstlisting}
+\end{minipage}
 
 \subsection{Čtenáři a písaři}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item Více čtenářů potřebuje číst ze souboru a jeden, nebo více potřebuje zapisovat do souboru.
+    \item Platí: \begin{compactitem}
+        \item Současné čtení je povoleno libovolnému množství procesů.
+        \item V daném okamžiku může zapisovat pouze jeden.
+        \item Pokud někdo zapisuje tak současně nikdo nesmí číst.
+    \end{compactitem}
 \end{compactitem}
+
+\noindent\begin{minipage}{\linewidth}
+\begin{lstlisting}[language=c_language, caption={Implementace problému čtenářů a písařů s využitím semaforů.}]
+semaphore M, W;
+int reader_cnt = 0;
+M.count = 1;
+W.count = 1;
+
+void reader() {
+    while (1) {
+        M.lock();
+        reader_cnt += 1;
+        if (reader_cnt == 0)
+            W.lock();
+        M.unlock();
+
+        read()
+
+        M.lock();
+        reader_cnt -= 1;
+        if (reader_cnt == 0)
+            W.unlock();
+        M.unlock();
+    }
+}
+
+void writer() {
+    while (1) {
+        W.lock();
+        write();
+        W.unlock();
+    }
+}
+\end{lstlisting}
+\end{minipage}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
