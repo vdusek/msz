@@ -86,9 +86,15 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
 
 % \textit{REL~--~Recursive Enumerable Languages}, \textit{RL~--~Recursive Languages}, \textit{DCFL~--~Deterministic Context Free Languages}.
 
-\paragraph*{Třída jazyků $2^{\Sigma^*} - \mathcal{L}_0$} \begin{compactitem}
+\paragraph*{Třída jazyků $2^{\Sigma^*} \setminus \mathcal{L}_0$} \begin{compactitem}
     \item Jazyky v této třídě není možné vyjádřit žádnou gramatikou.
     % \item Z hlediska teorie nerozhodnutelnosti, je možné problém transformovat (zakódovat) na jazyk. Problémy v této třídě nejsou ani částečně rozhodnutelné.
+
+    \item Příklad jazyků ($ \langle M \rangle $ je kód TS $M$): \begin{compactitem}
+        \item $\{ \langle M \rangle ~|~ L(M) = \emptyset \} \in 2^{\Sigma^*} \setminus \mathcal{L}_0$
+        \item $\{ \langle M \rangle ~|~ |L(M)| \leq 42 \} \in 2^{\Sigma^*} \setminus \mathcal{L}_0$
+        \item $\{ \langle M \rangle ~|~ L(M) \in \mathcal{L}_{Rec} \} \in 2^{\Sigma^*} \setminus \mathcal{L}_0$
+    \end{compactitem}
 \end{compactitem}
 
 \paragraph*{Typ 0 (obecné / neomezené / rekurzivně vyčíslitelné gramatiky)} \begin{compactitem}
@@ -110,6 +116,15 @@ Chomského hierarchie je hierarchie tříd formálních gramatik generujících 
         \item Rekurzivní jazyky: \begin{compactitem}
             \item Nechť $M$ je turingův stroj, který přijímá nějaký jazyk z $\mathcal{L}_{Rec}$. Pokud $M$ dostane na vstup $w \in L(M)$, tak pro něj zastaví a přijme ho. Avšak, pokud $M$ dostane na vstup $w \not\in L(M)$, tak zastaví a odmítne ho. Turingův stroj, který zastaví pro jakýkoliv vstup se nazývá úplný turingův stroj.
         \end{compactitem}
+    \end{compactitem}
+
+    \item Příklad jazyků ($ \langle M \rangle $ je kód TS $M$): \begin{compactitem}
+        \item $\{ \langle M \rangle ~|~ \text{ TS M má aspoň 42 stavů } \} \in \mathcal{L}_{Rec} \setminus \mathcal{L}_1$
+        \item $\{ \langle M \rangle ~|~ \text{ TS M učiní více než 42 kroků na vstupu } \epsilon \} \in \mathcal{L}_{Rec} \setminus \mathcal{L}_1$
+        \item $\{ \langle M \rangle ~|~ \text{ TS M učiní více než 42 kroků na nějakém vstupu } \} \in \mathcal{L}_{Rec} \setminus \mathcal{L}_1$
+
+        \item $\{ \langle M \rangle ~|~ L(M) \not= \emptyset \} \in \mathcal{L}_{0} \setminus \mathcal{L}_{Rec}$
+        \item $\{ \langle M \rangle ~|~ |L(M)| \geq 42 \} \in \mathcal{L}_{0} \setminus \mathcal{L}_{Rec}$
     \end{compactitem}
 \end{compactitem}
 
