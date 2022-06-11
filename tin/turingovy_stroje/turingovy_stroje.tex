@@ -62,7 +62,7 @@
     \end{compactitem}
 \end{compactitem}
 
-\paragraph*{Konfigurace} Konfigurace TS je trojice $(q, \alpha, n) \in Q \times \{ \gamma \Delta^{\omega} ~|~ \gamma \in \Gamma \} \times \mathbb{N}$, kde \begin{compactitem}
+\paragraph*{Konfigurace} Konfigurace TS je trojice $(q, \alpha, n) \in Q \times \{ \gamma \Delta^{\omega} ~|~ \gamma \in \Gamma^* \} \times \mathbb{N}$, kde \begin{compactitem}
     \item $q$ je aktuální stav;
     \item $\alpha$ značí stav pásky;
     \item $n$ značí pozici hlavy.
@@ -77,11 +77,12 @@
 
     \item $(q_1, \gamma, n) \vdash (q_2, \gamma, n - 1)$ pro $\delta(q_1, \gamma_n) = (q_2, L)$ -- operace posunu hlavy doleva při $\gamma_n$ po hlavou;
 
-    \item $(q_1, \gamma, n) \vdash (q_2, s_b^n(\gamma), n + 1)$ pro $\delta(q_1, \gamma_n) = (q_2, b)$ -- operace zápisu symbolu $b$ při $\gamma_n$ po hlavou.
+    \item $(q_1, \gamma, n) \vdash (q_2, s_b^n(\gamma), n)$ pro $\delta(q_1, \gamma_n) = (q_2, b)$ -- operace zápisu symbolu $b$ při $\gamma_n$ po hlavou.
 \end{compactitem}
 
 Pro libovolný řetězec $\gamma \in \Gamma^{\omega}$ a číslo $n \in \mathbb{N}$ označme $\gamma_n$ n-tý symbol daného řetězce a označme $s_n^b(\gamma)$ řetězec, který vznikne z $\gamma$ záměnou $\gamma_n$ za $b$.
 
+% todo: opravit
 \paragraph*{Jazyk přijímaný} \begin{compactitem}
     \item Řetězec $w \in \Sigma^*$ je přijat TS $M = (Q, \Sigma, \Gamma, \delta, q_0, g_f)$, jesliže pro $M$ platí:\break $(q_0, \Delta \gamma \Delta^{\omega}, 0) \vdash^* (q_f, \gamma', n)$ pro nějaké $\gamma, \gamma' \in \Gamma^*$ a $n \in \mathbb{N}$.
 
@@ -238,7 +239,7 @@ Jde o funkce vytvořené z počátečních funkcí.
     $$ f \times g (\bar{x}) = (f(\bar{x}), g(\bar{x})) ~,~ \bar{x} \in \mathbb{N}^k $$
 
     \item Kompozice [$\circ$] -- Kompozice dvou funkcí $f : \mathbb{N}^k \rightarrow \mathbb{N}^n$ a $g : \mathbb{N}^n \rightarrow \mathbb{N}^m$ vznikne funkce:
-    $$ g \circ f : \mathbb{N}^k \rightarrow \mathbb{N}^n $$
+    $$ g \circ f : \mathbb{N}^k \rightarrow \mathbb{N}^m $$
     $$ g \circ f (\bar{x}) = g(f(\bar{x})) ~,~ \bar{x} \in \mathbb{N}^k $$
 
     \item Primitivní rekurze -- Primitivní rekurze je technika, která umožňuje vytvořit funkci $f : \mathbb{N}^{k+1} \rightarrow \mathbb{N}^m$ na základě jiných dvou funkcí $g : \mathbb{N}^k \rightarrow \mathbb{N}^m$ a $h : \mathbb{N}^{k+m+1} \rightarrow \mathbb{N}^m$ rovnicemi:
@@ -295,6 +296,12 @@ $$ foo(0, y) = \xi() $$
 $$ foo(x+1, y) = plus (isGreater (mult(\sigma \times \sigma(x)), y), foo(x, y)) $$
 $$ sqrt : \mathbb{N} \rightarrow \mathbb{N} $$
 $$ sqrt(x) = monus (x,  foo(x, x)) $$
+
+\subsection{$\mu$-rekurzivní funkce}
+
+\begin{compactitem}
+    \item Třída totálních vyčíslitelných funkcí se nazývá $\mu$-rekurzivní funkce.
+\end{compactitem}
 
 \subsection{Parciálně rekurzivní funkce}
 
