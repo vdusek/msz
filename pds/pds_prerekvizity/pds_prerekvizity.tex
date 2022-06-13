@@ -22,7 +22,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\paragraph*{ISO/OSI model} Referenční model ISO/OSI se používá jako názorný příklad řešení komunikace v počítačových sítích pomocí vrstevnatého modelu, kde jsou jednotlivé vrstvy nezávislé a snadno nahraditelné. \begin{compactitem}
+\paragraph*{ISO/OSI model} Referenční model ISO/OSI se používá jako názorný příklad řešení komunikace v počítačových sítích pomocí vrstevnatého modelu, kde jsou jednotlivé vrstvy nezávislé a snadno nahraditelné (alternativně TCP/IP model s L2, L3, L4 a L7). \begin{compactitem}
 
     \item \textbf{Aplikační vrstva} (L7, \textit{application layer}) \begin{compactitem}
         \item Zajišťuje zpracování dat na nejvyšší úrovni (reprezentace dat, kódování, řízení dialogu, \dots).
@@ -63,13 +63,19 @@
 \paragraph*{Adresace} \begin{compactitem}
     \item Port (transportní vrstva, L4) \begin{compactitem}
         \item Identifikuje aplikaci v rámci zařízení.
-        \item Jak se mění při směrování paketu internetem: zůstává stejný s výjimkou zdrojového portu při překladu NAT.
+        \item Jak se mění při směrování paketu internetem: zůstává stejný s výjimkou překladu NAT. \begin{compactitem}
+            \item Při komunikaci: soukromá síť $\rightarrow$ NAT $\rightarrow$ internet, se mění zdrojový port.
+            \item Při komunikaci: internet $\rightarrow$ NAT $\rightarrow$ soukromá síť, se mění cílový port.
+        \end{compactitem}
         \item Velikost: 16 bit
         \item Prostor: plochý
     \end{compactitem}
     \item IPv4, IPv6 (síťová vrstva, L3) \begin{compactitem}
         \item Identifikuje uzel v rámci sítě (tzv. logická adresace).
-        \item Jak se mění při směrování paketu internetem: zůstává stejná s výjimkou zdrojové IP adresy při překladu NAT.
+        \item Jak se mění při směrování paketu internetem: zůstává stejná s výjimkou překladu NAT. \begin{compactitem}
+            \item Při komunikaci: soukromá síť $\rightarrow$ NAT $\rightarrow$ internet, se mění zdrojová IP.
+            \item Při komunikaci: internet $\rightarrow$ NAT $\rightarrow$ soukromá síť, se mění cílová IP.
+        \end{compactitem}
         \item Velikost: 32 bit, 128 bit
         \item Prostor: pseudohierarchie (A, B, C, D, E), pseudohierarchie (prefix + interface ID)
     \end{compactitem}
@@ -77,7 +83,7 @@
         \item Identifikuje síťové rozhraní (síťovou kartu).
         \item Jak se mění při směrování paketu internetem: mění se \textit{hop-by-hop}.
         \item Velikost: 32 bit, 128 bit
-        \item Prostor: pseudohierarchie (A, B, C, D, E), pseudohierarchie (prefix + interface ID)
+        \item Prostor: ?
     \end{compactitem}
 \end{compactitem}
 
@@ -104,18 +110,29 @@
     \caption{Příklad OSI modelu z Wiki.}
 \end{figure}
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{isoosi_tcpip.pdf}
+    \caption{ISO/OSI vs TCP/IP.}
+\end{figure}
+
 \paragraph*{ACL} ACL (\textit{Access Control List}) je volitelná vrstva zabezpečení, která funguje jako brána firewall pro řízení provozu do jedné nebo více podsítí a z nich.
 
 \paragraph*{NAT} NAT (\textit{Network Address Translation}) je metoda mapování IP adresního prostoru do jiného prostoru (typicky privátní adresy na veřejné adresy). Děje se tak úpravou hlaviček IP paketů během jejich přenosu přes směrovače (úprava zdrojové IP adresy a čísla portu). Směrovač si ukládá čtveřice $(\text{WAN\_IP}:\text{WAN\_port}, \text{LAN\_IP}:\text{LAN\_port})$ aby mohl prováděť i překlad zpět.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{nat.pdf}
+    \caption{Příklad překladu NAT.}
+\end{figure}
 
 \paragraph*{ARP} ARP (\textit{Address Resolution Protocol}) a RARP (\textit{Reverse ARP}) je protokol, který komunikuje na síťové vrstvě (L3) a zajišťuje \uv{překlad} IP adres na MAC adresy a obráceně. Pouze pro IPv4, pro IPv6 je pro stejný účel využíván protokol ICMPv6 a zpráva \textit{Neighbor Discovery}. Příklad využití: směrovač potřebuje získat MAC adresu next hopu (zná jeho IP adresu).
 
 \paragraph*{ICMP} ICMP (\textit{Internet Control Message Protocol}) je protokol, který komunikuje na síťové vrstvě (L3) a slouží pro řízení toku a detekce nedosažitelných uzlů.
 
-\paragraph*{MAC adresa} MAC adresa je fyzická adresa zařízení, resp. síťové karty (identifikátor na L2). Na každý síťový port v přepínači/směrovači je jedna síťová karta (a teda i MAC adresa).
+\paragraph*{MAC adresa} MAC adresa je fyzická adresa zařízení, resp. síťové karty (identifikátor na L2). Zařízení, a to jak koncová stanice, tak směrovač, mohou mít více síťových karet.
 
-% Todo: lepe, toto neni moc pravda
-\paragraph*{IP adresa} IP adresa je logická adresa zařízení (identifikátor na L3). Pokud má zařízení více síťových karet, má typicky stále pouze jednu IP adresu. Přepínač nemá IP adresu vůbec, pracuje pouze na L2 vrstvě. Směrovač je výjimka a má 2 IP adresy, jednu pro komunikaci v lokální síti (LAN) a druhou pro internet (WAN).
+\paragraph*{IP adresa} IP adresa je logická adresa zařízení, resp. adresa síťové karty (identifikátor na L3). Přepínač nemá IP adresu vůbec, pracuje pouze na L2 vrstvě a paket nijak nemodifikuje. Typický směrovač má 2 IP adresy, jednu pro komunikaci v lokální síti (LAN) a druhou pro internet (WAN). Koncová stanice může mít rovněž více IP adres, např. připojení přes ethernet a wifi a nebo v případě telefonu, připojení přes mobilni data a wifi.
 
 \paragraph*{Síťový tok} Síťový tok je posloupnost paketů (jednosměrná) identifikována čtveřicí (zdrojová IP, zdrojový port, cílová IP, cílový port).
 
