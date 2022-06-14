@@ -32,7 +32,7 @@ $$.
 \paragraph*{Cena nejkratší cesty} Cena nejkratší cesty z $u$ do $v$ je $$
 \delta(u, v) = \begin{cases}
     min( \{ w(p) : u \xRightarrow{\text{p}} v \} ) \\
-    \infty   \text{pokud cesta neexistuje}
+    \infty \text{   pokud cesta neexistuje}
 \end{cases}
 $$.
 
@@ -80,7 +80,7 @@ def relax(u, v, w):
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\linewidth]{relax.png}
-    \caption{Ukázka činnosti funkce \textit{relax}.}
+    \caption{Ukázka činnosti funkce \textit{relax}. Pozor, hrany označené $d[u]$ a $d[v]$ nejsou hrany grafu, ale existující sled v grafu s touto cenou.}
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

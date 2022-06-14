@@ -65,7 +65,7 @@ Z pohledu směrování můžeme počítačovou síť zjednodušit na neorientova
     \item Využívá jej např. směrovací protokol RIP (\textit{Routing Protocol}). \begin{compactitem}
         \item Komunikuje přes UDP na portu 520.
         \item Metrika: \textit{hop count}.
-        \item Proti \textit{Infinity Count} (viz dále) se brání vylepšením \textit{Split Horizon}: Nikdy se nepošle informace o cestě zpátky rozhraním, ze kterého přišla.
+        \item Proti \textit{Infinity Count} (viz dále) se brání vylepšením \textbf{Split Horizon}: Nikdy se nepošle informace o cestě zpátky rozhraním, ze kterého přišla.
     \end{compactitem}
 \end{compactitem}
 
@@ -88,7 +88,7 @@ Z pohledu směrování můžeme počítačovou síť zjednodušit na neorientova
 \begin{compactitem}
     \item Algoritmus DUAL (diffusing update algorithm) je algoritmus společnosti Cisco, který zajišťuje, že daná trasa je přepočítána globálně, kdykoli by mohla způsobit směrovací smyčku.
     \item Klíčová je tzv. \textbf{Feasibility Condition}, která zajišťuje, že jsou vždy vybírány pouze trasy bez smyček. Pokud podmínka platí, nemohou vzniknout žádné smyčky, ale podmínka může za určitých okolností odmítnout všechny trasy k cíli, přestože některé jsou bez smyček. \begin{compactitem}
-        \item Vzdálenost sousedů k cílové síti nazveme RC (\textit{reported distance}).
+        \item Vzdálenost sousedů k cílové síti nazveme RD (\textit{reported distance}).
         \item Nejlepší vzdálenost k danému uzlu nazveme FD (\textit{feasible distance}).
         \item Pokud platí $RD < FD$, tak cesta neobsahuje smyčku.
     \end{compactitem}
@@ -132,7 +132,7 @@ Potom z pohledu A: \begin{compactitem}
     \item \textit{Single-metric}.
 \end{compactitem}
 
-\subsection*{Dijkstrův algoritmus}
+\subsection{Dijkstrův algoritmus}
 
 \begin{compactitem}
     \item \textit{Pro formální vysvětlení a pseudokód viz otázku \uv{Hledání nejkratších cest ze zdrojového uzlu do všech ostatních uzlů grafu}.}
@@ -160,14 +160,17 @@ Potom z pohledu A: \begin{compactitem}
     \item \textit{Multi-metric}.
 \end{compactitem}
 
-\subsection*{Path Vector algoritmus}
+\subsection{Path Vector algoritmus}
 
 \begin{compactitem}
     \item Posílá celou cestu (posloupnost uzlů~--~autonomních systémů), ne jenom vzdálenost.
     \item Slouží také pro detekci smyček v rámci cesty.
     \item Cíl je projít přes co nejméně autonomních systémů.
     \item Umožňuje tzv. \textit{flexible policies}, můžu se rozhodnout jakou cestou budu provoz směrovat. Část provozu můžu přes $AS_1$, jinou část pres $AS_2$, apod.
-    \item Známe celou cestu směrování, víme přes co pakety půjdou, můžeme některý uzel vyřadit.
+    \item Známe celou cestu směrování, víme přes co pakety půjdou. \begin{compactitem}
+        \item Můžeme část provozu posílat přes $AS_i$, jinou část provozu přes $AS_j$ apod.
+        \item Nějakému $AS_i$ se můžeme chtít vyhnout na základě policies (horší parametry linky, horší cena).
+    \end{compactitem}
     \item Směrovací protokol Border Gateway Protocol (BGP).
 \end{compactitem}
 

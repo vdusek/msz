@@ -17,6 +17,7 @@
 \section{Zdroje}
 
 \begin{compactitem}
+    \item Drtivá většina převzata ze sdíleného \path{SZZ gdrive}
     \item \path{PRL_13_MPI.pdf}
 \end{compactitem}
 
@@ -25,5 +26,122 @@
 \section{Úvod a kontext}
 
 \begin{compactitem}
-    \item \todo{todo}
+    \item Mezi současné systémy, které umožňují tvorbu paralelních systémů patří openMP, PVM (Parallel Virtual Machine) či MPI (Message Passing Interface). \begin{compactitem}
+        \item openMP je systém založený na komunikaci \textbf{sdílenou pamětí};
+        \item PVM a MPI jsou systémy, které jsou založené na komunikaci \textbf{předáváním zpráv}.
+    \end{compactitem}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{MPI (Message Passing Interface)}
+
+\begin{compactitem}
+    \item MPI je knihovna, která je nezávislá na použitém programovacím jazyce a implementaci.
+
+    \item Knihovna implementující stejnojmennou specifikaci (protokol) pro podporu paralelního řešení výpočetních problémů v počítačových clusterech.
+
+    \item \textbf{Procesy v MPI} \begin{compactitem}
+        \item Fixní počet procesů je vytvořen během inicializace programu (statický model je kvůli zvýšení výkonu) -- typicky předáno parametrem.
+        \item Každý proces zná své číslo (rank).
+        \item Každý proces zná počet všech procesů.
+        \item Každý proces může komunikovat s ostatními procesy.
+    \end{compactitem}
+
+    % \item Základní příkazy \begin{compactitem}
+    %     \item \path{MPI_Comm_size} -- počet procesů
+    %     \item \path{MPI_Comm_rank} -- rank volajícího procesu
+    % \end{compactitem}
+\end{compactitem}
+
+\noindent\begin{minipage}{\linewidth}
+    \begin{lstlisting}[language=c_language, caption={Základní příkazy MPI.}]
+#include "mpi.h"
+#include <stdio.h>
+
+int main(int argc, char *argv[])
+{
+    int rank, size;
+    MPI_Init(&argc, &argv); // zahajeni MPI programu
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank); // get process rank
+    MPI_Comm_size(MPI_COMM_WORLD, &size); // get number of processes
+    printf("I am %d of %d\n", rank, size);
+    MPI_Finalize(); // ukonceni MPI programu
+    return 0;
+}
+\end{lstlisting}
+\end{minipage}
+
+\begin{compactitem}
+    \item \textbf{Základní koncepty} \begin{compactitem}
+        \item Procesy mohou být ve skupinách.
+        \item Každá zpráva je přijata v nějakém kontextu a musí být přijata v tom samém kontextu.
+        \item Skupina a kontext tvoří dohromady \path{communicator}.
+        \item Existuje výchozí \path{communicator} znavý \path{MPI_COMM_WORLD}, jehož skupina obsahuje všechny počáteční procesy.
+    \end{compactitem}
+
+    \item Zaslaná/přijatá zpráva je identifikována trojicí: \begin{compactitem}
+        \item adresa -- od koho je to posláno;
+        \item počet -- kolik toho je posláno;
+        \item datový typ.
+    \end{compactitem}
+
+    \item \textbf{Datové typy} jsou v MPI explicitně definovány, jelikož různé počítače mohou mít jinou reprezentaci dat a jinou velikost typů.
+
+    \item \textbf{Tagy} \begin{compactitem}
+        \item Zprávy jsou odesílány s tagy, které příjemci říkají, jaký typ zprávy přijal.
+
+        \item Příjemce poté může zprávy filtrovat pomocí tagů, případně použít tag \break \path{MPI_ANY_TAG}, který nefiltruje nic.
+    \end{compactitem}
+
+    \item \path{MPI_SEND(start, count, datatype, dest, tag, comm)} -- Zaslání zprávy procesu. \begin{compactitem}
+        \item Buffer zprávy popsán pomocí (start, count, datatype).
+
+        \item Cílový proces je popsán pomocí dest a comm, kde dest je rank procesu v komunikátoru comm.
+
+        \item Jakmile se funkce vrátí, tak data byla doručena a buffer může být znovu použit.
+    \end{compactitem}
+
+    \item \path{MPI_RECV(buf, count, datatype, source, tag, comm, status)} -- Přijetí zprávy od procesu. \begin{compactitem}
+        \item Funkce čeká, dokud nepřijde zpráva od procesu source (rank procesu v daném komunikátoru comm) s tagem tag (lze použít i \path{MPI_ANY_SOURCE}).
+        \item Status obsahuje dodatečné informace.
+        \item Pokud se přijme méně dat datového typu specifikovaného pomocí datatype, než je množství udané v count, tak to OK, pokud ovšem přijmeme více dat, tak je to chyba.
+    \end{compactitem}
+
+    \item Naproti tomu neblokující komunikace probíhá pomocí \path{MPI_Isend()} a \path{MPI_Irecv()}. \begin{compactitem}
+        \item Vracejí výstup okamžitě (tj. neblokují), i když komunikace ještě není dokončena.
+        \item Je třeba zavolat \path{MPI_Wait()} nebo \path{MPI_Test()}, pro zjištění, zda komunikace skončila.
+    \end{compactitem}
+
+    \item \textbf{Kolektivní operace} -- operace, která je zavolána pro všechny procesy v communicatoru.
+
+    \item \path{MPI_Bcast(buffer, count, datatype, root, comm)} \begin{compactitem}
+        \item Kolektivní operace.
+        \item Všesměrové vysílání všem procesům v komunikátoru comm.
+    \end{compactitem}
+
+    \item \path{MPI_Reduce(sendbuf, recvbuf, count, datatype, op, root, comm)} \begin{compactitem}
+        \item Kolektivní operace.
+        \item Standardní reduce, skrze operátor je posloupnost hodnot redukována na jedinou.
+        \item V mnoha numerických algoritmech lze SEND/RECEIVE nahradit BCAST/REDUCE, čímž se zlepší efektivita.
+    \end{compactitem}
+
+    \item \path{MPI_Barrier(comm)} \begin{compactitem}
+        \item Synchronizace pomocí bariéry.
+        \item Blokuje, dokud jej nevolají všechny procesy ve skupině komunikátoru comm.
+    \end{compactitem}
+\end{compactitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{PVM (Parallel Virtual Machine)}
+
+\begin{compactitem}
+    \item PVM je rozhraní pro paralelní programy. Není závislé na implementaci a je tak funkční i mezi počítači s rozdílnými operačními systémy.
+
+    \item Jedná se o komunikační vrstvu využívající zejména TCP protokol za účelem spojení výkonu procesorů více počítačů k vytvoření virtuálního superpočítače.
+
+    \item Pro komunikaci po síti používá systém zasílání zpráv metodou broadcastu -- zasílání zpráv celé skupině, nebo metodou multicastu -- zasílání zpráv pouze vybrané skupině účastníků komunikace.
+
+    \item Následovníkem tohoto rozhraní je MPI.
 \end{compactitem}
