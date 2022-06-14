@@ -34,11 +34,11 @@
     \item \textit{Quality of Service}~--~zotavení se z chyb, spolehlivost, řízení toku, řízení zahlcení.
 \end{compactitem}
 
-\paragraph*{Multi homing}~--~Využítí více bodů připojení zároveň (pro jednu komunikaci). Pokud je podporováno a změní se IP adresa, nemusí se navázat nové spojení.
+\paragraph*{Multi homing} Využítí více bodů připojení zároveň (pro jednu komunikaci). Pokud je podporováno a změní se IP adresa, nemusí se navázat nové spojení.
 
-\paragraph*{\textit{Connection-oriented}}~--~Typ spojení, kdy je nejprve nutné, navázat komunikaci. Typicky tři fáze: navázání spojení, přenos dat, ukončení spojení.
+\paragraph*{\textit{Connection-oriented}} Typ spojení, kdy je nejprve nutné, navázat komunikaci. Typicky tři fáze: navázání spojení, přenos dat, ukončení spojení.
 
-\paragraph*{\textit{Connection-less}}~--~Typ spojení, které nerozlišuje jestli spojení existuje, nebo nikoliv. Pouze fáze přenosu dat.
+\paragraph*{\textit{Connection-less}} Typ spojení, které nerozlišuje jestli spojení existuje, nebo nikoliv. Pouze fáze přenosu dat.
 
 \paragraph*{Round trip time (RTT)} RTT je doba, která uplyne od vyslání paketu z jednoho komunikujícího uzlu k druhému po návrat potvrzení zpátky na první uzel.
 
@@ -112,7 +112,7 @@ Paketové chyby detekujeme pomocí sekvenčních čísel. Sekvenční číslo je
 
 \subsection{Korekce paketových chyb}
 
-Pokud paket nedorazil, odesílatel ho pošle znovu. Tzv. \textit{Automatic Repeat/Request} (ARQ)~--~Čeká se na ACK, když nepřijde do timeoutu, dojde k znovuzaslání. Princip tzv. klouzavého okna (\textit{sliding window}). Existují 3 strategie.
+Pokud paket nedorazil, odesílatel ho pošle znovu. Tzv. \textit{Automatic Repeat/Request} (ARQ)~--~Čeká se na ACK, když nepřijde do timeoutu, dojde k znovuzaslání. Princip tzv. klouzavého okna (\textit{sliding window}). Existují 3 strategie. Viz výborné animace na \url{https://nes.fit.vutbr.cz/ivesely/pds}.
 
 \paragraph*{Stop and wait} \begin{compactitem}
     \item Klouzavé okno o velikosti 1.
