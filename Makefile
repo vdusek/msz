@@ -20,8 +20,8 @@ all:
 
 pdf: all clean
 
-full: pdf
-	@mv $(NAME).pdf $(NAME)-full.pdf
+vdusek: pdf
+	@mv $(NAME).pdf $(NAME)-vdusek.pdf
 
 vlna:
 	@vlna -l $(NAME)*.tex

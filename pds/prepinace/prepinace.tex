@@ -290,8 +290,14 @@ V kontextu přepínání v křížovém přepínači se jedná o problém párov
 Vlastnosti jednostupňového křížového přepínače:
 \begin{compactitem}
     \item S počtem portů roste kvadraticky velikost přepínacího pole.
-    \item Vnitřní blokování (soupeření o porty).
-    \item Blokování na začátku fronty (\textit{head of line blocking}).
+    \item Vnitřní blokování \begin{compactitem}
+        \item Soupeření o porty.
+        \item Největší problém u sdílené sběrnice, kde se může přenášet pouze z jednoho portu.
+        \item Jsou třeba plánovací algoritmy, aby nedošlo ke kolizím.
+    \end{compactitem}
+    \item Blokování na začátku fronty (\textit{head of line blocking}) \begin{compactitem}
+        \item Řešíme virtuálníma frontama a přebíháním.
+    \end{compactitem}
     \item Součástí přepínání je hledání maximálního párování.
 \end{compactitem}
 

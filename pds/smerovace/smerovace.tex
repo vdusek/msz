@@ -107,7 +107,7 @@ Pakety mohou být určeny buď přímo pro směrovač (aktualizace směrovací c
     \item Validace hlavičky L3 (formát, verze, délka).
     \item Kontrola hodnoty TTL a její dekrementace. Pokud je TLL 0, tak se paket zahodí a pošle ICMP zpráva.
     \item Přepočítání kontrolního součtu.
-    \item Zpracování rozšířených voleb IP protokolu (timestamp, record route, strict source route).
+    % \item Zpracování rozšířených voleb IP protokolu (timestamp, record route, strict source route). % toto neni nutne umet
     \item Vyhledání cesty (next-hop) na základě cílové adresy (lokální doručení, unicast, multicast). Pokud se nepodaří vyhledat cesta, tak se paket zahodí a pošle ICMP zpráva.
     \item Fragmentace a defragmentace IP paketů (pokud $MTU_{in} < MTU_{out}$).
     \item Zpracování zpráv ICMP a IGMP.
