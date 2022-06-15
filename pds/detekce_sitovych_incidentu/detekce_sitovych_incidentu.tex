@@ -32,21 +32,40 @@
 \section{Úvod a kontext}
 
 \paragraph*{Identifikace a monitorování síťového provozu} \begin{compactitem}
+    \item Klasifikace provozu -- Rozdělení provozu do skupin, se kterými pracuji různě (směruji, zahazuji, \ldots).
+
+    \item Identifikace -- Snažíme se určit konkrétně o jaký provoz se jedná (co se děje, jaká data se přenáší, \ldots).
+
     \item Co je cílem? \begin{compactitem}
         \item Identifikace protokolu (na různých vrstvách).
         \item Identifikace aplikace.
         \item Pokud je identifikován nedovolený provoz, tak kontaktovat správce.
     \end{compactitem}
-    \item Proč to dělat? \begin{compactitem}
-        \item Bezpečnost~--~Detekce útoků a nedovoleného chování.
-        \item Diagnostika~--~Správné chování systémových i uživatelských aplikací.
-        \item Rozlišení služeb~--~Nastavení kvality služeb, prioritizace kritických přenosů.
-        \item Vytížení sítě~--~Sledování rozložení sítě, vytížení síťových prvků a služeb.
-        \item Účtování služeb~--~Identifikace provozu VoIP, IPTV, apod.
+
+    \item Proč to z pohledu správce sítě dělat? \begin{compactitem}
+        \item Bezpečnost~--~Detekce útoků a nedovoleného chování. \begin{compactitem}
+            \item Útočník se snaží odposlouchávat síť, hledat co se děje, útočit na zařízení, \ldots
+        \end{compactitem}
+
+        \item Diagnostika~--~Správné chování systémových i uživatelských aplikací. \begin{compactitem}
+            \item Monitorujeme zda aplikace, které mají běžet, běží a běží správně.
+        \end{compactitem}
+
+        \item Rozlišení služeb~--~Nastavení kvality služeb. \begin{compactitem}
+            \item Prioritizace kritických přenosů (prioritní fronty).
+        \end{compactitem}
+
+        \item Vytížení sítě~--~Sledování rozložení sítě, vytížení síťových prvků a služeb. \begin{compactitem}
+            \item Kolik paketů chodí? Jakého jsou typu? Jaké je vytížení síťových prvků v průběhu času?
+        \end{compactitem}
+
+        \item Účtování služeb~--~Identifikace provozu VoIP, IPTV, apod. \begin{compactitem}
+            \item Některý typ (prioritního) provozu může být účtován zvášť, takže je třeba identifikovat, kolik ho je.
+        \end{compactitem}
     \end{compactitem}
 \end{compactitem}
 
-\paragraph*{Síťové tunelování} Technika, která pro přenos síťového spojení používá jiné síťové spojení (Zapouzdření komunikace do jiného protokolu.). Umožňuje: přenášet data přes nekompatibilní sítě; obcházet administrativní omezení určité sítě; poskytovat zabezpečenou komunikaci přes nezabezpečenou, resp. nedůvěryhodnou síť.
+\paragraph*{Síťové tunelování} Technika, která pro přenos síťového spojení používá jiné síťové spojení (zapouzdření komunikace do jiného protokolu). Umožňuje: přenášet data přes nekompatibilní sítě; obcházet administrativní omezení určité sítě; poskytovat zabezpečenou komunikaci přes nezabezpečenou, resp. nedůvěryhodnou síť.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -170,6 +189,12 @@ Umístěno někde v síti, aby se zabezpečili všechny zařízení najednou. Sp
         \item Poté iterativně hledám \uv{nejbližší} společný podřetězec vždy pro dvojici toků (kandidát).
         \item Cyklus končí, až se kandidát přestane měnit. Výsledek je signatura (minimální možná délka, 2 znaky jsou málo).
     \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{lcs_example.png}
+        \caption{Příklad LCS: hledání vzoru pro komunikaci protokolu LimeWire (Gnutella).}
+    \end{figure}
 \end{compactitem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -182,7 +207,7 @@ Umístěno někde v síti, aby se zabezpečili všechny zařízení najednou. Sp
         \item Zkoumáme prvních $n$ bytů toku, které jsou spíše specifické pro protokol (navazování spojení).
         \item Na rozdíl od signatur se nezkoumá obsah hlaviček a těla protokolu, ale pouze statistické vlastnosti jeho chování.
     \end{compactitem}
-    \item
+
     \item Klasifikace neznámého protokolu: Vybereme model s nejlepší vzdáleností od neznámého protokolu.
     \item Vytváření se tzv. \textbf{otisk protokolu} (\textit{fingerprint})~--~soubor vlastností (chování) protokolu, které lze využít k jednoznačné identifikaci protokolu.
 \end{compactitem}
