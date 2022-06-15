@@ -121,7 +121,7 @@
 \section{Nestrukturované sítě}
 
 \begin{compactitem}
-    \item Neexistuje struktura uložení informace (zdroj (objekt) je umístěn na náhodném uzlu).
+    \item Neexistuje struktura uložení informace -- zdroj (objekt) je umístěn na náhodném uzlu.
     \item Uzel si vyměňuje zprávy se svými sousedy (dotaz na vyhledávání konkrétního objektu).
     \item Když uzel hledá objekt, neví, jestli se přibližuje, dostává odpovědi pouze ano-ne.
     \item Jak v takovém systému směrovat (jak najít objekt skrze identifikátor)?
@@ -184,7 +184,9 @@
 
 \begin{compactitem}
     \item Kombinují geometrické struktury a směrování.
-    \item Distribuované směrovací algoritmy (metriky: shoda prefixu, euklidovská či lineární vzdálenost, XOR, \dots).
+    \item Distribuované směrovací algoritmy (metriky: shoda prefixu, euklidovská či lineární vzdálenost, XOR, \dots). \begin{compactitem}
+        \item Metrika blízkosti může určovat vzdálenost dvou uzlů, ale i vzdálenost uzlu od zdroje.
+    \end{compactitem}
     \item Struktura sítě odpovídá uložení zdrojů.
     \item Jak směrovat?
 \end{compactitem}
@@ -203,7 +205,7 @@
 \begin{figure}[htb!]
     \centering
     \includegraphics[width=1\linewidth]{dht_1.pdf}
-    \caption{DHT se 160 bitovým jmenným prostorem. Uzly jsou umístěny ve stromu podle prefixů.}
+    \caption{DHT se 160 bitovým jmenným prostorem. Uzly jsou umístěny ve stromu podle prefixů. Každý uzel má uložen ve své směrovací tabulce reprezentanty jednotlivých podstromů. Pokud hledá zdroj, který se nachází v daném podstromu, obrátí se na reprezentanta..}
 \end{figure}
 
 \begin{figure}[htb!]
