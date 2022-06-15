@@ -99,7 +99,7 @@
 
 \section{Řízení toku}
 
-Řízení toku (\textit{flow control}) je řízení komunikaci mezi dvěma uzly na straně koncového systému. Řízení zahlcení (\textit{congestion control}) je řízení komunikace v rámci sítě. Alternativně, se za řízení toku považuje koncept detekce a korekce paketových chyb. Často jsou tyto termíny vykládány různě.
+Řízení toku (\textit{flow control}) je řízení komunikace mezi dvěma uzly na straně koncového systému, řeší jak navázat spojení, ukončit spojení, detekovat ztrátu paketu a jak se s ní vyrovnat (sekvenční čísla, potvrzovací čísla, klouzavé okno, \ldots). Řízení zahlcení (\textit{congestion control}) je řízení komunikace v rámci sítě, řeší jak se vypořádat se zaplněnou linkou (zahazování paketů, choke pakety, ořezání a rozložení provozu, SS+CA, \ldots)\footnote{Byli jsme upozorňováni, že tyto termíny jsou často zaměňovány a vykládány různě.}.
 
 \subsection{Detekce paketové chyby}
 
@@ -112,7 +112,7 @@ Paketové chyby detekujeme pomocí sekvenčních čísel. Sekvenční číslo je
 
 \subsection{Korekce paketových chyb}
 
-Pokud paket nedorazil, odesílatel ho pošle znovu. Tzv. \textit{Automatic Repeat/Request} (ARQ)~--~Čeká se na ACK, když nepřijde do timeoutu, dojde k znovuzaslání. Princip tzv. klouzavého okna (\textit{sliding window}). Existují 3 strategie. Viz výborné animace na \url{https://nes.fit.vutbr.cz/ivesely/pds}.
+Pokud paket nedorazil, odesílatel ho pošle znovu. Tzv. \textit{Automatic Repeat/Request} (ARQ)~--~Čeká se na ACK, když nepřijde do timeoutu, dojde k znovuzaslání. Princip tzv. klouzavého okna (\textit{sliding window}). Existují 3 strategie\footnote{Viz výborné animace na \url{https://nes.fit.vutbr.cz/ivesely/pds}.}.
 
 \paragraph*{Stop and wait} \begin{compactitem}
     \item Klouzavé okno o velikosti 1.
@@ -152,7 +152,7 @@ Zahlcení je detekováno, co se s tím dá dělat? \begin{compactitem}
 
 \subsection{Zahazování paketů (opravování provozu)}
 
-Každý uzel (najčastěji směrovač) v síti kontroluje délku své fronty, pokud příliš narůstá, tak začne preventivně některé pakety zahazovat (to však vede k jejich znovuzaslání).
+Každý uzel v síti (směrovač) kontroluje délku svých front pro jednotlivá rozhraní (konkrétně \textit{queue manager}). Pokud fronta příliš narůstá, tak se začnou preventivně některé pakety zahazovat (to však vede k jejich znovuzaslání).
 
 \paragraph*{RED (\textit{Random Early Detection})} Algoritmus RED sleduje velikost fronty a zahazuje pakety na základě pravděpodobnosti. Pokud je fronta téměř prázdná, pravděpodobnost zahození je 0. Jak fronta roste, roste i pravděpodobnost zahození příchozího paketu. Když je fronta plná, pravděpodobnost dosáhne hodnoty 1 a všechny příchozí pakety jsou zahazovány.
 
@@ -214,45 +214,60 @@ Zařízení v síti (směrovače) jsou schopni se domluvit a vytvořit si tzv. \
 \section{TCP (\textit{Transmission Control Protocol})}
 
 \begin{compactitem}
-    \item Garantuje spolehlivé doručení.
-    \item Garantuje doručení v pořadí.
-    \item Řízení toku a zahlcení.
+    \item Řízení toku -- sekvenční čísla, potvrzovací čísla, klouzavé okno (Stop and Wait, Go back n, Selective repeat). \begin{compactitem}
+        \item Garantuje spolehlivé doručení.
+        \item Garantuje doručení v pořadí.
+    \end{compactitem}
+
+    \item Řízení zahlcení -- viz dále.
+
     \item \textit{Connection-oriented}~--~Navázání spojení pomocí \textit{three-way handshake}.
     \item Pracuje s \textit{byte stream}~--~nezohledňuje hranice aplikačních dat.
     \item Sekvenční číslo závisí na tom, kolik bajtů se posílá. Např. $seq=92, data=8\,B$, $seq=100, data=20\,B$, $seq=120, data=13\,B$, \dots
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{tcp_header.png}
+        \caption{Hlavička TCP.}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{tcp_zahajeni_spojeni.png}
+        \caption{Zahájení spojení pomocí tzv. \textit{Three-Way Handshake}.}
+    \end{figure}
+
 \end{compactitem}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{tcp_header.png}
-    \caption{Hlavička TCP.}
-\end{figure}
+\subsection{Řízení zahlcení}
 
-\paragraph*{Řízení toku a zahlcení} V TCP jsou rozlišovány 3 fáze přenosu dat. \begin{compactitem}
-    \item \textit{Slow start}~--~Exponenciální zvyšování rychlosti odesílání až po dosažení nějaké hranice.
-    \item \textit{Congestion avoidance (additive increase)}~--~Lineární zvyšování počtu odeslaných paketů.
-    \item \textit{Congestion avoidance (multiplicative decrease)}~--~Skokové snížení rychlosti odesílání. Nastane, pokud je detekována ztráta paketu.
+\begin{compactitem}
+    \item V TCP jsou rozlišovány 3 fáze přenosu dat (s jakou rychlostí posílám data).  \begin{compactitem}
+        \item \textit{Slow start}~--~Exponenciální zvyšování rychlosti odesílání až po dosažení nějaké hranice.
+        \item \textit{Congestion avoidance (additive increase)}~--~Lineární zvyšování počtu odeslaných paketů.
+        \item \textit{Congestion avoidance (multiplicative decrease)}~--~Skokové snížení rychlosti odesílání. Typicky nastane, pokud je detekována ztráta paketu.
+    \end{compactitem}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{ss_ca_ai_md.png}
+        \caption{Jednotlivé fáze řízení zahlcení v TCP.}
+    \end{figure}
+
+    \item V TCP existuje spoustu algoritmů řízení rychlosti posílání dat, které implementují tento princip (Tahoe, Reno, New Reno, Vegas, CUBIC, Westwood, \dots).
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{tahoe_reno.png}
+        \caption{Algoritmy Tahoe a Reno. Tahoe po detekování ztráty paketu spadne s odesíláním až na 0 a začíná znovu s SS fází. Reno při detekování ztráty paketu spadne pouze o jistý násobek (MD).}
+    \end{figure}
+
+    \item Nevýhody a problémy \begin{compactitem}
+        \item Nepodporuje \textit{multi homing}.
+        \item \textit{Head of line blocking}~--~Pokud dojde ke ztrátě paketu, tak vše za ním je pozdrženo.
+        \item Velká režie potvrzování (až 35\,\% veškerého provozu je režie).
+    \end{compactitem}
 \end{compactitem}
-
-\noindent V TCP existuje spoustu algoritmů pro řízení toku a zahlcení, které implementují tento princip (Tahoe, Reno, New Reno, Vegas, CUBIC, Westwood, \dots).
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{ss_ca_ai_md.png}
-    \caption{Jednotlivé fáze řízení zahlcení v TCP.}
-\end{figure}
-
-\paragraph*{Nevýhody a problémy} \begin{compactitem}
-    \item Nepodporuje \textit{multi homing}.
-    \item \textit{Head of line blocking}~--~Pokud dojde ke ztrátě paketu, tak vše za ním je pozdrženo
-    \item Velká režie potvrzování (až 35\,\% veškerého provozu je režie)
-\end{compactitem}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1\linewidth]{tcp_zahajeni_spojeni.png}
-    \caption{Zahájení spojení pomocí tzv. \textit{Three-Way Handshake}.}
-\end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -288,21 +303,25 @@ Zařízení v síti (směrovače) jsou schopni se domluvit a vytvořit si tzv. \
     \item Negarantuje doručení v pořadí.
     \item \textit{Connection-oriented}~--~Navázání spojení pomocí \textit{three-way handshake}.
     \item Využití pro audio/video konference.
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{dccp_header.png}
+        \caption{Hlavička DCCP. Sekvenční a potvrzovací čísla souvisí pouze s účtováním provozu kvůli řízení zahlcení, nikoliv pro zajištění spolehlivého přenosu.}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.75\linewidth]{dccp_spojeni.png}
+        \caption{Komunikace pomocí DCCP. Obsahuje několik typů zpráv: Request, Response, ACK, Data, Data ACK, CloseReq, Close, Reset.}
+    \end{figure}
+
+    \item Jak je řízení zahlcení realizováno? \begin{compactitem}
+        \item V průběhu navazování spojení se pomocí CCID (\textit{Congestion Control ID}) dohodne, jaký typ řízení zahlcení se bude používat (algoritmy jako pro TCP, nebo vlastní).
+
+        \item V potvrzeních se nastavují tzv. ECN (\textit{Explicit Congestion Notification}) bity. Pomocí nich dává příjemce odesílateli vědět, jak moc je zahlcen.
+    \end{compactitem}
 \end{compactitem}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{dccp_header.png}
-    \caption{Hlavička DCCP. Sekvenční a potvrzovací čísla souvisí pouze s účtováním provozu kvůli řízení zahlcení, nikoliv pro zajištění spolehlivého přenosu.}
-\end{figure}
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.75\linewidth]{dccp_spojeni.png}
-    \caption{Komunikace pomocí DCCP. Obsahuje několik typů zpráv: Request, Response, ACK, Data, Data ACK, CloseReq, Close, Reset.}
-\end{figure}
-
-\paragraph*{Jak je zahlcení realizováno} V potvrzeních se nastavují tzv. ECN (\textit{Explicit Congestion Notification}) bity. Pomocí nich dává příjemce odesílateli vědět, jak moc je zahlcen. V průběhu navazování spojení se pomocí CCID (\textit{Congestion Control ID}) dohodne, jaký typ řízení zahlcení se bude používat (algoritmy jako pro TCP, nebo vlastní).
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
