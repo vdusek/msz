@@ -206,7 +206,8 @@ def prim_mst(G, r):
         for v in Adj[u]:
             # pokud je levnejsi cesta a jeste to neni prozkoumany uzel
             if v in Q and w(u, v) < key(v):
-                pi[v] = u key[v] = w(u, v)
+                pi[v] = u
+                key[v] = w(u, v)
                 Q.decrease_key(key) # aktualizace prioritni fronty
 
     return pi

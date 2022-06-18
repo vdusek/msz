@@ -153,9 +153,9 @@ $$ coMP = \{ \langle M \rangle \# \langle w \rangle ~|~ w \not\in L(M) \} $$
 
     \item Postův korespondenční problém (PCP) zní: existuje pro daný Postův systém řešení?
 
-    \item Problém není ani částečně rozhodnutelný. \begin{compactitem}
-        \item $PCP \not\in \mathcal{L}_{RE}$
-        \item Důkaz: \textit{nezkouší se}
+    \item Problém není rozhodnutelný (ale je částečně). \begin{compactitem}
+        \item $ PCP \in \mathcal{L}_{RE} \setminus \mathcal{L}_{Rec} $
+        \item Důkaz: Dá se ukázat, že nerozhodnutelnost PCP plyne z nerozhodnutelnosti tzv. iniciálního PCP, u kterého požadujeme, aby řešení začínalo vždy jedničkou. Nerozhodnutelnost iniciálního PCP se dá ukázat redukcí z problému náležitosti pro TS.
     \end{compactitem}
 
     \item Příklad: PS $S$ nad $\Sigma = \{ a, b \}$: \begin{compactitem}
